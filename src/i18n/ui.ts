@@ -102,7 +102,11 @@ const vi = {
 	"floating.messenger": "Nhắn Messenger",
 
 	"projects.title": "Dự án",
-	"projects.intro": "Một số sản phẩm CTStack đã thiết kế và phát triển.",
+	"projects.eyebrow": "Portfolio",
+	"projects.taglineA": "Ý tưởng tốt hơn",
+	"projects.taglineB": "Trải nghiệm lớn hơn",
+	"projects.intro":
+		"Một vài sản phẩm chúng tôi đã thiết kế và phát triển cho doanh nghiệp Việt Nam.",
 	"projects.all": "Tất cả",
 	"projects.empty": "Chưa có dự án nào.",
 	"projects.emptyFilter": "Không có dự án nào thuộc nhóm này.",
@@ -115,6 +119,8 @@ const vi = {
 	"projects.type": "Loại",
 	"projects.results": "Kết quả",
 	"projects.other": "Dự án khác",
+	"projects.moreComing": "Còn nhiều dự án thú vị khác đang được thực hiện…",
+	"projects.nextCta": "Cùng tạo nên dự án tiếp theo của bạn?",
 
 	"category.website": "Website",
 	"category.web_app": "Web app",
@@ -199,7 +205,10 @@ const en: Dict = {
 	"floating.messenger": "Message on Messenger",
 
 	"projects.title": "Projects",
-	"projects.intro": "A selection of products CTStack has designed and built.",
+	"projects.eyebrow": "Portfolio",
+	"projects.taglineA": "Better ideas",
+	"projects.taglineB": "Bigger experiences",
+	"projects.intro": "A few products we have designed and built for Vietnamese businesses.",
 	"projects.all": "All",
 	"projects.empty": "No projects yet.",
 	"projects.emptyFilter": "No projects in this category.",
@@ -212,6 +221,8 @@ const en: Dict = {
 	"projects.type": "Type",
 	"projects.results": "Results",
 	"projects.other": "More work",
+	"projects.moreComing": "More exciting projects are in progress…",
+	"projects.nextCta": "Shall we build your next project together?",
 
 	"category.website": "Website",
 	"category.web_app": "Web app",

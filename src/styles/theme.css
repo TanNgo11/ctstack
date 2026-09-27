@@ -257,7 +257,7 @@ select:focus {
 	letter-spacing: var(--tracking-tight);
 }
 .page-intro {
-	max-width: 680px;
+	max-width: 760px;
 	color: var(--color-muted);
 	font-size: var(--font-size-lg);
 }

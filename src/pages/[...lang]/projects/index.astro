@@ -41,15 +41,26 @@ function pageUrl(params: Record<string, string | undefined>): string {
 ---
 
 <Base
-	title={activeCategory
-		? `${categoryLabel(lang, activeCategory)} — ${t("projects.title")}`
-		: t("projects.title")}
+	title={
+		activeCategory
+			? `${categoryLabel(lang, activeCategory)} — ${t("projects.title")}`
+			: t("projects.title")
+	}
 	description={t("projects.intro")}
 	robots={cursor ? "noindex, follow" : undefined}
 >
 	<div class="container">
 		<header class="page-header">
-			<h1>{t("projects.title")}</h1>
+			<div class="page-header-top">
+				<div>
+					<p class="eyebrow">{t("projects.eyebrow")}</p>
+					<h1>{t("projects.title")}</h1>
+				</div>
+				<p class="header-tagline" aria-hidden="true">
+					<span>{t("projects.taglineA")}</span>
+					<span>{t("projects.taglineB")}</span>
+				</p>
+			</div>
 			<p class="page-intro">{t("projects.intro")}</p>
 
 			<nav class="filters" aria-label={t("projects.type")}>
@@ -60,105 +71,202 @@ function pageUrl(params: Record<string, string | undefined>): string {
 				>
 					{t("projects.all")}
 				</a>
-				{
-					projectCategories.map((c) => (
-						<a
-							href={pageUrl({ category: c })}
-							class:list={["filter", { active: activeCategory === c }]}
-							aria-current={activeCategory === c ? "page" : undefined}
-						>
-							{categoryLabel(lang, c)}
-						</a>
-					))
-				}
+				{projectCategories.map((c) => (
+					<a
+						href={pageUrl({ category: c })}
+						class:list={["filter", { active: activeCategory === c }]}
+						aria-current={activeCategory === c ? "page" : undefined}
+					>
+						{categoryLabel(lang, c)}
+					</a>
+				))}
 			</nav>
 		</header>
 
-		{
-			projects.length > 0 ? (
-				<section class="projects-grid">
-					{projects.map((p) => (
-						<ProjectCard
-							title={p.data.title}
-							summary={p.data.summary}
-							featuredImage={p.data.featured_image}
-							href={localizePath(`/projects/${p.id}`, lang)}
-							client={p.data.client}
-							year={p.data.year}
-							category={p.data.category}
-							edit={p.edit}
-						/>
-					))}
-				</section>
-			) : (
-				<p class="empty-state">
-					{activeCategory ? t("projects.emptyFilter") : t("projects.empty")}
-				</p>
-			)
-		}
-
-		{
-			nextCursor && (
-				<nav class="pagination">
-					<a
-						class="btn btn-ghost"
-						href={pageUrl({ category: activeCategory, cursor: nextCursor })}
-						rel="next"
-					>
-						{t("projects.more")}
+		{projects.length > 0 ? (
+			<section class="projects-grid">
+				{projects.map((p) => (
+					<ProjectCard
+						title={p.data.title}
+						summary={p.data.summary}
+						featuredImage={p.data.featured_image}
+						href={localizePath(`/projects/${p.id}`, lang)}
+						category={p.data.category}
+						results={p.data.results}
+						edit={p.edit}
+					/>
+				))}
+				{!nextCursor && (
+					<a class="next-card" href={localizePath("/contact", lang)}>
+						<span class="next-muted">{t("projects.moreComing")}</span>
+						<span class="next-rule" aria-hidden="true" />
+						<span>{t("projects.nextCta")}</span>
+						<span class="next-arrow" aria-hidden="true">
+							→
+						</span>
 					</a>
-				</nav>
-			)
-		}
+				)}
+			</section>
+		) : (
+			<p class="empty-state">{activeCategory ? t("projects.emptyFilter") : t("projects.empty")}</p>
+		)}
+
+		{nextCursor && (
+			<nav class="pagination">
+				<a
+					class="btn btn-ghost"
+					href={pageUrl({ category: activeCategory, cursor: nextCursor })}
+					rel="next"
+				>
+					{t("projects.more")}
+				</a>
+			</nav>
+		)}
 	</div>
 </Base>
 
 <style>
+	.page-header-top {
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: var(--spacing-lg);
+	}
+
+	.header-tagline {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		margin-bottom: var(--spacing-xl);
+		color: var(--color-muted);
+		font-size: var(--font-size-sm);
+		text-align: end;
+	}
+
+	.header-tagline span:first-child::after {
+		content: "";
+		display: inline-block;
+		width: 24px;
+		height: 1px;
+		margin-inline-start: 10px;
+		vertical-align: middle;
+		background: currentColor;
+	}
+
 	.filters {
 		display: flex;
 		flex-wrap: wrap;
-		gap: var(--spacing-sm);
+		gap: 12px;
 		margin-top: var(--spacing-xl);
 	}
 
 	.filter {
-		padding: var(--spacing-xs) var(--spacing-md);
-		font-size: var(--font-size-sm);
-		color: var(--color-muted);
-		text-decoration: none;
+		display: inline-flex;
+		align-items: center;
+		min-height: 44px;
+		padding: 0 var(--spacing-lg);
 		border: 1px solid var(--color-border);
-		border-radius: 999px;
-		transition:
-			color var(--transition-fast),
-			border-color var(--transition-fast);
+		border-radius: var(--radius-pill);
+		color: var(--color-text);
+		background: var(--color-surface);
+		font-size: var(--font-size-sm);
+		font-weight: 500;
+		text-decoration: none;
+		transition: border-color var(--transition-fast);
 	}
 
 	.filter:hover {
-		color: var(--color-text);
-		border-color: var(--color-text);
+		border-color: var(--color-brand);
 	}
 
 	.filter.active {
+		border-color: transparent;
 		color: var(--color-on-brand);
-		background: var(--color-brand);
-		border-color: var(--color-brand);
+		background: var(--accent-gradient);
+		box-shadow: 0 8px 24px color-mix(in srgb, #3b82f6 25%, transparent);
 	}
 
 	.projects-grid {
 		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: var(--spacing-2xl);
-		padding-bottom: var(--spacing-4xl);
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: var(--spacing-lg);
+		padding-bottom: var(--spacing-2xl);
+	}
+
+	.next-card {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: var(--spacing-lg);
+		min-height: 280px;
+		padding: var(--spacing-2xl);
+		color: var(--color-text);
+		font-size: var(--font-size-lg);
+		text-align: center;
+		text-decoration: none;
+	}
+
+	.next-muted {
+		max-width: 18em;
+		color: var(--color-muted);
+	}
+
+	.next-rule {
+		width: 48px;
+		height: 1px;
+		background: var(--color-border);
+	}
+
+	.next-arrow {
+		display: grid;
+		width: 56px;
+		height: 56px;
+		place-items: center;
+		border: 1px solid var(--color-border);
+		border-radius: 50%;
+		transition:
+			border-color var(--transition-fast),
+			background var(--transition-fast);
+	}
+
+	.next-card:hover .next-arrow {
+		border-color: transparent;
+		color: var(--color-on-brand);
+		background: var(--accent-gradient);
 	}
 
 	.pagination {
+		margin-bottom: var(--spacing-2xl);
 		text-align: center;
-		margin: calc(-1 * var(--spacing-2xl)) 0 var(--spacing-4xl);
 	}
 
 	@media (max-width: 768px) {
+		.header-tagline {
+			display: none;
+		}
+
+		.filters {
+			flex-wrap: nowrap;
+			overflow-x: auto;
+			margin-inline: -20px;
+			padding-inline: 20px;
+			padding-bottom: 4px;
+		}
+
+		.filter {
+			flex-shrink: 0;
+			min-height: 40px;
+			padding: 0 var(--spacing-md);
+		}
+
 		.projects-grid {
 			grid-template-columns: 1fr;
+		}
+
+		.next-card {
+			min-height: 0;
+			font-size: var(--font-size-base);
 		}
 	}
 </style>
