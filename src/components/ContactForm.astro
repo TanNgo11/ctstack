@@ -42,6 +42,10 @@ const t = useTranslations(lang);
 	// placeholder and letting `required` pass on blanks) and selects with no
 	// empty choice (silently submitting the first option). Fix both here.
 	document.querySelectorAll<HTMLElement>(".contact-form").forEach((box) => {
+		const form = box.querySelector<HTMLFormElement>("[data-ec-form]");
+		const submit = form?.querySelector<HTMLButtonElement>(".ec-form-submit");
+		if (form && submit) form.dataset.submitLabel = submit.textContent?.trim() ?? "Submit";
+
 		const labels = JSON.parse(box.dataset.selectPlaceholders ?? "{}") as Record<string, string>;
 		(Array.from(box.querySelectorAll("textarea")) as unknown as HTMLTextAreaElement[]).forEach(
 			(el) => {
@@ -144,6 +148,61 @@ const t = useTranslations(lang);
 		font: inherit;
 		font-weight: 600;
 		cursor: pointer;
+	}
+
+	/* Keep server and client validation errors visible at the field itself. */
+	.contact-form
+		:global(.ec-form-field:has(.ec-form-error:not(:empty)) :is(input, textarea, select)) {
+		border-color: var(--color-danger);
+	}
+
+	.contact-form :global(.ec-form-error) {
+		color: var(--color-danger);
+	}
+
+	.contact-form :global(.ec-form-status) {
+		margin-top: var(--spacing-sm);
+		padding: var(--spacing-lg);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius);
+		font-size: var(--font-size-sm);
+		line-height: 1.5;
+	}
+
+	.contact-form :global(.ec-form-status--success) {
+		display: flex;
+		align-items: flex-start;
+		gap: var(--spacing-sm);
+		border-color: color-mix(in srgb, var(--color-brand) 35%, var(--color-border));
+		color: var(--color-text);
+		background: color-mix(in srgb, var(--color-brand) 8%, var(--color-surface));
+	}
+
+	.contact-form
+		:global(.ec-form:has(.ec-form-status--success))
+		> :is(.ec-form-page, .ec-form-nav, .ec-form-progress),
+	.contact-form :global(.ec-form:has(.ec-form-status--success)) + .privacy {
+		display: none;
+	}
+
+	.contact-form :global(.ec-form-status--success)::before {
+		display: grid;
+		flex: 0 0 24px;
+		width: 24px;
+		height: 24px;
+		place-items: center;
+		border-radius: 50%;
+		color: var(--color-on-brand);
+		background: var(--color-brand);
+		content: "✓";
+		font-size: var(--font-size-sm);
+		font-weight: 700;
+	}
+
+	.contact-form :global(.ec-form-status--error) {
+		border-color: var(--color-danger);
+		color: var(--color-danger);
+		background: color-mix(in srgb, var(--color-danger) 8%, var(--color-surface));
 	}
 
 	@media (max-width: 640px) {
