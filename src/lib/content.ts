@@ -12,10 +12,7 @@ export async function contentAlternates(
 	pathFor: (slug: string) => string,
 ): Promise<Record<Lang, string | null>> {
 	const { translations } = await getTranslations(collection, entryId);
-	const result = Object.fromEntries(locales.map((l) => [l, null])) as Record<
-		Lang,
-		string | null
-	>;
+	const result = Object.fromEntries(locales.map((l) => [l, null])) as Record<Lang, string | null>;
 	for (const tr of translations) {
 		const lang = tr.locale as Lang;
 		if (!locales.includes(lang) || tr.status !== "published" || !tr.slug) continue;
@@ -40,6 +37,22 @@ export function splitStack(stack: string | undefined | null): string[] {
 		.split(",")
 		.map((s) => s.trim())
 		.filter(Boolean);
+}
+
+/**
+ * Split Portable Text into sections that each start at an h2 block, so a case
+ * study can lay out "Problem / Solution / Result" side by side. Content with no
+ * h2 comes back as one section.
+ */
+export function splitByHeading<T extends { style?: string }>(
+	blocks: T[] | undefined | null,
+): T[][] {
+	const sections: T[][] = [];
+	for (const block of blocks ?? []) {
+		if (block.style === "h2" || sections.length === 0) sections.push([]);
+		sections[sections.length - 1]!.push(block);
+	}
+	return sections;
 }
 
 /** getEmDashEntry reports a missing slug as an error rather than a null entry. */

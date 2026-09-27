@@ -4,7 +4,13 @@ import { Image, PortableText } from "emdash/ui";
 import Base from "../../../layouts/Base.astro";
 import ProjectCard from "../../../components/ProjectCard.astro";
 import { categoryLabel, localizePath, useTranslations, langFromParam } from "../../../i18n/ui";
-import { contentAlternates, isNotFoundError, safeExternalUrl, splitStack } from "../../../lib/content";
+import {
+	contentAlternates,
+	isNotFoundError,
+	safeExternalUrl,
+	splitByHeading,
+	splitStack,
+} from "../../../lib/content";
 
 const lang = langFromParam(Astro.params.lang);
 if (!lang) return Astro.rewrite("/404");
@@ -13,7 +19,11 @@ const t = useTranslations(lang);
 const slug = decodeSlug(Astro.params.slug);
 if (!slug) return Astro.rewrite("/404");
 
-const { entry: project, error, cacheHint } = await getEmDashEntry("projects", slug, {
+const {
+	entry: project,
+	error,
+	cacheHint,
+} = await getEmDashEntry("projects", slug, {
 	locale: lang,
 });
 if (!project || isNotFoundError(error)) return Astro.rewrite("/404");
@@ -23,13 +33,11 @@ const [relatedResult, alternates] = await Promise.all([
 	getEmDashCollection("projects", {
 		locale: lang,
 		orderBy: { sort_order: "asc" },
-		limit: 3,
+		limit: 4,
 	}),
 	contentAlternates("projects", project.data.id, (s) => `/projects/${s}`),
 ]);
-const otherProjects = (relatedResult.entries ?? [])
-	.filter((p) => p.id !== project.id)
-	.slice(0, 2);
+const otherProjects = (relatedResult.entries ?? []).filter((p) => p.id !== project.id).slice(0, 3);
 if (Astro.cache?.enabled) {
 	Astro.cache.set(cacheHint);
 	if (relatedResult.cacheHint) Astro.cache.set(relatedResult.cacheHint);
@@ -40,9 +48,15 @@ const projectUrl = safeExternalUrl(d.url);
 const stack = splitStack(d.stack);
 const results = d.results ?? [];
 const gallery = d.gallery ?? [];
+// Case studies are written as h2 sections (problem / solution / result).
+const sections = splitByHeading(d.content as { style?: string }[] | undefined);
 const facts = [
 	{ label: t("projects.client"), value: d.client, edit: project.edit.client },
-	{ label: t("projects.type"), value: categoryLabel(lang, d.category), edit: project.edit.category },
+	{
+		label: t("projects.type"),
+		value: categoryLabel(lang, d.category),
+		edit: project.edit.category,
+	},
 	{ label: t("projects.year"), value: d.year, edit: project.edit.year },
 ].filter((f) => f.value);
 
@@ -66,18 +80,22 @@ const seo = getSeoMeta(project, {
 	alternates={alternates}
 >
 	<article class="project container">
-		<header class="project-header">
-			<a href={localizePath("/projects", lang)} class="back">← {t("projects.title")}</a>
-			<h1 class="project-title" {...project.edit.title}>{d.title}</h1>
-			{
-				d.summary && (
+		<header class="project-hero">
+			<div class="project-intro">
+				<a href={localizePath("/projects", lang)} class="back">
+					<span aria-hidden="true">←</span>
+					{t("projects.back")}
+				</a>
+				{d.category && <p class="eyebrow">{categoryLabel(lang, d.category)}</p>}
+				<h1 class="project-title" {...project.edit.title}>
+					{d.title}
+				</h1>
+				{d.summary && (
 					<p class="project-summary" {...project.edit.summary}>
 						{d.summary}
 					</p>
-				)
-			}
-			{
-				projectUrl && (
+				)}
+				{projectUrl && (
 					<a
 						href={projectUrl}
 						class="btn btn-primary"
@@ -85,67 +103,87 @@ const seo = getSeoMeta(project, {
 						rel="noopener noreferrer"
 						{...project.edit.url}
 					>
-						{t("projects.live")} ↗
+						{t("projects.live")} <span aria-hidden="true">↗</span>
 					</a>
-				)
-			}
-		</header>
-
-		{
-			d.featured_image && (
-				<div class="featured-image" {...project.edit.featured_image}>
+				)}
+			</div>
+			{d.featured_image && (
+				<div class="browser" {...project.edit.featured_image}>
+					<div class="browser-bar" aria-hidden="true">
+						<i />
+						<i />
+						<i />
+					</div>
 					<Image image={d.featured_image} />
 				</div>
-			)
-		}
+			)}
+		</header>
 
-		<div class="project-body">
-			<aside class="project-facts">
-				<dl>
-					{
-						facts.map((f) => (
-							<div>
-								<dt>{f.label}</dt>
-								<dd {...f.edit}>{f.value}</dd>
-							</div>
-						))
-					}
-					{
-						stack.length > 0 && (
-							<div>
-								<dt>{t("projects.stack")}</dt>
-								<dd class="stack" {...project.edit.stack}>
-									{stack.map((s) => (
-										<span class="chip">{s}</span>
-									))}
-								</dd>
-							</div>
-						)
-					}
-				</dl>
-			</aside>
+		<div class="project-overview">
+			<dl class="facts card">
+				{facts.map((f) => (
+					<div>
+						<dt>{f.label}</dt>
+						<dd {...f.edit}>{f.value}</dd>
+					</div>
+				))}
+				{stack.length > 0 && (
+					<div>
+						<dt>{t("projects.stack")}</dt>
+						<dd class="stack" {...project.edit.stack}>
+							{stack.map((s) => (
+								<span class="pill">{s}</span>
+							))}
+						</dd>
+					</div>
+				)}
+			</dl>
 
-			<div class="project-main">
-				{
-					results.length > 0 && (
-						<section class="results" aria-label={t("projects.results")} {...project.edit.results}>
-							{results.map((r) => (
-								<div class="result">
+			{results.length > 0 && (
+				<section class="results" aria-labelledby="results-title" {...project.edit.results}>
+					<h2 id="results-title">{t("projects.highlights")}</h2>
+					<div class="results-grid">
+						{results.map((r, i) => (
+							<div class="result card">
+								<span class="result-icon" aria-hidden="true">
+									{i % 2 === 0 ? (
+										<svg viewBox="0 0 24 24" fill="currentColor">
+											<path d="M13 2 4 14h7l-1 8 9-12h-7z" />
+										</svg>
+									) : (
+										<svg viewBox="0 0 24 24" fill="currentColor">
+											<rect x="4" y="13" width="4" height="7" rx="1" />
+											<rect x="10" y="8" width="4" height="12" rx="1" />
+											<rect x="16" y="4" width="4" height="16" rx="1" />
+										</svg>
+									)}
+								</span>
+								<div>
 									<span class="result-value">{r.value}</span>
 									<span class="result-label">{r.label}</span>
 								</div>
-							))}
-						</section>
-					)
-				}
-				<div class="prose" {...project.edit.content}>
-					<PortableText value={d.content} />
-				</div>
-			</div>
+							</div>
+						))}
+					</div>
+				</section>
+			)}
 		</div>
 
-		{
-			gallery.length > 0 && (
+		{sections.length > 0 && (
+			<div class:list={["story", { columns: sections.length > 1 }]} {...project.edit.content}>
+				{sections.map((section) => (
+					<div class="prose story-section">
+						<PortableText value={section} />
+					</div>
+				))}
+			</div>
+		)}
+
+		{gallery.length > 0 && (
+			<section class="gallery-section" aria-labelledby="gallery-title">
+				<h2 id="gallery-title" class="block-title">
+					{t("projects.gallery")}
+				</h2>
 				<div class="project-gallery" {...project.edit.gallery}>
 					{gallery.map((item) => (
 						<figure class="gallery-item">
@@ -154,192 +192,300 @@ const seo = getSeoMeta(project, {
 						</figure>
 					))}
 				</div>
-			)
-		}
+			</section>
+		)}
 	</article>
 
-	{
-		otherProjects.length > 0 && (
-			<section class="more">
-				<div class="container">
-					<h2 class="section-title">{t("projects.other")}</h2>
-					<div class="more-grid">
-						{otherProjects.map((p) => (
-							<ProjectCard
-								title={p.data.title}
-								summary={p.data.summary}
-								featuredImage={p.data.featured_image}
-								href={localizePath(`/projects/${p.id}`, lang)}
-								client={p.data.client}
-								year={p.data.year}
-								category={p.data.category}
-								edit={p.edit}
-							/>
-						))}
-					</div>
-				</div>
-			</section>
-		)
-	}
+	{otherProjects.length > 0 && (
+		<section class="more container">
+			<header class="section-header">
+				<h2 class="section-title">{t("projects.other")}</h2>
+				<a href={localizePath("/projects", lang)} class="section-link">
+					{t("home.projectsLink")} →
+				</a>
+			</header>
+			<div class="more-grid">
+				{otherProjects.map((p) => (
+					<ProjectCard
+						size="compact"
+						title={p.data.title}
+						summary={p.data.summary}
+						featuredImage={p.data.featured_image}
+						href={localizePath(`/projects/${p.id}`, lang)}
+						category={p.data.category}
+						results={p.data.results}
+						edit={p.edit}
+					/>
+				))}
+			</div>
+		</section>
+	)}
 </Base>
 
 <style>
-	.project {
-		padding-bottom: var(--spacing-4xl);
-	}
-
-	.project-header {
-		max-width: 800px;
-		padding: var(--spacing-2xl) 0;
+	.project-hero {
+		display: grid;
+		grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+		align-items: start;
+		gap: var(--spacing-2xl);
+		padding-block: var(--spacing-2xl);
+		border-bottom: 1px solid var(--color-border);
 	}
 
 	.back {
-		display: inline-block;
+		display: inline-flex;
+		gap: var(--spacing-sm);
+		margin-bottom: var(--spacing-2xl);
+		color: var(--color-text);
 		font-size: var(--font-size-sm);
-		color: var(--color-muted);
 		text-decoration: none;
-		margin-bottom: var(--spacing-lg);
+	}
+
+	.back span {
+		color: var(--color-brand);
 	}
 
 	.back:hover {
-		color: var(--color-text);
+		color: var(--color-brand);
 	}
 
 	.project-title {
-		font-size: var(--font-size-3xl);
-		font-weight: var(--font-weight-display);
-		line-height: var(--leading-tight);
 		margin-bottom: var(--spacing-md);
+		font-size: clamp(2.25rem, 3.6vw, 3.25rem);
+		font-weight: var(--font-weight-display);
+		line-height: 1.1;
+		letter-spacing: -0.03em;
 	}
 
 	.project-summary {
+		margin-bottom: var(--spacing-xl);
+		color: var(--color-muted);
 		font-size: var(--font-size-lg);
-		color: var(--color-muted);
-		margin-bottom: var(--spacing-lg);
 	}
 
-	.featured-image :global(img) {
-		width: 100%;
-		border-radius: var(--radius);
+	.browser {
+		overflow: hidden;
 		border: 1px solid var(--color-border);
+		border-radius: var(--radius-card);
+		background: var(--color-surface);
+		box-shadow: 0 30px 80px #0006;
 	}
 
-	.project-body {
-		display: grid;
-		grid-template-columns: 260px 1fr;
-		gap: var(--spacing-3xl);
-		margin-top: var(--spacing-3xl);
+	.browser-bar {
+		display: flex;
+		gap: 6px;
+		padding: 12px 16px;
+		border-bottom: 1px solid var(--color-border);
 	}
 
-	.project-facts dl {
+	.browser-bar i {
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		background: #ef4444;
+	}
+
+	.browser-bar i:nth-child(2) {
+		background: #f59e0b;
+	}
+
+	.browser-bar i:nth-child(3) {
+		background: #22c55e;
+	}
+
+	.browser :global(img) {
+		width: 100%;
+		aspect-ratio: 16 / 10;
+		object-fit: cover;
+	}
+
+	.project-overview {
 		display: grid;
+		grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.5fr);
 		gap: var(--spacing-lg);
-		position: sticky;
-		top: var(--spacing-lg);
+		padding-block: var(--spacing-lg) var(--spacing-2xl);
 	}
 
-	.project-facts dt {
-		font-size: var(--font-size-xs);
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: var(--tracking-wide);
+	.facts {
+		display: grid;
+		align-content: start;
+		gap: var(--spacing-md);
+		padding: var(--spacing-lg);
+	}
+
+	.facts div {
+		display: grid;
+		grid-template-columns: 120px 1fr;
+		gap: var(--spacing-md);
+	}
+
+	.facts dt {
 		color: var(--color-muted);
-		margin-bottom: var(--spacing-xs);
 	}
 
 	.stack {
 		display: flex;
 		flex-wrap: wrap;
-		gap: var(--spacing-xs);
+		gap: var(--spacing-sm);
 	}
 
-	.chip {
-		font-size: var(--font-size-xs);
-		padding: 2px var(--spacing-sm);
-		border: 1px solid var(--color-border);
-		border-radius: 999px;
+	.results h2 {
+		margin-bottom: var(--spacing-md);
+		font-size: var(--font-size-lg);
+		font-weight: 600;
 	}
 
-	.project-main {
-		max-width: var(--max-width);
-	}
-
-	.results {
+	.results-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 		gap: var(--spacing-md);
-		margin-bottom: var(--spacing-2xl);
 	}
 
 	.result {
 		display: flex;
-		flex-direction: column;
+		align-items: center;
+		gap: var(--spacing-lg);
 		padding: var(--spacing-lg);
-		background: var(--color-surface);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius);
+	}
+
+	.result-icon {
+		display: grid;
+		flex-shrink: 0;
+		width: 72px;
+		height: 72px;
+		place-items: center;
+		border-radius: 50%;
+		color: var(--color-brand);
+		background: var(--color-brand-ring);
+	}
+
+	.result-icon svg {
+		width: 30px;
+		height: 30px;
+	}
+
+	.result:nth-child(even) .result-icon {
+		color: var(--color-brand-end);
 	}
 
 	.result-value {
-		font-size: var(--font-size-2xl);
-		font-weight: 700;
-		color: var(--color-brand);
+		display: block;
+		font-size: 2rem;
+		font-weight: var(--font-weight-display);
+		line-height: 1.1;
 	}
 
 	.result-label {
+		color: var(--color-muted);
 		font-size: var(--font-size-sm);
+	}
+
+	.story {
+		max-width: var(--max-width);
+		padding-block: var(--spacing-lg);
+	}
+
+	.story.columns {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+		max-width: none;
+	}
+
+	.story.columns .story-section {
+		padding-inline: var(--spacing-xl);
+		border-inline-start: 1px solid var(--color-border);
+	}
+
+	.story.columns .story-section:first-child {
+		padding-inline-start: 0;
+		border-inline-start: 0;
+	}
+
+	.story-section :global(h2) {
+		margin-top: 0;
+		font-size: 1.5rem;
+		font-weight: var(--font-weight-display);
+	}
+
+	.story-section :global(p) {
 		color: var(--color-muted);
 	}
 
+	.block-title {
+		margin-bottom: var(--spacing-lg);
+		font-size: var(--font-size-xl);
+		font-weight: 600;
+	}
+
+	.gallery-section {
+		padding-block: var(--spacing-xl);
+	}
+
 	.project-gallery {
-		margin-top: var(--spacing-3xl);
 		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: var(--spacing-lg);
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: var(--spacing-md);
 	}
 
 	.gallery-item :global(img) {
 		width: 100%;
-		border-radius: var(--radius);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-card);
 	}
 
 	.gallery-item figcaption {
 		margin-top: var(--spacing-sm);
-		font-size: var(--font-size-sm);
 		color: var(--color-muted);
+		font-size: var(--font-size-sm);
 	}
 
 	.more {
-		background: var(--color-surface);
-		border-top: 1px solid var(--color-border);
-		padding: var(--spacing-4xl) 0;
-	}
-
-	.more .section-title {
-		margin-bottom: var(--spacing-2xl);
+		padding-block: var(--spacing-2xl);
 	}
 
 	.more-grid {
 		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: var(--spacing-2xl);
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: var(--spacing-md);
 	}
 
-	@media (max-width: 860px) {
-		.project-body {
+	.more-grid :global(.card-image img) {
+		aspect-ratio: 16 / 10;
+	}
+
+	@media (max-width: 900px) {
+		.project-hero,
+		.project-overview {
 			grid-template-columns: 1fr;
-			gap: var(--spacing-2xl);
 		}
 
-		.project-facts dl {
-			position: static;
-			grid-template-columns: repeat(2, 1fr);
+		.story.columns .story-section {
+			padding: var(--spacing-md) 0;
+			border-inline-start: 0;
+			border-top: 1px solid var(--color-border);
+		}
+
+		.story.columns .story-section:first-child {
+			border-top: 0;
 		}
 	}
 
 	@media (max-width: 640px) {
-		.project-title {
-			font-size: var(--font-size-2xl);
+		.back {
+			margin-bottom: var(--spacing-lg);
+		}
+
+		.facts div {
+			grid-template-columns: 96px 1fr;
+		}
+
+		.result-icon {
+			width: 52px;
+			height: 52px;
+		}
+
+		.result-value {
+			font-size: 1.5rem;
 		}
 
 		.project-gallery,

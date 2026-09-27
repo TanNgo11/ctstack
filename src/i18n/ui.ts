@@ -119,6 +119,9 @@ const vi = {
 	"projects.type": "Loại",
 	"projects.results": "Kết quả",
 	"projects.other": "Dự án khác",
+	"projects.back": "Tất cả dự án",
+	"projects.highlights": "Kết quả nổi bật",
+	"projects.gallery": "Hình ảnh dự án",
 	"projects.moreComing": "Còn nhiều dự án thú vị khác đang được thực hiện…",
 	"projects.nextCta": "Cùng tạo nên dự án tiếp theo của bạn?",
 
@@ -221,6 +224,9 @@ const en: Dict = {
 	"projects.type": "Type",
 	"projects.results": "Results",
 	"projects.other": "More work",
+	"projects.back": "All projects",
+	"projects.highlights": "Key results",
+	"projects.gallery": "Project gallery",
 	"projects.moreComing": "More exciting projects are in progress…",
 	"projects.nextCta": "Shall we build your next project together?",
 
