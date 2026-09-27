@@ -88,7 +88,14 @@ const descriptionFallbacks: Record<string, string> = {
 };
 const resolvedDescription = description || descriptionFallbacks[routePath] || siteDescription;
 const siteLogo = settings?.logo?.url ? settings.logo : null;
-const canonicalUrl = canonical ?? new URL(Astro.url.pathname, `${siteOrigin}/`).href;
+const canonicalUrl = (() => {
+	try {
+		const parsed = canonical ? new URL(canonical, Astro.url.origin) : Astro.url;
+		return new URL(`${parsed.pathname}${parsed.search}`, `${siteOrigin}/`).href;
+	} catch {
+		return new URL(Astro.url.pathname, `${siteOrigin}/`).href;
+	}
+})();
 const defaultOgImage = new URL("/og-default.png", `${siteOrigin}/`).href;
 const absoluteUrl = (value: string): string => {
 	try {

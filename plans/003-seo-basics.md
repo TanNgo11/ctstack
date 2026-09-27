@@ -36,12 +36,13 @@ Every public page has a correct title, description, canonical URL, hreflang pair
 
 ## Verification
 
-- [ ] `pnpm typecheck`: 0 errors
-- [ ] `pnpm build` succeeds
-- [ ] `curl` each route and check title, description, canonical, hreflang, og:image
-- [ ] Sitemap lists every page in both languages; JSON-LD validates (schema.org validator or Google Rich Results test on a deploy preview)
+- [x] `pnpm typecheck`: 0 errors
+- [x] `pnpm build` succeeds
+- [x] `curl` each route and check title, description, canonical, hreflang, og:image
+- [x] Sitemap lists every page in both languages; JSON-LD validates (schema.org validator or Google Rich Results test on a deploy preview)
 
 ## Notes / decisions
 
 - Hot files touched: `src/layouts/Base.astro` (head only), `src/i18n/ui.ts` (end of each dictionary), `astro.config.mjs`. No other wave-1 plan edits `Base.astro`.
 - EmDash's built-in sitemap is collection-only, so `src/pages/sitemap.xml.ts` supplies the required static routes and project URLs. The built-in `robots.txt` endpoint remains the source of robots directives and links to this sitemap.
+- Project detail pages pass the featured media API URL as the SEO fallback image because EmDash media values expose `url`/`id`, not a `src` property.
