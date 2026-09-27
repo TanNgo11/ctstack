@@ -11,7 +11,7 @@ Read before non-trivial work:
 - [plans/](plans/): one plan per feature; check for an active plan before starting
 - [mockup/](mockup/): design references per feature; UI work must match them
 
-`docs/overview.html` is a Vietnamese, human-readable copy of the architecture and roadmap. When you change `docs/architecture.md` or `docs/roadmap.md`, update it too.
+Human docs (Vietnamese): `docs/overview.html` mirrors the architecture and roadmap, and `docs/onboarding.html` is the newcomer guide. When you change commands, structure or the roadmap, update them too.
 
 ## Commands
 

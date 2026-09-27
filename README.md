@@ -2,6 +2,8 @@
 
 Portfolio and services site for CTStack, built with [EmDash](https://github.com/emdash-cms/emdash) (Astro) and deployed on Cloudflare Workers + D1 + R2. Bilingual: Vietnamese (default) and English.
 
+New here? Open [`docs/onboarding.html`](docs/onboarding.html) (Vietnamese) in a browser. Architecture diagrams: [`docs/overview.html`](docs/overview.html). AI agents: [`AGENTS.md`](AGENTS.md).
+
 ## Pages
 
 | Page           | Vietnamese         | English               |

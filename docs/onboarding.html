@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CTStack — Onboarding</title>
+<!-- Human onboarding guide (Vietnamese). Agents: see AGENTS.md. -->
+<style>
+	:root {
+		color-scheme: light dark;
+		--bg: light-dark(#f8fafc, #0b0f17);
+		--surface: light-dark(#ffffff, #111827);
+		--text: light-dark(#0f172a, #e2e8f0);
+		--muted: light-dark(#64748b, #94a3b8);
+		--border: light-dark(#e2e8f0, #1e293b);
+		--brand: light-dark(#2563eb, #60a5fa);
+		--code-bg: light-dark(#f1f5f9, #0b1220);
+		--warn: light-dark(#b45309, #fbbf24);
+		--ok: light-dark(#15803d, #4ade80);
+	}
+	* { box-sizing: border-box; }
+	body { margin: 0; font: 16px/1.7 system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); }
+	.layout { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 32px; max-width: 1200px; margin: 0 auto; padding: 32px 16px 96px; }
+	aside { position: sticky; top: 16px; align-self: start; font-size: 14px; }
+	aside a { display: block; padding: 4px 8px; border-radius: 6px; color: var(--muted); text-decoration: none; }
+	aside a:hover { color: var(--brand); background: color-mix(in srgb, var(--brand) 8%, transparent); }
+	aside .num { display: inline-block; width: 22px; color: var(--brand); font-weight: 600; }
+	header h1 { font-size: 2.1rem; line-height: 1.2; margin: 0 0 8px; }
+	header p { color: var(--muted); margin: 0; }
+	section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px 28px; margin-top: 24px; }
+	h2 { margin: 0 0 12px; font-size: 1.4rem; }
+	h2 .num { color: var(--brand); margin-right: 6px; }
+	h3 { margin: 24px 0 8px; font-size: 1.08rem; }
+	p { margin: 0 0 12px; }
+	ul, ol { margin: 0 0 12px; padding-left: 22px; }
+	li { margin-bottom: 4px; }
+	a { color: var(--brand); }
+	code { font: 13.5px ui-monospace, "Cascadia Code", Consolas, monospace; background: var(--code-bg); padding: 1px 5px; border-radius: 4px; }
+	pre { font: 13px/1.55 ui-monospace, "Cascadia Code", Consolas, monospace; background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; overflow-x: auto; margin: 0 0 14px; }
+	pre code { background: none; padding: 0; }
+	.c { color: var(--muted); }
+	table { width: 100%; border-collapse: collapse; font-size: 14.5px; margin-bottom: 12px; }
+	th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+	th { color: var(--muted); font-weight: 600; }
+	.table-scroll { overflow-x: auto; }
+	.callout { border-left: 3px solid var(--brand); background: color-mix(in srgb, var(--brand) 7%, transparent); padding: 10px 14px; border-radius: 0 8px 8px 0; margin: 0 0 14px; }
+	.callout.warn { border-color: var(--warn); background: color-mix(in srgb, var(--warn) 9%, transparent); }
+	.callout.ok { border-color: var(--ok); background: color-mix(in srgb, var(--ok) 9%, transparent); }
+	.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 12px; }
+	.card { border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+	.card h3 { margin: 0 0 6px; }
+	.card p { margin: 0; color: var(--muted); font-size: 14.5px; }
+	.flow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 8px 0 14px; }
+	.flow span { border: 1px solid var(--border); border-radius: 8px; padding: 6px 10px; font-size: 14px; background: var(--bg); }
+	.flow b { color: var(--muted); font-weight: 400; }
+	details { border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; margin-bottom: 10px; }
+	summary { cursor: pointer; font-weight: 600; }
+	details[open] summary { margin-bottom: 8px; }
+	@media (max-width: 860px) {
+		.layout { grid-template-columns: 1fr; }
+		aside { position: static; }
+		section { padding: 20px 16px; }
+	}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside>
+	<a href="#big-picture"><span class="num">1</span>Bức tranh tổng</a>
+	<a href="#setup"><span class="num">2</span>Chạy lần đầu</a>
+	<a href="#astro"><span class="num">3</span>Astro căn bản</a>
+	<a href="#emdash"><span class="num">4</span>EmDash (CMS)</a>
+	<a href="#i18n"><span class="num">5</span>Song ngữ vi/en</a>
+	<a href="#cloudflare"><span class="num">6</span>Cloudflare</a>
+	<a href="#map"><span class="num">7</span>Muốn sửa X thì vào đâu</a>
+	<a href="#recipes"><span class="num">8</span>Công thức thường gặp</a>
+	<a href="#gotchas"><span class="num">9</span>Bẫy hay gặp</a>
+	<a href="#ai"><span class="num">10</span>Làm việc với AI</a>
+	<a href="#practice"><span class="num">11</span>Bài tập 30 phút</a>
+	<a href="#glossary"><span class="num">12</span>Thuật ngữ</a>
+	<a href="#learn"><span class="num">13</span>Tài liệu học thêm</a>
+</aside>
+
+<main>
+<header>
+	<h1>Onboarding CTStack</h1>
+	<p>Dành cho người lần đầu làm Astro, EmDash và Cloudflare. Đọc từ trên xuống mất khoảng 30–40 phút, làm bài tập ở mục 11 thêm 30 phút.</p>
+</header>
+
+<!-- 1 -->
+<section id="big-picture">
+	<h2><span class="num">1</span>Bức tranh tổng</h2>
+	<p>Site này là <b>một ứng dụng duy nhất</b>, gồm cả trang web lẫn trang quản trị (CMS), chạy trên hạ tầng Cloudflare. Không có server riêng, không có backend tách biệt.</p>
+
+	<div class="grid">
+		<div class="card"><h3>Astro</h3><p>Framework dựng trang web. Viết file <code>.astro</code> (HTML + JS chạy ở server), Astro render ra HTML gửi cho browser. Gần giống PHP/Blade/EJS nhưng hiện đại, có component.</p></div>
+		<div class="card"><h3>EmDash</h3><p>CMS cắm vào Astro, kiểu WordPress thế hệ mới. Cho mình trang admin <code>/_emdash/admin</code> để nhập dự án và dịch vụ, cùng API để đọc dữ liệu đó trong trang.</p></div>
+		<div class="card"><h3>Cloudflare Workers</h3><p>Nơi code chạy. Không phải VPS: code chạy "serverless" trên mạng của Cloudflare, mỗi request gọi 1 lần. Gói free đủ dùng.</p></div>
+		<div class="card"><h3>D1 + R2</h3><p><b>D1</b> là database SQLite của Cloudflare (lưu nội dung, user, lead). <b>R2</b> là kho file (lưu ảnh upload), giống S3.</p></div>
+		<div class="card"><h3>TypeScript</h3><p>JavaScript có kiểu dữ liệu. <code>pnpm typecheck</code> bắt lỗi trước khi chạy.</p></div>
+		<div class="card"><h3>pnpm</h3><p>Trình quản lý package như npm nhưng nhanh và chặt hơn. Dự án này <b>chỉ dùng pnpm</b>.</p></div>
+	</div>
+
+	<h3>Một request đi như thế nào</h3>
+	<div class="flow">
+		<span>Browser mở <code>/en/projects/abc</code></span><b>→</b>
+		<span>Cloudflare Worker</span><b>→</b>
+		<span>EmDash middleware</span><b>→</b>
+		<span>File <code>src/pages/[...lang]/projects/[slug].astro</code></span><b>→</b>
+		<span>Query D1</span><b>→</b>
+		<span>Render HTML</span><b>→</b>
+		<span>Browser</span>
+	</div>
+	<p>Mọi trang được render <b>ở server, mỗi lần có request</b> (SSR), không build sẵn HTML tĩnh. Nhờ vậy sửa nội dung trong admin là site cập nhật ngay, không cần build lại.</p>
+	<div class="callout">Sơ đồ kiến trúc chi tiết ở <a href="overview.html">overview.html</a>.</div>
+</section>
+
+<!-- 2 -->
+<section id="setup">
+	<h2><span class="num">2</span>Chạy lần đầu</h2>
+	<p>Cần: Node.js 22+, pnpm (<code>corepack enable</code> hoặc <code>npm i -g pnpm</code>), Git.</p>
+<pre><code>pnpm install        <span class="c"># cài package</span>
+pnpm dev            <span class="c"># chạy dev server → http://localhost:4321</span></code></pre>
+	<ol>
+		<li>Mở <a href="http://localhost:4321">http://localhost:4321</a>. Lần đầu database trống nên chưa có dự án nào.</li>
+		<li>Mở link đăng nhập nhanh (chỉ có ở môi trường dev), link này cũng nạp luôn content mẫu:<br>
+			<code>http://localhost:4321/_emdash/api/setup/dev-bypass?redirect=/_emdash/admin</code></li>
+		<li>Vào admin, xem các mục <b>Projects</b>, <b>Services</b>, <b>Pages</b>, <b>Forms</b>.</li>
+		<li>Form liên hệ trên DB mới cần tạo lại: Admin → Forms, tạo form slug <code>lien-he</code> (vi) và <code>contact</code> (en).</li>
+	</ol>
+	<div class="callout">Ở local, Cloudflare được giả lập bằng <b>Miniflare</b>: D1 và R2 nằm trong thư mục <code>.wrangler/state</code>. Muốn reset dữ liệu thì tắt server rồi xóa thư mục đó.</div>
+	<h3>Lệnh hằng ngày</h3>
+	<div class="table-scroll"><table>
+		<tr><th>Lệnh</th><th>Làm gì</th></tr>
+		<tr><td><code>pnpm dev</code></td><td>Chạy dev, tự reload khi sửa file</td></tr>
+		<tr><td><code>pnpm typecheck</code></td><td>Kiểm tra lỗi TypeScript/Astro, phải ra 0 errors</td></tr>
+		<tr><td><code>pnpm build</code></td><td>Build bản production</td></tr>
+		<tr><td><code>pnpm run deploy</code></td><td>Build + đẩy lên Cloudflare. <b>Không gõ</b> <code>pnpm deploy</code> (đó là lệnh khác của pnpm)</td></tr>
+		<tr><td><code>pnpm add &lt;pkg&gt;</code></td><td>Thêm thư viện</td></tr>
+	</table></div>
+</section>
+
+<!-- 3 -->
+<section id="astro">
+	<h2><span class="num">3</span>Astro căn bản</h2>
+	<h3>Cấu tạo 1 file <code>.astro</code></h3>
+	<p>Mỗi file có 3 phần: <b>frontmatter</b> (code chạy ở server, nằm giữa 2 dấu <code>---</code>), <b>template</b> (HTML) và <b>style</b> (CSS chỉ áp dụng cho file đó). Ví dụ rút gọn từ <code>src/components/ServiceCard.astro</code>:</p>
+<pre><code>---
+<span class="c">// 1. Frontmatter: chạy ở SERVER, không gửi xuống browser</span>
+import ServiceIcon from "./ServiceIcon.astro";
+
+interface Props {            <span class="c">// khai báo props nhận vào</span>
+  title: string;
+  priceFrom?: string;
+}
+const { title, priceFrom } = Astro.props;
+---
+<span class="c">&lt;!-- 2. Template: HTML, dùng {biến} để in giá trị --&gt;</span>
+&lt;article class="service-card"&gt;
+  &lt;ServiceIcon name="globe" /&gt;
+  &lt;h3&gt;{title}&lt;/h3&gt;
+  {priceFrom &amp;&amp; &lt;p&gt;Từ {priceFrom}&lt;/p&gt;}   <span class="c">&lt;!-- điều kiện --&gt;</span>
+&lt;/article&gt;
+
+&lt;style&gt;
+  <span class="c">/* 3. CSS chỉ áp dụng cho component này (scoped) */</span>
+  .service-card { padding: 2rem; }
+&lt;/style&gt;</code></pre>
+	<ul>
+		<li>Lặp danh sách: <code>{items.map((i) =&gt; &lt;li&gt;{i}&lt;/li&gt;)}</code>, giống JSX của React.</li>
+		<li>Dùng component: import rồi viết như thẻ HTML <code>&lt;ProjectCard title="..." /&gt;</code>.</li>
+		<li><code>&lt;slot /&gt;</code> là chỗ đặt nội dung con, dùng trong layout <code>Base.astro</code>.</li>
+		<li>Muốn CSS ảnh hưởng HTML do component khác sinh ra thì bọc selector bằng <code>:global(...)</code>.</li>
+		<li>Code trong <code>&lt;script&gt;</code> (không có <code>is:inline</code>) mới chạy ở browser. Frontmatter không bao giờ chạy ở browser.</li>
+	</ul>
+
+	<h3>Routing theo tên file</h3>
+	<p>File trong <code>src/pages/</code> tự thành URL:</p>
+	<div class="table-scroll"><table>
+		<tr><th>File</th><th>URL</th></tr>
+		<tr><td><code>src/pages/[...lang]/index.astro</code></td><td><code>/</code> và <code>/en</code></td></tr>
+		<tr><td><code>src/pages/[...lang]/services.astro</code></td><td><code>/services</code> và <code>/en/services</code></td></tr>
+		<tr><td><code>src/pages/[...lang]/projects/[slug].astro</code></td><td><code>/projects/&lt;slug&gt;</code>, <code>/en/projects/&lt;slug&gt;</code></td></tr>
+		<tr><td><code>src/pages/404.astro</code></td><td>Trang lỗi 404</td></tr>
+	</table></div>
+	<ul>
+		<li><code>[slug]</code> là tham số động, đọc bằng <code>Astro.params.slug</code>.</li>
+		<li><code>[...lang]</code> là tham số "rest", có thể rỗng. Mình dùng nó cho ngôn ngữ (xem mục 5).</li>
+		<li>Chỉ <b>page</b> mới được <code>return Astro.redirect()</code>, <code>return Astro.rewrite()</code> hoặc <code>Response</code>. Component thì không.</li>
+	</ul>
+
+	<h3>Layout</h3>
+	<p>Mọi trang bọc trong <code>&lt;Base title="..."&gt;...&lt;/Base&gt;</code> (<code>src/layouts/Base.astro</code>). Base lo phần <code>&lt;head&gt;</code>, SEO, menu, nút đổi ngôn ngữ, footer và nút sáng/tối.</p>
+</section>
+
+<!-- 4 -->
+<section id="emdash">
+	<h2><span class="num">4</span>EmDash (CMS)</h2>
+	<p>Khác nhiều CMS khác, <b>schema (cấu trúc dữ liệu) nằm trong database</b>, không nằm trong code. Lúc đầu schema được tạo từ file <code>seed/seed.json</code>, sau đó có thể sửa trong admin.</p>
+
+	<h3>Khái niệm</h3>
+	<div class="table-scroll"><table>
+		<tr><th>Khái niệm</th><th>Là gì</th><th>Trong dự án</th></tr>
+		<tr><td>Collection</td><td>Loại nội dung, giống 1 bảng</td><td><code>projects</code>, <code>services</code>, <code>pages</code></td></tr>
+		<tr><td>Field</td><td>Cột của collection</td><td><code>title</code>, <code>featured_image</code>, <code>results</code>…</td></tr>
+		<tr><td>Entry</td><td>1 bài/1 dòng dữ liệu</td><td>Dự án "Website chuỗi cà phê"</td></tr>
+		<tr><td>Slug</td><td>Phần URL của entry</td><td><code>website-chuoi-ca-phe</code></td></tr>
+		<tr><td>Locale / Translation</td><td>Mỗi ngôn ngữ là 1 entry riêng, liên kết thành nhóm bản dịch</td><td>Bản <code>vi</code> + bản <code>en</code></td></tr>
+		<tr><td>Portable Text</td><td>Rich text lưu dạng JSON (không phải HTML)</td><td>Field <code>content</code> (case study)</td></tr>
+		<tr><td>Repeater</td><td>Danh sách các dòng con</td><td><code>results</code>, <code>gallery</code>, <code>features</code></td></tr>
+		<tr><td>Seed</td><td>File khởi tạo schema + content mẫu</td><td><code>seed/seed.json</code></td></tr>
+		<tr><td>Plugin</td><td>Mở rộng CMS</td><td><code>@emdash-cms/plugin-forms</code> (form liên hệ)</td></tr>
+	</table></div>
+
+	<h3>Đọc dữ liệu trong trang</h3>
+<pre><code>import { getEmDashCollection, getEmDashEntry } from "emdash";
+
+<span class="c">// Danh sách: dịch vụ tiếng Việt, sắp theo sort_order</span>
+const { entries, error } = await getEmDashCollection("services", {
+  locale: "vi",
+  orderBy: { sort_order: "asc" },
+  limit: 50,
+});
+
+<span class="c">// 1 entry theo slug</span>
+const { entry, error } = await getEmDashEntry("projects", slug, { locale: "en" });
+
+entry.id          <span class="c">// = slug, dùng làm URL</span>
+entry.data.id     <span class="c">// = ID thật trong DB (ULID), dùng khi gọi API khác</span>
+entry.data.title  <span class="c">// các field nằm trong entry.data</span></code></pre>
+
+	<h3>Hiển thị</h3>
+<pre><code>import { Image, PortableText } from "emdash/ui";
+
+&lt;Image image={entry.data.featured_image} /&gt;   <span class="c">&lt;!-- ảnh là OBJECT, không phải string --&gt;</span>
+&lt;PortableText value={entry.data.content} /&gt;   <span class="c">&lt;!-- render rich text --&gt;</span>
+&lt;h1 {...entry.edit.title}&gt;{entry.data.title}&lt;/h1&gt;   <span class="c">&lt;!-- cho phép sửa trực tiếp khi admin đang login --&gt;</span></code></pre>
+
+	<h3>Seed chạy khi nào</h3>
+	<ul>
+		<li>DB trống + request đầu tiên: EmDash tạo <b>schema</b> từ seed.</li>
+		<li>Content mẫu chỉ được nạp khi chạy setup wizard (hoặc link dev-bypass) và chọn nạp content.</li>
+		<li>Sửa <code>seed.json</code> <b>không</b> ảnh hưởng DB đang có dữ liệu. Muốn áp lại ở local thì xóa <code>.wrangler/state</code>.</li>
+	</ul>
+	<div class="callout">EmDash có <b>MCP server</b> ở <code>/_emdash/api/mcp</code>: AI agent (Claude…) có thể đọc và ghi content qua đó. Đây là lý do chọn EmDash (Phase 3).</div>
+</section>
+
+<!-- 5 -->
+<section id="i18n">
+	<h2><span class="num">5</span>Song ngữ vi/en</h2>
+	<p>Tiếng Việt là mặc định, không có tiền tố URL. Tiếng Anh nằm dưới <code>/en</code>. Có 2 loại chữ, mỗi loại dịch một cách:</p>
+	<div class="grid">
+		<div class="card"><h3>Chữ cố định trên giao diện</h3><p>Menu, nút, tiêu đề mục… nằm trong <code>src/i18n/ui.ts</code>, có 2 object <code>vi</code> và <code>en</code>. Thiếu key tiếng Anh là TypeScript báo lỗi.</p></div>
+		<div class="card"><h3>Nội dung trong CMS</h3><p>Dự án, dịch vụ, trang: mỗi thứ có 1 entry <code>vi</code> + 1 entry <code>en</code>, liên kết qua mục Translations trong admin.</p></div>
+	</div>
+	<p>Mọi page đều mở đầu như sau:</p>
+<pre><code>const lang = langFromParam(Astro.params.lang);  <span class="c">// "" → "vi", "en" → "en", khác → null</span>
+if (!lang) return Astro.rewrite("/404");
+const t = useTranslations(lang);
+
+t("nav.projects")                  <span class="c">// "Dự án" hoặc "Projects"</span>
+localizePath("/projects", lang)    <span class="c">// "/projects" hoặc "/en/projects"</span></code></pre>
+	<div class="callout warn">Đừng viết link cứng kiểu <code>href="/en/contact"</code>. Luôn dùng <code>localizePath()</code>.</div>
+</section>
+
+<!-- 6 -->
+<section id="cloudflare">
+	<h2><span class="num">6</span>Cloudflare</h2>
+	<div class="table-scroll"><table>
+		<tr><th>Thứ</th><th>Là gì</th><th>Cấu hình</th></tr>
+		<tr><td>Worker</td><td>Chương trình chạy site, tên <code>ctstack</code></td><td><code>wrangler.jsonc</code>, entry <code>src/worker.ts</code></td></tr>
+		<tr><td>D1</td><td>Database, binding tên <code>DB</code></td><td><code>d1_databases</code> trong wrangler.jsonc</td></tr>
+		<tr><td>R2</td><td>Kho ảnh, binding tên <code>MEDIA</code></td><td><code>r2_buckets</code></td></tr>
+		<tr><td>Cron</td><td>Chạy việc định kỳ mỗi phút (hẹn giờ đăng bài…)</td><td><code>triggers.crons</code></td></tr>
+		<tr><td>Secret</td><td><code>EMDASH_ENCRYPTION_KEY</code>, không được lộ</td><td>Local: <code>.env</code>. Production: <code>wrangler secret put</code></td></tr>
+		<tr><td>Wrangler</td><td>CLI của Cloudflare</td><td><code>pnpm exec wrangler ...</code></td></tr>
+	</table></div>
+	<p><b>Binding</b> là "tên biến" để code truy cập tài nguyên Cloudflare. Code không cần URL hay mật khẩu DB, chỉ cần binding <code>DB</code>.</p>
+	<h3>Deploy lần đầu</h3>
+<pre><code>pnpm exec wrangler login     <span class="c"># đăng nhập tài khoản Cloudflare (mở browser)</span>
+pnpm run deploy              <span class="c"># build + deploy, tạo D1/R2 nếu chưa có</span>
+pnpm exec wrangler secret put EMDASH_ENCRYPTION_KEY   <span class="c"># dán giá trị trong .env</span></code></pre>
+	<p>Sau đó vào <code>https://ctstack.&lt;tài-khoản&gt;.workers.dev/_emdash/admin</code> để chạy setup wizard. Production dùng DB riêng, trống ban đầu, không dùng chung với local.</p>
+</section>
+
+<!-- 7 -->
+<section id="map">
+	<h2><span class="num">7</span>Muốn sửa X thì vào đâu</h2>
+	<div class="table-scroll"><table>
+		<tr><th>Muốn…</th><th>Vào</th></tr>
+		<tr><td>Thêm/sửa dự án, dịch vụ, trang About</td><td>Admin (không cần code)</td></tr>
+		<tr><td>Xem lead từ form liên hệ</td><td>Admin → Forms → Submissions</td></tr>
+		<tr><td>Sửa chữ trên menu, nút, tiêu đề mục</td><td><code>src/i18n/ui.ts</code> (sửa cả <code>vi</code> và <code>en</code>)</td></tr>
+		<tr><td>Đổi màu, font size, bo góc</td><td><code>src/styles/theme.css</code> (không sửa <code>tokens.css</code>)</td></tr>
+		<tr><td>Đổi font chữ</td><td><code>astro.config.mjs</code> → <code>fonts</code></td></tr>
+		<tr><td>Sửa header, menu, footer</td><td><code>src/layouts/Base.astro</code></td></tr>
+		<tr><td>Sửa trang chủ</td><td><code>src/pages/[...lang]/index.astro</code></td></tr>
+		<tr><td>Sửa thẻ dự án / thẻ dịch vụ</td><td><code>src/components/ProjectCard.astro</code>, <code>ServiceCard.astro</code></td></tr>
+		<tr><td>Thêm field cho dự án</td><td><code>seed/seed.json</code> + Admin → Content Types (xem công thức ở mục 8)</td></tr>
+		<tr><td>Email hiển thị ở trang liên hệ</td><td><code>contactEmail</code> trong <code>src/i18n/ui.ts</code></td></tr>
+		<tr><td>Tên Worker, DB, bucket</td><td><code>wrangler.jsonc</code></td></tr>
+	</table></div>
+</section>
+
+<!-- 8 -->
+<section id="recipes">
+	<h2><span class="num">8</span>Công thức thường gặp</h2>
+
+	<details open>
+		<summary>Thêm 1 dòng chữ mới trên giao diện</summary>
+		<ol>
+			<li>Trong <code>src/i18n/ui.ts</code>, thêm key vào object <code>vi</code>, ví dụ <code>"home.badge": "Phản hồi trong 24h"</code>.</li>
+			<li>Thêm cùng key vào object <code>en</code>: <code>"home.badge": "Reply within 24h"</code>.</li>
+			<li>Trong trang: <code>{t("home.badge")}</code>.</li>
+			<li><code>pnpm typecheck</code>.</li>
+		</ol>
+	</details>
+
+	<details>
+		<summary>Thêm 1 dự án thật</summary>
+		<ol>
+			<li>Admin → Projects → New. Điền bản tiếng Việt, tick <b>featured</b> nếu muốn hiện ở trang chủ, rồi Publish.</li>
+			<li>Trong entry đó mở <b>Translations</b> → tạo bản <code>en</code>, dịch, rồi Publish.</li>
+			<li>Theo quy tắc trong <a href="content-guide.md">content-guide.md</a>: không bịa số liệu.</li>
+		</ol>
+	</details>
+
+	<details>
+		<summary>Thêm field mới cho dự án (ví dụ "duration")</summary>
+		<ol>
+			<li>Admin → Content Types (Schema) → Projects → thêm field <code>duration</code> (string). Làm vậy thì DB hiện tại có field ngay.</li>
+			<li>Thêm cùng field vào <code>seed/seed.json</code> để DB mới (production, máy khác) cũng có.</li>
+			<li>Restart <code>pnpm dev</code> để sinh lại type (<code>emdash-env.d.ts</code>), khi đó <code>entry.data.duration</code> có gợi ý kiểu.</li>
+			<li>Hiển thị trong <code>projects/[slug].astro</code>, thêm nhãn vào <code>ui.ts</code> (vi + en).</li>
+			<li>Cập nhật content model trong <code>docs/architecture.md</code>.</li>
+		</ol>
+	</details>
+
+	<details>
+		<summary>Thêm 1 trang mới (ví dụ /faq)</summary>
+		<ol>
+			<li>Tạo <code>src/pages/[...lang]/faq.astro</code>, copy phần mở đầu (lang, t) từ <code>services.astro</code>.</li>
+			<li>Bọc nội dung trong <code>&lt;Base title={...}&gt;</code>.</li>
+			<li>Thêm link vào mảng <code>nav</code> trong <code>Base.astro</code> + key dịch trong <code>ui.ts</code>.</li>
+			<li>Kiểm tra cả <code>/faq</code> và <code>/en/faq</code>.</li>
+		</ol>
+	</details>
+
+	<details>
+		<summary>Đổi màu thương hiệu</summary>
+<pre><code><span class="c">/* src/styles/theme.css — light-dark(màu sáng, màu tối) */</span>
+:root {
+  --color-brand: light-dark(#2563eb, #60a5fa);
+}</code></pre>
+	</details>
+
+	<details>
+		<summary>Thêm thư viện</summary>
+		<p><code>pnpm add ten-thu-vien</code>. Package mới phát hành dưới 24 giờ sẽ bị chặn (cấu hình trong <code>pnpm-workspace.yaml</code>). Đó là cơ chế bảo vệ, không phải lỗi.</p>
+	</details>
+</section>
+
+<!-- 9 -->
+<section id="gotchas">
+	<h2><span class="num">9</span>Bẫy hay gặp</h2>
+	<div class="table-scroll"><table>
+		<tr><th>Triệu chứng</th><th>Nguyên nhân / cách xử lý</th></tr>
+		<tr><td>Ảnh hiện <code>[object Object]</code></td><td>Field ảnh là object. Dùng <code>&lt;Image image={...} /&gt;</code>, không dùng <code>&lt;img src={...}&gt;</code></td></tr>
+		<tr><td>Slug không tồn tại mà ra lỗi 500 thay vì 404</td><td><code>getEmDashEntry</code> báo "không tìm thấy" bằng <b>error</b>. Kiểm tra <code>isNotFoundError(error)</code> trước</td></tr>
+		<tr><td>Sửa <code>seed.json</code> mà site không đổi</td><td>Seed chỉ áp cho DB trống. Sửa trong admin, hoặc xóa <code>.wrangler/state</code> ở local</td></tr>
+		<tr><td>Trang tiếng Anh hiện nội dung rỗng</td><td>Entry chưa có bản dịch <code>en</code> hoặc chưa Publish</td></tr>
+		<tr><td>Lọc <code>where: {"{"} featured: true {"}"}</code> báo lỗi type</td><td><code>where</code> chỉ so sánh chuỗi. Lọc boolean bằng JS</td></tr>
+		<tr><td>Form liên hệ không hiện</td><td>DB chưa có form slug <code>lien-he</code> / <code>contact</code>. Tạo trong Admin → Forms</td></tr>
+		<tr><td><code>return Astro.redirect()</code> trong component không chạy</td><td>Chỉ page mới được return redirect/rewrite</td></tr>
+		<tr><td>CSS không ăn vào HTML của plugin/component con</td><td>Style mặc định là scoped. Dùng <code>:global(.class)</code></td></tr>
+		<tr><td>Port 4321 bị chiếm</td><td>Còn dev server cũ đang chạy. Tắt nó đi</td></tr>
+		<tr><td><code>pnpm deploy</code> làm điều lạ</td><td>Đó là lệnh riêng của pnpm. Dùng <code>pnpm run deploy</code></td></tr>
+	</table></div>
+</section>
+
+<!-- 10 -->
+<section id="ai">
+	<h2><span class="num">10</span>Làm việc với AI (vibe code)</h2>
+	<p>Repo đã chuẩn bị sẵn để AI hiểu dự án:</p>
+	<ul>
+		<li><code>AGENTS.md</code>: luật chính. Codex, Cursor, Claude đều đọc file này. <code>CLAUDE.md</code> import lại nó.</li>
+		<li><code>.agents/skills/</code> (và <code>.claude/skills/</code>, là symlink tới cùng chỗ): skill chính thức của EmDash dạy AI dùng API đúng.</li>
+		<li><code>.mcp.json</code>: nối AI với tài liệu EmDash online để tra API.</li>
+		<li><code>docs/</code>: kiến trúc, roadmap, quyết định, quy tắc content.</li>
+		<li><code>plans/</code>: mỗi tính năng 1 plan. <code>mockup/</code>: ảnh thiết kế + brief cho từng tính năng.</li>
+	</ul>
+	<h3>Quy trình 1 tính năng</h3>
+	<div class="flow">
+		<span>Chọn việc trong <code>docs/roadmap.md</code></span><b>→</b>
+		<span>Bảo AI viết <code>plans/NNN-*.md</code></span><b>→</b>
+		<span>Duyệt plan</span><b>→</b>
+		<span>(UI) có mockup</span><b>→</b>
+		<span>AI code</span><b>→</b>
+		<span>typecheck + build + xem vi/en</span><b>→</b>
+		<span>commit</span>
+	</div>
+	<div class="callout ok">Prompt mẫu: <i>"Đọc AGENTS.md và plans/001-ui-redesign.md, làm task Header + footer theo mockup/00-design-system và mockup/01-home. Xong thì chạy typecheck, build và kiểm tra /, /en."</i></div>
+</section>
+
+<!-- 11 -->
+<section id="practice">
+	<h2><span class="num">11</span>Bài tập 30 phút</h2>
+	<p>Làm lần lượt để quen tay. Làm xong thì <code>git checkout .</code> nếu không muốn giữ thay đổi.</p>
+	<ol>
+		<li><b>Chạy site</b>: <code>pnpm dev</code>, đăng nhập bằng link dev-bypass, bấm qua mọi trang, đổi ngôn ngữ.</li>
+		<li><b>Sửa content</b>: trong admin đổi giá dịch vụ "Website doanh nghiệp", reload trang <code>/services</code> để thấy thay đổi, không cần build.</li>
+		<li><b>Sửa chữ UI</b>: đổi <code>"home.title"</code> trong <code>ui.ts</code> (cả vi và en), xem trang chủ tự reload.</li>
+		<li><b>Đổi màu</b>: đổi <code>--color-brand</code> trong <code>theme.css</code> sang màu cam, bật tắt chế độ sáng/tối ở footer.</li>
+		<li><b>Đọc 1 page</b>: mở <code>src/pages/[...lang]/projects/[slug].astro</code>, tìm chỗ: lấy lang, query entry, xử lý 404, lấy bản dịch, render.</li>
+		<li><b>Gửi form</b>: vào <code>/contact</code>, gửi thử, rồi xem ở Admin → Forms → Submissions.</li>
+		<li><b>Kiểm tra</b>: <code>pnpm typecheck</code> và <code>pnpm build</code>.</li>
+	</ol>
+</section>
+
+<!-- 12 -->
+<section id="glossary">
+	<h2><span class="num">12</span>Thuật ngữ</h2>
+	<div class="table-scroll"><table>
+		<tr><td><b>SSR</b></td><td>Server-side rendering: HTML được tạo ở server mỗi request</td></tr>
+		<tr><td><b>Frontmatter</b></td><td>Đoạn code giữa <code>---</code> đầu file <code>.astro</code>, chạy ở server</td></tr>
+		<tr><td><b>Component</b></td><td>Mảnh giao diện tái sử dụng (<code>ProjectCard</code>…)</td></tr>
+		<tr><td><b>Props</b></td><td>Tham số truyền vào component</td></tr>
+		<tr><td><b>Scoped CSS</b></td><td>CSS chỉ áp cho component chứa nó</td></tr>
+		<tr><td><b>Serverless / Worker</b></td><td>Code chạy theo request trên hạ tầng nhà cung cấp, không quản lý server</td></tr>
+		<tr><td><b>Binding</b></td><td>Tên để code truy cập D1/R2… trong Worker</td></tr>
+		<tr><td><b>Miniflare</b></td><td>Bộ giả lập Cloudflare chạy ở máy local</td></tr>
+		<tr><td><b>Seed</b></td><td>Dữ liệu/schema khởi tạo cho DB trống</td></tr>
+		<tr><td><b>ULID</b></td><td>Kiểu ID duy nhất, sắp xếp được theo thời gian</td></tr>
+		<tr><td><b>Portable Text</b></td><td>Chuẩn lưu rich text dạng JSON</td></tr>
+		<tr><td><b>hreflang</b></td><td>Thẻ báo Google biết trang có bản ngôn ngữ khác</td></tr>
+		<tr><td><b>Honeypot</b></td><td>Ô ẩn trong form để bẫy bot spam</td></tr>
+		<tr><td><b>MCP</b></td><td>Model Context Protocol: chuẩn để AI gọi công cụ/dữ liệu bên ngoài</td></tr>
+	</table></div>
+</section>
+
+<!-- 13 -->
+<section id="learn">
+	<h2><span class="num">13</span>Tài liệu học thêm</h2>
+	<ul>
+		<li>Astro: <a href="https://docs.astro.build/">docs.astro.build</a> (đọc "Core concepts", "Routing", "Components", "Styling")</li>
+		<li>EmDash: <a href="https://docs.emdashcms.com/">docs.emdashcms.com</a> + skill trong <code>.agents/skills/building-emdash-site/</code> (có tiếng Anh, viết ngắn gọn)</li>
+		<li>Cloudflare Workers: <a href="https://developers.cloudflare.com/workers/">developers.cloudflare.com/workers</a>, D1: <a href="https://developers.cloudflare.com/d1/">/d1</a>, R2: <a href="https://developers.cloudflare.com/r2/">/r2</a></li>
+		<li>TypeScript nhanh: <a href="https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html">TypeScript in 5 minutes</a></li>
+		<li>pnpm: <a href="https://pnpm.io/motivation">pnpm.io</a></li>
+	</ul>
+	<p>Tài liệu trong repo: <a href="overview.html">overview.html</a> (sơ đồ), <code>docs/architecture.md</code>, <code>docs/roadmap.md</code>, <code>docs/decisions.md</code>, <code>docs/content-guide.md</code>.</p>
+</section>
+</main>
+</div>
+</body>
+</html>
