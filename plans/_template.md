@@ -32,4 +32,3 @@ Pages/components touched, data needed (collections, fields), UI strings to add (
 - [ ] Screenshots at 390px and 1440px compared side by side with the mockup (UI plans)
 
 ## Notes / decisions
-
