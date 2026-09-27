@@ -3,7 +3,7 @@ import { getEmDashCollection } from "emdash";
 import Base from "../../layouts/Base.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
 import ServiceCard from "../../components/ServiceCard.astro";
-import { localizePath, useTranslations, langFromParam } from "../../i18n/ui";
+import { localizePath, useTranslations, langFromParam, techStack } from "../../i18n/ui";
 
 const lang = langFromParam(Astro.params.lang);
 if (!lang) return Astro.rewrite("/404");
@@ -18,7 +18,7 @@ const [projectsResult, servicesResult] = await Promise.all([
 	getEmDashCollection("services", {
 		locale: lang,
 		orderBy: { sort_order: "asc" },
-		limit: 6,
+		limit: 5,
 	}),
 ]);
 if (projectsResult.error || servicesResult.error) {
@@ -33,27 +33,106 @@ if (Astro.cache?.enabled) {
 }
 
 const contactHref = localizePath("/contact", lang);
+// Decorative dashboard illustration in the hero (not real data).
+const chartBars = [38, 52, 44, 60, 55, 72, 86];
 ---
 
 <Base>
 	<section class="hero container">
-		<p class="eyebrow">{t("home.eyebrow")}</p>
-		<h1 class="hero-title">{t("home.title")}</h1>
-		<p class="hero-intro">{t("home.intro")}</p>
-		<div class="hero-actions">
-			<a href={contactHref} class="btn btn-primary">
-				{t("home.ctaPrimary")} →
-			</a>
-			<a href={localizePath("/projects", lang)} class="btn btn-ghost">
-				{t("home.ctaSecondary")}
-			</a>
+		<div class="hero-copy">
+			<p class="eyebrow">{t("home.eyebrow")}</p>
+			<h1 class="hero-title">{t("home.title")}</h1>
+			<p class="hero-intro">{t("home.intro")}</p>
+			<div class="hero-actions">
+				<a href={contactHref} class="btn btn-primary">
+					{t("home.ctaPrimary")} <span aria-hidden="true">→</span>
+				</a>
+				<a href={localizePath("/projects", lang)} class="btn btn-ghost">
+					{t("home.ctaSecondary")}
+				</a>
+			</div>
+		</div>
+
+		<div class="hero-visual" aria-hidden="true">
+			<div class="laptop">
+				<div class="screen">
+					<div class="mock-sidebar">
+						<span class="mock-logo"></span>
+						{[1, 2, 3, 4, 5, 6].map((i) => (
+							<span class:list={["mock-nav", { active: i === 1 }]} />
+						))}
+					</div>
+					<div class="mock-main">
+						<div class="mock-kpis">
+							<div>
+								<small>{t("home.mockRevenue")}</small>
+								<b>128.450.000đ</b>
+								<em>↑ 12%</em>
+							</div>
+							<div>
+								<small>{t("home.mockOrders")}</small>
+								<b>1.204</b>
+								<em>↑ 18%</em>
+							</div>
+							<div>
+								<small>{t("home.mockCustomers")}</small>
+								<b>892</b>
+								<em>↑ 14%</em>
+							</div>
+						</div>
+						<div class="mock-chart">
+							<small>{t("home.mockChart")}</small>
+							<div class="mock-bars">
+								{chartBars.map((h) => (
+									<span style={`height:${h}%`} />
+								))}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="laptop-base"></div>
+			</div>
+			<div class="phone">
+				<div class="phone-screen">
+					<small>{t("home.mockShop")}</small>
+					<div class="phone-grid">
+						{[1, 2, 3, 4].map(() => (
+							<span />
+						))}
+					</div>
+					<div class="phone-tabbar">
+						{[1, 2, 3, 4].map(() => (
+							<i />
+						))}
+					</div>
+				</div>
+			</div>
 		</div>
 	</section>
 
+	<section class="tech container" aria-labelledby="tech-title">
+		<p class="tech-title" id="tech-title">
+			<span>{t("home.techTitle")}</span>
+		</p>
+		<ul class="tech-list">
+			{techStack.map((name) => (
+				<li>
+					<span class="tech-badge" aria-hidden="true">
+						{name.charAt(0)}
+					</span>
+					{name}
+				</li>
+			))}
+		</ul>
+	</section>
+
 	{services.length > 0 && (
-		<section class="block container">
+		<section class="section container">
 			<header class="section-header">
-				<h2 class="section-title">{t("home.servicesTitle")}</h2>
+				<div>
+					<p class="eyebrow">{t("home.servicesEyebrow")}</p>
+					<h2 class="section-title">{t("home.servicesTitle")}</h2>
+				</div>
 				<a href={localizePath("/services", lang)} class="section-link">
 					{t("home.servicesLink")} →
 				</a>
@@ -73,9 +152,12 @@ const contactHref = localizePath("/contact", lang);
 	)}
 
 	{projects.length > 0 && (
-		<section class="block container">
+		<section class="section container">
 			<header class="section-header">
-				<h2 class="section-title">{t("home.projectsTitle")}</h2>
+				<div>
+					<p class="eyebrow">{t("home.projectsEyebrow")}</p>
+					<h2 class="section-title">{t("home.projectsTitle")}</h2>
+				</div>
 				<a href={localizePath("/projects", lang)} class="section-link">
 					{t("home.projectsLink")} →
 				</a>
@@ -83,13 +165,13 @@ const contactHref = localizePath("/contact", lang);
 			<div class="projects-grid">
 				{projects.map((p) => (
 					<ProjectCard
+						size="compact"
 						title={p.data.title}
 						summary={p.data.summary}
 						featuredImage={p.data.featured_image}
 						href={localizePath(`/projects/${p.id}`, lang)}
-						client={p.data.client}
-						year={p.data.year}
 						category={p.data.category}
+						results={p.data.results}
 						edit={p.edit}
 					/>
 				))}
@@ -97,16 +179,21 @@ const contactHref = localizePath("/contact", lang);
 		</section>
 	)}
 
-	<section class="block container">
+	<section class="section container">
 		<header class="section-header">
-			<h2 class="section-title">{t("home.processTitle")}</h2>
+			<div>
+				<p class="eyebrow">{t("home.processEyebrow")}</p>
+				<h2 class="section-title">{t("home.processTitle")}</h2>
+			</div>
 		</header>
 		<ol class="process">
 			{t("home.process").map(([title, text], i) => (
 				<li class="process-step">
 					<span class="process-num">{String(i + 1).padStart(2, "0")}</span>
-					<h3>{title}</h3>
-					<p>{text}</p>
+					<div>
+						<h3>{title}</h3>
+						<p>{text}</p>
+					</div>
 				</li>
 			))}
 		</ol>
@@ -114,110 +201,447 @@ const contactHref = localizePath("/contact", lang);
 </Base>
 
 <style>
+	/* Hero */
 	.hero {
-		padding-top: var(--spacing-4xl);
-		padding-bottom: var(--spacing-4xl);
-		max-width: 880px;
-		margin-inline: auto;
-		text-align: center;
+		display: grid;
+		grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+		align-items: center;
+		gap: var(--spacing-2xl);
+		padding-block: var(--spacing-3xl) var(--spacing-2xl);
 	}
 
 	.hero-title {
-		font-size: var(--font-size-4xl);
-		font-weight: var(--font-weight-display);
-		letter-spacing: var(--tracking-tight);
-		line-height: var(--leading-tight);
 		margin-bottom: var(--spacing-lg);
+		font-size: clamp(2.5rem, 4.2vw, 3.75rem);
+		font-weight: var(--font-weight-display);
+		line-height: var(--leading-tight);
+		letter-spacing: var(--tracking-tight);
 	}
 
 	.hero-intro {
-		font-size: var(--font-size-lg);
+		max-width: 520px;
+		margin-bottom: var(--spacing-xl);
 		color: var(--color-muted);
-		max-width: 640px;
-		margin: 0 auto var(--spacing-xl);
+		font-size: var(--font-size-lg);
+		line-height: 1.55;
 	}
 
 	.hero-actions {
 		display: flex;
-		gap: var(--spacing-md);
-		justify-content: center;
 		flex-wrap: wrap;
+		gap: var(--spacing-md);
 	}
 
-	.hero-actions .btn {
-		padding: var(--spacing-md) var(--spacing-xl);
+	.hero-actions .btn-primary {
+		min-width: 170px;
+	}
+
+	/* Hero illustration */
+	.hero-visual {
+		position: relative;
+		padding: var(--spacing-lg) 56px var(--spacing-lg) 0;
+	}
+
+	.hero-visual::before {
+		content: "";
+		position: absolute;
+		inset: 10% 5% 0 10%;
+		z-index: -1;
+		background: radial-gradient(
+			closest-side,
+			color-mix(in srgb, #3b82f6 35%, transparent),
+			transparent
+		);
+		filter: blur(30px);
+	}
+
+	.laptop .screen {
+		display: grid;
+		grid-template-columns: 22% 1fr;
+		gap: 12px;
+		aspect-ratio: 16 / 10;
+		padding: 12px;
+		border: 8px solid #1c2030;
+		border-radius: 16px 16px 4px 4px;
+		background: #0e1119;
+		box-shadow: 0 30px 80px #0008;
+	}
+
+	.laptop-base {
+		width: 112%;
+		height: 12px;
+		margin-left: -6%;
+		border-radius: 0 0 14px 14px;
+		background: linear-gradient(#2a2f40, #151823);
+	}
+
+	.mock-sidebar {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.mock-logo {
+		width: 60%;
+		height: 10px;
+		margin-bottom: 6px;
+		border-radius: 4px;
+		background: var(--accent-gradient);
+	}
+
+	.mock-nav {
+		height: 14px;
+		border-radius: 4px;
+		background: #1b1f2c;
+	}
+
+	.mock-nav.active {
+		background: #3b82f6;
+	}
+
+	.mock-main {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		padding: 10px;
+		border-radius: 8px;
+		color: #12151c;
+		background: #f4f6fb;
+	}
+
+	.mock-kpis {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 8px;
+	}
+
+	.mock-kpis div {
+		display: flex;
+		flex-direction: column;
+		padding: 8px;
+		border-radius: 6px;
+		background: #fff;
+	}
+
+	.mock-main small {
+		color: #667085;
+		font-size: 9px;
+	}
+
+	.mock-kpis b {
+		font-size: clamp(9px, 0.9vw, 13px);
+	}
+
+	.mock-kpis em {
+		color: #16a34a;
+		font-size: 9px;
+		font-style: normal;
+	}
+
+	.mock-chart {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		padding: 8px;
+		border-radius: 6px;
+		background: #fff;
+	}
+
+	.mock-bars {
+		display: flex;
+		flex: 1;
+		align-items: flex-end;
+		gap: 8%;
+		padding-top: 8px;
+	}
+
+	.mock-bars span {
+		flex: 1;
+		border-radius: 3px 3px 0 0;
+		background: linear-gradient(#8b5cf6, #3b82f6);
+		opacity: 0.85;
+	}
+
+	.phone {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		width: 30%;
+		aspect-ratio: 9 / 19;
+		padding: 6px;
+		border: 2px solid #3b4260;
+		border-radius: 28px;
+		background: #0e1119;
+		box-shadow: 0 20px 60px #000a;
+	}
+
+	.phone-screen {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		height: 100%;
+		padding: 18px 10px 10px;
+		border-radius: 22px;
+		color: #12151c;
+		background: #fff;
+	}
+
+	.phone-screen small {
+		font-size: 11px;
+		font-weight: 600;
+	}
+
+	.phone-grid {
+		display: grid;
+		flex: 1;
+		grid-template-columns: 1fr 1fr;
+		gap: 6px;
+	}
+
+	.phone-grid span {
+		border-radius: 8px;
+		background: linear-gradient(160deg, #eef1f7, #dfe4ee);
+	}
+
+	.phone-tabbar {
+		display: flex;
+		justify-content: space-around;
+	}
+
+	.phone-tabbar i {
+		width: 12px;
+		height: 12px;
+		border-radius: 4px;
+		background: #d0d6e2;
+	}
+
+	.phone-tabbar i:first-child {
+		background: #3b82f6;
+	}
+
+	/* Tech strip */
+	.tech {
+		padding-block: var(--spacing-lg) var(--spacing-2xl);
+	}
+
+	.tech-title {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-lg);
+		margin-bottom: var(--spacing-lg);
+		color: var(--color-muted);
+		font-size: var(--font-size-xs);
+		font-weight: 600;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+	}
+
+	.tech-title::before,
+	.tech-title::after {
+		content: "";
+		flex: 1;
+		height: 1px;
+		background: var(--color-border);
+	}
+
+	.tech-list {
+		display: flex;
+		justify-content: space-between;
+		gap: var(--spacing-lg);
+		list-style: none;
+	}
+
+	.tech-list li {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		color: var(--color-muted);
 		font-size: var(--font-size-base);
 	}
 
-	.block {
-		padding-bottom: var(--spacing-4xl);
+	.tech-badge {
+		display: grid;
+		width: 36px;
+		height: 36px;
+		place-items: center;
+		border: 1.5px solid currentColor;
+		border-radius: 50%;
+		font-size: var(--font-size-sm);
+		font-weight: 700;
 	}
 
+	/* Grids */
 	.services-grid {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: var(--spacing-lg);
+		grid-template-columns: repeat(5, minmax(0, 1fr));
+		gap: var(--spacing-md);
 	}
 
 	.projects-grid {
 		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: var(--spacing-2xl);
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		gap: var(--spacing-md);
 	}
 
+	/* Process */
 	.process {
-		list-style: none;
 		display: grid;
-		grid-template-columns: repeat(4, 1fr);
+		grid-template-columns: repeat(4, minmax(0, 1fr));
 		gap: var(--spacing-lg);
+		list-style: none;
 	}
 
 	.process-step {
-		padding-top: var(--spacing-md);
-		border-top: 2px solid var(--color-border);
+		position: relative;
+		display: flex;
+		align-items: flex-start;
+		gap: var(--spacing-md);
 	}
 
 	.process-num {
-		display: block;
-		font-weight: 700;
+		display: grid;
+		flex-shrink: 0;
+		width: 64px;
+		height: 64px;
+		place-items: center;
+		border: 1px solid var(--color-border);
+		border-radius: 50%;
 		color: var(--color-brand);
-		margin-bottom: var(--spacing-sm);
+		background: var(--color-surface);
+		font-size: var(--font-size-xl);
+		font-weight: var(--font-weight-display);
 	}
 
 	.process-step h3 {
+		margin: 6px 0 var(--spacing-xs);
 		font-size: var(--font-size-base);
-		margin-bottom: var(--spacing-xs);
+		font-weight: 600;
 	}
 
 	.process-step p {
-		font-size: var(--font-size-sm);
+		max-width: 16em;
 		color: var(--color-muted);
+		font-size: var(--font-size-sm);
 	}
 
-	@media (max-width: 960px) {
+	@media (max-width: 1100px) {
 		.services-grid {
-			grid-template-columns: repeat(2, 1fr);
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+
+		.projects-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.tech-list {
+			flex-wrap: wrap;
+			justify-content: center;
+		}
+	}
+
+	@media (max-width: 900px) {
+		.hero {
+			grid-template-columns: 1fr;
 		}
 
 		.process {
-			grid-template-columns: repeat(2, 1fr);
+			grid-template-columns: repeat(2, minmax(0, 1fr));
 		}
 	}
 
 	@media (max-width: 640px) {
 		.hero {
-			padding-top: var(--spacing-3xl);
-			padding-bottom: var(--spacing-3xl);
+			gap: var(--spacing-xl);
+			padding-block: var(--spacing-xl);
 		}
 
 		.hero-title {
-			font-size: var(--font-size-2xl);
+			font-size: 2.5rem;
 		}
 
-		.services-grid,
-		.projects-grid,
-		.process {
+		.hero-intro {
+			font-size: var(--font-size-base);
+		}
+
+		.hero-visual {
+			padding: 0;
+		}
+
+		.phone {
+			display: none;
+		}
+
+		.laptop-base {
+			display: none;
+		}
+
+		.laptop .screen {
+			border-width: 4px;
+			border-radius: var(--radius);
+		}
+
+		.tech {
+			padding-block: 0 var(--spacing-lg);
+		}
+
+		.tech-title {
+			display: none;
+		}
+
+		.tech-list {
+			flex-wrap: nowrap;
+			justify-content: space-between;
+			gap: var(--spacing-sm);
+		}
+
+		.tech-list li {
+			flex-direction: column;
+			gap: 4px;
+			font-size: 10px;
+			text-align: center;
+		}
+
+		.tech-badge {
+			width: 28px;
+			height: 28px;
+			font-size: var(--font-size-xs);
+		}
+
+		.services-grid {
 			grid-template-columns: 1fr;
+			gap: 10px;
+		}
+
+		.projects-grid {
+			gap: 10px;
+		}
+
+		.process {
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+			gap: var(--spacing-sm);
+		}
+
+		.process-step {
+			flex-direction: column;
+			gap: var(--spacing-sm);
+		}
+
+		.process-num {
+			width: 36px;
+			height: 36px;
+			border: 0;
+			color: var(--color-on-brand);
+			background: var(--accent-gradient);
+			font-size: var(--font-size-xs);
+		}
+
+		.process-step h3 {
+			margin: 0;
+			font-size: var(--font-size-xs);
+		}
+
+		.process-step p {
+			font-size: 10px;
 		}
 	}
 </style>

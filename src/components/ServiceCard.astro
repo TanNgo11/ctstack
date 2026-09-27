@@ -14,49 +14,54 @@ interface Props {
 	edit?: EditProxy;
 }
 
-const { title, summary, icon, priceFrom, features, detailed, edit } =
-	Astro.props;
+const { title, summary, icon, priceFrom, features, detailed, edit } = Astro.props;
 const lang = langFromPath(Astro.originPathname ?? Astro.url.pathname);
 const t = useTranslations(lang);
 ---
 
-<article class:list={["service-card", { detailed }]}>
-	<div class="service-icon-wrap"><ServiceIcon name={icon} /></div>
-	<h3 class="service-title" {...edit?.title}>{title}</h3>
-	{
-		summary && (
+<article class:list={["service-card", detailed ? "detailed" : "compact"]}>
+	<div class="service-icon-wrap">
+		<ServiceIcon name={icon} />
+	</div>
+	<div class="service-body">
+		<h3 class="service-title" {...edit?.title}>
+			{title}
+		</h3>
+		{summary && (
 			<p class="service-summary" {...edit?.summary}>
 				{summary}
 			</p>
-		)
-	}
-	{
-		detailed && features && features.length > 0 && (
-			<ul class="service-features" {...edit?.features}>
-				{features.map((f) => (
-					<li>{f.item}</li>
-				))}
-			</ul>
-		)
-	}
+		)}
+	</div>
+	{detailed && features && features.length > 0 && (
+		<ul class="service-features" {...edit?.features}>
+			{features.map((f) => (
+				<li>{f.item}</li>
+			))}
+		</ul>
+	)}
 	<div class="service-footer">
-		{
-			priceFrom && (
-				<p class="service-price" {...edit?.price_from}>
-					<span>{t("services.priceFrom")}</span> <strong>{priceFrom}</strong>
-				</p>
-			)
-		}
-		{
-			detailed && (
-				<a
-					class="btn btn-ghost"
-					href={`${localizePath("/contact", lang)}?service=${encodeURIComponent(title)}`}
-				>
-					{t("services.contact")}
-				</a>
-			)
-		}
+		{priceFrom && (
+			<p class="service-price">
+				<span class="service-price-label">{t("services.priceFrom")}</span>{" "}
+				<strong class="text-gradient" {...edit?.price_from}>
+					{priceFrom}
+				</strong>
+			</p>
+		)}
+		{detailed && (
+			<a
+				class="btn btn-outline"
+				href={`${localizePath("/contact", lang)}?service=${encodeURIComponent(title)}`}
+			>
+				{t("services.contact")} <span aria-hidden="true">→</span>
+			</a>
+		)}
+		{!detailed && (
+			<span class="service-chevron" aria-hidden="true">
+				›
+			</span>
+		)}
 	</div>
 </article>
 
@@ -64,28 +69,43 @@ const t = useTranslations(lang);
 	.service-card {
 		display: flex;
 		flex-direction: column;
-		gap: var(--spacing-sm);
-		padding: var(--spacing-xl);
-		background: var(--color-surface);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius);
+		gap: var(--spacing-md);
 		height: 100%;
+		padding: var(--spacing-lg);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-card);
+		background: var(--color-surface);
+		transition:
+			border-color var(--transition-base),
+			box-shadow var(--transition-base);
+	}
+
+	.service-card:hover {
+		border-color: color-mix(in srgb, var(--color-brand) 55%, var(--color-border));
+		box-shadow: inset 0 0 40px color-mix(in srgb, var(--color-brand) 8%, transparent);
 	}
 
 	.service-icon-wrap {
 		display: inline-flex;
-		width: 44px;
-		height: 44px;
 		align-items: center;
 		justify-content: center;
+		width: 48px;
+		height: 48px;
 		border-radius: var(--radius);
 		color: var(--color-brand);
 		background: var(--color-brand-ring);
-		margin-bottom: var(--spacing-sm);
+	}
+
+	.service-body {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-sm);
 	}
 
 	.service-title {
-		font-size: var(--font-size-lg);
+		font-size: var(--font-size-base);
+		font-weight: 600;
+		line-height: 1.3;
 	}
 
 	.service-summary {
@@ -93,44 +113,148 @@ const t = useTranslations(lang);
 		font-size: var(--font-size-sm);
 	}
 
+	.service-footer {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-md);
+		margin-top: auto;
+	}
+
+	.service-price {
+		color: var(--color-muted);
+		font-size: var(--font-size-sm);
+	}
+
+	.service-price-label {
+		margin-inline-end: 4px;
+	}
+
+	.service-price strong {
+		font-size: 1.375rem;
+		font-weight: var(--font-weight-display);
+	}
+
+	.service-chevron {
+		display: none;
+	}
+
+	/* Services page: big card with checklist and outline button */
+	.detailed {
+		gap: var(--spacing-lg);
+		padding: var(--spacing-xl) 40px;
+	}
+
+	.detailed .service-icon-wrap {
+		width: auto;
+		height: auto;
+		justify-content: flex-start;
+		background: none;
+	}
+
+	.detailed .service-icon-wrap :global(svg) {
+		width: 56px;
+		height: 56px;
+		stroke-width: 1.25;
+	}
+
+	.detailed .service-title {
+		font-size: 1.5rem;
+		font-weight: var(--font-weight-display);
+	}
+
+	.detailed .service-summary {
+		font-size: var(--font-size-base);
+	}
+
 	.service-features {
-		list-style: none;
-		margin: var(--spacing-md) 0;
 		display: grid;
-		gap: var(--spacing-sm);
+		gap: 12px;
+		list-style: none;
 		font-size: var(--font-size-sm);
 	}
 
 	.service-features li {
-		padding-inline-start: 1.5em;
 		position: relative;
+		padding-inline-start: 2em;
 	}
 
 	.service-features li::before {
 		content: "✓";
 		position: absolute;
 		inset-inline-start: 0;
-		color: var(--color-brand);
+		top: 0.05em;
+		display: grid;
+		width: 1.35em;
+		height: 1.35em;
+		place-items: center;
+		border-radius: 50%;
+		color: var(--color-on-brand);
+		background: var(--color-brand);
+		font-size: 0.8em;
 		font-weight: 700;
 	}
 
-	.service-footer {
-		margin-top: auto;
-		padding-top: var(--spacing-md);
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: var(--spacing-md);
-		flex-wrap: wrap;
+	.detailed .service-footer {
+		padding-top: var(--spacing-lg);
+		border-top: 1px solid var(--color-border);
 	}
 
-	.service-price {
-		font-size: var(--font-size-sm);
-		color: var(--color-muted);
+	.detailed .service-price strong {
+		font-size: 2rem;
 	}
 
-	.service-price strong {
-		color: var(--color-text);
-		font-size: var(--font-size-base);
+	.detailed .btn {
+		width: 100%;
+	}
+
+	/* Home on mobile: compact rows */
+	@media (max-width: 640px) {
+		.compact {
+			flex-direction: row;
+			align-items: center;
+			gap: var(--spacing-md);
+			padding: var(--spacing-md);
+		}
+
+		.compact .service-icon-wrap {
+			flex-shrink: 0;
+			width: 40px;
+			height: 40px;
+		}
+
+		.compact .service-body {
+			flex: 1;
+			gap: 2px;
+		}
+
+		.compact .service-summary {
+			font-size: var(--font-size-xs);
+		}
+
+		.compact .service-footer {
+			flex-direction: row;
+			align-items: center;
+			margin-top: 0;
+		}
+
+		.compact .service-price {
+			font-size: var(--font-size-xs);
+			white-space: nowrap;
+		}
+
+		.compact .service-price strong {
+			font-size: var(--font-size-sm);
+		}
+
+		.compact .service-chevron {
+			display: block;
+			color: var(--color-muted);
+			font-size: 1.5rem;
+			line-height: 1;
+		}
+
+		.detailed {
+			padding: var(--spacing-lg);
+		}
 	}
 </style>
