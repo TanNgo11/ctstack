@@ -1,36 +1,88 @@
-# Mockups
+﻿# CTStack mockup set
 
-Design references, one folder per feature. The UI must match these. Each folder has a `BRIEF.md` (what to draw) and the generated images.
+Generated full-page PNG mockups for the CTStack Astro + plain CSS implementation. The primary direction is **dark-first technology studio**; `10-home-desktop-alt-style.png` is an intentionally different editorial variant for visual review.
 
-## How to generate (Codex / image tool)
+## Files
 
-Give the tool the **shared style** below plus the folder's `BRIEF.md`, and save the images into that folder with the exact file names listed in the brief. Generate `00-design-system` first and attach it when generating the other folders so every page shares one design language.
+| File | Viewport / role |
+| --- | --- |
+| `01-home-desktop-dark.png` | 1440px desktop homepage, dark theme |
+| `02-home-mobile-dark.png` | 390px mobile homepage, dark theme |
+| `03-home-desktop-light.png` | 1440px desktop homepage, light variant, same content structure |
+| `04-projects-desktop.png` | 1440px desktop “Dự án” index with filters and project grid |
+| `05-project-detail-desktop.png` | 1440px desktop “Website chuỗi cà phê” case study |
+| `06-services-desktop.png` | 1440px desktop services page, five service cards |
+| `07-contact-desktop.png` | 1440px desktop contact page with split intro + form |
+| `08-contact-mobile.png` | 390px mobile contact page |
+| `09-design-system.png` | 1440px design-system reference sheet |
+| `10-home-desktop-alt-style.png` | 1440px alternate editorial/Swiss homepage direction |
 
-After generating a folder, fill in its `NOTES.md` with the exact values used (hex colors, font sizes, spacing, radii), so a developer or AI can implement it precisely.
+All files are PNGs. Full-page heights are intentionally content-driven: desktop pages are 2,160–2,614px tall, contact/design-system sheets are 960px, and mobile pages are 834–843px.
 
-## Shared style (paste into every prompt)
+## Primary dark direction tokens
 
-> Website UI mockups for "CTStack", a Vietnamese software studio building websites, web apps and mobile apps for SMBs. Goal: look premium and trustworthy, and push visitors to click "Nhận báo giá" (Get a quote). Must be realistic to build in Astro + plain CSS: no 3D renders, no effects that can't be recreated.
->
-> - Dark-first modern tech studio aesthetic (like Linear, Vercel, Raycast): near-black background (~#0A0B0F), subtle grid/noise texture, soft radial glow behind hero.
-> - ONE accent: electric blue → violet gradient (#3B82F6 → #8B5CF6), used sparingly (primary buttons, key numbers, highlights).
-> - Font: "Be Vietnam Pro" with correct Vietnamese diacritics. Bold, tight headlines; 16–18px body.
-> - Cards: 1px subtle borders, 12–16px radius. Generous whitespace, clear hierarchy.
-> - Real Vietnamese copy from the brief, no lorem ipsum, no translation.
-> - No real company logos in project images; use abstract UI screenshots.
-> - Sizes: desktop 1440px wide, mobile 390px wide, full-page tall PNG.
-> - Header on every page: wordmark "CTStack" · Dự án · Dịch vụ · Giới thiệu · EN toggle · primary button "Nhận báo giá". Mobile: logo + hamburger + small CTA.
-> - Footer on every page: logo, tagline "Thiết kế & phát triển website, ứng dụng", links, © 2026 CTStack.
+### Color
 
-## Status
+| Token | Hex | Usage |
+| --- | --- | --- |
+| `--bg` | `#0A0B0F` | page background |
+| `--surface` | `#11131A` | cards, form surfaces |
+| `--border` | `#242938` | 1px borders and dividers |
+| `--text` | `#F4F5F7` | primary text |
+| `--muted` | `#9AA3B2` | secondary text |
+| `--brand-blue` | `#3B82F6` | accent start, focus ring |
+| `--brand-violet` | `#8B5CF6` | accent end |
+| `--accent` | `linear-gradient(90deg, #3B82F6 0%, #8B5CF6 100%)` | primary buttons and key result numbers |
+| `--danger` | `#EF4444` | form error state only |
 
-| Folder | Feature | Images |
-| ------ | ------- | ------ |
-| [`00-design-system/`](00-design-system/BRIEF.md) | Design system | todo |
-| [`01-home/`](01-home/BRIEF.md) | Home | todo |
-| [`02-projects/`](02-projects/BRIEF.md) | Projects list | todo |
-| [`03-project-detail/`](03-project-detail/BRIEF.md) | Project detail (case study) | todo |
-| [`04-services/`](04-services/BRIEF.md) | Services | todo |
-| [`05-contact/`](05-contact/BRIEF.md) | Contact | todo |
-| [`06-about/`](06-about/BRIEF.md) | About | todo |
-| [`07-not-found/`](07-not-found/BRIEF.md) | 404 | todo |
+### Typography
+
+- Font family: **Be Vietnam Pro** (headings and body; Vietnamese diacritics required).
+- Desktop hero: `72px`, `font-weight: 700`, `line-height: 1.05`, `letter-spacing: -0.04em`.
+- Desktop section title: `40px`, `700`, `line-height: 1.15`.
+- Desktop page title: `64px`, `700`, `line-height: 1.05`.
+- Card title: `20px`, `600`, `line-height: 1.25`.
+- Body: `16px`, `400`, `line-height: 1.6`.
+- Lead/body large: `18px`, `400`, `line-height: 1.55`.
+- Eyebrow, tag and metadata: `12–14px`, `600`, uppercase or sentence case as shown.
+- Button text: `16px`, `600`.
+- Mobile hero: `40px`, `700`, `line-height: 1.05`.
+- Mobile section title: `28px`, `700`, `line-height: 1.15`.
+
+### Geometry and spacing
+
+- Content max-width: `1200px`; desktop side gutter: `48px`; mobile gutter: `20px`.
+- Spacing scale: `4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 96 / 120px`.
+- Card radius: `16px`; compact card radius: `12px`.
+- Button radius: `12px`; pill radius: `999px`.
+- Inputs: `12px` radius, `48px` minimum height, `16px` horizontal padding.
+- Grid gap: `16px` for cards; `24px` for major columns; `48–96px` between sections.
+- Borders: `1px solid #242938`; hover adds a subtle blue/violet inner glow only.
+- Icons: simple geometric 24px line icons, `1.5px` stroke.
+
+## Light homepage tokens (`03-home-desktop-light.png`)
+
+- Background `#F7F8FA`
+- Surface `#FFFFFF`
+- Border `#E3E7EF`
+- Text `#12151C`
+- Muted `#667085`
+- Accent remains `#3B82F6 → #8B5CF6`
+- Same typography, radii and spacing as the dark direction.
+
+## Alternate direction tokens (`10-home-desktop-alt-style.png`)
+
+Editorial/Swiss print direction for review only:
+
+- Paper background `#F4F1EA`
+- Ink `#111217`
+- Rule/border `#111217`
+- Muted ink `#66645C`
+- Single accent `#2456FF`
+- No gradient, glow or shadow; use strict grid rules, asymmetric columns and square corners (`0–4px`) while preserving the same content hierarchy.
+
+## Implementation notes
+
+- Keep the copy exactly as rendered in the supplied brief; do not substitute lorem ipsum or invented project names.
+- Project imagery is abstract flat UI, not photography and not real third-party logos.
+- `09-design-system.png` is the visual source of truth for button, card, input, pill, icon and spacing treatment in the primary direction.
