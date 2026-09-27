@@ -44,6 +44,10 @@ if (Astro.cache?.enabled) {
 }
 
 const d = project.data;
+const featuredImageStorageKey =
+	typeof d.featured_image?.meta?.storageKey === "string"
+		? d.featured_image.meta.storageKey
+		: undefined;
 const projectUrl = safeExternalUrl(d.url);
 const stack = splitStack(d.stack);
 const results = d.results ?? [];
@@ -64,7 +68,11 @@ const seo = getSeoMeta(project, {
 	siteUrl: Astro.url.origin,
 	path: localizePath(`/projects/${slug}`, lang),
 	defaultDescription: d.summary,
-	defaultOgImage: d.featured_image?.src,
+	defaultOgImage: d.featured_image?.src
+		? d.featured_image.src
+		: featuredImageStorageKey
+			? `/_emdash/api/media/file/${featuredImageStorageKey}`
+			: undefined,
 });
 ---
 

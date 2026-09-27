@@ -31,7 +31,7 @@ Layout and feature ideas come from [research/tanphatdigital.md](research/tanphat
   - [ ] Contact page: "what happens next" steps, channels, working hours
 - [ ] Replace sample projects/prices/commitments with real content → checklist in [placeholders.md](placeholders.md)
 - [ ] Deploy to Cloudflare (`*.workers.dev`)
-- [ ] Basic SEO check: titles, descriptions, OG images, sitemap
+- [x] Basic SEO check: titles, descriptions, OG images, sitemap
 
 ## Phase 2: Credibility + service landing pages
 

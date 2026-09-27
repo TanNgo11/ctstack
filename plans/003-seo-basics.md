@@ -1,6 +1,6 @@
 # 003: Basic SEO
 
-- **Status:** ready
+- **Status:** done
 - **Wave:** 1 (parallel with 002, 004)
 - **Roadmap:** Phase 1, "Basic SEO check: titles, descriptions, OG images, sitemap"
 - **Mockups:** none (no UI)
@@ -26,13 +26,13 @@ Every public page has a correct title, description, canonical URL, hreflang pair
 
 ## Tasks
 
-- [ ] Audit current `<head>` output for every route (vi + en) and list gaps in this plan
-- [ ] Descriptions for all pages
-- [ ] Default OG image + per-page images
-- [ ] hreflang + canonical correct on every page, `x-default`
-- [ ] Sitemap + robots.txt
-- [ ] JSON-LD: Organization (site-wide), BreadcrumbList (project detail)
-- [ ] Update `docs/architecture.md` (SEO section)
+- [x] Audit current `<head>` output for every route (vi + en) and list gaps in this plan
+- [x] Descriptions for all pages
+- [x] Default OG image + per-page images
+- [x] hreflang + canonical correct on every page, `x-default`
+- [x] Sitemap + robots.txt
+- [x] JSON-LD: Organization (site-wide), BreadcrumbList (project detail)
+- [x] Update `docs/architecture.md` (SEO section)
 
 ## Verification
 
@@ -44,3 +44,4 @@ Every public page has a correct title, description, canonical URL, hreflang pair
 ## Notes / decisions
 
 - Hot files touched: `src/layouts/Base.astro` (head only), `src/i18n/ui.ts` (end of each dictionary), `astro.config.mjs`. No other wave-1 plan edits `Base.astro`.
+- EmDash's built-in sitemap is collection-only, so `src/pages/sitemap.xml.ts` supplies the required static routes and project URLs. The built-in `robots.txt` endpoint remains the source of robots directives and links to this sitemap.

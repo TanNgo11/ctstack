@@ -235,6 +235,18 @@ const vi = {
 	"theme.light": "Sáng",
 	"theme.dark": "Tối",
 	"theme.system": "Hệ thống",
+
+	"seo.homeDescription":
+		"CTStack thiết kế và xây dựng website, web app và ứng dụng di động giúp doanh nghiệp bán hàng và vận hành tốt hơn.",
+	"seo.projectsDescription":
+		"Xem các website, web app và ứng dụng di động CTStack đã thiết kế và phát triển cho doanh nghiệp.",
+	"seo.servicesDescription":
+		"Dịch vụ thiết kế website, phát triển web app và ứng dụng di động phù hợp với quy trình kinh doanh của bạn.",
+	"seo.aboutDescription":
+		"Tìm hiểu CTStack, nhóm phát triển phần mềm xây dựng website, web app và ứng dụng di động cho doanh nghiệp vừa và nhỏ.",
+	"seo.contactDescription":
+		"Trao đổi về website hoặc ứng dụng của bạn với CTStack và nhận đề xuất cụ thể trong vòng 24 giờ.",
+	"seo.notFoundDescription": "Trang bạn tìm không tồn tại hoặc đã được chuyển.",
 };
 
 type Dict = typeof vi;
@@ -427,6 +439,18 @@ const en: Dict = {
 	"theme.light": "Light",
 	"theme.dark": "Dark",
 	"theme.system": "System",
+
+	"seo.homeDescription":
+		"CTStack designs and builds websites, web apps and mobile apps that help businesses sell and operate better.",
+	"seo.projectsDescription":
+		"Explore websites, web apps and mobile apps CTStack has designed and built for businesses.",
+	"seo.servicesDescription":
+		"Website design, web app development and mobile app services shaped around your business workflow.",
+	"seo.aboutDescription":
+		"Meet CTStack, a software team building websites, web apps and mobile apps for small and medium businesses.",
+	"seo.contactDescription":
+		"Tell CTStack about your website or app and receive a specific proposal within 24 hours.",
+	"seo.notFoundDescription": "The page you are looking for does not exist or has moved.",
 };
 
 const dicts: Record<Lang, Dict> = { vi, en };
