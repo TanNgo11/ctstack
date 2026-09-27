@@ -18,48 +18,82 @@ if (result.error) {
 }
 const services = result.entries;
 if (Astro.cache?.enabled) Astro.cache.set(result.cacheHint);
+// Fill the last row of the 3-column grid with a decorative tile.
+const fillerSpan = (3 - (services.length % 3)) % 3;
 ---
 
 <Base title={t("services.title")} description={t("services.intro")}>
 	<div class="container">
-		<header class="page-header">
-			<h1>{t("services.title")}</h1>
+		<header class="page-header centered">
+			<p class="eyebrow eyebrow-lined">{t("services.title")}</p>
+			<h1>{t("services.heading")}</h1>
 			<p class="page-intro">{t("services.intro")}</p>
 		</header>
 
-		{
-			services.length > 0 ? (
-				<section class="services-grid">
-					{services.map((s) => (
-						<ServiceCard
-							title={s.data.title}
-							summary={s.data.summary}
-							icon={s.data.icon}
-							priceFrom={s.data.price_from}
-							features={s.data.features}
-							detailed
-							edit={s.edit}
-						/>
-					))}
-				</section>
-			) : (
-				<p class="empty-state">{t("services.empty")}</p>
-			)
-		}
+		{services.length > 0 ? (
+			<section class="services-grid">
+				{services.map((s) => (
+					<ServiceCard
+						title={s.data.title}
+						summary={s.data.summary}
+						icon={s.data.icon}
+						priceFrom={s.data.price_from}
+						features={s.data.features}
+						detailed
+						edit={s.edit}
+					/>
+				))}
+				{fillerSpan > 0 && (
+					<div class="filler" style={`grid-column: span ${fillerSpan}`} aria-hidden="true">
+						<p>{t("services.filler")}</p>
+					</div>
+				)}
+			</section>
+		) : (
+			<p class="empty-state">{t("services.empty")}</p>
+		)}
 	</div>
 </Base>
 
 <style>
 	.services-grid {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: var(--spacing-lg);
-		padding-bottom: var(--spacing-4xl);
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: var(--spacing-md);
+		padding-bottom: var(--spacing-xl);
 	}
 
-	@media (max-width: 960px) {
+	.filler {
+		display: grid;
+		place-items: center;
+	}
+
+	.filler p {
+		max-width: 12em;
+		color: var(--color-brand);
+		font-size: var(--font-size-sm);
+		font-weight: 500;
+		letter-spacing: 0.3em;
+		line-height: 2;
+		text-transform: uppercase;
+	}
+
+	.filler p::after {
+		content: "";
+		display: block;
+		width: 40px;
+		height: 2px;
+		margin-top: var(--spacing-lg);
+		background: var(--color-brand);
+	}
+
+	@media (max-width: 1000px) {
 		.services-grid {
-			grid-template-columns: repeat(2, 1fr);
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.filler {
+			display: none;
 		}
 	}
 

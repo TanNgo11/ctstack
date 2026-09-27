@@ -132,10 +132,12 @@ const vi = {
 	"category.landing_page": "Landing page",
 
 	"services.title": "Dịch vụ",
-	"services.intro": "Chọn đúng thứ bạn cần. Chưa chắc? Liên hệ để được tư vấn miễn phí.",
+	"services.heading": "Giải pháp phần mềm vừa vặn với doanh nghiệp",
+	"services.intro": "Chọn đúng điểm bắt đầu, mở rộng khi bạn sẵn sàng.",
 	"services.priceFrom": "Từ",
 	"services.contact": "Tư vấn gói này",
 	"services.empty": "Chưa có dịch vụ nào.",
+	"services.filler": "Công nghệ kiến tạo giá trị thật",
 
 	"contact.eyebrow": "Liên hệ",
 	"contact.title": "Kể cho chúng tôi về dự án của bạn",
@@ -237,10 +239,12 @@ const en: Dict = {
 	"category.landing_page": "Landing page",
 
 	"services.title": "Services",
-	"services.intro": "Pick what you need. Not sure? Get in touch for a free consultation.",
+	"services.heading": "Software that fits your business",
+	"services.intro": "Start at the right point, scale when you are ready.",
 	"services.priceFrom": "From",
 	"services.contact": "Ask about this",
 	"services.empty": "No services yet.",
+	"services.filler": "Technology that creates real value",
 
 	"contact.eyebrow": "Contact",
 	"contact.title": "Tell us about your project",
