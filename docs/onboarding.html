@@ -126,7 +126,7 @@ pnpm dev            <span class="c"># chạy dev server → http://localhost:432
 		<li>Mở link đăng nhập nhanh (chỉ có ở môi trường dev), link này cũng nạp luôn content mẫu:<br>
 			<code>http://localhost:4321/_emdash/api/setup/dev-bypass?redirect=/_emdash/admin</code></li>
 		<li>Vào admin, xem các mục <b>Projects</b>, <b>Services</b>, <b>Pages</b>, <b>Forms</b>.</li>
-		<li>Form liên hệ trên DB mới cần tạo lại: Admin → Forms, tạo form slug <code>lien-he</code> (vi) và <code>contact</code> (en).</li>
+		<li>Form liên hệ trên DB mới cần tạo lại: chạy <code>node scripts/create-contact-forms.mjs</code> (khi <code>pnpm dev</code> đang chạy). Script tạo form <code>lien-he</code> (vi) và <code>contact</code> (en), form nào có rồi thì bỏ qua. Cũng có thể tạo tay trong Admin → Forms.</li>
 	</ol>
 	<div class="callout">Ở local, Cloudflare được giả lập bằng <b>Miniflare</b>: D1 và R2 nằm trong thư mục <code>.wrangler/state</code>. Muốn reset dữ liệu thì tắt server rồi xóa thư mục đó.</div>
 	<h3>Lệnh hằng ngày</h3>

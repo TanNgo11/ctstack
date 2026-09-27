@@ -12,21 +12,57 @@ const t = useTranslations(lang);
 <Base title={t("contact.title")} description={t("contact.intro")}>
 	<div class="contact container">
 		<header class="contact-header">
-			<p class="eyebrow">{t("contact.eyebrow")}</p>
-			<h1>{t("contact.title")}</h1>
-			<p class="page-intro">{t("contact.intro")}</p>
-			{
-				contactEmail && (
-					<p class="contact-email">
-						{t("contact.emailLabel")}:{" "}
-						<a href={`mailto:${contactEmail}`}>{contactEmail}</a>
-					</p>
-				)
-			}
+			<p class="eyebrow eyebrow-trail">{t("contact.eyebrow")}</p>
+			<h1>
+				{t("contact.titleA")} <span class="text-gradient">{t("contact.titleB")}</span>
+			</h1>
+			<p class="contact-intro">{t("contact.intro")}</p>
+
+			<ul class="channels">
+				{contactEmail && (
+					<li>
+						<span class="channel-icon" aria-hidden="true">
+							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+								<rect x="3" y="5" width="18" height="14" rx="2" />
+								<path d="m3 7 9 6 9-6" />
+							</svg>
+						</span>
+						<span>
+							<small>{t("contact.emailShort")}</small>
+							<a href={`mailto:${contactEmail}`}>{contactEmail}</a>
+						</span>
+					</li>
+				)}
+				<li>
+					<span class="channel-icon" aria-hidden="true">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+							<path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z" />
+							<circle cx="12" cy="9.5" r="2.5" />
+						</svg>
+					</span>
+					<span>
+						<small>{t("contact.locationLabel")}</small>
+						{t("contact.location")}
+					</span>
+				</li>
+			</ul>
+
+			<p class="contact-tagline" aria-hidden="true">
+				<span>{t("contact.taglineA")}</span>
+				<span>{t("contact.taglineB")}</span>
+			</p>
 		</header>
 
-		<section class="contact-form">
+		<section class="contact-form" aria-labelledby="form-title">
+			<h2 id="form-title">{t("contact.formTitle")}</h2>
+			<p class="form-subtitle">{t("contact.formSubtitle")}</p>
 			<Form id={contactFormId[lang]} />
+			<p class="privacy">
+				<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+					<path d="M7 10V7a5 5 0 0 1 10 0v3h1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1h1Zm2 0h6V7a3 3 0 0 0-6 0v3Z"></path>
+				</svg>
+				{t("contact.privacy")}
+			</p>
 		</section>
 	</div>
 </Base>
@@ -34,68 +70,242 @@ const t = useTranslations(lang);
 <style>
 	.contact {
 		display: grid;
-		grid-template-columns: 1fr 1.2fr;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
+		align-items: start;
 		gap: var(--spacing-3xl);
+		padding-block: var(--spacing-2xl) var(--spacing-xl);
+	}
+
+	.contact-header {
+		display: flex;
+		flex-direction: column;
+		min-height: 100%;
 		padding-top: var(--spacing-3xl);
-		padding-bottom: var(--spacing-4xl);
+	}
+
+	.eyebrow-trail {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--spacing-md);
+	}
+
+	.eyebrow-trail::after {
+		content: "";
+		width: 28px;
+		height: 1px;
+		background: currentColor;
 	}
 
 	.contact-header h1 {
-		font-size: var(--font-size-3xl);
-		line-height: var(--leading-tight);
-		margin-bottom: var(--spacing-md);
+		margin-bottom: var(--spacing-lg);
+		font-size: clamp(2.5rem, 4.4vw, 4rem);
+		font-weight: var(--font-weight-display);
+		line-height: 1.12;
+		letter-spacing: var(--tracking-tight);
 	}
 
-	.contact-email {
-		margin-top: var(--spacing-xl);
+	.contact-header h1 span {
+		display: block;
+	}
+
+	.contact-intro {
+		max-width: 34em;
 		color: var(--color-muted);
+		font-size: var(--font-size-lg);
+		line-height: 1.6;
 	}
 
-	.contact-email a {
+	.channels {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--spacing-xl);
+		margin-top: var(--spacing-xl);
+		list-style: none;
+	}
+
+	.channels li {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+	}
+
+	.channels li + li {
+		padding-inline-start: var(--spacing-xl);
+		border-inline-start: 1px solid var(--color-border);
+	}
+
+	.channels small {
+		display: block;
+		color: var(--color-muted);
+		font-size: var(--font-size-xs);
+	}
+
+	.channels a {
+		color: var(--color-text);
+		text-decoration: none;
+	}
+
+	.channel-icon {
 		color: var(--color-brand);
 	}
 
+	.channel-icon svg {
+		width: 26px;
+		height: 26px;
+	}
+
+	.contact-tagline {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+		margin-top: auto;
+		padding-top: var(--spacing-3xl);
+		color: var(--color-muted);
+		font-size: var(--font-size-xs);
+		letter-spacing: 0.3em;
+		text-transform: uppercase;
+	}
+
+	.contact-tagline::after {
+		content: "";
+		width: 28px;
+		height: 2px;
+		margin-top: var(--spacing-md);
+		background: var(--color-brand);
+	}
+
 	.contact-form {
-		padding: var(--spacing-2xl);
-		background: var(--color-surface);
+		padding: var(--spacing-xl);
 		border: 1px solid var(--color-border);
-		border-radius: var(--radius);
+		border-radius: var(--radius-card);
+		background: var(--color-surface);
+	}
+
+	.contact-form h2 {
+		font-size: var(--font-size-xl);
+		font-weight: 600;
+	}
+
+	.form-subtitle {
+		margin: 4px 0 var(--spacing-lg);
+		color: var(--color-muted);
+		font-size: var(--font-size-sm);
+	}
+
+	.privacy {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: var(--spacing-sm);
+		margin-top: var(--spacing-md);
+		color: var(--color-muted);
+		font-size: var(--font-size-xs);
+	}
+
+	.privacy svg {
+		width: 14px;
+		height: 14px;
 	}
 
 	/* Forms plugin theme (see @emdash-cms/plugin-forms/styles) */
 	.contact-form :global(.ec-form) {
-		--ec-form-gap: var(--spacing-lg);
+		--ec-form-gap: var(--spacing-md);
 		--ec-form-field-border: 1px solid var(--color-border);
 		--ec-form-field-radius: var(--radius);
 		--ec-form-field-bg: var(--color-bg);
 		--ec-form-help-color: var(--color-muted);
 		--ec-form-error-color: var(--color-danger);
 		--ec-form-required-color: var(--color-danger);
-		--ec-form-submit-bg: var(--color-brand);
+		--ec-form-submit-bg: var(--accent-gradient);
 		--ec-form-submit-color: var(--color-on-brand);
 		--ec-form-submit-radius: var(--radius);
-		--ec-form-submit-padding: var(--spacing-md) var(--spacing-xl);
+		--ec-form-submit-padding: 14px var(--spacing-xl);
+	}
+
+	.contact-form :global(.ec-form-label) {
+		font-size: var(--font-size-sm);
+		font-weight: 500;
 	}
 
 	.contact-form :global(:is(input, textarea, select)) {
-		font: inherit;
 		color: var(--color-text);
+		font: inherit;
+	}
+
+	.contact-form :global(textarea) {
+		min-height: 96px;
+	}
+
+	.contact-form :global(.ec-form-nav) {
+		margin-top: var(--spacing-sm);
 	}
 
 	.contact-form :global(.ec-form-submit) {
+		width: 100%;
+		min-height: 48px;
+		border: 0;
+		background: var(--accent-gradient);
 		font: inherit;
 		font-weight: 600;
 		cursor: pointer;
+		box-shadow: 0 8px 24px color-mix(in srgb, #3b82f6 22%, transparent);
 	}
 
-	@media (max-width: 860px) {
+	.contact-form :global(.ec-form-submit)::after {
+		content: " →";
+	}
+
+	@media (max-width: 900px) {
 		.contact {
 			grid-template-columns: 1fr;
-			gap: var(--spacing-2xl);
+			gap: var(--spacing-xl);
 		}
 
+		.contact-header {
+			padding-top: 0;
+		}
+
+		.contact-tagline {
+			display: none;
+		}
+	}
+
+	@media (max-width: 640px) {
 		.contact-header h1 {
-			font-size: var(--font-size-2xl);
+			font-size: 2.25rem;
+		}
+
+		.contact-header h1 span {
+			display: inline;
+			background: none;
+			color: inherit;
+		}
+
+		.contact-intro {
+			font-size: var(--font-size-base);
+		}
+
+		.contact-form {
+			padding: var(--spacing-lg) var(--spacing-md);
+		}
+
+		.channels {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: var(--spacing-sm);
+			order: 3;
+		}
+
+		.channels li {
+			padding: var(--spacing-md);
+			border: 1px solid var(--color-border);
+			border-radius: var(--radius);
+			background: var(--color-surface);
+		}
+
+		.channels li + li {
+			padding-inline-start: var(--spacing-md);
+			border-inline-start: 1px solid var(--color-border);
 		}
 	}
 </style>

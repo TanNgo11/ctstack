@@ -141,9 +141,19 @@ const vi = {
 
 	"contact.eyebrow": "Liên hệ",
 	"contact.title": "Kể cho chúng tôi về dự án của bạn",
+	"contact.titleA": "Kể cho chúng tôi",
+	"contact.titleB": "về dự án của bạn",
 	"contact.intro":
-		"Mô tả ngắn bạn cần làm gì, thời gian và ngân sách dự kiến. Chúng tôi sẽ phản hồi qua email hoặc điện thoại trong 24 giờ.",
+		"Bạn đang có một ý tưởng mới, cần nâng cấp sản phẩm hiện tại hay muốn tìm người đồng hành lâu dài? Hãy để lại vài thông tin, chúng tôi sẽ phản hồi trong vòng 24 giờ.",
 	"contact.emailLabel": "Hoặc email trực tiếp",
+	"contact.formTitle": "Gửi thông tin dự án",
+	"contact.formSubtitle": "Chúng tôi sẽ liên hệ lại trong vòng 24 giờ.",
+	"contact.privacy": "Thông tin của bạn chỉ được dùng để trao đổi về dự án.",
+	"contact.emailShort": "Email",
+	"contact.locationLabel": "Khu vực",
+	"contact.location": "Việt Nam",
+	"contact.taglineA": "Ý tưởng hôm nay",
+	"contact.taglineB": "Những sản phẩm tốt hơn ngày mai",
 
 	"notFound.title": "Không tìm thấy trang",
 	"notFound.text": "Trang bạn tìm không tồn tại hoặc đã được chuyển.",
@@ -248,9 +258,19 @@ const en: Dict = {
 
 	"contact.eyebrow": "Contact",
 	"contact.title": "Tell us about your project",
+	"contact.titleA": "Tell us",
+	"contact.titleB": "about your project",
 	"contact.intro":
-		"Briefly describe what you need, your timeline and budget. We reply by email or phone within 24 hours.",
+		"Starting something new, improving an existing product or looking for a long-term partner? Leave a few details and we will reply within 24 hours.",
 	"contact.emailLabel": "Or email us directly",
+	"contact.formTitle": "Send us your project",
+	"contact.formSubtitle": "We will get back to you within 24 hours.",
+	"contact.privacy": "Your details are only used to discuss your project.",
+	"contact.emailShort": "Email",
+	"contact.locationLabel": "Location",
+	"contact.location": "Vietnam",
+	"contact.taglineA": "Ideas today",
+	"contact.taglineB": "Better products tomorrow",
 
 	"notFound.title": "Page not found",
 	"notFound.text": "The page you're looking for doesn't exist or has moved.",

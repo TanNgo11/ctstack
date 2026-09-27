@@ -35,7 +35,7 @@ UI strings (nav, headings, buttons, process steps) are in `src/i18n/ui.ts`. `con
 
 ## Contact form
 
-Uses `@emdash-cms/plugin-forms`. The pages embed forms with slugs `lien-he` (vi) and `contact` (en) — create them in **Admin → Forms** on a fresh database. Submissions appear in **Admin → Forms → Submissions**. Email notifications need an email provider plugin (e.g. `emdash-plugin-resend`) and a domain.
+Uses `@emdash-cms/plugin-forms`. The pages embed forms with slugs `lien-he` (vi) and `contact` (en) — create them on a fresh local database with `node scripts/create-contact-forms.mjs` (dev server running), or in **Admin → Forms**. Submissions appear in **Admin → Forms → Submissions**. Email notifications need an email provider plugin (e.g. `emdash-plugin-resend`) and a domain.
 
 ## Development
 

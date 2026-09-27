@@ -27,6 +27,7 @@ Package manager is **pnpm** only (`pnpm add`, `pnpm exec`). Don't use npm/yarn o
 
 Dev login + sample content: `http://localhost:4321/_emdash/api/setup/dev-bypass?redirect=/_emdash/admin`.
 Reset local data: stop the server, delete `.wrangler/state`.
+Contact forms on a fresh local DB: `node scripts/create-contact-forms.mjs` (dev server running).
 
 ## Project layout
 
