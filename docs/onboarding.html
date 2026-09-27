@@ -136,6 +136,7 @@ pnpm dev            <span class="c"># chạy dev server → http://localhost:432
 		<tr><td><code>pnpm typecheck</code></td><td>Kiểm tra lỗi TypeScript/Astro, phải ra 0 errors</td></tr>
 		<tr><td><code>pnpm build</code></td><td>Build bản production</td></tr>
 		<tr><td><code>pnpm run deploy</code></td><td>Build + đẩy lên Cloudflare. <b>Không gõ</b> <code>pnpm deploy</code> (đó là lệnh khác của pnpm)</td></tr>
+		<tr><td><code>pnpm format</code></td><td>Format code bằng Prettier (<code>pnpm format:check</code> chỉ kiểm tra). Bình thường chỉ format file mình sửa</td></tr>
 		<tr><td><code>pnpm add &lt;pkg&gt;</code></td><td>Thêm thư viện</td></tr>
 	</table></div>
 </section>
@@ -399,6 +400,16 @@ pnpm exec wrangler secret put EMDASH_ENCRYPTION_KEY   <span class="c"># dán gi�
 		<span>typecheck + build + xem vi/en</span><b>→</b>
 		<span>commit</span>
 	</div>
+	<h3>Branch và chạy nhiều session song song</h3>
+	<ul>
+		<li>Mỗi session (người hoặc AI) làm trên 1 branch, trong worktree riêng. Không cho 2 session chung 1 worktree.</li>
+		<li>Chia việc thành bước nhỏ (design system → header/footer → từng trang), mỗi bước 1 commit.</li>
+		<li>Trước khi merge vào <code>main</code>: <code>pnpm typecheck</code> 0 lỗi và <code>pnpm build</code> chạy qua.</li>
+		<li>Merge vào <code>main</code> sau mỗi bước, rồi kéo <code>main</code> về các branch khác sớm để không lệch nhau.</li>
+		<li>File dùng chung (<code>theme.css</code>, <code>Base.astro</code>, <code>ui.ts</code>, <code>seed.json</code>): mỗi lúc chỉ 1 branch được sửa.</li>
+		<li>UI: chụp màn hình 390px và 1440px, đặt cạnh mockup, khớp rồi mới tick trong plan.</li>
+		<li>Secret (API key…): local để trong <code>.env</code>/<code>.dev.vars</code>, production dùng <code>wrangler secret put</code>. Không bao giờ ghi vào <code>wrangler.jsonc</code> hay commit.</li>
+	</ul>
 	<div class="callout ok">Prompt mẫu: <i>"Đọc AGENTS.md và plans/001-ui-redesign.md, làm task Header + footer theo mockup/00-design-system và mockup/01-home. Xong thì chạy typecheck, build và kiểm tra /, /en."</i></div>
 </section>
 

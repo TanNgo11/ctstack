@@ -20,6 +20,7 @@ pnpm dev          # http://localhost:4321 (admin: /_emdash/admin)
 pnpm typecheck    # astro check, must be 0 errors
 pnpm build        # production build (Cloudflare)
 pnpm run deploy   # build + wrangler deploy (not `pnpm deploy`: that is a pnpm builtin)
+pnpm format       # prettier --write . (format:check to only check)
 ```
 
 Package manager is **pnpm** only (`pnpm add`, `pnpm exec`). Don't use npm/yarn or create `package-lock.json`. `pnpm-workspace.yaml` holds the build-script allowlist and a 24h release-age cooldown (EmDash packages exempt); keep it. `@cloudflare/kumo` is pinned to the exact version the EmDash packages expect as a peer.
@@ -80,6 +81,14 @@ Reset local data: stop the server, delete `.wrangler/state`.
 - UI must match the mockups in `mockup/<feature>/`. If none exist, write the brief first.
 - Mobile first. Check 390px and 1440px widths.
 
+### Formatting
+- Prettier (`.prettierrc.json`: tabs, width 100, Astro plugin). Run `pnpm exec prettier --write <files you touched>` before committing.
+- Don't reformat files outside your task: a repo-wide `pnpm format` belongs in its own commit, done when no other branch is mid-change.
+
+### Secrets
+- Local: `.env` / `.dev.vars` (both gitignored). Production: `pnpm exec wrangler secret put <NAME>`.
+- Never put secrets in `wrangler.jsonc` `vars`, `seed/seed.json`, source code or docs. Only non-secret config goes in `vars`.
+
 ### Content
 - Follow `docs/content-guide.md`. Never invent client names, metrics or testimonials as if real; mark samples clearly.
 
@@ -89,4 +98,13 @@ Reset local data: stop the server, delete `.wrangler/state`.
 2. UI feature: make sure `mockup/<feature>/` has a brief and images.
 3. Implement, keeping both languages working.
 4. Verify: `pnpm typecheck`, `pnpm build`, and hit the affected vi + en routes on the dev server (expect 200; bad slugs 404).
-5. Update the plan status, `docs/roadmap.md` checkboxes, and docs affected by the change.
+5. UI work: screenshot each changed page at 390px and 1440px and compare side by side with the mockup before ticking it in the plan.
+6. Update the plan status, `docs/roadmap.md` checkboxes, and docs affected by the change.
+
+### Branches and parallel sessions
+
+- One session (human or AI) = one branch in its own worktree. Never run two sessions in the same worktree.
+- Work in small steps (e.g. design system → global components → one page at a time) and commit each step.
+- Before merging a step into `main`: `pnpm typecheck` (0 errors) and `pnpm build` pass.
+- Merge into `main` after every step, and rebase/merge `main` back into other active branches early, so parallel sessions don't drift.
+- Shared hot files (`src/styles/theme.css`, `src/layouts/Base.astro`, `src/i18n/ui.ts`, `seed/seed.json`): only one branch changes them at a time.

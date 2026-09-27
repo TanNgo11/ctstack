@@ -29,7 +29,7 @@ Pages/components touched, data needed (collections, fields), UI strings to add (
 - [ ] `pnpm typecheck`: 0 errors
 - [ ] `pnpm build` succeeds
 - [ ] vi and en routes return 200; bad slugs return 404
-- [ ] Matches mockups at 390px and 1440px
+- [ ] Screenshots at 390px and 1440px compared side by side with the mockup (UI plans)
 
 ## Notes / decisions
 
