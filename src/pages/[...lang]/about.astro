@@ -2,14 +2,19 @@
 import { getEmDashEntry, getSeoMeta } from "emdash";
 import { PortableText } from "emdash/ui";
 import Base from "../../layouts/Base.astro";
-import { langFromParam, localizePath } from "../../i18n/ui";
-import { contentAlternates, isNotFoundError } from "../../lib/content";
+import { langFromParam, localizePath, techStack, useTranslations } from "../../i18n/ui";
+import { contentAlternates, isNotFoundError, splitByHeading } from "../../lib/content";
 
 const slug = "about";
 const lang = langFromParam(Astro.params.lang);
 if (!lang) return Astro.rewrite("/404");
+const t = useTranslations(lang);
 
-const { entry: page, error, cacheHint } = await getEmDashEntry("pages", slug, {
+const {
+	entry: page,
+	error,
+	cacheHint,
+} = await getEmDashEntry("pages", slug, {
 	locale: lang,
 });
 if (!page || isNotFoundError(error)) return Astro.rewrite("/404");
@@ -21,6 +26,10 @@ const seo = getSeoMeta(page, {
 	siteUrl: Astro.url.origin,
 	path: localizePath(`/${slug}`, lang),
 });
+
+// Text before the first h2 is the lead; each h2 section becomes a card.
+const sections = splitByHeading(page.data.content as { style?: string }[] | undefined);
+const lead = sections[0]?.[0]?.style === "h2" ? [] : (sections.shift() ?? []);
 ---
 
 <Base
@@ -33,23 +42,174 @@ const seo = getSeoMeta(page, {
 	content={{ collection: "pages", id: page.data.id, slug }}
 	alternates={alternates}
 >
-	<article class="page container">
-		<header class="page-header">
+	<div class="container" {...page.edit.content}>
+		<header class="page-header about-header">
+			<p class="eyebrow">{t("nav.about")}</p>
 			<h1 {...page.edit.title}>{page.data.title}</h1>
+			{lead.length > 0 && (
+				<div class="about-lead">
+					<PortableText value={lead} />
+				</div>
+			)}
 		</header>
-		<div class="prose" {...page.edit.content}>
-			<PortableText value={page.data.content} />
-		</div>
-	</article>
+
+		{sections.length > 0 && (
+			<div class="about-sections">
+				{sections.map((section) => (
+					<section class="card about-card prose">
+						<PortableText value={section} />
+					</section>
+				))}
+			</div>
+		)}
+	</div>
+
+	<section class="section container">
+		<header class="section-header">
+			<div>
+				<p class="eyebrow">{t("home.processEyebrow")}</p>
+				<h2 class="section-title">{t("home.processTitle")}</h2>
+			</div>
+		</header>
+		<ol class="steps">
+			{t("home.process").map(([title, text], i) => (
+				<li class="card step">
+					<span class="step-num text-gradient">{String(i + 1).padStart(2, "0")}</span>
+					<h3>{title}</h3>
+					<p>{text}</p>
+				</li>
+			))}
+		</ol>
+	</section>
+
+	<section class="section container">
+		<header class="section-header">
+			<div>
+				<p class="eyebrow">{t("home.techTitle")}</p>
+			</div>
+		</header>
+		<ul class="tech-grid">
+			{techStack.map((name) => (
+				<li class="card">
+					<span class="tech-badge" aria-hidden="true">
+						{name.charAt(0)}
+					</span>
+					{name}
+				</li>
+			))}
+		</ul>
+	</section>
 </Base>
 
 <style>
-	.page {
-		max-width: calc(var(--max-width) + 2 * var(--spacing-lg));
-		padding-bottom: var(--spacing-4xl);
+	.about-header {
+		max-width: 900px;
 	}
 
-	.prose {
-		font-size: var(--font-size-lg);
+	.about-lead {
+		max-width: 46em;
+		color: var(--color-muted);
+		font-size: clamp(1.125rem, 1.6vw, 1.375rem);
+		line-height: 1.6;
+	}
+
+	.about-sections {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: var(--spacing-md);
+		padding-bottom: var(--spacing-xl);
+	}
+
+	.about-card {
+		padding: var(--spacing-xl);
+	}
+
+	.about-card :global(h2) {
+		margin-top: 0;
+		font-size: 1.5rem;
+		font-weight: var(--font-weight-display);
+	}
+
+	.about-card :global(p) {
+		margin-bottom: 0;
+		color: var(--color-muted);
+	}
+
+	.steps {
+		display: grid;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		gap: var(--spacing-md);
+		list-style: none;
+	}
+
+	.step {
+		padding: var(--spacing-lg);
+	}
+
+	.step-num {
+		display: inline-block;
+		margin-bottom: var(--spacing-md);
+		font-size: 2rem;
+		font-weight: var(--font-weight-display);
+	}
+
+	.step h3 {
+		margin-bottom: var(--spacing-xs);
+		font-size: var(--font-size-base);
+		font-weight: 600;
+	}
+
+	.step p {
+		color: var(--color-muted);
+		font-size: var(--font-size-sm);
+	}
+
+	.tech-grid {
+		display: grid;
+		grid-template-columns: repeat(6, minmax(0, 1fr));
+		gap: var(--spacing-md);
+		list-style: none;
+	}
+
+	.tech-grid li {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: var(--spacing-sm);
+		padding: var(--spacing-lg) var(--spacing-sm);
+		color: var(--color-muted);
+		font-size: var(--font-size-sm);
+		text-align: center;
+	}
+
+	.tech-badge {
+		display: grid;
+		width: 44px;
+		height: 44px;
+		place-items: center;
+		border: 1.5px solid var(--color-brand);
+		border-radius: 50%;
+		color: var(--color-brand);
+		font-weight: 700;
+	}
+
+	@media (max-width: 900px) {
+		.steps {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.tech-grid {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+	}
+
+	@media (max-width: 640px) {
+		.about-card {
+			padding: var(--spacing-lg);
+		}
+
+		.steps {
+			grid-template-columns: 1fr;
+		}
 	}
 </style>

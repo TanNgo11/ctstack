@@ -1,6 +1,6 @@
 # 001: UI redesign from mockups
 
-- **Status:** in progress
+- **Status:** done
 - **Roadmap:** Phase 1, "UI redesign from mockups"
 - **Mockups:** `mockup/00-design-system/` … `mockup/07-not-found/`
 - **Owner:** AI (implementation), human (mockup approval)
@@ -24,22 +24,32 @@ Replace the current generic look with a distinctive, trustworthy studio design t
 ## Tasks
 
 - [x] Mockups generated and approved (all folders)
-- [ ] Design system: tokens, buttons, cards, inputs, pills (`theme.css`): implemented, pending screenshot check vs `09-design-system.png`
-- [ ] Header (with mobile menu) + footer (`Base.astro`): interim; missing sticky blur header, full-screen mobile menu, footer per brief
-- [ ] Home
-- [ ] Projects list
-- [ ] Project detail
-- [ ] Services
-- [ ] Contact (form plugin styling)
-- [ ] About
-- [ ] 404
-- [ ] Light/dark check on every page
+- [x] Design system: tokens, buttons, cards, inputs, pills, grid + glow background (`theme.css`)
+- [x] Header: sticky, blurred, centered nav, gradient CTA; mobile shows a scrollable link row (as in `02-home-mobile-dark.png`)
+- [x] Footer: brand + 3 link columns + bottom row (copyright, theme, language)
+- [x] Global CTA band on every page
+- [x] Home (`01`, `02`, `03` light)
+- [x] Projects list (`04`)
+- [x] Project detail (`05`)
+- [x] Services (`06`)
+- [x] Contact, incl. form plugin styling (`07`, `08`)
+- [x] About (brief only, no image): lead, CMS sections as cards, process, tech grid
+- [x] 404 (brief only, no image)
+- [x] Light/dark check (home light vs `03-home-desktop-light.png`)
+
+Follow-ups (not in this plan):
+
+- [ ] Floating contact buttons: built but hidden until phone/Zalo/Messenger are set in `src/i18n/ui.ts`
+- [ ] Footer per `mockup/11-global-components/BRIEF.md`: FAQ/policy links and social icons need those pages/accounts first
+- [ ] Full-screen mobile menu from the brief (current link row matches the approved mobile image)
+- [ ] About: stats row, team, company profile PDF (need real data; no placeholders per content guide)
+- [ ] Decide default theme when no cookie: dark-first vs follow OS (currently follows OS)
 
 ## Verification
 
-- [ ] `pnpm typecheck`: 0 errors
-- [ ] `pnpm build` succeeds
-- [ ] vi + en routes 200, bad slugs 404
-- [ ] Side-by-side with mockups at 390px and 1440px
+- [x] `pnpm typecheck`: 0 errors
+- [x] `pnpm build` succeeds
+- [x] vi + en routes 200, bad slugs 404
+- [x] Side-by-side with mockups at 390px and 1440px (headless Chrome screenshots)
 
 ## Notes / decisions

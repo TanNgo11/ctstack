@@ -20,10 +20,10 @@ Layout and feature ideas come from [research/tanphatdigital.md](research/tanphat
 - [x] Pages: home, projects (filter), project detail, services, about, contact, 404
 - [x] Contact form (forms plugin) + admin inbox
 - [x] Agent docs, architecture, roadmap, plans, mockup briefs
-- [~] UI redesign from mockups (dark-first direction approved) → [plans/001-ui-redesign.md](../plans/001-ui-redesign.md), including:
+- [x] UI redesign from mockups (dark-first direction approved) → [plans/001-ui-redesign.md](../plans/001-ui-redesign.md), including:
   - [~] Floating contact buttons (Zalo, phone, Messenger): built, hidden until real channels are set in `src/i18n/ui.ts`
   - [x] CTA band before the footer on every page ("phản hồi trong 24h")
-  - [~] 4-column footer (services, quick links, social, contact): interim version, not yet per `mockup/11-global-components/BRIEF.md`
+  - [~] 4-column footer (services, quick links, social, contact): done except FAQ/policy links and social icons (pages/accounts not there yet)
   - [ ] Pricing tiers (3–4 packages, "Phổ biến" badge) on home + services
   - [ ] Trust stats row (real numbers only)
   - [ ] Contact page: "what happens next" steps, channels, working hours
