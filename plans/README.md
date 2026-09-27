@@ -30,6 +30,11 @@ Shared hot files and who touches them:
 
 `ui.ts` is shared in wave 1, so each plan adds its keys next to its own prefix (`contact.*`, `seo.*` at the end, `industry.*` after `category.*`). Merge wave-1 branches one at a time and re-run `pnpm typecheck` after each merge.
 
+Each worktree has its own local database and dev server:
+
+- Use a different port per session: `pnpm dev --port 4322`, `4323`, …
+- Fresh worktree: `pnpm install`, start the dev server, open `/_emdash/api/setup/dev-bypass?redirect=/` once to seed, then `node scripts/create-contact-forms.mjs http://localhost:<port>`.
+
 ## Prompt for another AI session
 
-> Read `AGENTS.md`, `docs/placeholders.md` and `plans/00X-….md`. Work in your own branch/worktree. Implement the plan, tick its checkboxes, run `pnpm typecheck` and `pnpm build`, check the vi + en routes, compare screenshots at 390px and 1440px with the mockups, then commit. Don't touch files outside the plan; if you must, say so in the plan's Notes. Reply to me in Vietnamese.
+> Read `AGENTS.md`, `docs/placeholders.md`, `plans/README.md` and `plans/00X-….md`. Work in your own branch/worktree and run the dev server on port 43XX. Implement the plan, tick its checkboxes, run `pnpm typecheck` and `pnpm build`, check the vi + en routes, compare screenshots at 390px and 1440px with the mockups, then commit. Don't touch files outside the plan; if you must, say so in the plan's Notes. Reply to me in Vietnamese.
