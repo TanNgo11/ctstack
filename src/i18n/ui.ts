@@ -49,6 +49,15 @@ export const projectCategories = [
 	"landing_page",
 ] as const;
 
+export const projectIndustries = [
+	"fnb",
+	"beauty",
+	"real_estate",
+	"retail",
+	"education",
+	"other",
+] as const;
+
 const vi = {
 	"site.tagline": "Thiết kế & phát triển website, ứng dụng",
 	"site.description":
@@ -189,6 +198,11 @@ const vi = {
 	"projects.year": "Năm",
 	"projects.stack": "Công nghệ",
 	"projects.type": "Loại",
+	"projects.industry": "Ngành",
+	"projects.duration": "Thời gian",
+	"projects.team": "Đội ngũ",
+	"projects.features": "Tính năng chính",
+	"projects.liveBadge": "Live",
 	"projects.results": "Kết quả",
 	"projects.other": "Dự án khác",
 	"projects.back": "Tất cả dự án",
@@ -202,6 +216,13 @@ const vi = {
 	"category.mobile_app": "Mobile app",
 	"category.ecommerce": "Thương mại điện tử",
 	"category.landing_page": "Landing page",
+
+	"industry.fnb": "F&B",
+	"industry.beauty": "Spa & làm đẹp",
+	"industry.real_estate": "Bất động sản",
+	"industry.retail": "Bán lẻ",
+	"industry.education": "Giáo dục",
+	"industry.other": "Khác",
 
 	"services.title": "Dịch vụ",
 	"services.heading": "Giải pháp phần mềm vừa vặn với doanh nghiệp",
@@ -406,6 +427,11 @@ const en: Dict = {
 	"projects.year": "Year",
 	"projects.stack": "Stack",
 	"projects.type": "Type",
+	"projects.industry": "Industry",
+	"projects.duration": "Duration",
+	"projects.team": "Team",
+	"projects.features": "Key features",
+	"projects.liveBadge": "Live",
 	"projects.results": "Results",
 	"projects.other": "More work",
 	"projects.back": "All projects",
@@ -419,6 +445,13 @@ const en: Dict = {
 	"category.mobile_app": "Mobile app",
 	"category.ecommerce": "E-commerce",
 	"category.landing_page": "Landing page",
+
+	"industry.fnb": "F&B",
+	"industry.beauty": "Beauty & wellness",
+	"industry.real_estate": "Real estate",
+	"industry.retail": "Retail",
+	"industry.education": "Education",
+	"industry.other": "Other",
 
 	"services.title": "Services",
 	"services.heading": "Software that fits your business",
@@ -527,4 +560,11 @@ export function categoryLabel(lang: Lang, category: string | undefined): string 
 	const key = `category.${category}` as keyof Dict;
 	const value = dicts[lang][key];
 	return typeof value === "string" ? value : category;
+}
+
+export function industryLabel(lang: Lang, industry: string | undefined): string | undefined {
+	if (!industry) return undefined;
+	const key = `industry.${industry}` as keyof Dict;
+	const value = dicts[lang][key];
+	return typeof value === "string" ? value : industry;
 }

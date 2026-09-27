@@ -4,8 +4,10 @@ import Base from "../../../layouts/Base.astro";
 import ProjectCard from "../../../components/ProjectCard.astro";
 import {
 	categoryLabel,
+	industryLabel,
 	localizePath,
 	projectCategories,
+	projectIndustries,
 	langFromParam,
 	useTranslations,
 } from "../../../i18n/ui";
@@ -17,24 +19,54 @@ const basePath = localizePath("/projects", lang);
 
 const rawCategory = Astro.url.searchParams.get("category");
 const activeCategory = projectCategories.find((c) => c === rawCategory);
+const rawIndustry = Astro.url.searchParams.get("industry");
+const activeIndustry = projectIndustries.find((i) => i === rawIndustry);
 const cursor = Astro.url.searchParams.get("cursor") ?? undefined;
+const filters = {
+	...(activeCategory ? { category: activeCategory } : {}),
+	...(activeIndustry ? { industry: activeIndustry } : {}),
+};
 
-const result = await getEmDashCollection("projects", {
-	locale: lang,
-	orderBy: { sort_order: "asc" },
-	limit: 12,
-	cursor,
-	...(activeCategory ? { where: { category: activeCategory } } : {}),
-});
-if (result.error) {
+const [allResult, result] = await Promise.all([
+	getEmDashCollection("projects", {
+		locale: lang,
+		orderBy: { sort_order: "asc" },
+		limit: 100,
+	}),
+	getEmDashCollection("projects", {
+		locale: lang,
+		orderBy: { sort_order: "asc" },
+		limit: 12,
+		cursor,
+		...(Object.keys(filters).length > 0 ? { where: filters } : {}),
+	}),
+]);
+if (allResult.error || result.error) {
 	return new Response("Could not load projects", { status: 500 });
 }
 const { entries: projects, nextCursor } = result;
-if (Astro.cache?.enabled) Astro.cache.set(result.cacheHint);
+const allProjects = allResult.entries;
+const categoryCounts = new Map(
+	projectCategories.map((category) => [
+		category,
+		allProjects.filter((p) => p.data.category === category).length,
+	]),
+);
+const industryCounts = new Map(
+	projectIndustries.map((industry) => [
+		industry,
+		allProjects.filter((p) => p.data.industry === industry).length,
+	]),
+);
+if (Astro.cache?.enabled) {
+	Astro.cache.set(allResult.cacheHint);
+	Astro.cache.set(result.cacheHint);
+}
 
 function pageUrl(params: Record<string, string | undefined>): string {
 	const search = new URLSearchParams();
-	for (const [k, v] of Object.entries(params)) if (v) search.set(k, v);
+	const query = { category: activeCategory, industry: activeIndustry, ...params };
+	for (const [k, v] of Object.entries(query)) if (v) search.set(k, v);
 	const qs = search.toString();
 	return qs ? `${basePath}?${qs}` : basePath;
 }
@@ -42,8 +74,8 @@ function pageUrl(params: Record<string, string | undefined>): string {
 
 <Base
 	title={
-		activeCategory
-			? `${categoryLabel(lang, activeCategory)} — ${t("projects.title")}`
+		activeCategory || activeIndustry
+			? `${categoryLabel(lang, activeCategory) ?? industryLabel(lang, activeIndustry)} — ${t("projects.title")}`
 			: t("projects.title")
 	}
 	description={t("projects.intro")}
@@ -61,19 +93,39 @@ function pageUrl(params: Record<string, string | undefined>): string {
 
 			<nav class="filters" aria-label={t("projects.type")}>
 				<a
-					href={basePath}
+					href={pageUrl({ category: undefined, cursor: undefined })}
 					class:list={["filter", { active: !activeCategory }]}
 					aria-current={!activeCategory ? "page" : undefined}
 				>
-					{t("projects.all")}
+					{t("projects.all")} <span class="filter-count">{allProjects.length}</span>
 				</a>
 				{projectCategories.map((c) => (
 					<a
-						href={pageUrl({ category: c })}
+						href={pageUrl({ category: c, cursor: undefined })}
 						class:list={["filter", { active: activeCategory === c }]}
 						aria-current={activeCategory === c ? "page" : undefined}
 					>
-						{categoryLabel(lang, c)}
+						{categoryLabel(lang, c)} <span class="filter-count">{categoryCounts.get(c) ?? 0}</span>
+					</a>
+				))}
+			</nav>
+
+			<nav class="filters" aria-label={t("projects.industry")}>
+				<a
+					href={pageUrl({ industry: undefined, cursor: undefined })}
+					class:list={["filter", { active: !activeIndustry }]}
+					aria-current={!activeIndustry ? "page" : undefined}
+				>
+					{t("projects.all")} <span class="filter-count">{allProjects.length}</span>
+				</a>
+				{projectIndustries.map((industry) => (
+					<a
+						href={pageUrl({ industry, cursor: undefined })}
+						class:list={["filter", { active: activeIndustry === industry }]}
+						aria-current={activeIndustry === industry ? "page" : undefined}
+					>
+						{industryLabel(lang, industry)}{" "}
+						<span class="filter-count">{industryCounts.get(industry) ?? 0}</span>
 					</a>
 				))}
 			</nav>
@@ -88,6 +140,9 @@ function pageUrl(params: Record<string, string | undefined>): string {
 						featuredImage={p.data.featured_image}
 						href={localizePath(`/projects/${p.id}`, lang)}
 						category={p.data.category}
+						stack={p.data.stack}
+						duration={p.data.duration}
+						live={p.data.live}
 						results={p.data.results}
 						edit={p.edit}
 					/>
@@ -109,11 +164,7 @@ function pageUrl(params: Record<string, string | undefined>): string {
 
 		{nextCursor && (
 			<nav class="pagination">
-				<a
-					class="btn btn-ghost"
-					href={pageUrl({ category: activeCategory, cursor: nextCursor })}
-					rel="next"
-				>
+				<a class="btn btn-ghost" href={pageUrl({ cursor: nextCursor })} rel="next">
 					{t("projects.more")}
 				</a>
 			</nav>
@@ -149,6 +200,18 @@ function pageUrl(params: Record<string, string | undefined>): string {
 		font-weight: 500;
 		text-decoration: none;
 		transition: border-color var(--transition-fast);
+	}
+
+	.filter-count {
+		margin-inline-start: 6px;
+		color: var(--color-muted);
+		font-size: var(--font-size-xs);
+		font-variant-numeric: tabular-nums;
+	}
+
+	.filter.active .filter-count {
+		color: inherit;
+		opacity: 0.8;
 	}
 
 	.filter:hover {

@@ -1,6 +1,6 @@
 # 004: Project details and industry filter
 
-- **Status:** ready
+- **Status:** in progress
 - **Wave:** 1 (parallel with 002, 003)
 - **Roadmap:** Phase 2, "Projects: industry field + filter, duration, team size, key features, Live badge"
 - **Mockups:** `mockup/02-projects/BRIEF.md`, `mockup/03-project-detail/BRIEF.md`, `mockup/04-projects-desktop.png`, `mockup/05-project-detail-desktop.png`
@@ -26,11 +26,11 @@ Visitors can find projects from their own industry and see how long a project to
 
 ## Tasks
 
-- [ ] Seed fields + sample values (vi + en) and architecture doc
-- [ ] Industry filter with counts, combined with type filter
-- [ ] Card: Live badge, stack chips, duration
-- [ ] Detail: new facts, key features list
-- [ ] Strings vi + en
+- [x] Seed fields + sample values (vi + en) and architecture doc
+- [x] Industry filter with counts, combined with type filter
+- [x] Card: Live badge, stack chips, duration
+- [x] Detail: new facts, key features list
+- [x] Strings vi + en
 
 ## Verification
 

@@ -159,13 +159,18 @@ erDiagram
         string client
         string year
         select category "website|web_app|mobile_app|ecommerce|landing_page"
+        select industry "fnb|beauty|real_estate|retail|education|other"
+        string duration "project duration, e.g. 6 weeks"
+        string team_size "team size, e.g. 3 people"
         string stack "comma separated"
         text summary
         portableText content "case study"
         repeater results "value, label"
+        repeater features "item"
         repeater gallery "image, caption"
         url url
         boolean featured "show on home"
+        boolean live "live project badge"
         integer sort_order
     }
     SERVICES {

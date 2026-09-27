@@ -28,6 +28,11 @@ export interface Project {
   client?: string;
   year?: string;
   category?: "website" | "web_app" | "mobile_app" | "ecommerce" | "landing_page";
+  industry?: "fnb" | "beauty" | "real_estate" | "retail" | "education" | "other";
+  duration?: string;
+  team_size?: string;
+  features?: { "item": string }[];
+  live?: boolean;
   stack?: string;
   summary?: string;
   content?: PortableTextBlock[];
