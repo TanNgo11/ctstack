@@ -2,16 +2,17 @@
 
 One file per feature: `NNN-<feature>.md`, copied from [`_template.md`](_template.md). Write the plan before coding anything non-trivial, keep its checkboxes current, and set **Status: done** when finished.
 
-| #   | Plan                                                                      | Wave | Status |
-| --- | ------------------------------------------------------------------------- | ---- | ------ |
-| 001 | [UI redesign from mockups](001-ui-redesign.md)                            | –    | done   |
-| 002 | [Contact: next steps, channels, success state](002-contact-next-steps.md) | 1    | ready  |
-| 003 | [Basic SEO](003-seo-basics.md)                                            | 1    | ready  |
-| 004 | [Project details and industry filter](004-project-details-and-filters.md) | 1    | ready  |
-| 005 | [FAQ page and policy pages](005-faq-and-policies.md)                      | 2    | ready  |
-| 006 | [Testimonials (structure only)](006-testimonials.md)                      | 3    | ready  |
-| 007 | [Service detail landing pages](007-service-detail-pages.md)               | 4    | ready  |
-| 008 | [Quality pass](008-quality-pass.md)                                       | 5    | ready  |
+| #    | Plan                                                                             | Wave | Status |
+| ---- | -------------------------------------------------------------------------------- | ---- | ------ |
+| 001  | [UI redesign from mockups](001-ui-redesign.md)                                   | –    | done   |
+| 002  | [Contact: next steps, channels, success state](002-contact-next-steps.md)        | 1    | ready  |
+| 003  | [Basic SEO](003-seo-basics.md)                                                   | 1    | ready  |
+| 004  | [Project details and industry filter](004-project-details-and-filters.md)        | 1    | ready  |
+| 005  | [FAQ page and policy pages](005-faq-and-policies.md)                             | 2    | ready  |
+| 006  | [Testimonials (structure only)](006-testimonials.md)                             | 3    | ready  |
+| 007a | [Service detail: template + first service](007a-service-detail-template.md)      | 4    | ready  |
+| 007b | [Service detail: content for all services + SEO](007b-service-detail-content.md) | 5    | ready  |
+| 008  | [Quality pass](008-quality-pass.md)                                              | 6    | ready  |
 
 Deploy to Cloudflare is not planned yet (owner will do it later).
 
@@ -21,12 +22,12 @@ Plans in the same wave can run at the same time, each in its own branch + worktr
 
 Shared hot files and who touches them:
 
-| File                     | Wave 1        | Later waves   |
-| ------------------------ | ------------- | ------------- |
-| `src/layouts/Base.astro` | 003 only      | 005, 007      |
-| `seed/seed.json`         | 004 only      | 005, 006, 007 |
-| `src/i18n/ui.ts`         | 002, 003, 004 | all           |
-| `src/styles/theme.css`   | none          | 008           |
+| File                     | Wave 1        | Later waves          |
+| ------------------------ | ------------- | -------------------- |
+| `src/layouts/Base.astro` | 003 only      | 005, 007b            |
+| `seed/seed.json`         | 004 only      | 005, 006, 007a, 007b |
+| `src/i18n/ui.ts`         | 002, 003, 004 | all                  |
+| `src/styles/theme.css`   | none          | 008                  |
 
 `ui.ts` is shared in wave 1, so each plan adds its keys next to its own prefix (`contact.*`, `seo.*` at the end, `industry.*` after `category.*`). Merge wave-1 branches one at a time and re-run `pnpm typecheck` after each merge.
 

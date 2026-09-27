@@ -32,26 +32,27 @@ Contact forms on a fresh local DB: `node scripts/create-contact-forms.mjs` (dev 
 
 ## Project layout
 
-| Path                         | Purpose                                                                 |
-| ---------------------------- | ----------------------------------------------------------------------- |
-| `astro.config.mjs`           | Astro + EmDash config, i18n (`vi` default, `en`), plugins, fonts        |
-| `wrangler.jsonc`             | Cloudflare Worker, D1 (`DB`), R2 (`MEDIA`), cron                        |
-| `seed/seed.json`             | Schema + sample content. Only applied to an empty database              |
-| `src/pages/[...lang]/`       | All public routes. `lang` param is empty (vi) or `en`; anything else 404 |
-| `src/pages/404.astro`        | Not-found page (language from the original path)                       |
-| `src/layouts/Base.astro`     | HTML shell, nav, language switch, footer, EmDash head/body hooks        |
-| `src/components/`            | `ProjectCard`, `ServiceCard`, `ServiceIcon`                             |
-| `src/views/`                 | Shared view components with no data loading (`NotFound`)               |
-| `src/i18n/ui.ts`             | UI strings (vi/en), locale helpers, contact form slugs, contact email   |
-| `src/lib/content.ts`         | Content helpers: translation alternates, safe URLs, not-found detection |
-| `src/styles/tokens.css`      | Default design tokens (don't edit)                                      |
-| `src/styles/theme.css`       | CTStack theme overrides + shared classes (`.container`, `.btn`, `.prose`...) |
-| `src/live.config.ts`         | EmDash loader boilerplate (don't modify)                                |
-| `.agents/skills/`            | EmDash skills (also linked at `.claude/skills/`)                        |
+| Path                     | Purpose                                                                      |
+| ------------------------ | ---------------------------------------------------------------------------- |
+| `astro.config.mjs`       | Astro + EmDash config, i18n (`vi` default, `en`), plugins, fonts             |
+| `wrangler.jsonc`         | Cloudflare Worker, D1 (`DB`), R2 (`MEDIA`), cron                             |
+| `seed/seed.json`         | Schema + sample content. Only applied to an empty database                   |
+| `src/pages/[...lang]/`   | All public routes. `lang` param is empty (vi) or `en`; anything else 404     |
+| `src/pages/404.astro`    | Not-found page (language from the original path)                             |
+| `src/layouts/Base.astro` | HTML shell, nav, language switch, footer, EmDash head/body hooks             |
+| `src/components/`        | `ProjectCard`, `ServiceCard`, `ServiceIcon`                                  |
+| `src/views/`             | Shared view components with no data loading (`NotFound`)                     |
+| `src/i18n/ui.ts`         | UI strings (vi/en), locale helpers, contact form slugs, contact email        |
+| `src/lib/content.ts`     | Content helpers: translation alternates, safe URLs, not-found detection      |
+| `src/styles/tokens.css`  | Default design tokens (don't edit)                                           |
+| `src/styles/theme.css`   | CTStack theme overrides + shared classes (`.container`, `.btn`, `.prose`...) |
+| `src/live.config.ts`     | EmDash loader boilerplate (don't modify)                                     |
+| `.agents/skills/`        | EmDash skills (also linked at `.claude/skills/`)                             |
 
 ## Rules
 
 ### i18n
+
 - Every page file lives in `src/pages/[...lang]/` and starts with:
   ```ts
   const lang = langFromParam(Astro.params.lang);
@@ -63,6 +64,7 @@ Contact forms on a fresh local DB: `node scripts/create-contact-forms.mjs` (dev 
 - Components find the language with `langFromPath(Astro.originPathname ?? Astro.url.pathname)`.
 
 ### EmDash
+
 - All content pages are server-rendered. No `getStaticPaths()` for CMS content.
 - Image fields are objects. Render with `<Image image={...} />` from `emdash/ui`.
 - `entry.id` is the slug (URLs); `entry.data.id` is the ULID (API calls like `getTranslations`).
@@ -74,24 +76,35 @@ Contact forms on a fresh local DB: `node scripts/create-contact-forms.mjs` (dev 
 - Verify EmDash APIs with the docs MCP server (`emdash-docs`, `search_docs`) or `node_modules/emdash/src`, not from memory.
 
 ### Schema changes
+
 - Edit `seed/seed.json` (every content entry needs a `vi` and an `en` version linked with `translationOf`), then update the content model in `docs/architecture.md`.
 - The seed only applies to an empty DB. Existing sites need the change made in the admin (or `pnpm exec emdash seed ... --on-conflict update`).
 
 ### Styling
+
 - Tokens: override in `theme.css`, never edit `tokens.css`. Colors use `light-dark()`.
 - Reuse shared classes from `theme.css` before adding page CSS.
 - UI must match the mockups in `mockup/<feature>/`. If none exist, write the brief first.
 - Mobile first. Check 390px and 1440px widths.
+- Follow the mockup layout, but avoid the "AI template" look (decided after review, see `plans/001-ui-redesign.md`):
+  - The blue→violet gradient (`--accent-gradient`) is only for primary CTAs (`.btn-primary`, form submit). Accent text, prices, numbers, icons and badges use the solid `--color-brand` (`.text-accent`).
+  - No glows: no radial-gradient blobs, coloured box-shadows, inner hover glows or blur halos. Hover = border colour change.
+  - No decorative filler copy (slogan tiles, "Ideas today / Better products tomorrow" taglines). Every line of text must say something concrete.
+  - Small radii (`--radius` 8px, `--radius-card` 12px), no hover lift, arrows only on primary CTAs and "see all" links.
+  - Pages without a mockup image: build from existing components and page patterns (cards, pills, `.section-header`, `.why`, tiers) instead of inventing new visual styles.
 
 ### Formatting
+
 - Prettier (`.prettierrc.json`: tabs, width 100, Astro plugin). Run `pnpm exec prettier --write <files you touched>` before committing.
 - Don't reformat files outside your task: a repo-wide `pnpm format` belongs in its own commit, done when no other branch is mid-change.
 
 ### Secrets
+
 - Local: `.env` / `.dev.vars` (both gitignored). Production: `pnpm exec wrangler secret put <NAME>`.
 - Never put secrets in `wrangler.jsonc` `vars`, `seed/seed.json`, source code or docs. Only non-secret config goes in `vars`.
 
 ### Content
+
 - Follow `docs/content-guide.md`. Never invent client names, metrics or testimonials as if real; mark samples clearly.
 
 ## Workflow

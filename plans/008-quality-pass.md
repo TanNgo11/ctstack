@@ -1,7 +1,7 @@
 # 008: Quality pass (performance, accessibility, light theme)
 
-- **Status:** ready (last, after 002–007 are merged)
-- **Wave:** 5
+- **Status:** ready (last, after 002–007b are merged)
+- **Wave:** 6
 - **Roadmap:** Phase 1 wrap-up before deploy
 - **Mockups:** all
 - **Owner:** AI

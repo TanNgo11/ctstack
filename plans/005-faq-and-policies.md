@@ -13,7 +13,7 @@ Answer the questions buyers ask before contacting us (price, timeline, warranty)
 ## Scope
 
 - In: `faqs` collection, `/faq` page (tabs, accordion, search, side card), FAQPage JSON-LD; policy pages in the `pages` collection with a generic route; footer "Liên kết nhanh" links.
-- Out: FAQ blocks on service pages (plan 007 reuses this collection).
+- Out: FAQ blocks on service pages (plan 007a reuses this collection).
 
 ## Design
 
