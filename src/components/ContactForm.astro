@@ -20,6 +20,7 @@ const t = useTranslations(lang);
 <section
 	class="contact-form"
 	aria-labelledby={titleId}
+	data-success-message={t("contact.success")}
 	data-select-placeholders={JSON.stringify({
 		service: t("contact.selectService"),
 		budget: t("contact.selectBudget"),
@@ -47,6 +48,20 @@ const t = useTranslations(lang);
 		if (form && submit) form.dataset.submitLabel = submit.textContent?.trim() ?? "Submit";
 
 		const labels = JSON.parse(box.dataset.selectPlaceholders ?? "{}") as Record<string, string>;
+		const successMessage = box.dataset.successMessage;
+		const status = box.querySelector<HTMLElement>("[data-form-status]");
+		if (status && successMessage) {
+			const observer = new MutationObserver(() => {
+				if (
+					status.classList.contains("ec-form-status--success") &&
+					status.textContent !== successMessage
+				) {
+					status.textContent = successMessage;
+					observer.disconnect();
+				}
+			});
+			observer.observe(status, { childList: true, characterData: true, attributes: true });
+		}
 		(Array.from(box.querySelectorAll("textarea")) as unknown as HTMLTextAreaElement[]).forEach(
 			(el) => {
 				if (!el.value.trim()) el.value = "";
