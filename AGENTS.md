@@ -8,6 +8,7 @@ Read before non-trivial work:
 - [docs/roadmap.md](docs/roadmap.md): phases and current status
 - [docs/decisions.md](docs/decisions.md): why things are the way they are
 - [docs/content-guide.md](docs/content-guide.md): rules for writing site content (including AI-written content)
+- [docs/placeholders.md](docs/placeholders.md): sample content that must be replaced before launch; add to it when you write placeholder copy
 - [plans/](plans/): one plan per feature; check for an active plan before starting
 - [mockup/](mockup/): design references per feature; UI work must match them
 

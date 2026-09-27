@@ -24,10 +24,12 @@ Layout and feature ideas come from [research/tanphatdigital.md](research/tanphat
   - [~] Floating contact buttons (Zalo, phone, Messenger): built, hidden until real channels are set in `src/i18n/ui.ts`
   - [x] CTA band before the footer on every page ("phản hồi trong 24h")
   - [~] 4-column footer (services, quick links, social, contact): done except FAQ/policy links and social icons (pages/accounts not there yet)
-  - [ ] Pricing tiers (3–4 packages, "Phổ biến" badge) on home + services
+  - [x] Pricing tiers (4 packages, "Phổ biến" badge) on home (sample prices)
+  - [x] "Why CTStack" commitments + trust promises next to the forms (sample wording)
+  - [x] Contact form at the end of the home page
   - [ ] Trust stats row (real numbers only)
   - [ ] Contact page: "what happens next" steps, channels, working hours
-- [ ] Replace sample projects/prices with real content
+- [ ] Replace sample projects/prices/commitments with real content → checklist in [placeholders.md](placeholders.md)
 - [ ] Deploy to Cloudflare (`*.workers.dev`)
 - [ ] Basic SEO check: titles, descriptions, OG images, sitemap
 

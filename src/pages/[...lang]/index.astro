@@ -2,9 +2,16 @@
 import { getEmDashCollection } from "emdash";
 import Base from "../../layouts/Base.astro";
 import TechLogo from "../../components/TechLogo.astro";
+import ContactForm from "../../components/ContactForm.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
 import ServiceCard from "../../components/ServiceCard.astro";
-import { localizePath, useTranslations, langFromParam, techStack } from "../../i18n/ui";
+import {
+	contactEmail,
+	localizePath,
+	useTranslations,
+	langFromParam,
+	techStack,
+} from "../../i18n/ui";
 
 const lang = langFromParam(Astro.params.lang);
 if (!lang) return Astro.rewrite("/404");
@@ -49,7 +56,7 @@ const productTiles = ["mug", "cap", "bag", "shoe"];
 const phonePrices = ["320.000đ", "250.000đ", "420.000đ", "680.000đ"];
 ---
 
-<Base>
+<Base hideCta>
 	<section class="hero container">
 		<div class="hero-copy">
 			<p class="eyebrow hero-eyebrow">{t("home.eyebrow")}</p>
@@ -228,6 +235,61 @@ const phonePrices = ["320.000đ", "250.000đ", "420.000đ", "680.000đ"];
 		</section>
 	)}
 
+	<section class="section container" aria-labelledby="why-title">
+		<header class="section-header">
+			<div>
+				<p class="eyebrow">{t("home.whyEyebrow")}</p>
+				<h2 class="section-title" id="why-title">
+					{t("home.whyTitle")}
+				</h2>
+			</div>
+		</header>
+		<ul class="why">
+			{t("home.why").map(([title, text], i) => (
+				<li>
+					<span class="why-num">{String(i + 1).padStart(2, "0")}</span>
+					<h3>{title}</h3>
+					<p>{text}</p>
+				</li>
+			))}
+		</ul>
+	</section>
+
+	<section class="section container" aria-labelledby="pricing-title">
+		<header class="section-header">
+			<div>
+				<p class="eyebrow">{t("home.pricingEyebrow")}</p>
+				<h2 class="section-title" id="pricing-title">
+					{t("home.pricingTitle")}
+				</h2>
+			</div>
+		</header>
+		<div class="tiers">
+			{t("home.tiers").map((tier) => (
+				<article class:list={["tier", { popular: tier.popular }]}>
+					{tier.popular && <span class="tier-badge">{t("home.pricingPopular")}</span>}
+					<h3>{tier.name}</h3>
+					<p class="tier-desc">{tier.desc}</p>
+					<p class="tier-price">
+						<span>{t("services.priceFrom")}</span> <strong>{tier.price}</strong>
+					</p>
+					<ul class="tier-features">
+						{tier.features.map((f) => (
+							<li>{f}</li>
+						))}
+					</ul>
+					<a
+						href={`${contactHref}?service=${encodeURIComponent(tier.name)}`}
+						class:list={["btn", tier.popular ? "btn-primary" : "btn-outline"]}
+					>
+						{t("home.pricingCta")}
+					</a>
+				</article>
+			))}
+		</div>
+		<p class="pricing-note">{t("home.pricingNote")}</p>
+	</section>
+
 	<section class="section container">
 		<header class="section-header">
 			<div>
@@ -246,6 +308,31 @@ const phonePrices = ["320.000đ", "250.000đ", "420.000đ", "680.000đ"];
 				</li>
 			))}
 		</ol>
+	</section>
+	<section class="section container home-contact" aria-labelledby="home-contact-title">
+		<div class="home-contact-text">
+			<p class="eyebrow">{t("home.contactEyebrow")}</p>
+			<h2 class="section-title" id="home-contact-title">
+				{t("contact.title")}
+			</h2>
+			<p>{t("contact.intro")}</p>
+			<ul class="trust">
+				{t("contact.trust").map((item) => (
+					<li>
+						<svg viewBox="0 0 24 24" aria-hidden="true">
+							<path d="m5 12 5 5L20 7" />
+						</svg>
+						{item}
+					</li>
+				))}
+			</ul>
+			{contactEmail && (
+				<p class="home-contact-email">
+					<a href={`mailto:${contactEmail}`}>{contactEmail}</a>
+				</p>
+			)}
+		</div>
+		<ContactForm titleId="home-form-title" />
 	</section>
 </Base>
 
@@ -906,6 +993,230 @@ const phonePrices = ["320.000đ", "250.000đ", "420.000đ", "680.000đ"];
 
 		.process-step p {
 			font-size: 10px;
+		}
+	}
+
+	/* Why CTStack */
+	.why {
+		display: grid;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		border-top: 1px solid var(--color-border);
+		list-style: none;
+	}
+
+	.why li {
+		padding: var(--spacing-lg) var(--spacing-lg) 0 0;
+	}
+
+	.why li + li {
+		padding-inline-start: var(--spacing-lg);
+		border-inline-start: 1px solid var(--color-border);
+	}
+
+	.why-num {
+		display: block;
+		margin-bottom: var(--spacing-md);
+		color: var(--color-brand);
+		font-size: var(--font-size-sm);
+		font-weight: 600;
+	}
+
+	.why h3 {
+		margin-bottom: var(--spacing-xs);
+		font-size: var(--font-size-lg);
+		font-weight: 600;
+	}
+
+	.why p {
+		color: var(--color-muted);
+		font-size: var(--font-size-sm);
+	}
+
+	/* Pricing */
+	.tiers {
+		display: grid;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		gap: var(--spacing-md);
+	}
+
+	.tier {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-sm);
+		padding: var(--spacing-lg);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-card);
+		background: var(--color-surface);
+	}
+
+	.tier.popular {
+		border-color: var(--color-brand);
+	}
+
+	.tier-badge {
+		position: absolute;
+		top: -11px;
+		left: var(--spacing-lg);
+		padding: 2px 10px;
+		border-radius: var(--radius-pill);
+		color: var(--color-on-brand);
+		background: var(--color-brand);
+		font-size: var(--font-size-xs);
+		font-weight: 600;
+	}
+
+	.tier h3 {
+		font-size: var(--font-size-lg);
+		font-weight: 600;
+	}
+
+	.tier-desc {
+		min-height: 3em;
+		color: var(--color-muted);
+		font-size: var(--font-size-sm);
+	}
+
+	.tier-price {
+		padding-block: var(--spacing-sm);
+		color: var(--color-muted);
+		font-size: var(--font-size-sm);
+	}
+
+	.tier-price span {
+		margin-inline-end: 4px;
+	}
+
+	.tier-price strong {
+		color: var(--color-text);
+		font-size: 1.75rem;
+		font-weight: var(--font-weight-display);
+	}
+
+	.tier-features {
+		display: grid;
+		flex: 1;
+		align-content: start;
+		gap: 10px;
+		margin-bottom: var(--spacing-md);
+		padding-top: var(--spacing-md);
+		border-top: 1px solid var(--color-border);
+		list-style: none;
+		font-size: var(--font-size-sm);
+	}
+
+	.tier-features li {
+		position: relative;
+		padding-inline-start: 1.5em;
+	}
+
+	.tier-features li::before {
+		content: "✓";
+		position: absolute;
+		inset-inline-start: 0;
+		color: var(--color-brand);
+		font-weight: 700;
+	}
+
+	.tier .btn {
+		width: 100%;
+	}
+
+	.pricing-note {
+		margin-top: var(--spacing-md);
+		color: var(--color-muted);
+		font-size: var(--font-size-sm);
+	}
+
+	/* Contact at the end of the page */
+	.home-contact {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		align-items: start;
+		gap: var(--spacing-3xl);
+		padding-bottom: var(--spacing-3xl);
+	}
+
+	.home-contact-text > p:not(.eyebrow) {
+		margin-top: var(--spacing-md);
+		color: var(--color-muted);
+		font-size: var(--font-size-lg);
+	}
+
+	.trust {
+		display: grid;
+		gap: 12px;
+		margin-top: var(--spacing-xl);
+		list-style: none;
+	}
+
+	.trust li {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+	}
+
+	.trust svg {
+		width: 18px;
+		height: 18px;
+		flex-shrink: 0;
+		fill: none;
+		stroke: var(--color-brand);
+		stroke-width: 2.5;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+	}
+
+	.home-contact-email {
+		margin-top: var(--spacing-lg);
+	}
+
+	.home-contact-email a {
+		color: var(--color-brand);
+	}
+
+	@media (max-width: 1100px) {
+		.tiers,
+		.why {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.why li:nth-child(3) {
+			padding-inline-start: 0;
+			border-inline-start: 0;
+		}
+
+		.tier-desc {
+			min-height: 0;
+		}
+	}
+
+	@media (max-width: 900px) {
+		.home-contact {
+			grid-template-columns: 1fr;
+			gap: var(--spacing-xl);
+		}
+	}
+
+	@media (max-width: 640px) {
+		.tiers,
+		.why {
+			grid-template-columns: 1fr;
+		}
+
+		.tiers {
+			gap: var(--spacing-lg);
+		}
+
+		.why li,
+		.why li + li {
+			padding: var(--spacing-md) 0;
+			border-inline-start: 0;
+			border-bottom: 1px solid var(--color-border);
+		}
+
+		.home-contact-text > p:not(.eyebrow) {
+			font-size: var(--font-size-base);
 		}
 	}
 </style>

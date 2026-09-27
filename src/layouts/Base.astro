@@ -35,6 +35,8 @@ interface Props {
 	 * null for a language with no translation.
 	 */
 	alternates?: Partial<Record<Lang, string | null>>;
+	/** Hide the CTA band above the footer (pages that end with their own form). */
+	hideCta?: boolean;
 }
 
 const {
@@ -47,6 +49,7 @@ const {
 	type = "website",
 	content,
 	alternates,
+	hideCta = false,
 } = Astro.props;
 const lang = langFromPath(Astro.originPathname ?? Astro.url.pathname);
 const t = useTranslations(lang);
@@ -229,17 +232,19 @@ const isLoggedIn = Boolean(Astro.locals.user);
 			<slot />
 		</main>
 
-		<section class="global-cta container" aria-labelledby="global-cta-title">
-			<div class="global-cta-inner">
-				<div>
-					<h2 id="global-cta-title">{t("global.ctaTitle")}</h2>
-					<p>{t("global.ctaText")}</p>
+		{!hideCta && (
+			<section class="global-cta container" aria-labelledby="global-cta-title">
+				<div class="global-cta-inner">
+					<div>
+						<h2 id="global-cta-title">{t("global.ctaTitle")}</h2>
+						<p>{t("global.ctaText")}</p>
+					</div>
+					<a class="btn btn-primary" href={contactHref}>
+						{t("global.ctaAction")} <span aria-hidden="true">→</span>
+					</a>
 				</div>
-				<a class="btn btn-primary" href={contactHref}>
-					{t("global.ctaAction")} <span aria-hidden="true">→</span>
-				</a>
-			</div>
-		</section>
+			</section>
+		)}
 
 		<footer class="site-footer container">
 			<div class="footer-grid">
