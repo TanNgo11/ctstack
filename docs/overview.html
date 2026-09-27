@@ -1,100 +1,262 @@
 <!doctype html>
 <html lang="vi">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>CTStack — Tổng quan dự án</title>
-<!-- Human-readable overview. Source of truth for agents: AGENTS.md and docs/*.md -->
-<style>
-	:root {
-		color-scheme: light dark;
-		--bg: light-dark(#f8fafc, #0b0f17);
-		--surface: light-dark(#ffffff, #111827);
-		--text: light-dark(#0f172a, #e2e8f0);
-		--muted: light-dark(#64748b, #94a3b8);
-		--border: light-dark(#e2e8f0, #1e293b);
-		--brand: light-dark(#2563eb, #60a5fa);
-	}
-	* { box-sizing: border-box; }
-	body {
-		margin: 0;
-		font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
-		background: var(--bg);
-		color: var(--text);
-	}
-	.wrap { max-width: 1100px; margin: 0 auto; padding: 32px 16px 80px; }
-	header h1 { font-size: 2rem; margin: 0 0 4px; }
-	header p { color: var(--muted); margin: 0; }
-	nav.toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 8px; }
-	nav.toc a {
-		font-size: 14px; text-decoration: none; color: var(--text);
-		border: 1px solid var(--border); border-radius: 999px; padding: 4px 12px;
-	}
-	nav.toc a:hover { border-color: var(--brand); color: var(--brand); }
-	section {
-		background: var(--surface); border: 1px solid var(--border);
-		border-radius: 12px; padding: 24px; margin-top: 24px;
-	}
-	h2 { margin: 0 0 12px; font-size: 1.35rem; }
-	h3 { margin: 20px 0 8px; font-size: 1.05rem; }
-	p.lead { color: var(--muted); margin-top: 0; }
-	table { width: 100%; border-collapse: collapse; font-size: 14px; }
-	th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
-	th { color: var(--muted); font-weight: 600; }
-	code { font: 13px ui-monospace, "Cascadia Code", Consolas, monospace; background: color-mix(in srgb, var(--brand) 10%, transparent); padding: 1px 5px; border-radius: 4px; }
-	.table-scroll { overflow-x: auto; }
-	.mermaid { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; overflow-x: auto; text-align: center; }
-	ul.check { list-style: none; padding: 0; margin: 0; }
-	ul.check li { padding: 4px 0; }
-	.done { color: #16a34a; } .wip { color: #d97706; } .todo { color: var(--muted); }
-	.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
-	.card { border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
-	.card h3 { margin-top: 0; }
-	.card p { margin: 0; color: var(--muted); font-size: 14px; }
-	pre.tree { font: 13px/1.5 ui-monospace, Consolas, monospace; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; overflow-x: auto; margin: 0; }
-</style>
-</head>
-<body>
-<div class="wrap">
-	<header>
-		<h1>CTStack: tổng quan dự án</h1>
-		<p>Website portfolio + dịch vụ. EmDash (Astro CMS) chạy trên Cloudflare. Song ngữ Việt / Anh.</p>
-	</header>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CTStack — Tổng quan dự án</title>
+    <!-- Human-readable overview. Source of truth for agents: AGENTS.md and docs/*.md -->
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: light-dark(#f8fafc, #0b0f17);
+        --surface: light-dark(#ffffff, #111827);
+        --text: light-dark(#0f172a, #e2e8f0);
+        --muted: light-dark(#64748b, #94a3b8);
+        --border: light-dark(#e2e8f0, #1e293b);
+        --brand: light-dark(#2563eb, #60a5fa);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font:
+          16px/1.6 system-ui,
+          -apple-system,
+          "Segoe UI",
+          sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+      .wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 32px 16px 80px;
+      }
+      header h1 {
+        font-size: 2rem;
+        margin: 0 0 4px;
+      }
+      header p {
+        color: var(--muted);
+        margin: 0;
+      }
+      nav.toc {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 24px 0 8px;
+      }
+      nav.toc a {
+        font-size: 14px;
+        text-decoration: none;
+        color: var(--text);
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        padding: 4px 12px;
+      }
+      nav.toc a:hover {
+        border-color: var(--brand);
+        color: var(--brand);
+      }
+      section {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 24px;
+        margin-top: 24px;
+      }
+      h2 {
+        margin: 0 0 12px;
+        font-size: 1.35rem;
+      }
+      h3 {
+        margin: 20px 0 8px;
+        font-size: 1.05rem;
+      }
+      p.lead {
+        color: var(--muted);
+        margin-top: 0;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+      }
+      th,
+      td {
+        text-align: left;
+        padding: 8px 10px;
+        border-bottom: 1px solid var(--border);
+        vertical-align: top;
+      }
+      th {
+        color: var(--muted);
+        font-weight: 600;
+      }
+      code {
+        font:
+          13px ui-monospace,
+          "Cascadia Code",
+          Consolas,
+          monospace;
+        background: color-mix(in srgb, var(--brand) 10%, transparent);
+        padding: 1px 5px;
+        border-radius: 4px;
+      }
+      .table-scroll {
+        overflow-x: auto;
+      }
+      .mermaid {
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 16px;
+        overflow-x: auto;
+        text-align: center;
+      }
+      ul.check {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      ul.check li {
+        padding: 4px 0;
+      }
+      .done {
+        color: #16a34a;
+      }
+      .wip {
+        color: #d97706;
+      }
+      .todo {
+        color: var(--muted);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 16px;
+      }
+      .card {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 16px;
+      }
+      .card h3 {
+        margin-top: 0;
+      }
+      .card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      pre.tree {
+        font:
+          13px/1.5 ui-monospace,
+          Consolas,
+          monospace;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 16px;
+        overflow-x: auto;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <h1>CTStack: tổng quan dự án</h1>
+        <p>
+          Website portfolio + dịch vụ. EmDash (Astro CMS) chạy trên Cloudflare.
+          Song ngữ Việt / Anh.
+        </p>
+      </header>
 
-	<nav class="toc">
-		<a href="#stack">Tech stack</a>
-		<a href="#system">Kiến trúc tổng</a>
-		<a href="#request">Luồng request</a>
-		<a href="#code">Cấu trúc code</a>
-		<a href="#i18n">Đa ngôn ngữ</a>
-		<a href="#data">Dữ liệu</a>
-		<a href="#lead">Luồng lead</a>
-		<a href="#roadmap">Roadmap</a>
-		<a href="#folders">Thư mục</a>
-	</nav>
+      <nav class="toc">
+        <a href="#stack">Tech stack</a>
+        <a href="#system">Kiến trúc tổng</a>
+        <a href="#request">Luồng request</a>
+        <a href="#code">Cấu trúc code</a>
+        <a href="#i18n">Đa ngôn ngữ</a>
+        <a href="#data">Dữ liệu</a>
+        <a href="#lead">Luồng lead</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#folders">Thư mục</a>
+      </nav>
 
-	<section id="stack">
-		<h2>Tech stack</h2>
-		<div class="table-scroll">
-		<table>
-			<tr><th>Tầng</th><th>Công nghệ</th><th>Vai trò</th></tr>
-			<tr><td>Framework</td><td>Astro 7 (server-rendered)</td><td>Render HTML mỗi request</td></tr>
-			<tr><td>CMS</td><td>EmDash 0.40</td><td>Admin tại <code>/_emdash/admin</code>, schema lưu trong DB, có MCP server cho AI</td></tr>
-			<tr><td>Giao diện</td><td>Component <code>.astro</code> + CSS token</td><td>Không dùng framework CSS; React chỉ có trong admin</td></tr>
-			<tr><td>Đa ngôn ngữ</td><td>Astro i18n</td><td><code>vi</code> mặc định (không có prefix), <code>en</code> ở <code>/en</code></td></tr>
-			<tr><td>Form / lead</td><td><code>@emdash-cms/plugin-forms</code></td><td>Nhận form liên hệ, lưu vào D1, xem trong admin</td></tr>
-			<tr><td>Runtime</td><td>Cloudflare Workers</td><td>Chạy toàn bộ site + CMS</td></tr>
-			<tr><td>Database</td><td>Cloudflare D1 (SQLite)</td><td>Nội dung, user, lead</td></tr>
-			<tr><td>File ảnh</td><td>Cloudflare R2</td><td>Ảnh upload từ admin</td></tr>
-			<tr><td>Cron</td><td>Workers cron (mỗi phút)</td><td>Hẹn giờ đăng bài, dọn dữ liệu form</td></tr>
-		</table>
-		</div>
-	</section>
+      <section id="stack">
+        <h2>Tech stack</h2>
+        <div class="table-scroll">
+          <table>
+            <tr>
+              <th>Tầng</th>
+              <th>Công nghệ</th>
+              <th>Vai trò</th>
+            </tr>
+            <tr>
+              <td>Framework</td>
+              <td>Astro 7 (server-rendered)</td>
+              <td>Render HTML mỗi request</td>
+            </tr>
+            <tr>
+              <td>CMS</td>
+              <td>EmDash 0.40</td>
+              <td>
+                Admin tại <code>/_emdash/admin</code>, schema lưu trong DB, có
+                MCP server cho AI
+              </td>
+            </tr>
+            <tr>
+              <td>Giao diện</td>
+              <td>Component <code>.astro</code> + CSS token</td>
+              <td>Không dùng framework CSS; React chỉ có trong admin</td>
+            </tr>
+            <tr>
+              <td>Đa ngôn ngữ</td>
+              <td>Astro i18n</td>
+              <td>
+                <code>vi</code> mặc định (không có prefix), <code>en</code> ở
+                <code>/en</code>
+              </td>
+            </tr>
+            <tr>
+              <td>Form / lead</td>
+              <td><code>@emdash-cms/plugin-forms</code></td>
+              <td>Nhận form liên hệ, lưu vào D1, xem trong admin</td>
+            </tr>
+            <tr>
+              <td>Runtime</td>
+              <td>Cloudflare Workers</td>
+              <td>Chạy toàn bộ site + CMS</td>
+            </tr>
+            <tr>
+              <td>Database</td>
+              <td>Cloudflare D1 (SQLite)</td>
+              <td>Nội dung, user, lead</td>
+            </tr>
+            <tr>
+              <td>File ảnh</td>
+              <td>Cloudflare R2</td>
+              <td>Ảnh upload từ admin</td>
+            </tr>
+            <tr>
+              <td>Cron</td>
+              <td>Workers cron (mỗi phút)</td>
+              <td>Hẹn giờ đăng bài, dọn dữ liệu form</td>
+            </tr>
+          </table>
+        </div>
+      </section>
 
-	<section id="system">
-		<h2>Kiến trúc tổng</h2>
-		<p class="lead">Ai gọi vào đâu: khách xem site, admin quản lý nội dung, AI viết content qua MCP. Tất cả đi qua 1 Worker.</p>
-		<pre class="mermaid">
+      <section id="system">
+        <h2>Kiến trúc tổng</h2>
+        <p class="lead">
+          Ai gọi vào đâu: khách xem site, admin quản lý nội dung, AI viết
+          content qua MCP. Tất cả đi qua 1 Worker.
+        </p>
+        <pre class="mermaid">
 flowchart LR
     V["Khách truy cập<br/>(browser)"]
     E["Admin / người viết<br/>(browser)"]
@@ -113,12 +275,12 @@ flowchart LR
     W <--> R2
     CRON --> W
 		</pre>
-	</section>
+      </section>
 
-	<section id="request">
-		<h2>Luồng 1 request</h2>
-		<p class="lead">Ví dụ khách mở trang chi tiết dự án bản tiếng Anh.</p>
-		<pre class="mermaid">
+      <section id="request">
+        <h2>Luồng 1 request</h2>
+        <p class="lead">Ví dụ khách mở trang chi tiết dự án bản tiếng Anh.</p>
+        <pre class="mermaid">
 sequenceDiagram
     participant B as Browser
     participant MW as EmDash middleware
@@ -137,12 +299,13 @@ sequenceDiagram
     P->>Q: getTranslations() cho nút đổi ngôn ngữ
     P->>L: render layout (SEO, nav, footer)
     L-->>B: HTML
-		</pre>
-	</section>
+		</pre
+        >
+      </section>
 
-	<section id="code">
-		<h2>Cấu trúc code: file nào gọi file nào</h2>
-		<pre class="mermaid">
+      <section id="code">
+        <h2>Cấu trúc code: file nào gọi file nào</h2>
+        <pre class="mermaid">
 flowchart TB
     subgraph pages["src/pages"]
         LANG["[...lang]/<br/>index · projects · projects/[slug]<br/>services · about · contact"]
@@ -173,11 +336,11 @@ flowchart TB
     BASE --> THEME
     CONT --> EMD
 		</pre>
-	</section>
+      </section>
 
-	<section id="i18n">
-		<h2>Đa ngôn ngữ</h2>
-		<pre class="mermaid">
+      <section id="i18n">
+        <h2>Đa ngôn ngữ</h2>
+        <pre class="mermaid">
 flowchart LR
     URL["URL"] --> M{"đoạn đầu tiên"}
     M -- "không có (vd /projects)" --> VI["tiếng Việt"]
@@ -187,12 +350,16 @@ flowchart LR
     EN --> Q
     Q --> SW["nút đổi ngôn ngữ:<br/>tới bản dịch, không có thì về trang chủ"]
 		</pre>
-		<p>Chữ cố định trên giao diện nằm trong <code>src/i18n/ui.ts</code>. Content trong CMS dịch theo từng bài: mỗi bài có 1 bản <code>vi</code> + 1 bản <code>en</code>, liên kết với nhau.</p>
-	</section>
+        <p>
+          Chữ cố định trên giao diện nằm trong <code>src/i18n/ui.ts</code>.
+          Content trong CMS dịch theo từng bài: mỗi bài có 1 bản
+          <code>vi</code> + 1 bản <code>en</code>, liên kết với nhau.
+        </p>
+      </section>
 
-	<section id="data">
-		<h2>Dữ liệu trong CMS</h2>
-		<pre class="mermaid">
+      <section id="data">
+        <h2>Dữ liệu trong CMS</h2>
+        <pre class="mermaid">
 erDiagram
     PROJECTS {
         string title
@@ -227,12 +394,13 @@ erDiagram
         json data
         string status
     }
-		</pre>
-	</section>
+		</pre
+        >
+      </section>
 
-	<section id="lead">
-		<h2>Luồng lead (form liên hệ)</h2>
-		<pre class="mermaid">
+      <section id="lead">
+        <h2>Luồng lead (form liên hệ)</h2>
+        <pre class="mermaid">
 sequenceDiagram
     participant V as Khách
     participant C as Trang /contact
@@ -248,58 +416,60 @@ sequenceDiagram
     F-->>V: "Cảm ơn bạn!..."
     A->>DB: Admin → Forms → Submissions
     Note over F: Phase 2: gửi email báo lead mới
-		</pre>
-	</section>
+		</pre
+        >
+      </section>
 
-	<section id="roadmap">
-		<h2>Roadmap</h2>
-		<div class="grid">
-			<div class="card">
-				<h3>Phase 1: MVP</h3>
-				<ul class="check">
-					<li class="done">✔ Dựng EmDash + Cloudflare</li>
-					<li class="done">✔ Song ngữ vi/en</li>
-					<li class="done">✔ Trang chủ, dự án, dịch vụ, about, liên hệ</li>
-					<li class="done">✔ Form liên hệ + hộp lead</li>
-					<li class="done">✔ Docs, plans, mockup brief</li>
-					<li class="wip">◐ Làm lại giao diện theo mockup</li>
-					<li class="todo">○ Thay dự án mẫu bằng dự án thật</li>
-					<li class="todo">○ Deploy Cloudflare</li>
-				</ul>
-			</div>
-			<div class="card">
-				<h3>Phase 2: Uy tín</h3>
-				<ul class="check">
-					<li class="todo">○ Testimonials, FAQ</li>
-					<li class="todo">○ Trang About đầy đủ</li>
-					<li class="todo">○ Tên miền riêng</li>
-					<li class="todo">○ Email báo lead mới</li>
-					<li class="todo">○ Analytics</li>
-				</ul>
-			</div>
-			<div class="card">
-				<h3>Phase 3: Content bằng AI</h3>
-				<ul class="check">
-					<li class="todo">○ Blog</li>
-					<li class="todo">○ Nối AI vào MCP server</li>
-					<li class="todo">○ AI viết nháp, người duyệt</li>
-					<li class="todo">○ AI dịch vi ↔ en</li>
-				</ul>
-			</div>
-			<div class="card">
-				<h3>Phase 4: Tùy chọn</h3>
-				<ul class="check">
-					<li class="todo">○ Form ước tính báo giá</li>
-					<li class="todo">○ Landing page theo ngách</li>
-				</ul>
-			</div>
-		</div>
-		<p>Chi tiết đầy đủ: <code>docs/roadmap.md</code></p>
-	</section>
+      <section id="roadmap">
+        <h2>Roadmap</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>Phase 1: MVP</h3>
+            <ul class="check">
+              <li class="done">✔ Dựng EmDash + Cloudflare</li>
+              <li class="done">✔ Song ngữ vi/en</li>
+              <li class="done">✔ Trang chủ, dự án, dịch vụ, about, liên hệ</li>
+              <li class="done">✔ Form liên hệ + hộp lead</li>
+              <li class="done">✔ Docs, plans, mockup brief</li>
+              <li class="wip">◐ Làm lại giao diện theo mockup</li>
+              <li class="todo">○ Thay dự án mẫu bằng dự án thật</li>
+              <li class="todo">○ Deploy Cloudflare</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Phase 2: Uy tín</h3>
+            <ul class="check">
+              <li class="todo">○ Testimonials, FAQ</li>
+              <li class="todo">○ Trang About đầy đủ</li>
+              <li class="todo">○ Tên miền riêng</li>
+              <li class="todo">○ Email báo lead mới</li>
+              <li class="todo">○ Analytics</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Phase 3: Content bằng AI</h3>
+            <ul class="check">
+              <li class="todo">○ Blog</li>
+              <li class="todo">○ Nối AI vào MCP server</li>
+              <li class="todo">○ AI viết nháp, người duyệt</li>
+              <li class="todo">○ AI dịch vi ↔ en</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Phase 4: Tùy chọn</h3>
+            <ul class="check">
+              <li class="todo">○ Form ước tính báo giá</li>
+              <li class="todo">○ Landing page theo ngách</li>
+            </ul>
+          </div>
+        </div>
+        <p>Chi tiết đầy đủ: <code>docs/roadmap.md</code></p>
+      </section>
 
-	<section id="folders">
-		<h2>Thư mục cho vibe code</h2>
-		<pre class="tree">ctstack/
+      <section id="folders">
+        <h2>Thư mục cho vibe code</h2>
+        <pre class="tree">
+ctstack/
 ├── AGENTS.md          # hướng dẫn chính cho AI (Codex, Cursor, Claude đều đọc)
 ├── CLAUDE.md          # import AGENTS.md + ghi chú riêng cho Claude Code
 ├── docs/
@@ -316,9 +486,10 @@ sequenceDiagram
 │   ├── 00-design-system/  BRIEF.md · NOTES.md · *.png
 │   ├── 01-home/ … 07-not-found/
 ├── seed/seed.json     # schema + content mẫu
-└── src/               # code site</pre>
-		<h3>Quy trình mỗi tính năng</h3>
-		<pre class="mermaid">
+└── src/               # code site</pre
+        >
+        <h3>Quy trình mỗi tính năng</h3>
+        <pre class="mermaid">
 flowchart LR
     A["roadmap.md<br/>chọn việc"] --> B["plans/NNN-*.md<br/>viết plan"]
     B --> C["mockup/feature/<br/>brief + ảnh"]
@@ -326,13 +497,17 @@ flowchart LR
     D --> E["typecheck + build<br/>+ test vi/en"]
     E --> F["cập nhật plan,<br/>roadmap, docs"]
 		</pre>
-	</section>
-</div>
+      </section>
+    </div>
 
-<script type="module">
-	import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
-	const dark = matchMedia("(prefers-color-scheme: dark)").matches;
-	mermaid.initialize({ startOnLoad: true, theme: dark ? "dark" : "default", securityLevel: "strict" });
-</script>
-</body>
+    <script type="module">
+      import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+      const dark = matchMedia("(prefers-color-scheme: dark)").matches;
+      mermaid.initialize({
+        startOnLoad: true,
+        theme: dark ? "dark" : "default",
+        securityLevel: "strict",
+      });
+    </script>
+  </body>
 </html>

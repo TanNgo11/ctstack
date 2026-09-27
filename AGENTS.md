@@ -16,11 +16,13 @@ Read before non-trivial work:
 ## Commands
 
 ```bash
-npm run dev          # http://localhost:4321 (admin: /_emdash/admin)
-npm run typecheck    # astro check, must be 0 errors
-npm run build        # production build (Cloudflare)
-npm run deploy       # build + wrangler deploy
+pnpm dev          # http://localhost:4321 (admin: /_emdash/admin)
+pnpm typecheck    # astro check, must be 0 errors
+pnpm build        # production build (Cloudflare)
+pnpm run deploy   # build + wrangler deploy (not `pnpm deploy`: that is a pnpm builtin)
 ```
+
+Package manager is **pnpm** only (`pnpm add`, `pnpm exec`). Don't use npm/yarn or create `package-lock.json`. `pnpm-workspace.yaml` holds the build-script allowlist and a 24h release-age cooldown (EmDash packages exempt); keep it. `@cloudflare/kumo` is pinned to the exact version the EmDash packages expect as a peer.
 
 Dev login + sample content: `http://localhost:4321/_emdash/api/setup/dev-bypass?redirect=/_emdash/admin`.
 Reset local data: stop the server, delete `.wrangler/state`.
@@ -70,7 +72,7 @@ Reset local data: stop the server, delete `.wrangler/state`.
 
 ### Schema changes
 - Edit `seed/seed.json` (every content entry needs a `vi` and an `en` version linked with `translationOf`), then update the content model in `docs/architecture.md`.
-- The seed only applies to an empty DB. Existing sites need the change made in the admin (or `npx emdash seed ... --on-conflict update`).
+- The seed only applies to an empty DB. Existing sites need the change made in the admin (or `pnpm exec emdash seed ... --on-conflict update`).
 
 ### Styling
 - Tokens: override in `theme.css`, never edit `tokens.css`. Colors use `light-dark()`.
@@ -86,5 +88,5 @@ Reset local data: stop the server, delete `.wrangler/state`.
 1. Check `docs/roadmap.md` and `plans/` for the task. Non-trivial feature: write `plans/NNN-<feature>.md` from `plans/_template.md` first.
 2. UI feature: make sure `mockup/<feature>/` has a brief and images.
 3. Implement, keeping both languages working.
-4. Verify: `npm run typecheck`, `npm run build`, and hit the affected vi + en routes on the dev server (expect 200; bad slugs 404).
+4. Verify: `pnpm typecheck`, `pnpm build`, and hit the affected vi + en routes on the dev server (expect 200; bad slugs 404).
 5. Update the plan status, `docs/roadmap.md` checkboxes, and docs affected by the change.

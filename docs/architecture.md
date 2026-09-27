@@ -191,7 +191,7 @@ sequenceDiagram
 
 | Env        | Database                          | How to run                    |
 | ---------- | --------------------------------- | ----------------------------- |
-| Local      | Miniflare D1/R2 in `.wrangler/state` | `npm run dev`              |
-| Production | Cloudflare D1 `ctstack`, R2 `ctstack-media` | `npm run deploy`     |
+| Local      | Miniflare D1/R2 in `.wrangler/state` | `pnpm dev`              |
+| Production | Cloudflare D1 `ctstack`, R2 `ctstack-media` | `pnpm run deploy`     |
 
 Secret: `EMDASH_ENCRYPTION_KEY` (`.env` locally, `wrangler secret put` in production).

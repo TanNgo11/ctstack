@@ -37,8 +37,8 @@ Replace the current generic look with a distinctive, trustworthy studio design t
 
 ## Verification
 
-- [ ] `npm run typecheck`: 0 errors
-- [ ] `npm run build` succeeds
+- [ ] `pnpm typecheck`: 0 errors
+- [ ] `pnpm build` succeeds
 - [ ] vi + en routes 200, bad slugs 404
 - [ ] Side-by-side with mockups at 390px and 1440px
 

@@ -38,8 +38,8 @@ Uses `@emdash-cms/plugin-forms`. The pages embed forms with slugs `lien-he` (vi)
 ## Development
 
 ```bash
-npm install
-npm run dev          # http://localhost:4321
+pnpm install
+pnpm dev          # http://localhost:4321
 ```
 
 - Admin: `http://localhost:4321/_emdash/admin`
@@ -48,18 +48,18 @@ npm run dev          # http://localhost:4321
 - Reset local data: stop the server and delete `.wrangler/state`.
 
 ```bash
-npm run typecheck
-npm run build
+pnpm typecheck
+pnpm build
 ```
 
 ## Deploy (Cloudflare)
 
 ```bash
-npx wrangler login
-npm run deploy       # first deploy provisions the D1 database and R2 bucket from wrangler.jsonc
-npx wrangler secret put EMDASH_ENCRYPTION_KEY   # value from .env
+pnpm exec wrangler login
+pnpm run deploy       # first deploy provisions the D1 database and R2 bucket from wrangler.jsonc
+pnpm exec wrangler secret put EMDASH_ENCRYPTION_KEY   # value from .env
 ```
 
-If provisioning is skipped, create them manually (`npx wrangler d1 create ctstack`, `npx wrangler r2 bucket create ctstack-media`) and put the `database_id` in `wrangler.jsonc`.
+If provisioning is skipped, create them manually (`pnpm exec wrangler d1 create ctstack`, `pnpm exec wrangler r2 bucket create ctstack-media`) and put the `database_id` in `wrangler.jsonc`.
 
 Then open `/_emdash/admin` on the deployed URL, finish the setup wizard (include sample content if wanted), create the two contact forms, and set the site URL in Settings once a domain is attached (needed for hreflang and sitemap).
