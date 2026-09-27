@@ -1,0 +1,164 @@
+---
+import { getEmDashCollection } from "emdash";
+import Base from "../../../layouts/Base.astro";
+import ProjectCard from "../../../components/ProjectCard.astro";
+import {
+	categoryLabel,
+	localizePath,
+	projectCategories,
+	langFromParam,
+	useTranslations,
+} from "../../../i18n/ui";
+
+const lang = langFromParam(Astro.params.lang);
+if (!lang) return Astro.rewrite("/404");
+const t = useTranslations(lang);
+const basePath = localizePath("/projects", lang);
+
+const rawCategory = Astro.url.searchParams.get("category");
+const activeCategory = projectCategories.find((c) => c === rawCategory);
+const cursor = Astro.url.searchParams.get("cursor") ?? undefined;
+
+const result = await getEmDashCollection("projects", {
+	locale: lang,
+	orderBy: { sort_order: "asc" },
+	limit: 12,
+	cursor,
+	...(activeCategory ? { where: { category: activeCategory } } : {}),
+});
+if (result.error) {
+	return new Response("Could not load projects", { status: 500 });
+}
+const { entries: projects, nextCursor } = result;
+if (Astro.cache?.enabled) Astro.cache.set(result.cacheHint);
+
+function pageUrl(params: Record<string, string | undefined>): string {
+	const search = new URLSearchParams();
+	for (const [k, v] of Object.entries(params)) if (v) search.set(k, v);
+	const qs = search.toString();
+	return qs ? `${basePath}?${qs}` : basePath;
+}
+---
+
+<Base
+	title={activeCategory
+		? `${categoryLabel(lang, activeCategory)} — ${t("projects.title")}`
+		: t("projects.title")}
+	description={t("projects.intro")}
+	robots={cursor ? "noindex, follow" : undefined}
+>
+	<div class="container">
+		<header class="page-header">
+			<h1>{t("projects.title")}</h1>
+			<p class="page-intro">{t("projects.intro")}</p>
+
+			<nav class="filters" aria-label={t("projects.type")}>
+				<a
+					href={basePath}
+					class:list={["filter", { active: !activeCategory }]}
+					aria-current={!activeCategory ? "page" : undefined}
+				>
+					{t("projects.all")}
+				</a>
+				{
+					projectCategories.map((c) => (
+						<a
+							href={pageUrl({ category: c })}
+							class:list={["filter", { active: activeCategory === c }]}
+							aria-current={activeCategory === c ? "page" : undefined}
+						>
+							{categoryLabel(lang, c)}
+						</a>
+					))
+				}
+			</nav>
+		</header>
+
+		{
+			projects.length > 0 ? (
+				<section class="projects-grid">
+					{projects.map((p) => (
+						<ProjectCard
+							title={p.data.title}
+							summary={p.data.summary}
+							featuredImage={p.data.featured_image}
+							href={localizePath(`/projects/${p.id}`, lang)}
+							client={p.data.client}
+							year={p.data.year}
+							category={p.data.category}
+							edit={p.edit}
+						/>
+					))}
+				</section>
+			) : (
+				<p class="empty-state">
+					{activeCategory ? t("projects.emptyFilter") : t("projects.empty")}
+				</p>
+			)
+		}
+
+		{
+			nextCursor && (
+				<nav class="pagination">
+					<a
+						class="btn btn-ghost"
+						href={pageUrl({ category: activeCategory, cursor: nextCursor })}
+						rel="next"
+					>
+						{t("projects.more")}
+					</a>
+				</nav>
+			)
+		}
+	</div>
+</Base>
+
+<style>
+	.filters {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--spacing-sm);
+		margin-top: var(--spacing-xl);
+	}
+
+	.filter {
+		padding: var(--spacing-xs) var(--spacing-md);
+		font-size: var(--font-size-sm);
+		color: var(--color-muted);
+		text-decoration: none;
+		border: 1px solid var(--color-border);
+		border-radius: 999px;
+		transition:
+			color var(--transition-fast),
+			border-color var(--transition-fast);
+	}
+
+	.filter:hover {
+		color: var(--color-text);
+		border-color: var(--color-text);
+	}
+
+	.filter.active {
+		color: var(--color-on-brand);
+		background: var(--color-brand);
+		border-color: var(--color-brand);
+	}
+
+	.projects-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: var(--spacing-2xl);
+		padding-bottom: var(--spacing-4xl);
+	}
+
+	.pagination {
+		text-align: center;
+		margin: calc(-1 * var(--spacing-2xl)) 0 var(--spacing-4xl);
+	}
+
+	@media (max-width: 768px) {
+		.projects-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

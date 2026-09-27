@@ -1,0 +1,350 @@
+---
+import { decodeSlug, getEmDashCollection, getEmDashEntry, getSeoMeta } from "emdash";
+import { Image, PortableText } from "emdash/ui";
+import Base from "../../../layouts/Base.astro";
+import ProjectCard from "../../../components/ProjectCard.astro";
+import { categoryLabel, localizePath, useTranslations, langFromParam } from "../../../i18n/ui";
+import { contentAlternates, isNotFoundError, safeExternalUrl, splitStack } from "../../../lib/content";
+
+const lang = langFromParam(Astro.params.lang);
+if (!lang) return Astro.rewrite("/404");
+const t = useTranslations(lang);
+
+const slug = decodeSlug(Astro.params.slug);
+if (!slug) return Astro.rewrite("/404");
+
+const { entry: project, error, cacheHint } = await getEmDashEntry("projects", slug, {
+	locale: lang,
+});
+if (!project || isNotFoundError(error)) return Astro.rewrite("/404");
+if (error) return new Response("Could not load the project", { status: 500 });
+
+const [relatedResult, alternates] = await Promise.all([
+	getEmDashCollection("projects", {
+		locale: lang,
+		orderBy: { sort_order: "asc" },
+		limit: 3,
+	}),
+	contentAlternates("projects", project.data.id, (s) => `/projects/${s}`),
+]);
+const otherProjects = (relatedResult.entries ?? [])
+	.filter((p) => p.id !== project.id)
+	.slice(0, 2);
+if (Astro.cache?.enabled) {
+	Astro.cache.set(cacheHint);
+	if (relatedResult.cacheHint) Astro.cache.set(relatedResult.cacheHint);
+}
+
+const d = project.data;
+const projectUrl = safeExternalUrl(d.url);
+const stack = splitStack(d.stack);
+const results = d.results ?? [];
+const gallery = d.gallery ?? [];
+const facts = [
+	{ label: t("projects.client"), value: d.client, edit: project.edit.client },
+	{ label: t("projects.type"), value: categoryLabel(lang, d.category), edit: project.edit.category },
+	{ label: t("projects.year"), value: d.year, edit: project.edit.year },
+].filter((f) => f.value);
+
+const seo = getSeoMeta(project, {
+	siteUrl: Astro.url.origin,
+	path: localizePath(`/projects/${slug}`, lang),
+	defaultDescription: d.summary,
+	defaultOgImage: d.featured_image?.src,
+});
+---
+
+<Base
+	title={seo.title}
+	pageTitle={seo.ogTitle}
+	description={seo.description}
+	image={seo.ogImage}
+	canonical={seo.canonical}
+	robots={seo.robots}
+	type="article"
+	content={{ collection: "projects", id: d.id, slug }}
+	alternates={alternates}
+>
+	<article class="project container">
+		<header class="project-header">
+			<a href={localizePath("/projects", lang)} class="back">← {t("projects.title")}</a>
+			<h1 class="project-title" {...project.edit.title}>{d.title}</h1>
+			{
+				d.summary && (
+					<p class="project-summary" {...project.edit.summary}>
+						{d.summary}
+					</p>
+				)
+			}
+			{
+				projectUrl && (
+					<a
+						href={projectUrl}
+						class="btn btn-primary"
+						target="_blank"
+						rel="noopener noreferrer"
+						{...project.edit.url}
+					>
+						{t("projects.live")} ↗
+					</a>
+				)
+			}
+		</header>
+
+		{
+			d.featured_image && (
+				<div class="featured-image" {...project.edit.featured_image}>
+					<Image image={d.featured_image} />
+				</div>
+			)
+		}
+
+		<div class="project-body">
+			<aside class="project-facts">
+				<dl>
+					{
+						facts.map((f) => (
+							<div>
+								<dt>{f.label}</dt>
+								<dd {...f.edit}>{f.value}</dd>
+							</div>
+						))
+					}
+					{
+						stack.length > 0 && (
+							<div>
+								<dt>{t("projects.stack")}</dt>
+								<dd class="stack" {...project.edit.stack}>
+									{stack.map((s) => (
+										<span class="chip">{s}</span>
+									))}
+								</dd>
+							</div>
+						)
+					}
+				</dl>
+			</aside>
+
+			<div class="project-main">
+				{
+					results.length > 0 && (
+						<section class="results" aria-label={t("projects.results")} {...project.edit.results}>
+							{results.map((r) => (
+								<div class="result">
+									<span class="result-value">{r.value}</span>
+									<span class="result-label">{r.label}</span>
+								</div>
+							))}
+						</section>
+					)
+				}
+				<div class="prose" {...project.edit.content}>
+					<PortableText value={d.content} />
+				</div>
+			</div>
+		</div>
+
+		{
+			gallery.length > 0 && (
+				<div class="project-gallery" {...project.edit.gallery}>
+					{gallery.map((item) => (
+						<figure class="gallery-item">
+							<Image image={item.image} />
+							{item.caption && <figcaption>{item.caption}</figcaption>}
+						</figure>
+					))}
+				</div>
+			)
+		}
+	</article>
+
+	{
+		otherProjects.length > 0 && (
+			<section class="more">
+				<div class="container">
+					<h2 class="section-title">{t("projects.other")}</h2>
+					<div class="more-grid">
+						{otherProjects.map((p) => (
+							<ProjectCard
+								title={p.data.title}
+								summary={p.data.summary}
+								featuredImage={p.data.featured_image}
+								href={localizePath(`/projects/${p.id}`, lang)}
+								client={p.data.client}
+								year={p.data.year}
+								category={p.data.category}
+								edit={p.edit}
+							/>
+						))}
+					</div>
+				</div>
+			</section>
+		)
+	}
+</Base>
+
+<style>
+	.project {
+		padding-bottom: var(--spacing-4xl);
+	}
+
+	.project-header {
+		max-width: 800px;
+		padding: var(--spacing-2xl) 0;
+	}
+
+	.back {
+		display: inline-block;
+		font-size: var(--font-size-sm);
+		color: var(--color-muted);
+		text-decoration: none;
+		margin-bottom: var(--spacing-lg);
+	}
+
+	.back:hover {
+		color: var(--color-text);
+	}
+
+	.project-title {
+		font-size: var(--font-size-3xl);
+		font-weight: var(--font-weight-display);
+		line-height: var(--leading-tight);
+		margin-bottom: var(--spacing-md);
+	}
+
+	.project-summary {
+		font-size: var(--font-size-lg);
+		color: var(--color-muted);
+		margin-bottom: var(--spacing-lg);
+	}
+
+	.featured-image :global(img) {
+		width: 100%;
+		border-radius: var(--radius);
+		border: 1px solid var(--color-border);
+	}
+
+	.project-body {
+		display: grid;
+		grid-template-columns: 260px 1fr;
+		gap: var(--spacing-3xl);
+		margin-top: var(--spacing-3xl);
+	}
+
+	.project-facts dl {
+		display: grid;
+		gap: var(--spacing-lg);
+		position: sticky;
+		top: var(--spacing-lg);
+	}
+
+	.project-facts dt {
+		font-size: var(--font-size-xs);
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: var(--tracking-wide);
+		color: var(--color-muted);
+		margin-bottom: var(--spacing-xs);
+	}
+
+	.stack {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--spacing-xs);
+	}
+
+	.chip {
+		font-size: var(--font-size-xs);
+		padding: 2px var(--spacing-sm);
+		border: 1px solid var(--color-border);
+		border-radius: 999px;
+	}
+
+	.project-main {
+		max-width: var(--max-width);
+	}
+
+	.results {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+		gap: var(--spacing-md);
+		margin-bottom: var(--spacing-2xl);
+	}
+
+	.result {
+		display: flex;
+		flex-direction: column;
+		padding: var(--spacing-lg);
+		background: var(--color-surface);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius);
+	}
+
+	.result-value {
+		font-size: var(--font-size-2xl);
+		font-weight: 700;
+		color: var(--color-brand);
+	}
+
+	.result-label {
+		font-size: var(--font-size-sm);
+		color: var(--color-muted);
+	}
+
+	.project-gallery {
+		margin-top: var(--spacing-3xl);
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: var(--spacing-lg);
+	}
+
+	.gallery-item :global(img) {
+		width: 100%;
+		border-radius: var(--radius);
+	}
+
+	.gallery-item figcaption {
+		margin-top: var(--spacing-sm);
+		font-size: var(--font-size-sm);
+		color: var(--color-muted);
+	}
+
+	.more {
+		background: var(--color-surface);
+		border-top: 1px solid var(--color-border);
+		padding: var(--spacing-4xl) 0;
+	}
+
+	.more .section-title {
+		margin-bottom: var(--spacing-2xl);
+	}
+
+	.more-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: var(--spacing-2xl);
+	}
+
+	@media (max-width: 860px) {
+		.project-body {
+			grid-template-columns: 1fr;
+			gap: var(--spacing-2xl);
+		}
+
+		.project-facts dl {
+			position: static;
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (max-width: 640px) {
+		.project-title {
+			font-size: var(--font-size-2xl);
+		}
+
+		.project-gallery,
+		.more-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

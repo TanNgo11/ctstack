@@ -1,0 +1,52 @@
+---
+import Base from "../layouts/Base.astro";
+import { langFromPath, localizePath, useTranslations } from "../i18n/ui";
+
+const lang = langFromPath(Astro.originPathname ?? Astro.url.pathname);
+const t = useTranslations(lang);
+---
+
+<Base title={t("notFound.title")} robots="noindex">
+	<div class="not-found container">
+		<span class="code">404</span>
+		<h1>{t("notFound.title")}</h1>
+		<p>{t("notFound.text")}</p>
+		<div class="links">
+			<a href={localizePath("/", lang)} class="btn btn-primary">{t("notFound.home")}</a>
+			<a href={localizePath("/projects", lang)} class="btn btn-ghost">{t("nav.projects")}</a>
+		</div>
+	</div>
+</Base>
+
+<style>
+	.not-found {
+		text-align: center;
+		padding-top: var(--spacing-4xl);
+		padding-bottom: var(--spacing-4xl);
+	}
+
+	.code {
+		display: block;
+		font-size: 6rem;
+		font-weight: 700;
+		line-height: 1;
+		color: var(--color-brand);
+		margin-bottom: var(--spacing-lg);
+	}
+
+	h1 {
+		font-size: var(--font-size-2xl);
+		margin-bottom: var(--spacing-sm);
+	}
+
+	p {
+		color: var(--color-muted);
+		margin-bottom: var(--spacing-xl);
+	}
+
+	.links {
+		display: flex;
+		gap: var(--spacing-md);
+		justify-content: center;
+	}
+</style>

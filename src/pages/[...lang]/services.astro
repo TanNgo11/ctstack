@@ -1,0 +1,71 @@
+---
+import { getEmDashCollection } from "emdash";
+import Base from "../../layouts/Base.astro";
+import ServiceCard from "../../components/ServiceCard.astro";
+import { useTranslations, langFromParam } from "../../i18n/ui";
+
+const lang = langFromParam(Astro.params.lang);
+if (!lang) return Astro.rewrite("/404");
+const t = useTranslations(lang);
+
+const result = await getEmDashCollection("services", {
+	locale: lang,
+	orderBy: { sort_order: "asc" },
+	limit: 50,
+});
+if (result.error) {
+	return new Response("Could not load services", { status: 500 });
+}
+const services = result.entries;
+if (Astro.cache?.enabled) Astro.cache.set(result.cacheHint);
+---
+
+<Base title={t("services.title")} description={t("services.intro")}>
+	<div class="container">
+		<header class="page-header">
+			<h1>{t("services.title")}</h1>
+			<p class="page-intro">{t("services.intro")}</p>
+		</header>
+
+		{
+			services.length > 0 ? (
+				<section class="services-grid">
+					{services.map((s) => (
+						<ServiceCard
+							title={s.data.title}
+							summary={s.data.summary}
+							icon={s.data.icon}
+							priceFrom={s.data.price_from}
+							features={s.data.features}
+							detailed
+							edit={s.edit}
+						/>
+					))}
+				</section>
+			) : (
+				<p class="empty-state">{t("services.empty")}</p>
+			)
+		}
+	</div>
+</Base>
+
+<style>
+	.services-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--spacing-lg);
+		padding-bottom: var(--spacing-4xl);
+	}
+
+	@media (max-width: 960px) {
+		.services-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (max-width: 640px) {
+		.services-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

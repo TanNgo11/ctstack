@@ -1,0 +1,55 @@
+---
+import { getEmDashEntry, getSeoMeta } from "emdash";
+import { PortableText } from "emdash/ui";
+import Base from "../../layouts/Base.astro";
+import { langFromParam, localizePath } from "../../i18n/ui";
+import { contentAlternates, isNotFoundError } from "../../lib/content";
+
+const slug = "about";
+const lang = langFromParam(Astro.params.lang);
+if (!lang) return Astro.rewrite("/404");
+
+const { entry: page, error, cacheHint } = await getEmDashEntry("pages", slug, {
+	locale: lang,
+});
+if (!page || isNotFoundError(error)) return Astro.rewrite("/404");
+if (error) return new Response("Could not load the page", { status: 500 });
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+
+const alternates = await contentAlternates("pages", page.data.id, (s) => `/${s}`);
+const seo = getSeoMeta(page, {
+	siteUrl: Astro.url.origin,
+	path: localizePath(`/${slug}`, lang),
+});
+---
+
+<Base
+	title={seo.title}
+	pageTitle={seo.ogTitle}
+	description={seo.description}
+	image={seo.ogImage}
+	canonical={seo.canonical}
+	robots={seo.robots}
+	content={{ collection: "pages", id: page.data.id, slug }}
+	alternates={alternates}
+>
+	<article class="page container">
+		<header class="page-header">
+			<h1 {...page.edit.title}>{page.data.title}</h1>
+		</header>
+		<div class="prose" {...page.edit.content}>
+			<PortableText value={page.data.content} />
+		</div>
+	</article>
+</Base>
+
+<style>
+	.page {
+		max-width: calc(var(--max-width) + 2 * var(--spacing-lg));
+		padding-bottom: var(--spacing-4xl);
+	}
+
+	.prose {
+		font-size: var(--font-size-lg);
+	}
+</style>

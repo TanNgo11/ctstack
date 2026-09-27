@@ -1,0 +1,90 @@
+# CTStack — agent guide
+
+Portfolio + services site for CTStack, a studio that builds websites, web apps and mobile apps. Goal: show real projects and turn visitors into leads ("Nhận báo giá" / "Get a quote"). Built on **EmDash** (Astro CMS) and deployed to **Cloudflare Workers + D1 + R2**. Bilingual: Vietnamese (default) and English.
+
+Read before non-trivial work:
+
+- [docs/architecture.md](docs/architecture.md): stack, diagrams, request flow, content model
+- [docs/roadmap.md](docs/roadmap.md): phases and current status
+- [docs/decisions.md](docs/decisions.md): why things are the way they are
+- [docs/content-guide.md](docs/content-guide.md): rules for writing site content (including AI-written content)
+- [plans/](plans/): one plan per feature; check for an active plan before starting
+- [mockup/](mockup/): design references per feature; UI work must match them
+
+`docs/overview.html` is a Vietnamese, human-readable copy of the architecture and roadmap. When you change `docs/architecture.md` or `docs/roadmap.md`, update it too.
+
+## Commands
+
+```bash
+npm run dev          # http://localhost:4321 (admin: /_emdash/admin)
+npm run typecheck    # astro check, must be 0 errors
+npm run build        # production build (Cloudflare)
+npm run deploy       # build + wrangler deploy
+```
+
+Dev login + sample content: `http://localhost:4321/_emdash/api/setup/dev-bypass?redirect=/_emdash/admin`.
+Reset local data: stop the server, delete `.wrangler/state`.
+
+## Project layout
+
+| Path                         | Purpose                                                                 |
+| ---------------------------- | ----------------------------------------------------------------------- |
+| `astro.config.mjs`           | Astro + EmDash config, i18n (`vi` default, `en`), plugins, fonts        |
+| `wrangler.jsonc`             | Cloudflare Worker, D1 (`DB`), R2 (`MEDIA`), cron                        |
+| `seed/seed.json`             | Schema + sample content. Only applied to an empty database              |
+| `src/pages/[...lang]/`       | All public routes. `lang` param is empty (vi) or `en`; anything else 404 |
+| `src/pages/404.astro`        | Not-found page (language from the original path)                       |
+| `src/layouts/Base.astro`     | HTML shell, nav, language switch, footer, EmDash head/body hooks        |
+| `src/components/`            | `ProjectCard`, `ServiceCard`, `ServiceIcon`                             |
+| `src/views/`                 | Shared view components with no data loading (`NotFound`)               |
+| `src/i18n/ui.ts`             | UI strings (vi/en), locale helpers, contact form slugs, contact email   |
+| `src/lib/content.ts`         | Content helpers: translation alternates, safe URLs, not-found detection |
+| `src/styles/tokens.css`      | Default design tokens (don't edit)                                      |
+| `src/styles/theme.css`       | CTStack theme overrides + shared classes (`.container`, `.btn`, `.prose`...) |
+| `src/live.config.ts`         | EmDash loader boilerplate (don't modify)                                |
+| `.agents/skills/`            | EmDash skills (also linked at `.claude/skills/`)                        |
+
+## Rules
+
+### i18n
+- Every page file lives in `src/pages/[...lang]/` and starts with:
+  ```ts
+  const lang = langFromParam(Astro.params.lang);
+  if (!lang) return Astro.rewrite("/404");
+  ```
+- Build internal links with `localizePath(path, lang)`. Never hardcode `/en/...`.
+- No hardcoded UI text in templates. Add keys to **both** `vi` and `en` in `src/i18n/ui.ts` (the `en` object is typed from `vi`, so a missing key is a type error).
+- Query CMS content with `locale: lang`. Each entry exists per language, linked as translations; `contentAlternates()` feeds the language switcher.
+- Components find the language with `langFromPath(Astro.originPathname ?? Astro.url.pathname)`.
+
+### EmDash
+- All content pages are server-rendered. No `getStaticPaths()` for CMS content.
+- Image fields are objects. Render with `<Image image={...} />` from `emdash/ui`.
+- `entry.id` is the slug (URLs); `entry.data.id` is the ULID (API calls like `getTranslations`).
+- A missing slug from `getEmDashEntry` comes back as an **error**, not a null entry. Check `isNotFoundError(error)` first, then return 404.
+- `where` in `getEmDashCollection` matches string values only. Filter booleans (`featured`) in JS.
+- Spread `entry.edit.<field>` on the element that renders the field (visual editing).
+- Pass `cacheHint`s to `Astro.cache.set()` when `Astro.cache?.enabled`.
+- Astro components can't `return Astro.redirect()` or `Response`; only pages can. Keep data loading and 404 handling in page files.
+- Verify EmDash APIs with the docs MCP server (`emdash-docs`, `search_docs`) or `node_modules/emdash/src`, not from memory.
+
+### Schema changes
+- Edit `seed/seed.json` (every content entry needs a `vi` and an `en` version linked with `translationOf`), then update the content model in `docs/architecture.md`.
+- The seed only applies to an empty DB. Existing sites need the change made in the admin (or `npx emdash seed ... --on-conflict update`).
+
+### Styling
+- Tokens: override in `theme.css`, never edit `tokens.css`. Colors use `light-dark()`.
+- Reuse shared classes from `theme.css` before adding page CSS.
+- UI must match the mockups in `mockup/<feature>/`. If none exist, write the brief first.
+- Mobile first. Check 390px and 1440px widths.
+
+### Content
+- Follow `docs/content-guide.md`. Never invent client names, metrics or testimonials as if real; mark samples clearly.
+
+## Workflow
+
+1. Check `docs/roadmap.md` and `plans/` for the task. Non-trivial feature: write `plans/NNN-<feature>.md` from `plans/_template.md` first.
+2. UI feature: make sure `mockup/<feature>/` has a brief and images.
+3. Implement, keeping both languages working.
+4. Verify: `npm run typecheck`, `npm run build`, and hit the affected vi + en routes on the dev server (expect 200; bad slugs 404).
+5. Update the plan status, `docs/roadmap.md` checkboxes, and docs affected by the change.

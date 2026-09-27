@@ -1,0 +1,101 @@
+---
+import { Form } from "@emdash-cms/plugin-forms/ui";
+import "@emdash-cms/plugin-forms/styles";
+import Base from "../../layouts/Base.astro";
+import { contactEmail, contactFormId, useTranslations, langFromParam } from "../../i18n/ui";
+
+const lang = langFromParam(Astro.params.lang);
+if (!lang) return Astro.rewrite("/404");
+const t = useTranslations(lang);
+---
+
+<Base title={t("contact.title")} description={t("contact.intro")}>
+	<div class="contact container">
+		<header class="contact-header">
+			<p class="eyebrow">{t("contact.eyebrow")}</p>
+			<h1>{t("contact.title")}</h1>
+			<p class="page-intro">{t("contact.intro")}</p>
+			{
+				contactEmail && (
+					<p class="contact-email">
+						{t("contact.emailLabel")}:{" "}
+						<a href={`mailto:${contactEmail}`}>{contactEmail}</a>
+					</p>
+				)
+			}
+		</header>
+
+		<section class="contact-form">
+			<Form id={contactFormId[lang]} />
+		</section>
+	</div>
+</Base>
+
+<style>
+	.contact {
+		display: grid;
+		grid-template-columns: 1fr 1.2fr;
+		gap: var(--spacing-3xl);
+		padding-top: var(--spacing-3xl);
+		padding-bottom: var(--spacing-4xl);
+	}
+
+	.contact-header h1 {
+		font-size: var(--font-size-3xl);
+		line-height: var(--leading-tight);
+		margin-bottom: var(--spacing-md);
+	}
+
+	.contact-email {
+		margin-top: var(--spacing-xl);
+		color: var(--color-muted);
+	}
+
+	.contact-email a {
+		color: var(--color-brand);
+	}
+
+	.contact-form {
+		padding: var(--spacing-2xl);
+		background: var(--color-surface);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius);
+	}
+
+	/* Forms plugin theme (see @emdash-cms/plugin-forms/styles) */
+	.contact-form :global(.ec-form) {
+		--ec-form-gap: var(--spacing-lg);
+		--ec-form-field-border: 1px solid var(--color-border);
+		--ec-form-field-radius: var(--radius);
+		--ec-form-field-bg: var(--color-bg);
+		--ec-form-help-color: var(--color-muted);
+		--ec-form-error-color: var(--color-danger);
+		--ec-form-required-color: var(--color-danger);
+		--ec-form-submit-bg: var(--color-brand);
+		--ec-form-submit-color: var(--color-on-brand);
+		--ec-form-submit-radius: var(--radius);
+		--ec-form-submit-padding: var(--spacing-md) var(--spacing-xl);
+	}
+
+	.contact-form :global(:is(input, textarea, select)) {
+		font: inherit;
+		color: var(--color-text);
+	}
+
+	.contact-form :global(.ec-form-submit) {
+		font: inherit;
+		font-weight: 600;
+		cursor: pointer;
+	}
+
+	@media (max-width: 860px) {
+		.contact {
+			grid-template-columns: 1fr;
+			gap: var(--spacing-2xl);
+		}
+
+		.contact-header h1 {
+			font-size: var(--font-size-2xl);
+		}
+	}
+</style>

@@ -1,0 +1,136 @@
+---
+import type { EditProxy } from "emdash";
+import ServiceIcon from "./ServiceIcon.astro";
+import { langFromPath, localizePath, useTranslations } from "../i18n/ui";
+
+interface Props {
+	title: string;
+	summary?: string;
+	icon?: string;
+	priceFrom?: string;
+	features?: { item: string }[];
+	/** Show the features list and a contact button (services page). */
+	detailed?: boolean;
+	edit?: EditProxy;
+}
+
+const { title, summary, icon, priceFrom, features, detailed, edit } =
+	Astro.props;
+const lang = langFromPath(Astro.originPathname ?? Astro.url.pathname);
+const t = useTranslations(lang);
+---
+
+<article class:list={["service-card", { detailed }]}>
+	<div class="service-icon-wrap"><ServiceIcon name={icon} /></div>
+	<h3 class="service-title" {...edit?.title}>{title}</h3>
+	{
+		summary && (
+			<p class="service-summary" {...edit?.summary}>
+				{summary}
+			</p>
+		)
+	}
+	{
+		detailed && features && features.length > 0 && (
+			<ul class="service-features" {...edit?.features}>
+				{features.map((f) => (
+					<li>{f.item}</li>
+				))}
+			</ul>
+		)
+	}
+	<div class="service-footer">
+		{
+			priceFrom && (
+				<p class="service-price" {...edit?.price_from}>
+					<span>{t("services.priceFrom")}</span> <strong>{priceFrom}</strong>
+				</p>
+			)
+		}
+		{
+			detailed && (
+				<a
+					class="btn btn-ghost"
+					href={`${localizePath("/contact", lang)}?service=${encodeURIComponent(title)}`}
+				>
+					{t("services.contact")}
+				</a>
+			)
+		}
+	</div>
+</article>
+
+<style>
+	.service-card {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-sm);
+		padding: var(--spacing-xl);
+		background: var(--color-surface);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius);
+		height: 100%;
+	}
+
+	.service-icon-wrap {
+		display: inline-flex;
+		width: 44px;
+		height: 44px;
+		align-items: center;
+		justify-content: center;
+		border-radius: var(--radius);
+		color: var(--color-brand);
+		background: var(--color-brand-ring);
+		margin-bottom: var(--spacing-sm);
+	}
+
+	.service-title {
+		font-size: var(--font-size-lg);
+	}
+
+	.service-summary {
+		color: var(--color-muted);
+		font-size: var(--font-size-sm);
+	}
+
+	.service-features {
+		list-style: none;
+		margin: var(--spacing-md) 0;
+		display: grid;
+		gap: var(--spacing-sm);
+		font-size: var(--font-size-sm);
+	}
+
+	.service-features li {
+		padding-inline-start: 1.5em;
+		position: relative;
+	}
+
+	.service-features li::before {
+		content: "✓";
+		position: absolute;
+		inset-inline-start: 0;
+		color: var(--color-brand);
+		font-weight: 700;
+	}
+
+	.service-footer {
+		margin-top: auto;
+		padding-top: var(--spacing-md);
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--spacing-md);
+		flex-wrap: wrap;
+	}
+
+	.service-price {
+		font-size: var(--font-size-sm);
+		color: var(--color-muted);
+	}
+
+	.service-price strong {
+		color: var(--color-text);
+		font-size: var(--font-size-base);
+	}
+</style>

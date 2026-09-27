@@ -1,0 +1,1443 @@
+{
+	"$schema": "https://emdashcms.com/seed.schema.json",
+	"version": "1",
+	"meta": {
+		"name": "CTStack",
+		"description": "CTStack portfolio & services site",
+		"author": "CTStack"
+	},
+	"settings": {
+		"title": "CTStack",
+		"tagline": "Thiết kế & phát triển website, ứng dụng"
+	},
+	"collections": [
+		{
+			"slug": "projects",
+			"label": "Projects",
+			"labelSingular": "Project",
+			"supports": [
+				"drafts",
+				"revisions",
+				"preview",
+				"search",
+				"seo"
+			],
+			"urlPattern": "/projects/{slug}",
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Title",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "featured_image",
+					"label": "Featured Image",
+					"type": "image",
+					"required": true
+				},
+				{
+					"slug": "client",
+					"label": "Client",
+					"type": "string"
+				},
+				{
+					"slug": "year",
+					"label": "Year",
+					"type": "string"
+				},
+				{
+					"slug": "category",
+					"label": "Category",
+					"type": "select",
+					"validation": {
+						"options": [
+							"website",
+							"web_app",
+							"mobile_app",
+							"ecommerce",
+							"landing_page"
+						]
+					}
+				},
+				{
+					"slug": "stack",
+					"label": "Tech stack (comma separated)",
+					"type": "string"
+				},
+				{
+					"slug": "summary",
+					"label": "Summary",
+					"type": "text",
+					"searchable": true
+				},
+				{
+					"slug": "content",
+					"label": "Case study",
+					"type": "portableText",
+					"searchable": true
+				},
+				{
+					"slug": "results",
+					"label": "Results",
+					"type": "repeater",
+					"validation": {
+						"maxItems": 6,
+						"subFields": [
+							{
+								"slug": "value",
+								"label": "Value (e.g. +40%)",
+								"type": "string",
+								"required": true
+							},
+							{
+								"slug": "label",
+								"label": "Label",
+								"type": "string",
+								"required": true
+							}
+						]
+					}
+				},
+				{
+					"slug": "gallery",
+					"label": "Gallery",
+					"type": "repeater",
+					"validation": {
+						"maxItems": 24,
+						"subFields": [
+							{
+								"slug": "image",
+								"label": "Image",
+								"type": "image",
+								"required": true
+							},
+							{
+								"slug": "caption",
+								"label": "Caption",
+								"type": "text"
+							}
+						]
+					}
+				},
+				{
+					"slug": "url",
+					"label": "Live URL",
+					"type": "url"
+				},
+				{
+					"slug": "featured",
+					"label": "Show on homepage",
+					"type": "boolean"
+				},
+				{
+					"slug": "sort_order",
+					"label": "Sort order (lower first)",
+					"type": "integer"
+				}
+			]
+		},
+		{
+			"slug": "services",
+			"label": "Services",
+			"labelSingular": "Service",
+			"supports": [
+				"drafts",
+				"revisions",
+				"search",
+				"seo"
+			],
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Title",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "icon",
+					"label": "Icon",
+					"type": "select",
+					"validation": {
+						"options": [
+							"globe",
+							"cart",
+							"layout",
+							"smartphone",
+							"wrench",
+							"sparkles"
+						]
+					}
+				},
+				{
+					"slug": "summary",
+					"label": "Summary",
+					"type": "text",
+					"searchable": true
+				},
+				{
+					"slug": "price_from",
+					"label": "Price from (e.g. 8 triệu / $400)",
+					"type": "string"
+				},
+				{
+					"slug": "features",
+					"label": "What's included",
+					"type": "repeater",
+					"validation": {
+						"maxItems": 12,
+						"subFields": [
+							{
+								"slug": "item",
+								"label": "Item",
+								"type": "string",
+								"required": true
+							}
+						]
+					}
+				},
+				{
+					"slug": "content",
+					"label": "Details",
+					"type": "portableText",
+					"searchable": true
+				},
+				{
+					"slug": "sort_order",
+					"label": "Sort order (lower first)",
+					"type": "integer"
+				}
+			]
+		},
+		{
+			"slug": "pages",
+			"label": "Pages",
+			"labelSingular": "Page",
+			"supports": [
+				"drafts",
+				"revisions",
+				"preview",
+				"search",
+				"seo"
+			],
+			"urlPattern": "/{slug}",
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Title",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "content",
+					"label": "Content",
+					"type": "portableText",
+					"searchable": true
+				}
+			]
+		}
+	],
+	"content": {
+		"projects": [
+			{
+				"id": "p-coffee",
+				"slug": "website-chuoi-ca-phe",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"title": "Website chuỗi cà phê",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1555421689-491a97ff2040?w=1600&h=1000&fit=crop",
+							"alt": "Website chuỗi cà phê",
+							"filename": "website-chuoi-ca-phe.jpg"
+						}
+					},
+					"client": "Khách hàng mẫu",
+					"year": "2025",
+					"category": "website",
+					"stack": "Astro, Tailwind CSS, Cloudflare",
+					"summary": "Website giới thiệu thương hiệu, menu và hệ thống cửa hàng cho chuỗi 12 chi nhánh.",
+					"content": [
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Bài toán"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Website cũ chậm, khó cập nhật menu và không hiển thị tốt trên điện thoại."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Giải pháp"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Thiết kế lại toàn bộ theo hướng mobile-first, menu quản lý qua CMS, bản đồ cửa hàng tích hợp Google Maps."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Kết quả"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Trang tải nhanh hơn, đội marketing tự cập nhật nội dung mà không cần lập trình viên."
+								}
+							]
+						}
+					],
+					"results": [
+						{
+							"value": "1,2s",
+							"label": "thời gian tải trang"
+						},
+						{
+							"value": "+35%",
+							"label": "lượt tìm đường tới cửa hàng"
+						}
+					],
+					"featured": true,
+					"sort_order": 1
+				}
+			},
+			{
+				"id": "p-coffee-en",
+				"slug": "website-chuoi-ca-phe",
+				"status": "published",
+				"locale": "en",
+				"data": {
+					"title": "Coffee chain website",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1555421689-491a97ff2040?w=1600&h=1000&fit=crop",
+							"alt": "Coffee chain website",
+							"filename": "website-chuoi-ca-phe.jpg"
+						}
+					},
+					"client": "Sample client",
+					"year": "2025",
+					"category": "website",
+					"stack": "Astro, Tailwind CSS, Cloudflare",
+					"summary": "Brand, menu and store-locator website for a 12-location coffee chain.",
+					"content": [
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Challenge"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "The old site was slow, hard to update and broken on mobile."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Solution"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "A mobile-first redesign with a CMS-managed menu and an integrated Google Maps store locator."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Outcome"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Faster pages, and the marketing team now updates content without a developer."
+								}
+							]
+						}
+					],
+					"results": [
+						{
+							"value": "1.2s",
+							"label": "page load time"
+						},
+						{
+							"value": "+35%",
+							"label": "store direction requests"
+						}
+					],
+					"featured": true,
+					"sort_order": 1
+				},
+				"translationOf": "p-coffee"
+			},
+			{
+				"id": "p-shop",
+				"slug": "website-ban-hang-thoi-trang",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"title": "Website bán hàng thời trang",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1600&h=1000&fit=crop",
+							"alt": "Website bán hàng thời trang",
+							"filename": "website-ban-hang-thoi-trang.jpg"
+						}
+					},
+					"client": "Khách hàng mẫu",
+					"year": "2025",
+					"category": "ecommerce",
+					"stack": "Next.js, Stripe, PostgreSQL",
+					"summary": "Cửa hàng online với giỏ hàng, thanh toán, quản lý tồn kho và đơn hàng.",
+					"content": [
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Bài toán"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Shop bán qua mạng xã hội, xử lý đơn thủ công và hay sai tồn kho."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Giải pháp"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Xây website bán hàng riêng, đồng bộ tồn kho, thanh toán online và thông báo đơn qua email."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Kết quả"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Đơn hàng được xử lý tự động, chủ shop theo dõi doanh thu theo thời gian thực."
+								}
+							]
+						}
+					],
+					"results": [
+						{
+							"value": "+60%",
+							"label": "đơn hàng online"
+						},
+						{
+							"value": "3 tuần",
+							"label": "từ thiết kế tới ra mắt"
+						}
+					],
+					"featured": true,
+					"sort_order": 2
+				}
+			},
+			{
+				"id": "p-shop-en",
+				"slug": "website-ban-hang-thoi-trang",
+				"status": "published",
+				"locale": "en",
+				"data": {
+					"title": "Fashion e-commerce store",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1600&h=1000&fit=crop",
+							"alt": "Fashion e-commerce store",
+							"filename": "website-ban-hang-thoi-trang.jpg"
+						}
+					},
+					"client": "Sample client",
+					"year": "2025",
+					"category": "ecommerce",
+					"stack": "Next.js, Stripe, PostgreSQL",
+					"summary": "Online store with cart, checkout, inventory and order management.",
+					"content": [
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Challenge"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "The shop sold through social media, handling orders manually with frequent stock errors."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Solution"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "A dedicated store with synced inventory, online payments and order emails."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Outcome"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Orders are processed automatically and the owner tracks revenue in real time."
+								}
+							]
+						}
+					],
+					"results": [
+						{
+							"value": "+60%",
+							"label": "online orders"
+						},
+						{
+							"value": "3 weeks",
+							"label": "from design to launch"
+						}
+					],
+					"featured": true,
+					"sort_order": 2
+				},
+				"translationOf": "p-shop"
+			},
+			{
+				"id": "p-dashboard",
+				"slug": "he-thong-quan-ly-kho",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"title": "Hệ thống quản lý kho",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1600&h=1000&fit=crop",
+							"alt": "Hệ thống quản lý kho",
+							"filename": "he-thong-quan-ly-kho.jpg"
+						}
+					},
+					"client": "Khách hàng mẫu",
+					"year": "2024",
+					"category": "web_app",
+					"stack": "React, Node.js, PostgreSQL",
+					"summary": "Web app quản lý nhập–xuất kho, báo cáo và phân quyền cho doanh nghiệp phân phối.",
+					"content": [
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Bài toán"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Dữ liệu kho nằm rải rác trong nhiều file Excel, báo cáo cuối tháng mất nhiều ngày."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Giải pháp"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Web app tập trung dữ liệu, quét mã vạch khi nhập–xuất, dashboard báo cáo tự động."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Kết quả"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Số liệu tồn kho chính xác theo thời gian thực, báo cáo xuất trong vài giây."
+								}
+							]
+						}
+					],
+					"results": [
+						{
+							"value": "-70%",
+							"label": "thời gian làm báo cáo"
+						},
+						{
+							"value": "50+",
+							"label": "nhân viên sử dụng hằng ngày"
+						}
+					],
+					"featured": true,
+					"sort_order": 3
+				}
+			},
+			{
+				"id": "p-dashboard-en",
+				"slug": "he-thong-quan-ly-kho",
+				"status": "published",
+				"locale": "en",
+				"data": {
+					"title": "Warehouse management system",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1600&h=1000&fit=crop",
+							"alt": "Warehouse management system",
+							"filename": "he-thong-quan-ly-kho.jpg"
+						}
+					},
+					"client": "Sample client",
+					"year": "2024",
+					"category": "web_app",
+					"stack": "React, Node.js, PostgreSQL",
+					"summary": "Web app for stock in/out, reporting and role-based access for a distributor.",
+					"content": [
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Challenge"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Stock data lived in scattered spreadsheets and month-end reports took days."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Solution"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "A central web app with barcode scanning and automatic reporting dashboards."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Outcome"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Real-time, accurate stock levels and reports generated in seconds."
+								}
+							]
+						}
+					],
+					"results": [
+						{
+							"value": "-70%",
+							"label": "reporting time"
+						},
+						{
+							"value": "50+",
+							"label": "daily active staff"
+						}
+					],
+					"featured": true,
+					"sort_order": 3
+				},
+				"translationOf": "p-dashboard"
+			},
+			{
+				"id": "p-booking",
+				"slug": "app-dat-lich-spa",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"title": "App đặt lịch spa",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=1600&h=1000&fit=crop",
+							"alt": "App đặt lịch spa",
+							"filename": "app-dat-lich-spa.jpg"
+						}
+					},
+					"client": "Khách hàng mẫu",
+					"year": "2024",
+					"category": "mobile_app",
+					"stack": "React Native, Firebase",
+					"summary": "Ứng dụng iOS/Android cho khách đặt lịch, nhận nhắc hẹn và tích điểm.",
+					"content": [
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Bài toán"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Đặt lịch qua điện thoại dễ sót, khách hay quên giờ hẹn."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Giải pháp"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "App đặt lịch theo khung giờ trống, nhắc hẹn qua push notification, chương trình tích điểm."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Kết quả"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Lịch hẹn được lấp đầy đều hơn và khách quay lại thường xuyên hơn."
+								}
+							]
+						}
+					],
+					"results": [
+						{
+							"value": "-40%",
+							"label": "khách bỏ hẹn"
+						},
+						{
+							"value": "4,8★",
+							"label": "đánh giá trên store"
+						}
+					],
+					"featured": true,
+					"sort_order": 4
+				}
+			},
+			{
+				"id": "p-booking-en",
+				"slug": "app-dat-lich-spa",
+				"status": "published",
+				"locale": "en",
+				"data": {
+					"title": "Spa booking app",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=1600&h=1000&fit=crop",
+							"alt": "Spa booking app",
+							"filename": "app-dat-lich-spa.jpg"
+						}
+					},
+					"client": "Sample client",
+					"year": "2024",
+					"category": "mobile_app",
+					"stack": "React Native, Firebase",
+					"summary": "iOS/Android app for booking appointments, reminders and loyalty points.",
+					"content": [
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Challenge"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Phone bookings were error-prone and customers often forgot appointments."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Solution"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Slot-based booking, push reminders and a loyalty programme."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Outcome"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "A fuller calendar and more returning customers."
+								}
+							]
+						}
+					],
+					"results": [
+						{
+							"value": "-40%",
+							"label": "no-shows"
+						},
+						{
+							"value": "4.8★",
+							"label": "store rating"
+						}
+					],
+					"featured": true,
+					"sort_order": 4
+				},
+				"translationOf": "p-booking"
+			}
+		],
+		"services": [
+			{
+				"id": "s-website",
+				"slug": "thiet-ke-website",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"title": "Website doanh nghiệp",
+					"icon": "globe",
+					"summary": "Website giới thiệu công ty chuẩn SEO, tải nhanh, tự cập nhật nội dung qua CMS.",
+					"price_from": "8 triệu",
+					"features": [
+						{
+							"item": "Thiết kế giao diện riêng"
+						},
+						{
+							"item": "Tối ưu mobile & tốc độ"
+						},
+						{
+							"item": "SEO cơ bản"
+						},
+						{
+							"item": "CMS quản lý nội dung"
+						},
+						{
+							"item": "Hosting & tên miền"
+						}
+					],
+					"sort_order": 1
+				}
+			},
+			{
+				"id": "s-website-en",
+				"slug": "thiet-ke-website",
+				"status": "published",
+				"locale": "en",
+				"data": {
+					"title": "Business websites",
+					"icon": "globe",
+					"summary": "Fast, SEO-ready company websites you can update yourself through a CMS.",
+					"price_from": "$400",
+					"features": [
+						{
+							"item": "Custom design"
+						},
+						{
+							"item": "Mobile & speed optimised"
+						},
+						{
+							"item": "Basic SEO"
+						},
+						{
+							"item": "Content management (CMS)"
+						},
+						{
+							"item": "Hosting & domain setup"
+						}
+					],
+					"sort_order": 1
+				},
+				"translationOf": "s-website"
+			},
+			{
+				"id": "s-shop",
+				"slug": "website-ban-hang",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"title": "Website bán hàng",
+					"icon": "cart",
+					"summary": "Cửa hàng online với giỏ hàng, thanh toán, quản lý đơn và tồn kho.",
+					"price_from": "15 triệu",
+					"features": [
+						{
+							"item": "Giỏ hàng & thanh toán online"
+						},
+						{
+							"item": "Quản lý sản phẩm, tồn kho"
+						},
+						{
+							"item": "Quản lý đơn hàng"
+						},
+						{
+							"item": "Tích hợp vận chuyển"
+						},
+						{
+							"item": "Báo cáo doanh thu"
+						}
+					],
+					"sort_order": 2
+				}
+			},
+			{
+				"id": "s-shop-en",
+				"slug": "website-ban-hang",
+				"status": "published",
+				"locale": "en",
+				"data": {
+					"title": "E-commerce stores",
+					"icon": "cart",
+					"summary": "Online stores with cart, payments, order and inventory management.",
+					"price_from": "$700",
+					"features": [
+						{
+							"item": "Cart & online payments"
+						},
+						{
+							"item": "Product & inventory management"
+						},
+						{
+							"item": "Order management"
+						},
+						{
+							"item": "Shipping integrations"
+						},
+						{
+							"item": "Sales reports"
+						}
+					],
+					"sort_order": 2
+				},
+				"translationOf": "s-shop"
+			},
+			{
+				"id": "s-webapp",
+				"slug": "web-app-theo-yeu-cau",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"title": "Web app theo yêu cầu",
+					"icon": "layout",
+					"summary": "Phần mềm quản lý, dashboard, hệ thống nội bộ xây dựng đúng quy trình của bạn.",
+					"price_from": "30 triệu",
+					"features": [
+						{
+							"item": "Phân tích nghiệp vụ"
+						},
+						{
+							"item": "Thiết kế UI/UX"
+						},
+						{
+							"item": "Phân quyền người dùng"
+						},
+						{
+							"item": "Báo cáo & dashboard"
+						},
+						{
+							"item": "Tích hợp API bên thứ ba"
+						}
+					],
+					"sort_order": 3
+				}
+			},
+			{
+				"id": "s-webapp-en",
+				"slug": "web-app-theo-yeu-cau",
+				"status": "published",
+				"locale": "en",
+				"data": {
+					"title": "Custom web apps",
+					"icon": "layout",
+					"summary": "Management software, dashboards and internal tools built around your workflow.",
+					"price_from": "$1,500",
+					"features": [
+						{
+							"item": "Business analysis"
+						},
+						{
+							"item": "UI/UX design"
+						},
+						{
+							"item": "Role-based access"
+						},
+						{
+							"item": "Reports & dashboards"
+						},
+						{
+							"item": "Third-party API integrations"
+						}
+					],
+					"sort_order": 3
+				},
+				"translationOf": "s-webapp"
+			},
+			{
+				"id": "s-mobile",
+				"slug": "ung-dung-di-dong",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"title": "Ứng dụng di động",
+					"icon": "smartphone",
+					"summary": "App iOS và Android dùng chung một codebase, đưa lên App Store và Google Play.",
+					"price_from": "40 triệu",
+					"features": [
+						{
+							"item": "iOS & Android"
+						},
+						{
+							"item": "Push notification"
+						},
+						{
+							"item": "Thanh toán trong app"
+						},
+						{
+							"item": "Đưa app lên store"
+						},
+						{
+							"item": "Bảo trì sau ra mắt"
+						}
+					],
+					"sort_order": 4
+				}
+			},
+			{
+				"id": "s-mobile-en",
+				"slug": "ung-dung-di-dong",
+				"status": "published",
+				"locale": "en",
+				"data": {
+					"title": "Mobile apps",
+					"icon": "smartphone",
+					"summary": "iOS and Android apps from a single codebase, published to the App Store and Google Play.",
+					"price_from": "$2,000",
+					"features": [
+						{
+							"item": "iOS & Android"
+						},
+						{
+							"item": "Push notifications"
+						},
+						{
+							"item": "In-app payments"
+						},
+						{
+							"item": "Store publishing"
+						},
+						{
+							"item": "Post-launch maintenance"
+						}
+					],
+					"sort_order": 4
+				},
+				"translationOf": "s-mobile"
+			},
+			{
+				"id": "s-care",
+				"slug": "bao-tri-toi-uu",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"title": "Bảo trì & tối ưu",
+					"icon": "wrench",
+					"summary": "Cập nhật, sao lưu, theo dõi và tăng tốc website/app đang chạy.",
+					"price_from": "2 triệu/tháng",
+					"features": [
+						{
+							"item": "Sao lưu định kỳ"
+						},
+						{
+							"item": "Cập nhật bảo mật"
+						},
+						{
+							"item": "Theo dõi uptime"
+						},
+						{
+							"item": "Tối ưu tốc độ"
+						},
+						{
+							"item": "Hỗ trợ chỉnh sửa nhỏ"
+						}
+					],
+					"sort_order": 5
+				}
+			},
+			{
+				"id": "s-care-en",
+				"slug": "bao-tri-toi-uu",
+				"status": "published",
+				"locale": "en",
+				"data": {
+					"title": "Maintenance & care",
+					"icon": "wrench",
+					"summary": "Updates, backups, monitoring and speed tuning for your live site or app.",
+					"price_from": "$100/month",
+					"features": [
+						{
+							"item": "Regular backups"
+						},
+						{
+							"item": "Security updates"
+						},
+						{
+							"item": "Uptime monitoring"
+						},
+						{
+							"item": "Speed optimisation"
+						},
+						{
+							"item": "Small change requests"
+						}
+					],
+					"sort_order": 5
+				},
+				"translationOf": "s-care"
+			}
+		],
+		"pages": [
+			{
+				"id": "about",
+				"slug": "about",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"title": "Về CTStack",
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "CTStack là nhóm phát triển phần mềm chuyên làm website, web app và ứng dụng di động cho doanh nghiệp vừa và nhỏ."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Chúng tôi làm việc thế nào"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Mỗi dự án bắt đầu từ bài toán kinh doanh, không phải từ công nghệ. Chúng tôi báo giá rõ ràng, demo theo từng giai đoạn và hỗ trợ sau bàn giao."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Công nghệ"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Astro, Next.js, React, React Native, Node.js, PostgreSQL, Cloudflare — chọn đúng công cụ cho từng dự án."
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"id": "about-en",
+				"slug": "about",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "about",
+				"data": {
+					"title": "About CTStack",
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "CTStack is a software team building websites, web apps and mobile apps for small and medium businesses."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "How we work"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Every project starts from the business problem, not the technology. Clear quotes, staged demos and support after launch."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Technology"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Astro, Next.js, React, React Native, Node.js, PostgreSQL, Cloudflare — the right tool for each project."
+								}
+							]
+						}
+					]
+				}
+			}
+		]
+	}
+}
