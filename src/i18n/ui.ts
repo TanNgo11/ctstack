@@ -104,8 +104,6 @@ const vi = {
 
 	"projects.title": "Dự án",
 	"projects.eyebrow": "Portfolio",
-	"projects.taglineA": "Ý tưởng tốt hơn",
-	"projects.taglineB": "Trải nghiệm lớn hơn",
 	"projects.intro":
 		"Một vài sản phẩm chúng tôi đã thiết kế và phát triển cho doanh nghiệp Việt Nam.",
 	"projects.all": "Tất cả",
@@ -138,7 +136,6 @@ const vi = {
 	"services.priceFrom": "Từ",
 	"services.contact": "Tư vấn gói này",
 	"services.empty": "Chưa có dịch vụ nào.",
-	"services.filler": "Công nghệ kiến tạo giá trị thật",
 
 	"contact.eyebrow": "Liên hệ",
 	"contact.title": "Kể cho chúng tôi về dự án của bạn",
@@ -156,8 +153,6 @@ const vi = {
 	"contact.emailShort": "Email",
 	"contact.locationLabel": "Khu vực",
 	"contact.location": "Việt Nam",
-	"contact.taglineA": "Ý tưởng hôm nay",
-	"contact.taglineB": "Những sản phẩm tốt hơn ngày mai",
 
 	"notFound.title": "Không tìm thấy trang",
 	"notFound.text": "Trang bạn tìm không tồn tại hoặc đã được chuyển.",
@@ -226,8 +221,6 @@ const en: Dict = {
 
 	"projects.title": "Projects",
 	"projects.eyebrow": "Portfolio",
-	"projects.taglineA": "Better ideas",
-	"projects.taglineB": "Bigger experiences",
 	"projects.intro": "A few products we have designed and built for Vietnamese businesses.",
 	"projects.all": "All",
 	"projects.empty": "No projects yet.",
@@ -259,7 +252,6 @@ const en: Dict = {
 	"services.priceFrom": "From",
 	"services.contact": "Ask about this",
 	"services.empty": "No services yet.",
-	"services.filler": "Technology that creates real value",
 
 	"contact.eyebrow": "Contact",
 	"contact.title": "Tell us about your project",
@@ -277,8 +269,6 @@ const en: Dict = {
 	"contact.emailShort": "Email",
 	"contact.locationLabel": "Location",
 	"contact.location": "Vietnam",
-	"contact.taglineA": "Ideas today",
-	"contact.taglineB": "Better products tomorrow",
 
 	"notFound.title": "Page not found",
 	"notFound.text": "The page you're looking for doesn't exist or has moved.",

@@ -17,24 +17,18 @@ const { title, image, size = "md" } = Astro.props;
 ) : (
 	<span class:list={["logo", size]}>
 		<svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true">
-			<defs>
-				<linearGradient id="logo-grad" x1="0" y1="0" x2="1" y2="1">
-					<stop offset="0" stop-color="#3b82f6" />
-					<stop offset="1" stop-color="#8b5cf6" />
-				</linearGradient>
-			</defs>
-			<path d="M16 3 29 9.5 16 16 3 9.5Z" fill="url(#logo-grad)" />
+			<path d="M16 3 29 9.5 16 16 3 9.5Z" fill="currentColor" />
 			<path
 				d="m3 15.5 13 6.5 13-6.5"
 				fill="none"
-				stroke="url(#logo-grad)"
+				stroke="currentColor"
 				stroke-width="3"
 				stroke-linejoin="round"
 			/>
 			<path
 				d="m3 21.5 13 6.5 13-6.5"
 				fill="none"
-				stroke="url(#logo-grad)"
+				stroke="currentColor"
 				stroke-width="3"
 				stroke-linejoin="round"
 				opacity="0.7"
@@ -57,6 +51,7 @@ const { title, image, size = "md" } = Astro.props;
 	}
 
 	.logo-mark {
+		color: var(--color-brand);
 		width: 1.35em;
 		height: 1.35em;
 		flex-shrink: 0;

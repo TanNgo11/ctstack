@@ -18,8 +18,6 @@ if (result.error) {
 }
 const services = result.entries;
 if (Astro.cache?.enabled) Astro.cache.set(result.cacheHint);
-// Fill the last row of the 3-column grid with a decorative tile.
-const fillerSpan = (3 - (services.length % 3)) % 3;
 ---
 
 <Base title={t("services.title")} description={t("services.intro")}>
@@ -43,11 +41,6 @@ const fillerSpan = (3 - (services.length % 3)) % 3;
 						edit={s.edit}
 					/>
 				))}
-				{fillerSpan > 0 && (
-					<div class="filler" style={`grid-column: span ${fillerSpan}`} aria-hidden="true">
-						<p>{t("services.filler")}</p>
-					</div>
-				)}
 			</section>
 		) : (
 			<p class="empty-state">{t("services.empty")}</p>
@@ -63,37 +56,9 @@ const fillerSpan = (3 - (services.length % 3)) % 3;
 		padding-bottom: var(--spacing-xl);
 	}
 
-	.filler {
-		display: grid;
-		place-items: center;
-	}
-
-	.filler p {
-		max-width: 12em;
-		color: var(--color-brand);
-		font-size: var(--font-size-sm);
-		font-weight: 500;
-		letter-spacing: 0.3em;
-		line-height: 2;
-		text-transform: uppercase;
-	}
-
-	.filler p::after {
-		content: "";
-		display: block;
-		width: 40px;
-		height: 2px;
-		margin-top: var(--spacing-lg);
-		background: var(--color-brand);
-	}
-
 	@media (max-width: 1000px) {
 		.services-grid {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
-		}
-
-		.filler {
-			display: none;
 		}
 	}
 

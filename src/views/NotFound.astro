@@ -8,7 +8,7 @@ const t = useTranslations(lang);
 
 <Base title={t("notFound.title")} robots="noindex">
 	<div class="not-found container">
-		<span class="code text-gradient" aria-hidden="true">
+		<span class="code text-accent" aria-hidden="true">
 			404
 		</span>
 		<h1>{t("notFound.title")}</h1>
@@ -40,7 +40,6 @@ const t = useTranslations(lang);
 		font-weight: var(--font-weight-display);
 		line-height: 1;
 		letter-spacing: -0.05em;
-		filter: drop-shadow(0 20px 60px color-mix(in srgb, #8b5cf6 35%, transparent));
 	}
 
 	h1 {

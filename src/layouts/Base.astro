@@ -515,13 +515,7 @@ const isLoggedIn = Boolean(Astro.locals.user);
 				display: flex;
 				flex-direction: column;
 				padding: var(--spacing-md) 20px var(--spacing-xl);
-				background:
-					radial-gradient(
-						500px 400px at 100% 0%,
-						color-mix(in srgb, var(--color-brand-end) 18%, transparent),
-						transparent 70%
-					),
-					var(--color-bg);
+				background: var(--color-bg);
 			}
 
 			.mobile-menu[hidden] {
@@ -622,13 +616,7 @@ const isLoggedIn = Boolean(Astro.locals.user);
 				padding: var(--spacing-2xl) 56px;
 				border: 1px solid var(--color-border);
 				border-radius: var(--radius-card);
-				background:
-					radial-gradient(
-						600px 200px at 100% 50%,
-						color-mix(in srgb, var(--color-brand-end) 14%, transparent),
-						transparent 70%
-					),
-					var(--color-surface);
+				background: var(--color-surface);
 			}
 
 			.global-cta h2 {
@@ -771,8 +759,8 @@ const isLoggedIn = Boolean(Astro.locals.user);
 				place-items: center;
 				border-radius: 50%;
 				color: var(--color-on-brand);
-				background: var(--accent-gradient);
-				box-shadow: 0 8px 20px #0003;
+				background: var(--color-brand);
+				box-shadow: 0 4px 12px #0003;
 				text-decoration: none;
 			}
 

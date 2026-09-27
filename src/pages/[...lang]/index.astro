@@ -291,20 +291,6 @@ const phonePrices = ["320.000đ", "250.000đ", "420.000đ", "680.000đ"];
 		padding: var(--spacing-lg) 64px var(--spacing-lg) 0;
 	}
 
-	.hero-visual::before {
-		content: "";
-		position: absolute;
-		inset: 0 0 -10% 5%;
-		z-index: -1;
-		background: radial-gradient(
-			closest-side,
-			color-mix(in srgb, #3b82f6 38%, transparent),
-			color-mix(in srgb, #8b5cf6 18%, transparent) 55%,
-			transparent
-		);
-		filter: blur(30px);
-	}
-
 	.laptop .screen {
 		display: grid;
 		grid-template-columns: 21% 1fr;
@@ -346,7 +332,7 @@ const phonePrices = ["320.000đ", "250.000đ", "420.000đ", "680.000đ"];
 		width: 9px;
 		height: 9px;
 		border-radius: 2px;
-		background: var(--accent-gradient);
+		background: #3b82f6;
 	}
 
 	.mock-nav {
@@ -483,7 +469,7 @@ const phonePrices = ["320.000đ", "250.000đ", "420.000đ", "680.000đ"];
 	.mock-bars span {
 		flex: 1;
 		border-radius: 2px 2px 0 0;
-		background: linear-gradient(#c7d2fe, #e0e7ff);
+		background: #dbe3fb;
 	}
 
 	.mock-line {
@@ -823,7 +809,7 @@ const phonePrices = ["320.000đ", "250.000đ", "420.000đ", "680.000đ"];
 			width: 6px;
 			height: 6px;
 			border-radius: 50%;
-			background: var(--accent-gradient);
+			background: var(--color-brand);
 		}
 
 		.hero-intro {
@@ -909,7 +895,7 @@ const phonePrices = ["320.000đ", "250.000đ", "420.000đ", "680.000đ"];
 			height: 36px;
 			border: 0;
 			color: var(--color-on-brand);
-			background: var(--accent-gradient);
+			background: var(--color-brand);
 			font-size: var(--font-size-xs);
 		}
 

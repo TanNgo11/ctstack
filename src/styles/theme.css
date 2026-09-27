@@ -39,8 +39,8 @@
 	--spacing-4xl: 96px;
 	--wide-width: 1200px;
 	--max-width: 720px;
-	--radius: 12px;
-	--radius-card: 16px;
+	--radius: 8px;
+	--radius-card: 12px;
 	--radius-pill: 999px;
 	--transition-fast: 150ms ease;
 	--transition-base: 200ms ease;
@@ -57,22 +57,10 @@
 	}
 }
 
-/* Page background: faint grid + brand glows (dark-first mockups) */
+/* Page background: faint grid (dark-first mockups) */
 body {
 	position: relative;
-	background:
-		radial-gradient(
-			900px 520px at 78% -8%,
-			color-mix(in srgb, var(--color-brand-end) 18%, transparent),
-			transparent 70%
-		),
-		radial-gradient(
-			720px 520px at -12% 18%,
-			color-mix(in srgb, #3b82f6 12%, transparent),
-			transparent 70%
-		),
-		var(--color-bg);
-	background-repeat: no-repeat;
+	background: var(--color-bg);
 }
 body::before {
 	content: "";
@@ -102,14 +90,12 @@ body::before {
 	color: var(--color-brand);
 	font-size: var(--font-size-xs);
 	font-weight: 600;
-	letter-spacing: 0.14em;
+	letter-spacing: 0.08em;
 	text-transform: uppercase;
 }
-.text-gradient {
-	background: var(--accent-gradient);
-	-webkit-background-clip: text;
-	background-clip: text;
-	color: transparent;
+/* Accent text: solid brand color. Gradients are reserved for primary CTAs. */
+.text-accent {
+	color: var(--color-brand);
 }
 .section {
 	padding-block: var(--spacing-2xl);
@@ -134,9 +120,6 @@ body::before {
 		border-color var(--transition-fast),
 		background var(--transition-fast);
 }
-.btn:hover {
-	transform: translateY(-1px);
-}
 .btn-sm {
 	min-height: 40px;
 	padding: 8px 18px;
@@ -145,10 +128,9 @@ body::before {
 .btn-primary {
 	color: var(--color-on-brand);
 	background: var(--accent-gradient);
-	box-shadow: 0 8px 24px color-mix(in srgb, #3b82f6 22%, transparent);
 }
 .btn-primary:hover {
-	box-shadow: 0 10px 30px color-mix(in srgb, #8b5cf6 32%, transparent);
+	filter: brightness(1.08);
 }
 .btn-ghost {
 	color: var(--color-text);
@@ -160,11 +142,11 @@ body::before {
 }
 .btn-outline {
 	color: var(--color-text);
-	border-color: color-mix(in srgb, var(--color-brand) 70%, transparent);
+	border-color: var(--color-border);
 	background: transparent;
 }
 .btn-outline:hover {
-	background: var(--color-brand-ring);
+	border-color: var(--color-brand);
 }
 
 .pill,

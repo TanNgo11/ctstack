@@ -44,7 +44,7 @@ const t = useTranslations(lang);
 		{priceFrom && (
 			<p class="service-price">
 				<span class="service-price-label">{t("services.priceFrom")}</span>{" "}
-				<strong class="text-gradient" {...edit?.price_from}>
+				<strong class="text-accent" {...edit?.price_from}>
 					{priceFrom}
 				</strong>
 			</p>
@@ -54,7 +54,7 @@ const t = useTranslations(lang);
 				class="btn btn-outline"
 				href={`${localizePath("/contact", lang)}?service=${encodeURIComponent(title)}`}
 			>
-				{t("services.contact")} <span aria-hidden="true">→</span>
+				{t("services.contact")}
 			</a>
 		)}
 		{!detailed && (
@@ -82,7 +82,6 @@ const t = useTranslations(lang);
 
 	.service-card:hover {
 		border-color: color-mix(in srgb, var(--color-brand) 55%, var(--color-border));
-		box-shadow: inset 0 0 40px color-mix(in srgb, var(--color-brand) 8%, transparent);
 	}
 
 	.service-icon-wrap {

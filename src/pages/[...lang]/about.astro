@@ -75,7 +75,7 @@ const lead = sections[0]?.[0]?.style === "h2" ? [] : (sections.shift() ?? []);
 		<ol class="steps">
 			{t("home.process").map(([title, text], i) => (
 				<li class="card step">
-					<span class="step-num text-gradient">{String(i + 1).padStart(2, "0")}</span>
+					<span class="step-num text-accent">{String(i + 1).padStart(2, "0")}</span>
 					<h3>{title}</h3>
 					<p>{text}</p>
 				</li>
