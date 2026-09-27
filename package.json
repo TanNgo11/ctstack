@@ -26,7 +26,8 @@
     "astro": "^7.3.2",
     "emdash": "^0.40.1",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "simple-icons": "^16.32.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",

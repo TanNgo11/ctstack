@@ -207,7 +207,7 @@ const seo = getSeoMeta(project, {
 			<div class="more-grid">
 				{otherProjects.map((p) => (
 					<ProjectCard
-						size="compact"
+						size="row"
 						title={p.data.title}
 						summary={p.data.summary}
 						featuredImage={p.data.featured_image}
@@ -225,7 +225,7 @@ const seo = getSeoMeta(project, {
 <style>
 	.project-hero {
 		display: grid;
-		grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
 		align-items: start;
 		gap: var(--spacing-2xl);
 		padding-block: var(--spacing-2xl);
@@ -251,7 +251,7 @@ const seo = getSeoMeta(project, {
 
 	.project-title {
 		margin-bottom: var(--spacing-md);
-		font-size: clamp(2.25rem, 3.6vw, 3.25rem);
+		font-size: clamp(2.25rem, 3.3vw, 3rem);
 		font-weight: var(--font-weight-display);
 		line-height: 1.1;
 		letter-spacing: -0.03em;
@@ -447,10 +447,6 @@ const seo = getSeoMeta(project, {
 		display: grid;
 		grid-template-columns: repeat(3, minmax(0, 1fr));
 		gap: var(--spacing-md);
-	}
-
-	.more-grid :global(.card-image img) {
-		aspect-ratio: 16 / 10;
 	}
 
 	@media (max-width: 900px) {

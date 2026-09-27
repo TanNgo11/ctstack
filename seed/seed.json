@@ -167,7 +167,10 @@
 							"layout",
 							"smartphone",
 							"wrench",
-							"sparkles"
+							"sparkles",
+							"monitor",
+							"code",
+							"chart"
 						]
 					}
 				},
@@ -1015,7 +1018,7 @@
 				"locale": "vi",
 				"data": {
 					"title": "Website doanh nghiệp",
-					"icon": "globe",
+					"icon": "monitor",
 					"summary": "Website giới thiệu công ty chuẩn SEO, tải nhanh, tự cập nhật nội dung qua CMS.",
 					"price_from": "8 triệu",
 					"features": [
@@ -1045,7 +1048,7 @@
 				"locale": "en",
 				"data": {
 					"title": "Business websites",
-					"icon": "globe",
+					"icon": "monitor",
 					"summary": "Fast, SEO-ready company websites you can update yourself through a CMS.",
 					"price_from": "$400",
 					"features": [
@@ -1137,7 +1140,7 @@
 				"locale": "vi",
 				"data": {
 					"title": "Web app theo yêu cầu",
-					"icon": "layout",
+					"icon": "code",
 					"summary": "Phần mềm quản lý, dashboard, hệ thống nội bộ xây dựng đúng quy trình của bạn.",
 					"price_from": "30 triệu",
 					"features": [
@@ -1167,7 +1170,7 @@
 				"locale": "en",
 				"data": {
 					"title": "Custom web apps",
-					"icon": "layout",
+					"icon": "code",
 					"summary": "Management software, dashboards and internal tools built around your workflow.",
 					"price_from": "$1,500",
 					"features": [
@@ -1259,7 +1262,7 @@
 				"locale": "vi",
 				"data": {
 					"title": "Bảo trì & tối ưu",
-					"icon": "wrench",
+					"icon": "chart",
 					"summary": "Cập nhật, sao lưu, theo dõi và tăng tốc website/app đang chạy.",
 					"price_from": "2 triệu/tháng",
 					"features": [
@@ -1289,7 +1292,7 @@
 				"locale": "en",
 				"data": {
 					"title": "Maintenance & care",
-					"icon": "wrench",
+					"icon": "chart",
 					"summary": "Updates, backups, monitoring and speed tuning for your live site or app.",
 					"price_from": "$100/month",
 					"features": [

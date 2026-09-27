@@ -60,6 +60,7 @@ const vi = {
 	"nav.contact": "Liên hệ",
 	"nav.cta": "Nhận báo giá",
 	"nav.menu": "Mở menu",
+	"nav.close": "Đóng menu",
 	"lang.switch": "English",
 
 	"home.eyebrow": "Studio phát triển phần mềm",
@@ -181,6 +182,7 @@ const en: Dict = {
 	"nav.contact": "Contact",
 	"nav.cta": "Get a quote",
 	"nav.menu": "Open menu",
+	"nav.close": "Close menu",
 	"lang.switch": "Tiếng Việt",
 
 	"home.eyebrow": "Software development studio",

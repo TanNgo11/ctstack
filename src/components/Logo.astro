@@ -1,0 +1,78 @@
+---
+/**
+ * Site logo: the uploaded logo from site settings, or the stacked-layers mark
+ * from the mockups plus the site title.
+ */
+interface Props {
+	title: string;
+	image?: { url?: string; alt?: string } | null;
+	size?: "md" | "sm";
+}
+
+const { title, image, size = "md" } = Astro.props;
+---
+
+{image?.url ? (
+	<img src={image.url} alt={image.alt || title} class:list={["logo-img", size]} />
+) : (
+	<span class:list={["logo", size]}>
+		<svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true">
+			<defs>
+				<linearGradient id="logo-grad" x1="0" y1="0" x2="1" y2="1">
+					<stop offset="0" stop-color="#3b82f6" />
+					<stop offset="1" stop-color="#8b5cf6" />
+				</linearGradient>
+			</defs>
+			<path d="M16 3 29 9.5 16 16 3 9.5Z" fill="url(#logo-grad)" />
+			<path
+				d="m3 15.5 13 6.5 13-6.5"
+				fill="none"
+				stroke="url(#logo-grad)"
+				stroke-width="3"
+				stroke-linejoin="round"
+			/>
+			<path
+				d="m3 21.5 13 6.5 13-6.5"
+				fill="none"
+				stroke="url(#logo-grad)"
+				stroke-width="3"
+				stroke-linejoin="round"
+				opacity="0.7"
+			/>
+		</svg>
+		<span class="logo-text">{title}</span>
+	</span>
+)}
+
+<style>
+	.logo {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		font-family: var(--font-heading);
+		font-size: 1.5rem;
+		font-weight: var(--font-weight-display);
+		letter-spacing: -0.02em;
+		line-height: 1;
+	}
+
+	.logo-mark {
+		width: 1.35em;
+		height: 1.35em;
+		flex-shrink: 0;
+	}
+
+	.logo.sm {
+		font-size: 1.25rem;
+	}
+
+	.logo-img {
+		display: block;
+		width: auto;
+		height: 36px;
+	}
+
+	.logo-img.sm {
+		height: 28px;
+	}
+</style>

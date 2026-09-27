@@ -228,7 +228,11 @@ const t = useTranslations(lang);
 		}
 
 		.compact .service-summary {
+			display: -webkit-box;
+			overflow: hidden;
 			font-size: var(--font-size-xs);
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
 		}
 
 		.compact .service-footer {

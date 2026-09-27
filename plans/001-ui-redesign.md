@@ -25,7 +25,7 @@ Replace the current generic look with a distinctive, trustworthy studio design t
 
 - [x] Mockups generated and approved (all folders)
 - [x] Design system: tokens, buttons, cards, inputs, pills, grid + glow background (`theme.css`)
-- [x] Header: sticky, blurred, centered nav, gradient CTA; mobile shows a scrollable link row (as in `02-home-mobile-dark.png`)
+- [x] Header: sticky, blurred, centered nav, gradient CTA, stacked-layers logo mark; mobile: link row + hamburger opening a full-screen menu
 - [x] Footer: brand + 3 link columns + bottom row (copyright, theme, language)
 - [x] Global CTA band on every page
 - [x] Home (`01`, `02`, `03` light)
@@ -41,7 +41,6 @@ Follow-ups (not in this plan):
 
 - [ ] Floating contact buttons: built but hidden until phone/Zalo/Messenger are set in `src/i18n/ui.ts`
 - [ ] Footer per `mockup/11-global-components/BRIEF.md`: FAQ/policy links and social icons need those pages/accounts first
-- [ ] Full-screen mobile menu from the brief (current link row matches the approved mobile image)
 - [ ] About: stats row, team, company profile PDF (need real data; no placeholders per content guide)
 - [ ] Decide default theme when no cookie: dark-first vs follow OS (currently follows OS)
 
@@ -53,3 +52,5 @@ Follow-ups (not in this plan):
 - [x] Side-by-side with mockups at 390px and 1440px (headless Chrome screenshots)
 
 ## Notes / decisions
+
+- Review pass 2 (after comparing screenshots with mockups): contact form fixes (empty select choice, textarea whitespace), logo mark, hamburger menu, richer hero illustration, real tech logos (`simple-icons`, CC0), process connectors, mobile icon project cards, related projects as row cards, service icons `monitor`/`code`/`chart` (seed updated; existing DBs: `pnpm exec emdash seed seed/seed.json --on-conflict update` or change icons in the admin).

@@ -146,7 +146,7 @@ erDiagram
     }
     SERVICES {
         string title
-        select icon "globe|cart|layout|smartphone|wrench|sparkles"
+        select icon "monitor|cart|code|smartphone|chart|globe|layout|wrench|sparkles"
         text summary
         string price_from
         repeater features "item"

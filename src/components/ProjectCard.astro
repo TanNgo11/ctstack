@@ -1,6 +1,7 @@
 ---
 import type { EditProxy, MediaValue } from "emdash";
 import { Image } from "emdash/ui";
+import ServiceIcon from "./ServiceIcon.astro";
 import { categoryLabel, langFromPath } from "../i18n/ui";
 
 interface Props {
@@ -13,8 +14,11 @@ interface Props {
 	category?: string;
 	/** Project results; the card highlights one (a percentage if there is one). */
 	results?: { value: string; label: string }[];
-	/** compact: home + related projects; large: projects page. */
-	size?: "compact" | "large";
+	/**
+	 * compact: home (icon card on mobile); large: projects page;
+	 * row: text left, image right (related projects).
+	 */
+	size?: "compact" | "large" | "row";
 	edit?: EditProxy;
 }
 
@@ -31,6 +35,13 @@ const {
 const lang = langFromPath(Astro.originPathname ?? Astro.url.pathname);
 const label = categoryLabel(lang, category);
 const result = results?.find((r) => r.value.includes("%")) ?? results?.[0];
+const categoryIcon: Record<string, string> = {
+	website: "monitor",
+	ecommerce: "cart",
+	web_app: "chart",
+	mobile_app: "smartphone",
+	landing_page: "sparkles",
+};
 ---
 
 <article class:list={["project-card", size]}>
@@ -38,24 +49,36 @@ const result = results?.find((r) => r.value.includes("%")) ?? results?.[0];
 		<div class="card-image" {...edit?.featured_image}>
 			<Image image={featuredImage} />
 		</div>
+		{size === "compact" && (
+			<span class="card-icon" aria-hidden="true">
+				<ServiceIcon name={categoryIcon[category ?? ""]} />
+			</span>
+		)}
 		<div class="card-content">
 			<div class="card-text">
 				{size === "large" && label && <span class="pill">{label}</span>}
+				{size === "row" && label && <p class="card-eyebrow">{label}</p>}
 				<h3 class="card-title" {...edit?.title}>
 					{title}
 				</h3>
 				{size === "compact" && label && <p class="card-meta">{label}</p>}
-				{size === "large" && summary && (
+				{size !== "compact" && summary && (
 					<p class="card-summary" {...edit?.summary}>
 						{summary}
 					</p>
 				)}
 			</div>
-			{result && (
-				<p class="card-result">
-					<strong class="text-gradient">{result.value}</strong>
-					<span>{result.label}</span>
-				</p>
+			{size === "row" ? (
+				<span class="card-arrow" aria-hidden="true">
+					→
+				</span>
+			) : (
+				result && (
+					<p class="card-result">
+						<strong class="text-gradient">{result.value}</strong>
+						<span>{result.label}</span>
+					</p>
+				)
 			)}
 		</div>
 	</a>
@@ -227,6 +250,97 @@ const result = results?.find((r) => r.value.includes("%")) ?? results?.[0];
 
 		.large .card-result strong {
 			font-size: 1.75rem;
+		}
+	}
+	.card-icon {
+		display: none;
+	}
+
+	/* Related projects: text left, image right */
+	.row .card-link {
+		flex-direction: row-reverse;
+		align-items: stretch;
+		gap: var(--spacing-md);
+		padding: var(--spacing-md);
+	}
+
+	.row .card-image {
+		flex: 0 0 44%;
+	}
+
+	.row .card-image :global(img) {
+		height: 100%;
+		aspect-ratio: 4 / 3;
+	}
+
+	.row .card-content {
+		flex: 1;
+		justify-content: space-between;
+		padding: 4px 0;
+	}
+
+	.card-eyebrow {
+		color: var(--color-brand);
+		font-size: 11px;
+		font-weight: 600;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+	}
+
+	.row .card-summary {
+		font-size: var(--font-size-xs);
+		-webkit-line-clamp: 3;
+	}
+
+	.card-arrow {
+		display: grid;
+		width: 36px;
+		height: 36px;
+		place-items: center;
+		border: 1px solid var(--color-border);
+		border-radius: 50%;
+		transition:
+			background var(--transition-fast),
+			border-color var(--transition-fast);
+	}
+
+	.project-card:hover .card-arrow {
+		border-color: transparent;
+		color: var(--color-on-brand);
+		background: var(--accent-gradient);
+	}
+
+	@media (max-width: 640px) {
+		/* Home on mobile: icon cards instead of images */
+		.compact .card-image {
+			display: none;
+		}
+
+		.compact .card-link {
+			flex-direction: row;
+			align-items: flex-start;
+			gap: 10px;
+			padding: 12px;
+		}
+
+		.compact .card-icon {
+			display: grid;
+			flex-shrink: 0;
+			width: 36px;
+			height: 36px;
+			place-items: center;
+			border-radius: var(--radius);
+			color: var(--color-brand);
+			background: var(--color-brand-ring);
+		}
+
+		.compact .card-icon :global(svg) {
+			width: 18px;
+			height: 18px;
+		}
+
+		.compact .card-content {
+			padding: 0;
 		}
 	}
 </style>

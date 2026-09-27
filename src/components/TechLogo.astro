@@ -1,0 +1,45 @@
+---
+/** Monochrome technology logo (simple-icons, CC0), rendered at build time. */
+import { siAstro, siCloudflare, siNextdotjs, siNodedotjs, siReact } from "simple-icons";
+
+interface Props {
+	name: string;
+}
+
+const icons: Record<string, { path: string }> = {
+	React: siReact,
+	"React Native": siReact,
+	"Next.js": siNextdotjs,
+	Astro: siAstro,
+	"Node.js": siNodedotjs,
+	Cloudflare: siCloudflare,
+};
+const icon = icons[Astro.props.name];
+---
+
+{icon ? (
+	<svg class="tech-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+		<path d={icon.path} />
+	</svg>
+) : (
+	<span class="tech-logo tech-logo-fallback" aria-hidden="true">
+		{Astro.props.name.charAt(0)}
+	</span>
+)}
+
+<style>
+	.tech-logo {
+		width: 28px;
+		height: 28px;
+		flex-shrink: 0;
+	}
+
+	.tech-logo-fallback {
+		display: grid;
+		place-items: center;
+		border: 1.5px solid currentColor;
+		border-radius: 50%;
+		font-size: 0.75rem;
+		font-weight: 700;
+	}
+</style>

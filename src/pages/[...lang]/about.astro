@@ -2,6 +2,7 @@
 import { getEmDashEntry, getSeoMeta } from "emdash";
 import { PortableText } from "emdash/ui";
 import Base from "../../layouts/Base.astro";
+import TechLogo from "../../components/TechLogo.astro";
 import { langFromParam, localizePath, techStack, useTranslations } from "../../i18n/ui";
 import { contentAlternates, isNotFoundError, splitByHeading } from "../../lib/content";
 
@@ -91,9 +92,7 @@ const lead = sections[0]?.[0]?.style === "h2" ? [] : (sections.shift() ?? []);
 		<ul class="tech-grid">
 			{techStack.map((name) => (
 				<li class="card">
-					<span class="tech-badge" aria-hidden="true">
-						{name.charAt(0)}
-					</span>
+					<TechLogo name={name} />
 					{name}
 				</li>
 			))}
@@ -182,15 +181,10 @@ const lead = sections[0]?.[0]?.style === "h2" ? [] : (sections.shift() ?? []);
 		text-align: center;
 	}
 
-	.tech-badge {
-		display: grid;
-		width: 44px;
-		height: 44px;
-		place-items: center;
-		border: 1.5px solid var(--color-brand);
-		border-radius: 50%;
-		color: var(--color-brand);
-		font-weight: 700;
+	.tech-grid :global(.tech-logo) {
+		width: 36px;
+		height: 36px;
+		color: var(--color-text);
 	}
 
 	@media (max-width: 900px) {
