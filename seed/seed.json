@@ -15,13 +15,7 @@
 			"slug": "projects",
 			"label": "Projects",
 			"labelSingular": "Project",
-			"supports": [
-				"drafts",
-				"revisions",
-				"preview",
-				"search",
-				"seo"
-			],
+			"supports": ["drafts", "revisions", "preview", "search", "seo"],
 			"urlPattern": "/projects/{slug}",
 			"fields": [
 				{
@@ -52,14 +46,47 @@
 					"label": "Category",
 					"type": "select",
 					"validation": {
-						"options": [
-							"website",
-							"web_app",
-							"mobile_app",
-							"ecommerce",
-							"landing_page"
+						"options": ["website", "web_app", "mobile_app", "ecommerce", "landing_page"]
+					}
+				},
+				{
+					"slug": "industry",
+					"label": "Industry",
+					"type": "select",
+					"validation": {
+						"options": ["fnb", "beauty", "real_estate", "retail", "education", "other"]
+					}
+				},
+				{
+					"slug": "duration",
+					"label": "Duration",
+					"type": "string"
+				},
+				{
+					"slug": "team_size",
+					"label": "Team size",
+					"type": "string"
+				},
+				{
+					"slug": "features",
+					"label": "Key features",
+					"type": "repeater",
+					"validation": {
+						"maxItems": 12,
+						"subFields": [
+							{
+								"slug": "item",
+								"label": "Feature",
+								"type": "string",
+								"required": true
+							}
 						]
 					}
+				},
+				{
+					"slug": "live",
+					"label": "Live project",
+					"type": "boolean"
 				},
 				{
 					"slug": "stack",
@@ -142,12 +169,7 @@
 			"slug": "services",
 			"label": "Services",
 			"labelSingular": "Service",
-			"supports": [
-				"drafts",
-				"revisions",
-				"search",
-				"seo"
-			],
+			"supports": ["drafts", "revisions", "search", "seo"],
 			"fields": [
 				{
 					"slug": "title",
@@ -218,13 +240,7 @@
 			"slug": "pages",
 			"label": "Pages",
 			"labelSingular": "Page",
-			"supports": [
-				"drafts",
-				"revisions",
-				"preview",
-				"search",
-				"seo"
-			],
+			"supports": ["drafts", "revisions", "preview", "search", "seo"],
 			"urlPattern": "/{slug}",
 			"fields": [
 				{
@@ -337,7 +353,25 @@
 						}
 					],
 					"featured": true,
-					"sort_order": 1
+					"sort_order": 1,
+					"industry": "fnb",
+					"duration": "6 tuần",
+					"team_size": "3 người",
+					"live": true,
+					"features": [
+						{
+							"item": "Menu cập nhật qua CMS"
+						},
+						{
+							"item": "Tìm cửa hàng trên bản đồ"
+						},
+						{
+							"item": "Tối ưu tốc độ mobile"
+						},
+						{
+							"item": "Theo dõi sự kiện chuyển đổi"
+						}
+					]
 				}
 			},
 			{
@@ -432,7 +466,25 @@
 						}
 					],
 					"featured": true,
-					"sort_order": 1
+					"sort_order": 1,
+					"industry": "fnb",
+					"duration": "6 weeks",
+					"team_size": "3 people",
+					"live": true,
+					"features": [
+						{
+							"item": "CMS-managed menu"
+						},
+						{
+							"item": "Store locator with map"
+						},
+						{
+							"item": "Mobile performance optimisation"
+						},
+						{
+							"item": "Conversion event tracking"
+						}
+					]
 				},
 				"translationOf": "p-coffee"
 			},
@@ -528,7 +580,25 @@
 						}
 					],
 					"featured": true,
-					"sort_order": 2
+					"sort_order": 2,
+					"industry": "retail",
+					"duration": "8 tuần",
+					"team_size": "4 người",
+					"live": true,
+					"features": [
+						{
+							"item": "Giỏ hàng và thanh toán online"
+						},
+						{
+							"item": "Quản lý tồn kho"
+						},
+						{
+							"item": "Email thông báo đơn hàng"
+						},
+						{
+							"item": "Báo cáo doanh thu"
+						}
+					]
 				}
 			},
 			{
@@ -623,7 +693,25 @@
 						}
 					],
 					"featured": true,
-					"sort_order": 2
+					"sort_order": 2,
+					"industry": "retail",
+					"duration": "8 weeks",
+					"team_size": "4 people",
+					"live": true,
+					"features": [
+						{
+							"item": "Cart and online checkout"
+						},
+						{
+							"item": "Inventory management"
+						},
+						{
+							"item": "Order email notifications"
+						},
+						{
+							"item": "Sales reporting"
+						}
+					]
 				},
 				"translationOf": "p-shop"
 			},
@@ -719,7 +807,25 @@
 						}
 					],
 					"featured": true,
-					"sort_order": 3
+					"sort_order": 3,
+					"industry": "retail",
+					"duration": "10 tuần",
+					"team_size": "5 người",
+					"live": false,
+					"features": [
+						{
+							"item": "Nhập xuất kho bằng mã vạch"
+						},
+						{
+							"item": "Phân quyền theo vai trò"
+						},
+						{
+							"item": "Dashboard tồn kho theo thời gian thực"
+						},
+						{
+							"item": "Xuất báo cáo nhanh"
+						}
+					]
 				}
 			},
 			{
@@ -814,7 +920,25 @@
 						}
 					],
 					"featured": true,
-					"sort_order": 3
+					"sort_order": 3,
+					"industry": "retail",
+					"duration": "10 weeks",
+					"team_size": "5 people",
+					"live": false,
+					"features": [
+						{
+							"item": "Barcode stock in/out"
+						},
+						{
+							"item": "Role-based access"
+						},
+						{
+							"item": "Real-time inventory dashboard"
+						},
+						{
+							"item": "Fast report exports"
+						}
+					]
 				},
 				"translationOf": "p-dashboard"
 			},
@@ -910,7 +1034,25 @@
 						}
 					],
 					"featured": true,
-					"sort_order": 4
+					"sort_order": 4,
+					"industry": "beauty",
+					"duration": "12 tuần",
+					"team_size": "4 người",
+					"live": true,
+					"features": [
+						{
+							"item": "Đặt lịch theo khung giờ"
+						},
+						{
+							"item": "Nhắc hẹn tự động"
+						},
+						{
+							"item": "Tích điểm khách hàng"
+						},
+						{
+							"item": "Ứng dụng iOS và Android"
+						}
+					]
 				}
 			},
 			{
@@ -1005,9 +1147,285 @@
 						}
 					],
 					"featured": true,
-					"sort_order": 4
+					"sort_order": 4,
+					"industry": "beauty",
+					"duration": "12 weeks",
+					"team_size": "4 people",
+					"live": true,
+					"features": [
+						{
+							"item": "Slot-based appointment booking"
+						},
+						{
+							"item": "Automatic reminders"
+						},
+						{
+							"item": "Customer loyalty points"
+						},
+						{
+							"item": "iOS and Android apps"
+						}
+					]
 				},
 				"translationOf": "p-booking"
+			},
+			{
+				"id": "p-course",
+				"slug": "landing-page-khoa-hoc-online",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"title": "Landing page khóa học online",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1600&h=1000&fit=crop",
+							"alt": "Landing page khóa học online",
+							"filename": "landing-page-khoa-hoc-online.jpg"
+						}
+					},
+					"client": "Khách hàng mẫu",
+					"year": "2025",
+					"category": "landing_page",
+					"industry": "education",
+					"duration": "4 tuần",
+					"team_size": "2 người",
+					"features": [
+						{
+							"item": "Lộ trình khóa học dễ theo dõi"
+						},
+						{
+							"item": "Form đăng ký nhận tư vấn"
+						},
+						{
+							"item": "Tối ưu chuyển đổi trên mobile"
+						},
+						{
+							"item": "Tích hợp đo lường quảng cáo"
+						}
+					],
+					"live": true,
+					"stack": "Astro, Tailwind CSS, Cloudflare",
+					"summary": "Landing page giới thiệu khóa học với nội dung rõ ràng và form đăng ký tư vấn.",
+					"content": [
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Bài toán"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Khóa học cần một trang đích tập trung để giải thích giá trị và thu hút học viên."
+								}
+							]
+						}
+					],
+					"results": [],
+					"featured": false,
+					"sort_order": 5
+				}
+			},
+			{
+				"id": "p-course-en",
+				"slug": "landing-page-khoa-hoc-online",
+				"status": "published",
+				"locale": "en",
+				"data": {
+					"title": "Online course landing page",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1600&h=1000&fit=crop",
+							"alt": "Online course landing page",
+							"filename": "landing-page-khoa-hoc-online.jpg"
+						}
+					},
+					"client": "Sample client",
+					"year": "2025",
+					"category": "landing_page",
+					"industry": "education",
+					"duration": "4 weeks",
+					"team_size": "2 people",
+					"features": [
+						{
+							"item": "Clear course roadmap"
+						},
+						{
+							"item": "Consultation sign-up form"
+						},
+						{
+							"item": "Mobile conversion optimisation"
+						},
+						{
+							"item": "Ad measurement integration"
+						}
+					],
+					"live": true,
+					"stack": "Astro, Tailwind CSS, Cloudflare",
+					"summary": "Course landing page with a clear offer and a consultation sign-up form.",
+					"content": [
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Challenge"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "The course needed a focused landing page to explain its value and attract learners."
+								}
+							]
+						}
+					],
+					"results": [],
+					"featured": false,
+					"sort_order": 5
+				},
+				"translationOf": "p-course"
+			},
+			{
+				"id": "p-estate",
+				"slug": "website-bat-dong-san",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"title": "Website bất động sản",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1600&h=1000&fit=crop",
+							"alt": "Website bất động sản",
+							"filename": "website-bat-dong-san.jpg"
+						}
+					},
+					"client": "Khách hàng mẫu",
+					"year": "2025",
+					"category": "website",
+					"industry": "real_estate",
+					"duration": "7 tuần",
+					"team_size": "3 người",
+					"features": [
+						{
+							"item": "Danh sách dự án dễ tìm kiếm"
+						},
+						{
+							"item": "Bộ lọc theo nhu cầu"
+						},
+						{
+							"item": "Trang chi tiết căn hộ"
+						},
+						{
+							"item": "Nhận yêu cầu tư vấn"
+						}
+					],
+					"live": false,
+					"stack": "Next.js, PostgreSQL, Cloudflare",
+					"summary": "Website dự án bất động sản với bộ lọc sản phẩm và form nhận thông tin.",
+					"content": [
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Bài toán"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Thông tin dự án phân tán khiến khách hàng khó so sánh và để lại nhu cầu."
+								}
+							]
+						}
+					],
+					"results": [],
+					"featured": false,
+					"sort_order": 5
+				}
+			},
+			{
+				"id": "p-estate-en",
+				"slug": "website-bat-dong-san",
+				"status": "published",
+				"locale": "en",
+				"data": {
+					"title": "Real estate website",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1600&h=1000&fit=crop",
+							"alt": "Real estate website",
+							"filename": "website-bat-dong-san.jpg"
+						}
+					},
+					"client": "Sample client",
+					"year": "2025",
+					"category": "website",
+					"industry": "real_estate",
+					"duration": "7 weeks",
+					"team_size": "3 people",
+					"features": [
+						{
+							"item": "Searchable project listings"
+						},
+						{
+							"item": "Needs-based filters"
+						},
+						{
+							"item": "Property detail pages"
+						},
+						{
+							"item": "Consultation lead capture"
+						}
+					],
+					"live": false,
+					"stack": "Next.js, PostgreSQL, Cloudflare",
+					"summary": "Real estate project catalogue with filters and a lead capture form.",
+					"content": [
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Challenge"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Scattered project information made it hard for buyers to compare options and enquire."
+								}
+							]
+						}
+					],
+					"results": [],
+					"featured": false,
+					"sort_order": 5
+				},
+				"translationOf": "p-estate"
 			}
 		],
 		"services": [

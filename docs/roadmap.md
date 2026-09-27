@@ -28,17 +28,17 @@ Layout and feature ideas come from [research/tanphatdigital.md](research/tanphat
   - [x] "Why CTStack" commitments + trust promises next to the forms (sample wording)
   - [x] Contact form at the end of the home page
   - [ ] Trust stats row (real numbers only)
-  - [ ] Contact page: "what happens next" steps, channels, working hours
+  - [x] Contact page: "what happens next" steps, channels, working hours
 - [ ] Replace sample projects/prices/commitments with real content → checklist in [placeholders.md](placeholders.md)
 - [ ] Deploy to Cloudflare (`*.workers.dev`)
-- [ ] Basic SEO check: titles, descriptions, OG images, sitemap
+- [x] Basic SEO check: titles, descriptions, OG images, sitemap
 
 ## Phase 2: Credibility + service landing pages
 
 - [ ] Service detail pages `/services/[slug]`: hero + value props, packages, pain points, comparison table, "questions to ask before signing", process, related projects + testimonials, FAQ (FAQPage schema), related services, CTA
 - [ ] Testimonials collection, shown on home, case studies and service pages
 - [ ] FAQ collection + `/faq` page with category tabs
-- [ ] Projects: industry field + filter, duration, team size, key features, "Live" badge, linked testimonial
+- [~] Projects: industry field + filter, duration, team size, key features, "Live" badge (plan 004); linked testimonial remains for plan 006
 - [ ] Case studies: device-frame images, before/after
 - [ ] About page: stats, how we work, team, downloadable company profile (PDF)
 - [ ] Policy pages: warranty, privacy, terms

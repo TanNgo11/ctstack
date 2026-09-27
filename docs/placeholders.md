@@ -20,6 +20,7 @@ Everything below was written as realistic sample content so the site looks finis
 
 - [ ] Contact channels: `contactEmail`, `contactPhone`, `zaloUrl`, `messengerUrl` in `src/i18n/ui.ts` (floating buttons and footer links stay hidden while empty)
 - [ ] Location: `contact.location`, `footer.location`
+- [ ] Working hours shown on the contact page (currently sample: Mon–Sat, 8:30 am–6:00 pm / T2–T7, 8:30–18:00): `contact.hours`
 - [ ] About page text: CMS → Pages → About
 
 ## Portfolio

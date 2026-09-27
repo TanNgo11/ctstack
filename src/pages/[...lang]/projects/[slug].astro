@@ -3,7 +3,13 @@ import { decodeSlug, getEmDashCollection, getEmDashEntry, getSeoMeta } from "emd
 import { Image, PortableText } from "emdash/ui";
 import Base from "../../../layouts/Base.astro";
 import ProjectCard from "../../../components/ProjectCard.astro";
-import { categoryLabel, localizePath, useTranslations, langFromParam } from "../../../i18n/ui";
+import {
+	categoryLabel,
+	industryLabel,
+	localizePath,
+	useTranslations,
+	langFromParam,
+} from "../../../i18n/ui";
 import {
 	contentAlternates,
 	isNotFoundError,
@@ -44,8 +50,13 @@ if (Astro.cache?.enabled) {
 }
 
 const d = project.data;
+const featuredImageStorageKey =
+	typeof d.featured_image?.meta?.storageKey === "string"
+		? d.featured_image.meta.storageKey
+		: undefined;
 const projectUrl = safeExternalUrl(d.url);
 const stack = splitStack(d.stack);
+const features = (d.features ?? []) as { item?: string }[];
 const results = d.results ?? [];
 const gallery = d.gallery ?? [];
 // Case studies are written as h2 sections (problem / solution / result).
@@ -57,14 +68,25 @@ const facts = [
 		value: categoryLabel(lang, d.category),
 		edit: project.edit.category,
 	},
+	{
+		label: t("projects.industry"),
+		value: industryLabel(lang, d.industry),
+		edit: project.edit.industry,
+	},
 	{ label: t("projects.year"), value: d.year, edit: project.edit.year },
+	{ label: t("projects.duration"), value: d.duration, edit: project.edit.duration },
+	{ label: t("projects.team"), value: d.team_size, edit: project.edit.team_size },
 ].filter((f) => f.value);
 
 const seo = getSeoMeta(project, {
 	siteUrl: Astro.url.origin,
 	path: localizePath(`/projects/${slug}`, lang),
 	defaultDescription: d.summary,
-	defaultOgImage: d.featured_image?.src,
+	defaultOgImage: d.featured_image?.src
+		? d.featured_image.src
+		: featuredImageStorageKey
+			? `/_emdash/api/media/file/${featuredImageStorageKey}`
+			: undefined,
 });
 ---
 
@@ -169,6 +191,26 @@ const seo = getSeoMeta(project, {
 			)}
 		</div>
 
+		{features.length > 0 && (
+			<section class="features-section" aria-labelledby="features-title" {...project.edit.features}>
+				<h2 id="features-title" class="block-title">
+					{t("projects.features")}
+				</h2>
+				<ul class="features-list">
+					{features.map((feature) =>
+						feature.item ? (
+							<li>
+								<span class="feature-check" aria-hidden="true">
+									✓
+								</span>
+								<span>{feature.item}</span>
+							</li>
+						) : null,
+					)}
+				</ul>
+			</section>
+		)}
+
 		{sections.length > 0 && (
 			<div class:list={["story", { columns: sections.length > 1 }]} {...project.edit.content}>
 				{sections.map((section) => (
@@ -213,6 +255,9 @@ const seo = getSeoMeta(project, {
 						featuredImage={p.data.featured_image}
 						href={localizePath(`/projects/${p.id}`, lang)}
 						category={p.data.category}
+						stack={p.data.stack}
+						duration={p.data.duration}
+						live={p.data.live}
 						results={p.data.results}
 						edit={p.edit}
 					/>
@@ -304,6 +349,35 @@ const seo = getSeoMeta(project, {
 		grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.5fr);
 		gap: var(--spacing-lg);
 		padding-block: var(--spacing-lg) var(--spacing-2xl);
+	}
+
+	.features-section {
+		padding-block: 0 var(--spacing-xl);
+	}
+
+	.features-list {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: var(--spacing-sm) var(--spacing-xl);
+		margin: 0;
+		padding: var(--spacing-lg);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-card);
+		background: var(--color-surface);
+		list-style: none;
+	}
+
+	.features-list li {
+		display: flex;
+		align-items: flex-start;
+		gap: var(--spacing-sm);
+		color: var(--color-muted);
+	}
+
+	.feature-check {
+		flex: 0 0 auto;
+		color: var(--color-brand);
+		font-weight: 700;
 	}
 
 	.facts {
@@ -459,6 +533,10 @@ const seo = getSeoMeta(project, {
 			padding: var(--spacing-md) 0;
 			border-inline-start: 0;
 			border-top: 1px solid var(--color-border);
+		}
+
+		.features-list {
+			grid-template-columns: 1fr;
 		}
 
 		.story.columns .story-section:first-child {

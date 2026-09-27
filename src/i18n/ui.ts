@@ -49,6 +49,15 @@ export const projectCategories = [
 	"landing_page",
 ] as const;
 
+export const projectIndustries = [
+	"fnb",
+	"beauty",
+	"real_estate",
+	"retail",
+	"education",
+	"other",
+] as const;
+
 const vi = {
 	"site.tagline": "Thiết kế & phát triển website, ứng dụng",
 	"site.description":
@@ -189,6 +198,11 @@ const vi = {
 	"projects.year": "Năm",
 	"projects.stack": "Công nghệ",
 	"projects.type": "Loại",
+	"projects.industry": "Ngành",
+	"projects.duration": "Thời gian",
+	"projects.team": "Đội ngũ",
+	"projects.features": "Tính năng chính",
+	"projects.liveBadge": "Live",
 	"projects.results": "Kết quả",
 	"projects.other": "Dự án khác",
 	"projects.back": "Tất cả dự án",
@@ -202,6 +216,13 @@ const vi = {
 	"category.mobile_app": "Mobile app",
 	"category.ecommerce": "Thương mại điện tử",
 	"category.landing_page": "Landing page",
+
+	"industry.fnb": "F&B",
+	"industry.beauty": "Spa & làm đẹp",
+	"industry.real_estate": "Bất động sản",
+	"industry.retail": "Bán lẻ",
+	"industry.education": "Giáo dục",
+	"industry.other": "Khác",
 
 	"services.title": "Dịch vụ",
 	"services.heading": "Giải pháp phần mềm vừa vặn với doanh nghiệp",
@@ -219,6 +240,7 @@ const vi = {
 	"contact.emailLabel": "Hoặc email trực tiếp",
 	"contact.formTitle": "Gửi thông tin dự án",
 	"contact.formSubtitle": "Chúng tôi sẽ liên hệ lại trong vòng 24 giờ.",
+	"contact.success": "Cảm ơn bạn! Chúng tôi sẽ liên hệ lại trong vòng 24 giờ.",
 	"contact.privacy": "Thông tin của bạn chỉ được dùng để trao đổi về dự án.",
 	"contact.selectService": "Chọn nhu cầu của bạn",
 	"contact.selectBudget": "Chọn khoảng ngân sách",
@@ -226,6 +248,19 @@ const vi = {
 	"contact.emailShort": "Email",
 	"contact.locationLabel": "Khu vực",
 	"contact.location": "Việt Nam",
+	"contact.channelsTitle": "Kênh liên hệ",
+	"contact.zaloShort": "Zalo",
+	"contact.phoneShort": "Điện thoại",
+	"contact.messengerShort": "Messenger",
+	"contact.hoursLabel": "Giờ làm việc",
+	"contact.hours": "T2–T7, 8:30–18:00",
+	"contact.nextStepsEyebrow": "Sau khi gửi",
+	"contact.nextStepsTitle": "Bạn sẽ nhận được gì tiếp theo",
+	"contact.nextSteps": [
+		["Chúng tôi gọi lại trong 24h", "Xác nhận nhu cầu và thống nhất thời gian trao đổi."],
+		["Trao đổi chi tiết & đề xuất", "Làm rõ phạm vi, mục tiêu và hướng triển khai phù hợp."],
+		["Báo giá rõ ràng", "Nhận báo giá theo phạm vi đã thống nhất, không phát sinh bất ngờ."],
+	],
 
 	"notFound.title": "Không tìm thấy trang",
 	"notFound.text": "Trang bạn tìm không tồn tại hoặc đã được chuyển.",
@@ -235,6 +270,18 @@ const vi = {
 	"theme.light": "Sáng",
 	"theme.dark": "Tối",
 	"theme.system": "Hệ thống",
+
+	"seo.homeDescription":
+		"CTStack thiết kế và xây dựng website, web app và ứng dụng di động giúp doanh nghiệp bán hàng và vận hành tốt hơn.",
+	"seo.projectsDescription":
+		"Xem các website, web app và ứng dụng di động CTStack đã thiết kế và phát triển cho doanh nghiệp.",
+	"seo.servicesDescription":
+		"Dịch vụ thiết kế website, phát triển web app và ứng dụng di động phù hợp với quy trình kinh doanh của bạn.",
+	"seo.aboutDescription":
+		"Tìm hiểu CTStack, nhóm phát triển phần mềm xây dựng website, web app và ứng dụng di động cho doanh nghiệp vừa và nhỏ.",
+	"seo.contactDescription":
+		"Trao đổi về website hoặc ứng dụng của bạn với CTStack và nhận đề xuất cụ thể trong vòng 24 giờ.",
+	"seo.notFoundDescription": "Trang bạn tìm không tồn tại hoặc đã được chuyển.",
 };
 
 type Dict = typeof vi;
@@ -381,6 +428,11 @@ const en: Dict = {
 	"projects.year": "Year",
 	"projects.stack": "Stack",
 	"projects.type": "Type",
+	"projects.industry": "Industry",
+	"projects.duration": "Duration",
+	"projects.team": "Team",
+	"projects.features": "Key features",
+	"projects.liveBadge": "Live",
 	"projects.results": "Results",
 	"projects.other": "More work",
 	"projects.back": "All projects",
@@ -394,6 +446,13 @@ const en: Dict = {
 	"category.mobile_app": "Mobile app",
 	"category.ecommerce": "E-commerce",
 	"category.landing_page": "Landing page",
+
+	"industry.fnb": "F&B",
+	"industry.beauty": "Beauty & wellness",
+	"industry.real_estate": "Real estate",
+	"industry.retail": "Retail",
+	"industry.education": "Education",
+	"industry.other": "Other",
 
 	"services.title": "Services",
 	"services.heading": "Software that fits your business",
@@ -411,6 +470,7 @@ const en: Dict = {
 	"contact.emailLabel": "Or email us directly",
 	"contact.formTitle": "Send us your project",
 	"contact.formSubtitle": "We will get back to you within 24 hours.",
+	"contact.success": "Thank you! We will contact you within 24 hours.",
 	"contact.privacy": "Your details are only used to discuss your project.",
 	"contact.selectService": "Choose a service",
 	"contact.selectBudget": "Choose a budget range",
@@ -418,6 +478,19 @@ const en: Dict = {
 	"contact.emailShort": "Email",
 	"contact.locationLabel": "Location",
 	"contact.location": "Vietnam",
+	"contact.channelsTitle": "Other ways to reach us",
+	"contact.zaloShort": "Zalo",
+	"contact.phoneShort": "Phone",
+	"contact.messengerShort": "Messenger",
+	"contact.hoursLabel": "Working hours",
+	"contact.hours": "Mon–Sat, 8:30 am–6:00 pm",
+	"contact.nextStepsEyebrow": "What happens next",
+	"contact.nextStepsTitle": "What happens after you send it",
+	"contact.nextSteps": [
+		["We call back within 24 hours", "We confirm your needs and agree on a time to talk."],
+		["Detailed discussion & proposal", "We clarify scope, goals and the right way to build it."],
+		["A clear quote", "You get a quote based on the agreed scope, with no surprises."],
+	],
 
 	"notFound.title": "Page not found",
 	"notFound.text": "The page you're looking for doesn't exist or has moved.",
@@ -427,6 +500,18 @@ const en: Dict = {
 	"theme.light": "Light",
 	"theme.dark": "Dark",
 	"theme.system": "System",
+
+	"seo.homeDescription":
+		"CTStack designs and builds websites, web apps and mobile apps that help businesses sell and operate better.",
+	"seo.projectsDescription":
+		"Explore websites, web apps and mobile apps CTStack has designed and built for businesses.",
+	"seo.servicesDescription":
+		"Website design, web app development and mobile app services shaped around your business workflow.",
+	"seo.aboutDescription":
+		"Meet CTStack, a software team building websites, web apps and mobile apps for small and medium businesses.",
+	"seo.contactDescription":
+		"Tell CTStack about your website or app and receive a specific proposal within 24 hours.",
+	"seo.notFoundDescription": "The page you are looking for does not exist or has moved.",
 };
 
 const dicts: Record<Lang, Dict> = { vi, en };
@@ -477,4 +562,11 @@ export function categoryLabel(lang: Lang, category: string | undefined): string 
 	const key = `category.${category}` as keyof Dict;
 	const value = dicts[lang][key];
 	return typeof value === "string" ? value : category;
+}
+
+export function industryLabel(lang: Lang, industry: string | undefined): string | undefined {
+	if (!industry) return undefined;
+	const key = `industry.${industry}` as keyof Dict;
+	const value = dicts[lang][key];
+	return typeof value === "string" ? value : industry;
 }

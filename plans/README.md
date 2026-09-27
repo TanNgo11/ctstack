@@ -5,9 +5,9 @@ One file per feature: `NNN-<feature>.md`, copied from [`_template.md`](_template
 | #    | Plan                                                                             | Wave | Status |
 | ---- | -------------------------------------------------------------------------------- | ---- | ------ |
 | 001  | [UI redesign from mockups](001-ui-redesign.md)                                   | –    | done   |
-| 002  | [Contact: next steps, channels, success state](002-contact-next-steps.md)        | 1    | ready  |
-| 003  | [Basic SEO](003-seo-basics.md)                                                   | 1    | ready  |
-| 004  | [Project details and industry filter](004-project-details-and-filters.md)        | 1    | ready  |
+| 002  | [Contact: next steps, channels, success state](002-contact-next-steps.md)        | 1    | done   |
+| 003  | [Basic SEO](003-seo-basics.md)                                                   | 1    | done   |
+| 004  | [Project details and industry filter](004-project-details-and-filters.md)        | 1    | done   |
 | 005  | [FAQ page and policy pages](005-faq-and-policies.md)                             | 2    | ready  |
 | 006  | [Testimonials (structure only)](006-testimonials.md)                             | 3    | ready  |
 | 007a | [Service detail: template + first service](007a-service-detail-template.md)      | 4    | ready  |

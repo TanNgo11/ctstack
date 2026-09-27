@@ -35,6 +35,8 @@ interface Props {
 	 * null for a language with no translation.
 	 */
 	alternates?: Partial<Record<Lang, string | null>>;
+	/** Optional breadcrumb trail for structured data. */
+	breadcrumbs?: Array<{ name: string; url: string }>;
 	/** Hide the CTA band above the footer (pages that end with their own form). */
 	hideCta?: boolean;
 }
@@ -49,6 +51,7 @@ const {
 	type = "website",
 	content,
 	alternates,
+	breadcrumbs,
 	hideCta = false,
 } = Astro.props;
 const lang = langFromPath(Astro.originPathname ?? Astro.url.pathname);
@@ -65,9 +68,43 @@ const fullTitle = !title
 	: title === siteTitle || title.endsWith(`${separator}${siteTitle}`)
 		? title
 		: `${title}${separator}${siteTitle}`;
+const configuredSiteUrl = typeof settings?.url === "string" ? settings.url : null;
+const siteOrigin = (() => {
+	try {
+		return new URL(configuredSiteUrl || Astro.url.origin).origin;
+	} catch {
+		return Astro.url.origin;
+	}
+})();
 const siteDescription = t("site.description");
+const routePath = unlocalizePath(Astro.url.pathname).replace(/\/$/, "") || "/";
+const descriptionFallbacks: Record<string, string> = {
+	"/": t("seo.homeDescription"),
+	"/projects": t("seo.projectsDescription"),
+	"/services": t("seo.servicesDescription"),
+	"/about": t("seo.aboutDescription"),
+	"/contact": t("seo.contactDescription"),
+	"/404": t("seo.notFoundDescription"),
+};
+const resolvedDescription = description || descriptionFallbacks[routePath] || siteDescription;
 const siteLogo = settings?.logo?.url ? settings.logo : null;
-const canonicalUrl = canonical ?? new URL(Astro.url.pathname, Astro.url.origin).href;
+const canonicalUrl = (() => {
+	try {
+		const parsed = canonical ? new URL(canonical, Astro.url.origin) : Astro.url;
+		return new URL(`${parsed.pathname}${parsed.search}`, `${siteOrigin}/`).href;
+	} catch {
+		return new URL(Astro.url.pathname, `${siteOrigin}/`).href;
+	}
+})();
+const defaultOgImage = new URL("/og-default.png", `${siteOrigin}/`).href;
+const absoluteUrl = (value: string): string => {
+	try {
+		return new URL(value, `${siteOrigin}/`).href;
+	} catch {
+		return value;
+	}
+};
+const pageImage = image ? absoluteUrl(image) : defaultOgImage;
 
 // Language alternates: same page, other locale.
 const basePath = unlocalizePath(Astro.url.pathname);
@@ -79,6 +116,44 @@ const altPaths = Object.fromEntries(
 ) as Record<Lang, string | null | undefined>;
 const otherLang: Lang = lang === "vi" ? "en" : "vi";
 const switchHref = altPaths[otherLang] ?? localizePath("/", otherLang);
+const breadcrumbItems =
+	breadcrumbs ??
+	(content?.collection === "projects"
+		? [
+				{ name: t("nav.home"), url: localizePath("/", lang) },
+				{ name: t("projects.title"), url: localizePath("/projects", lang) },
+				{
+					name: pageTitle ?? title ?? t("projects.title"),
+					url: Astro.url.pathname,
+				},
+			]
+		: undefined);
+const jsonLd = (value: unknown): string =>
+	JSON.stringify(value)
+		.replace(/</g, "\\u003c")
+		.replace(/>/g, "\\u003e")
+		.replace(/\u2028/g, "\\u2028")
+		.replace(/\u2029/g, "\\u2029");
+const organizationJsonLd = jsonLd({
+	"@context": "https://schema.org",
+	"@type": "Organization",
+	"@id": `${siteOrigin}/#organization`,
+	name: siteTitle,
+	url: siteOrigin,
+	logo: absoluteUrl(siteLogo?.url || defaultOgImage),
+});
+const breadcrumbJsonLd = breadcrumbItems?.length
+	? jsonLd({
+			"@context": "https://schema.org",
+			"@type": "BreadcrumbList",
+			itemListElement: breadcrumbItems.map((item, index) => ({
+				"@type": "ListItem",
+				position: index + 1,
+				name: item.name,
+				item: absoluteUrl(item.url),
+			})),
+		})
+	: null;
 
 const nav = [
 	{ href: localizePath("/projects", lang), label: t("nav.projects") },
@@ -100,13 +175,15 @@ const pageCtx = createPublicPageContext({
 	pageType: type,
 	title: fullTitle,
 	pageTitle: pageTitle ?? title ?? siteTitle,
-	description: description || siteDescription,
+	description: resolvedDescription,
 	canonical: canonicalUrl,
-	image,
+	image: pageImage,
 	content,
 	locale: lang,
-	seo: { ogImage: image, robots },
+	seo: { ogImage: pageImage, robots },
 	siteName: siteTitle,
+	siteUrl: siteOrigin,
+	breadcrumbs: breadcrumbItems,
 });
 
 const isLoggedIn = Boolean(Astro.locals.user);
@@ -118,19 +195,29 @@ const isLoggedIn = Boolean(Astro.locals.user);
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>{fullTitle}</title>
+		<script type="application/ld+json" set:html={organizationJsonLd} />
+		{breadcrumbJsonLd && <script type="application/ld+json" set:html={breadcrumbJsonLd} />}
 		<EmDashHead page={pageCtx} />
 		<Font cssVariable="--font-heading" preload />
 		{!content &&
+			!robots?.toLowerCase().includes("noindex") &&
 			locales.map(
 				(l) =>
 					altPaths[l] && (
 						<link
 							rel="alternate"
 							hreflang={l}
-							href={new URL(altPaths[l]!, Astro.url.origin).href}
+							href={new URL(altPaths[l]!, `${siteOrigin}/`).href}
 						/>
 					),
 			)}
+		{!content && !robots?.toLowerCase().includes("noindex") && altPaths.vi && (
+			<link
+				rel="alternate"
+				hreflang="x-default"
+				href={new URL(altPaths.vi, `${siteOrigin}/`).href}
+			/>
+		)}
 		<script is:inline>
 			// Apply an explicit theme choice immediately to prevent flash.
 			// With no cookie, color-scheme: light dark follows the OS.

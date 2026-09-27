@@ -2,7 +2,7 @@
 import type { EditProxy, MediaValue } from "emdash";
 import { Image } from "emdash/ui";
 import ServiceIcon from "./ServiceIcon.astro";
-import { categoryLabel, langFromPath } from "../i18n/ui";
+import { categoryLabel, langFromPath, useTranslations } from "../i18n/ui";
 
 interface Props {
 	title: string;
@@ -12,6 +12,9 @@ interface Props {
 	client?: string;
 	year?: string;
 	category?: string;
+	stack?: string;
+	duration?: string;
+	live?: boolean;
 	/** Project results; the card highlights one (a percentage if there is one). */
 	results?: { value: string; label: string }[];
 	/**
@@ -28,12 +31,22 @@ const {
 	featuredImage,
 	href,
 	category,
+	stack,
+	duration,
+	live = false,
 	results,
 	size = "large",
 	edit,
 } = Astro.props;
 const lang = langFromPath(Astro.originPathname ?? Astro.url.pathname);
 const label = categoryLabel(lang, category);
+const t = useTranslations(lang);
+const stackItems =
+	stack
+		?.split(",")
+		.map((item) => item.trim())
+		.filter(Boolean)
+		.slice(0, 4) ?? [];
 const result = results?.find((r) => r.value.includes("%")) ?? results?.[0];
 const categoryIcon: Record<string, string> = {
 	website: "monitor",
@@ -48,6 +61,7 @@ const categoryIcon: Record<string, string> = {
 	<a href={href} class="card-link">
 		<div class="card-image" {...edit?.featured_image}>
 			<Image image={featuredImage} />
+			{live && <span class="live-badge">{t("projects.liveBadge")}</span>}
 		</div>
 		{size === "compact" && (
 			<span class="card-icon" aria-hidden="true">
@@ -67,6 +81,14 @@ const categoryIcon: Record<string, string> = {
 						{summary}
 					</p>
 				)}
+				{size !== "compact" && stackItems.length > 0 && (
+					<div class="stack-chips" {...edit?.stack}>
+						{stackItems.map((item) => (
+							<span class="stack-chip">{item}</span>
+						))}
+					</div>
+				)}
+				{size !== "compact" && duration && <span class="card-duration">{duration}</span>}
 			</div>
 			{size === "row" ? (
 				<span class="card-arrow" aria-hidden="true">
@@ -110,6 +132,7 @@ const categoryIcon: Record<string, string> = {
 	}
 
 	.card-image {
+		position: relative;
 		overflow: hidden;
 		border: 1px solid var(--color-border);
 		border-radius: var(--radius);
@@ -121,6 +144,20 @@ const categoryIcon: Record<string, string> = {
 		aspect-ratio: 16 / 10;
 		object-fit: cover;
 		transition: transform var(--transition-slow);
+	}
+
+	.live-badge {
+		position: absolute;
+		top: 12px;
+		left: 12px;
+		padding: 4px 9px;
+		border: 1px solid color-mix(in srgb, var(--color-brand) 55%, var(--color-border));
+		border-radius: var(--radius-pill);
+		color: var(--color-text);
+		background: var(--color-surface);
+		font-size: var(--font-size-xs);
+		font-weight: 600;
+		line-height: 1.2;
 	}
 
 	.compact .card-image :global(img) {
@@ -165,6 +202,26 @@ const categoryIcon: Record<string, string> = {
 		font-size: var(--font-size-sm);
 		-webkit-line-clamp: 2;
 		-webkit-box-orient: vertical;
+	}
+
+	.stack-chips {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 6px;
+	}
+
+	.stack-chip {
+		padding: 4px 8px;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-pill);
+		color: var(--color-muted);
+		font-size: var(--font-size-xs);
+		line-height: 1.2;
+	}
+
+	.card-duration {
+		color: var(--color-muted);
+		font-size: var(--font-size-sm);
 	}
 
 	.card-result {

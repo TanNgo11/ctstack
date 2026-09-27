@@ -113,7 +113,7 @@ Contact forms on a fresh local DB: `node scripts/create-contact-forms.mjs` (dev 
 2. UI feature: make sure `mockup/<feature>/` has a brief and images.
 3. Implement, keeping both languages working.
 4. Verify: `pnpm typecheck`, `pnpm build`, and hit the affected vi + en routes on the dev server (expect 200; bad slugs 404).
-5. UI work: screenshot each changed page at 390px and 1440px and compare side by side with the mockup before ticking it in the plan.
+5. UI work: screenshot each changed page at 390px and 1440px (`node scripts/screenshot.mjs <path> <width> <out.png> [dark|light] [baseUrl]`) and compare side by side with the mockup before ticking it in the plan.
 6. Update the plan status, `docs/roadmap.md` checkboxes, and docs affected by the change.
 
 ### Branches and parallel sessions

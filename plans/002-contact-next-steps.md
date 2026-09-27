@@ -1,6 +1,6 @@
 # 002: Contact page, next steps, channels and success state
 
-- **Status:** ready
+- **Status:** done
 - **Wave:** 1 (parallel with 003, 004)
 - **Roadmap:** Phase 1, "Contact page: what happens next steps, channels, working hours"
 - **Mockups:** `mockup/05-contact/BRIEF.md`, `mockup/07-contact-desktop.png`, `mockup/08-contact-mobile.png`
@@ -25,18 +25,19 @@ After reading the contact page a visitor knows exactly what happens once they se
 
 ## Tasks
 
-- [ ] Steps section (vi + en)
-- [ ] Channels block with working hours, empty values hidden
-- [ ] Success + error states styled (submit a test message on the local dev server)
-- [ ] Add working hours to `docs/placeholders.md`
+- [x] Steps section (vi + en)
+- [x] Channels block with working hours, empty values hidden
+- [x] Success + error states styled (submit a test message on the local dev server)
+- [x] Add working hours to `docs/placeholders.md`
 
 ## Verification
 
-- [ ] `pnpm typecheck`: 0 errors
-- [ ] `pnpm build` succeeds
-- [ ] `/contact` and `/en/contact` return 200; a test submission shows the success state and appears in Admin → Forms → Submissions
-- [ ] Screenshots at 390px and 1440px compared side by side with the mockup
+- [x] `pnpm typecheck`: 0 errors
+- [x] `pnpm build` succeeds
+- [x] `/contact` and `/en/contact` return 200; a test submission shows the success state and appears in Admin → Forms → Submissions
+- [x] Screenshots at 390px and 1440px compared side by side with the mockup
 
 ## Notes / decisions
 
 - Hot files touched: `src/i18n/ui.ts` (contact block only).
+- The success copy is localized in `ContactForm.astro` so it stays correct even when an existing Forms plugin definition has older confirmation text.
