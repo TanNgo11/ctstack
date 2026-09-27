@@ -46,3 +46,4 @@ Every public page has a correct title, description, canonical URL, hreflang pair
 - Hot files touched: `src/layouts/Base.astro` (head only), `src/i18n/ui.ts` (end of each dictionary), `astro.config.mjs`. No other wave-1 plan edits `Base.astro`.
 - EmDash's built-in sitemap is collection-only, so `src/pages/sitemap.xml.ts` supplies the required static routes and project URLs. The built-in `robots.txt` endpoint remains the source of robots directives and links to this sitemap.
 - Project detail pages pass the featured media API URL as the SEO fallback image because EmDash media values expose `url`/`id`, not a `src` property.
+- Review (wave 1): the sitemap pairs vi/en project URLs by identical slug. That holds for the seed today; if a translation ever gets its own slug, switch to `contentAlternates()` so hreflang pairs stay correct.

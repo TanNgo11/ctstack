@@ -63,6 +63,14 @@ if (Astro.cache?.enabled) {
 	Astro.cache.set(result.cacheHint);
 }
 
+// Hide filter options with no projects (unless the URL selects one).
+const visibleCategories = projectCategories.filter(
+	(c) => (categoryCounts.get(c) ?? 0) > 0 || c === activeCategory,
+);
+const visibleIndustries = projectIndustries.filter(
+	(i) => (industryCounts.get(i) ?? 0) > 0 || i === activeIndustry,
+);
+
 function pageUrl(params: Record<string, string | undefined>): string {
 	const search = new URLSearchParams();
 	const query = { category: activeCategory, industry: activeIndustry, ...params };
@@ -92,6 +100,9 @@ function pageUrl(params: Record<string, string | undefined>): string {
 			<p class="page-intro">{t("projects.intro")}</p>
 
 			<nav class="filters" aria-label={t("projects.type")}>
+				<span class="filter-label" aria-hidden="true">
+					{t("projects.type")}
+				</span>
 				<a
 					href={pageUrl({ category: undefined, cursor: undefined })}
 					class:list={["filter", { active: !activeCategory }]}
@@ -99,7 +110,7 @@ function pageUrl(params: Record<string, string | undefined>): string {
 				>
 					{t("projects.all")} <span class="filter-count">{allProjects.length}</span>
 				</a>
-				{projectCategories.map((c) => (
+				{visibleCategories.map((c) => (
 					<a
 						href={pageUrl({ category: c, cursor: undefined })}
 						class:list={["filter", { active: activeCategory === c }]}
@@ -111,6 +122,9 @@ function pageUrl(params: Record<string, string | undefined>): string {
 			</nav>
 
 			<nav class="filters" aria-label={t("projects.industry")}>
+				<span class="filter-label" aria-hidden="true">
+					{t("projects.industry")}
+				</span>
 				<a
 					href={pageUrl({ industry: undefined, cursor: undefined })}
 					class:list={["filter", { active: !activeIndustry }]}
@@ -118,7 +132,7 @@ function pageUrl(params: Record<string, string | undefined>): string {
 				>
 					{t("projects.all")} <span class="filter-count">{allProjects.length}</span>
 				</a>
-				{projectIndustries.map((industry) => (
+				{visibleIndustries.map((industry) => (
 					<a
 						href={pageUrl({ industry, cursor: undefined })}
 						class:list={["filter", { active: activeIndustry === industry }]}
@@ -187,6 +201,17 @@ function pageUrl(params: Record<string, string | undefined>): string {
 		margin-top: var(--spacing-xl);
 	}
 
+	.filter-label {
+		align-self: center;
+		min-width: 4.5em;
+		color: var(--color-muted);
+		font-size: var(--font-size-sm);
+	}
+
+	.filters + .filters {
+		margin-top: var(--spacing-md);
+	}
+
 	.filter {
 		display: inline-flex;
 		align-items: center;
@@ -243,6 +268,24 @@ function pageUrl(params: Record<string, string | undefined>): string {
 		font-size: var(--font-size-lg);
 		text-align: center;
 		text-decoration: none;
+	}
+
+	/* Alone on its row (even number of projects): lay out horizontally. */
+	.projects-grid > .next-card:nth-child(odd) {
+		grid-column: 1 / -1;
+		flex-direction: row;
+		flex-wrap: wrap;
+		min-height: 0;
+		padding: var(--spacing-xl);
+	}
+
+	.projects-grid > .next-card:nth-child(odd) .next-muted {
+		max-width: none;
+	}
+
+	.projects-grid > .next-card:nth-child(odd) .next-rule {
+		width: 1px;
+		height: 24px;
 	}
 
 	.next-muted {
