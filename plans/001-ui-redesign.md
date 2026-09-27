@@ -1,6 +1,6 @@
 # 001: UI redesign from mockups
 
-- **Status:** draft (waiting for mockup images)
+- **Status:** in progress
 - **Roadmap:** Phase 1, "UI redesign from mockups"
 - **Mockups:** `mockup/00-design-system/` … `mockup/07-not-found/`
 - **Owner:** AI (implementation), human (mockup approval)
@@ -23,9 +23,9 @@ Replace the current generic look with a distinctive, trustworthy studio design t
 
 ## Tasks
 
-- [ ] Mockups generated and approved (all folders)
-- [ ] Design system: tokens, buttons, cards, inputs, pills (`theme.css`)
-- [ ] Header (with mobile menu) + footer (`Base.astro`)
+- [x] Mockups generated and approved (all folders)
+- [ ] Design system: tokens, buttons, cards, inputs, pills (`theme.css`): implemented, pending screenshot check vs `09-design-system.png`
+- [ ] Header (with mobile menu) + footer (`Base.astro`): interim; missing sticky blur header, full-screen mobile menu, footer per brief
 - [ ] Home
 - [ ] Projects list
 - [ ] Project detail

@@ -5,8 +5,12 @@ import { createPublicPageContext } from "emdash/page";
 import { Font } from "astro:assets";
 import {
 	langFromPath,
+	contactEmail,
+	contactPhone,
 	langNames,
 	localizePath,
+	messengerUrl,
+	zaloUrl,
 	locales,
 	unlocalizePath,
 	useTranslations,
@@ -59,8 +63,7 @@ const fullTitle = !title
 		: `${title}${separator}${siteTitle}`;
 const siteDescription = t("site.description");
 const siteLogo = settings?.logo?.url ? settings.logo : null;
-const canonicalUrl =
-	canonical ?? new URL(Astro.url.pathname, Astro.url.origin).href;
+const canonicalUrl = canonical ?? new URL(Astro.url.pathname, Astro.url.origin).href;
 
 // Language alternates: same page, other locale.
 const basePath = unlocalizePath(Astro.url.pathname);
@@ -79,6 +82,12 @@ const nav = [
 	{ href: localizePath("/about", lang), label: t("nav.about") },
 ];
 const contactHref = localizePath("/contact", lang);
+const phoneHref = contactPhone ? `tel:${contactPhone.replace(/\s+/g, "")}` : "";
+const quickContacts = [
+	{ href: zaloUrl, label: t("floating.zalo"), icon: "Z" },
+	{ href: phoneHref, label: t("floating.call"), icon: "☎" },
+	{ href: messengerUrl, label: t("floating.messenger"), icon: "M" },
+].filter((c) => c.href);
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
 
 const pageCtx = createPublicPageContext({
@@ -99,7 +108,6 @@ const pageCtx = createPublicPageContext({
 const isLoggedIn = Boolean(Astro.locals.user);
 ---
 
-
 <!doctype html>
 <html lang={lang}>
 	<head>
@@ -108,19 +116,17 @@ const isLoggedIn = Boolean(Astro.locals.user);
 		<title>{fullTitle}</title>
 		<EmDashHead page={pageCtx} />
 		<Font cssVariable="--font-heading" preload />
-		{
-			!content &&
-				locales.map(
-					(l) =>
-						altPaths[l] && (
-							<link
-								rel="alternate"
-								hreflang={l}
-								href={new URL(altPaths[l]!, Astro.url.origin).href}
-							/>
-						),
-				)
-		}
+		{!content &&
+			locales.map(
+				(l) =>
+					altPaths[l] && (
+						<link
+							rel="alternate"
+							hreflang={l}
+							href={new URL(altPaths[l]!, Astro.url.origin).href}
+						/>
+					),
+			)}
 		<script is:inline>
 			// Apply an explicit theme choice immediately to prevent flash.
 			// With no cookie, color-scheme: light dark follows the OS.
@@ -139,38 +145,35 @@ const isLoggedIn = Boolean(Astro.locals.user);
 		<header class="site-header">
 			<nav class="nav" aria-label="Main">
 				<a href={localizePath("/", lang)} class="site-title">
-					{
-						siteLogo ? (
-							<img
-								src={siteLogo.url}
-								alt={siteLogo.alt || siteTitle}
-								class="site-logo-img"
-							/>
-						) : (
-							siteTitle
-						)
-					}
+					{siteLogo ? (
+						<img src={siteLogo.url} alt={siteLogo.alt || siteTitle} class="site-logo-img" />
+					) : (
+						siteTitle
+					)}
 				</a>
-				<div class="nav-links">
-					{
-						nav.map((item) => (
-							<a
-								href={item.href}
-								aria-current={
-									currentPath.startsWith(item.href) ? "page" : undefined
-								}
-							>
-								{item.label}
-							</a>
-						))
-					}
-					{
-						isLoggedIn && (
-							<a href="/_emdash/admin" class="nav-admin">
-								Admin
-							</a>
-						)
-					}
+				<button
+					class="menu-toggle"
+					type="button"
+					aria-expanded="false"
+					aria-controls="site-menu"
+					aria-label={t("nav.menu")}
+				>
+					☰
+				</button>
+				<div class="nav-links" id="site-menu">
+					{nav.map((item) => (
+						<a
+							href={item.href}
+							aria-current={currentPath.startsWith(item.href) ? "page" : undefined}
+						>
+							{item.label}
+						</a>
+					))}
+					{isLoggedIn && (
+						<a href="/_emdash/admin" class="nav-admin">
+							Admin
+						</a>
+					)}
 					<a
 						href={switchHref}
 						class="nav-lang"
@@ -180,7 +183,9 @@ const isLoggedIn = Boolean(Astro.locals.user);
 					>
 						{otherLang.toUpperCase()}
 					</a>
-					<a href={contactHref} class="nav-cta">{t("nav.cta")}</a>
+					<a href={contactHref} class="nav-cta">
+						{t("nav.cta")}
+					</a>
 				</div>
 			</nav>
 		</header>
@@ -188,49 +193,71 @@ const isLoggedIn = Boolean(Astro.locals.user);
 		<main>
 			<slot />
 		</main>
+		<section class="global-cta" aria-labelledby="global-cta-title">
+			<div class="global-cta-inner">
+				<div>
+					<p class="eyebrow">CTStack</p>
+					<h2 id="global-cta-title">{t("global.ctaTitle")}</h2>
+					<p>{t("global.ctaText")}</p>
+				</div>
+				<a class="btn btn-primary" href={contactHref}>
+					{t("global.ctaAction")} <span aria-hidden="true">↗</span>
+				</a>
+			</div>
+		</section>
 
 		<footer class="site-footer">
 			<div class="footer-content">
 				<div class="footer-brand">
 					<span class="footer-logo">
-						{
-							siteLogo ? (
-								<img
-									src={siteLogo.url}
-									alt={siteLogo.alt || siteTitle}
-									class="footer-logo-img"
-								/>
-							) : (
-								siteTitle
-							)
-						}
+						{siteLogo ? (
+							<img src={siteLogo.url} alt={siteLogo.alt || siteTitle} class="footer-logo-img" />
+						) : (
+							siteTitle
+						)}
 					</span>
 					<p class="footer-tagline">{t("site.tagline")}</p>
-					<nav class="footer-nav" aria-label="Footer">
-						{nav.map((item) => <a href={item.href}>{item.label}</a>)}
-						<a href={contactHref}>{t("nav.contact")}</a>
-					</nav>
+					<p>{t("footer.location")}</p>
+					{contactPhone && <a href={phoneHref}>{contactPhone}</a>}
+					{contactEmail && <a href={`mailto:${contactEmail}`}>{contactEmail}</a>}
+				</div>
+				<div class="footer-column">
+					<h2>{t("footer.services")}</h2>
+					<a href={localizePath("/services", lang)}>{t("nav.services")}</a>
+					<a href={localizePath("/projects", lang)}>{t("nav.projects")}</a>
+				</div>
+				<div class="footer-column">
+					<h2>{t("footer.company")}</h2>
+					<a href={localizePath("/about", lang)}>{t("nav.about")}</a>
+					<a href={contactHref}>{t("nav.contact")}</a>
+				</div>
+				<div class="footer-column">
+					<h2>{t("footer.connect")}</h2>
+					<a href={contactHref}>{t("footer.contact")}</a>
+					{quickContacts.map((c) => (
+						<a
+							href={c.href}
+							rel="noopener"
+							target={c.href.startsWith("http") ? "_blank" : undefined}
+						>
+							{c.label}
+						</a>
+					))}
+					<a href={switchHref} hreflang={otherLang}>
+						{otherLang.toUpperCase()}
+					</a>
 				</div>
 				<div class="footer-right">
 					<div class="theme-switcher">
-						<button
-							type="button"
-							class="theme-btn"
-							data-theme="light"
-							aria-pressed="false">{t("theme.light")}</button
-						>
-						<button
-							type="button"
-							class="theme-btn"
-							data-theme="dark"
-							aria-pressed="false">{t("theme.dark")}</button
-						>
-						<button
-							type="button"
-							class="theme-btn"
-							data-theme="system"
-							aria-pressed="false">{t("theme.system")}</button
-						>
+						<button type="button" class="theme-btn" data-theme="light" aria-pressed="false">
+							{t("theme.light")}
+						</button>
+						<button type="button" class="theme-btn" data-theme="dark" aria-pressed="false">
+							{t("theme.dark")}
+						</button>
+						<button type="button" class="theme-btn" data-theme="system" aria-pressed="false">
+							{t("theme.system")}
+						</button>
 					</div>
 					<p class="footer-powered">
 						© {new Date().getFullYear()} {siteTitle}. {t("footer.rights")}
@@ -238,13 +265,27 @@ const isLoggedIn = Boolean(Astro.locals.user);
 				</div>
 			</div>
 		</footer>
+		{quickContacts.length > 0 && (
+			<nav class="floating-contact" aria-label={t("floating.contact")}>
+				{quickContacts.map((c) => (
+					<a
+						href={c.href}
+						title={c.label}
+						aria-label={c.label}
+						rel="noopener"
+						target={c.href.startsWith("http") ? "_blank" : undefined}
+					>
+						<span aria-hidden="true">{c.icon}</span>
+					</a>
+				))}
+			</nav>
+		)}
 		<EmDashBodyEnd page={pageCtx} />
 
 		<script>
 			// Theme switcher
 			const THEME_REGEX = /theme=([^;]+)/;
-			const themeBtns =
-				document.querySelectorAll<HTMLButtonElement>(".theme-btn");
+			const themeBtns = document.querySelectorAll<HTMLButtonElement>(".theme-btn");
 			const root = document.documentElement;
 
 			function setTheme(theme: string) {
@@ -279,6 +320,13 @@ const isLoggedIn = Boolean(Astro.locals.user);
 			// Initialize - apply stored theme on load
 			const storedTheme = getStoredTheme();
 			setTheme(storedTheme);
+			const menuToggle = document.querySelector<HTMLButtonElement>(".menu-toggle");
+			const siteMenu = document.querySelector<HTMLElement>("#site-menu");
+			menuToggle?.addEventListener("click", () => {
+				const open = menuToggle.getAttribute("aria-expanded") === "true";
+				menuToggle.setAttribute("aria-expanded", String(!open));
+				siteMenu?.classList.toggle("is-open", !open);
+			});
 
 			themeBtns.forEach((btn) => {
 				btn.addEventListener("click", () => {
@@ -286,7 +334,6 @@ const isLoggedIn = Boolean(Astro.locals.user);
 				});
 			});
 		</script>
-
 		<style is:global>
 			/*
 			 * Establish layer order: "base" has lower priority than unlayered
@@ -440,7 +487,7 @@ const isLoggedIn = Boolean(Astro.locals.user);
 
 			.nav-links .nav-cta {
 				color: var(--color-on-brand);
-				background: var(--color-brand);
+				background: var(--accent-gradient);
 				padding: var(--spacing-sm) var(--spacing-md);
 				border-radius: var(--radius);
 				font-weight: 600;
@@ -552,11 +599,109 @@ const isLoggedIn = Boolean(Astro.locals.user);
 				text-decoration: underline;
 			}
 
+			.global-cta {
+				max-width: var(--wide-width);
+				margin: 0 auto var(--spacing-4xl);
+				padding: 0 48px;
+			}
+			.global-cta-inner {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: var(--spacing-xl);
+				padding: var(--spacing-2xl);
+				border: 1px solid var(--color-border);
+				border-radius: var(--radius-card);
+				background: linear-gradient(
+					120deg,
+					var(--color-surface),
+					color-mix(in srgb, var(--color-brand) 9%, var(--color-surface))
+				);
+			}
+			.global-cta h2 {
+				font-size: var(--font-size-2xl);
+				line-height: var(--leading-snug);
+			}
+			.global-cta p:not(.eyebrow) {
+				color: var(--color-muted);
+				margin-top: var(--spacing-sm);
+			}
+			.footer-column {
+				display: flex;
+				flex-direction: column;
+				gap: var(--spacing-sm);
+				min-width: 120px;
+			}
+			.footer-column h2 {
+				font-size: var(--font-size-sm);
+				color: var(--color-text);
+			}
+			.footer-column a {
+				color: var(--color-muted);
+				text-decoration: none;
+				font-size: var(--font-size-sm);
+			}
+			.footer-column a:hover {
+				color: var(--color-text);
+			}
+			.footer-brand a {
+				display: block;
+				margin-top: var(--spacing-xs);
+				color: var(--color-muted);
+				font-size: var(--font-size-sm);
+				text-decoration: none;
+			}
+			.footer-brand a:hover {
+				color: var(--color-text);
+			}
+			.menu-toggle {
+				display: none;
+				border: 0;
+				color: var(--color-text);
+				background: transparent;
+				font-size: 1.5rem;
+				cursor: pointer;
+			}
+			.floating-contact {
+				position: fixed;
+				z-index: 10;
+				right: 24px;
+				bottom: 24px;
+				display: flex;
+				flex-direction: column;
+				gap: 8px;
+			}
+			.floating-contact a {
+				display: grid;
+				width: 44px;
+				height: 44px;
+				place-items: center;
+				border: 1px solid var(--color-border);
+				border-radius: 50%;
+				color: var(--color-on-brand);
+				background: var(--accent-gradient);
+				box-shadow: 0 8px 20px #0003;
+				text-decoration: none;
+			}
+
 			@media (max-width: 640px) {
 				.nav {
-					flex-direction: column;
+					flex-direction: row;
+					flex-wrap: wrap;
 					gap: var(--spacing-md);
-					align-items: center;
+				}
+				.menu-toggle {
+					display: block;
+				}
+				.nav-links {
+					display: none;
+					width: 100%;
+					flex-direction: column;
+					align-items: stretch;
+					padding: var(--spacing-md) 0;
+				}
+				.nav-links.is-open {
+					display: flex;
 				}
 
 				.nav-links {
@@ -574,6 +719,15 @@ const isLoggedIn = Boolean(Astro.locals.user);
 					gap: var(--spacing-xl);
 					align-items: center;
 					text-align: center;
+				}
+				.global-cta {
+					padding: 0 20px;
+					margin-bottom: var(--spacing-3xl);
+				}
+				.global-cta-inner {
+					align-items: flex-start;
+					flex-direction: column;
+					padding: var(--spacing-lg);
 				}
 
 				.footer-right {

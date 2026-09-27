@@ -17,6 +17,14 @@ export const langNames: Record<Lang, string> = {
 /** Public contact email shown on the contact page. Empty hides it. */
 export const contactEmail = "";
 
+/**
+ * Quick contact channels (header, footer, floating buttons). Empty hides the
+ * channel. TODO: fill in real values before launch.
+ */
+export const contactPhone: string = ""; // e.g. "+84901234567"
+export const zaloUrl: string = ""; // e.g. "https://zalo.me/84901234567"
+export const messengerUrl: string = ""; // e.g. "https://m.me/ctstack"
+
 /** Form slugs created in the admin (Forms plugin), one per language. */
 export const contactFormId: Record<Lang, string> = {
 	vi: "lien-he",
@@ -41,6 +49,7 @@ const vi = {
 	"nav.about": "Giới thiệu",
 	"nav.contact": "Liên hệ",
 	"nav.cta": "Nhận báo giá",
+	"nav.menu": "Mở menu",
 	"lang.switch": "English",
 
 	"home.eyebrow": "Studio phát triển phần mềm",
@@ -60,8 +69,18 @@ const vi = {
 		["Thiết kế & code", "Demo theo từng giai đoạn để bạn góp ý sớm."],
 		["Bàn giao & bảo trì", "Deploy, hướng dẫn sử dụng, hỗ trợ sau bàn giao."],
 	],
-	"home.ctaBandTitle": "Có ý tưởng cần làm?",
-	"home.ctaBandText": "Kể cho chúng tôi nghe — phản hồi trong vòng 24 giờ.",
+	"global.ctaTitle": "Có dự án cần triển khai?",
+	"global.ctaText": "Gửi brief hôm nay, chúng tôi phản hồi trong 24 giờ.",
+	"global.ctaAction": "Bắt đầu trao đổi",
+	"footer.services": "Dịch vụ",
+	"footer.company": "Công ty",
+	"footer.connect": "Kết nối",
+	"footer.contact": "Liên hệ",
+	"footer.location": "Làm việc từ Việt Nam, phục vụ toàn cầu",
+	"floating.contact": "Liên hệ nhanh",
+	"floating.zalo": "Chat Zalo",
+	"floating.call": "Gọi ngay",
+	"floating.messenger": "Nhắn Messenger",
 
 	"projects.title": "Dự án",
 	"projects.intro": "Một số sản phẩm CTStack đã thiết kế và phát triển.",
@@ -85,8 +104,7 @@ const vi = {
 	"category.landing_page": "Landing page",
 
 	"services.title": "Dịch vụ",
-	"services.intro":
-		"Chọn đúng thứ bạn cần. Chưa chắc? Liên hệ để được tư vấn miễn phí.",
+	"services.intro": "Chọn đúng thứ bạn cần. Chưa chắc? Liên hệ để được tư vấn miễn phí.",
 	"services.priceFrom": "Từ",
 	"services.contact": "Tư vấn gói này",
 	"services.empty": "Chưa có dịch vụ nào.",
@@ -119,6 +137,7 @@ const en: Dict = {
 	"nav.about": "About",
 	"nav.contact": "Contact",
 	"nav.cta": "Get a quote",
+	"nav.menu": "Open menu",
 	"lang.switch": "Tiếng Việt",
 
 	"home.eyebrow": "Software development studio",
@@ -138,8 +157,18 @@ const en: Dict = {
 		["Design & build", "Staged demos so you can give feedback early."],
 		["Launch & support", "Deployment, handover training and ongoing support."],
 	],
-	"home.ctaBandTitle": "Have an idea to build?",
-	"home.ctaBandText": "Tell us about it — we reply within 24 hours.",
+	"global.ctaTitle": "Have a project to build?",
+	"global.ctaText": "Send your brief today. We reply within 24 hours.",
+	"global.ctaAction": "Start a conversation",
+	"footer.services": "Services",
+	"footer.company": "Company",
+	"footer.connect": "Connect",
+	"footer.contact": "Contact",
+	"footer.location": "Based in Vietnam, working worldwide",
+	"floating.contact": "Quick contact",
+	"floating.zalo": "Chat on Zalo",
+	"floating.call": "Call us",
+	"floating.messenger": "Message on Messenger",
 
 	"projects.title": "Projects",
 	"projects.intro": "A selection of products CTStack has designed and built.",
@@ -163,8 +192,7 @@ const en: Dict = {
 	"category.landing_page": "Landing page",
 
 	"services.title": "Services",
-	"services.intro":
-		"Pick what you need. Not sure? Get in touch for a free consultation.",
+	"services.intro": "Pick what you need. Not sure? Get in touch for a free consultation.",
 	"services.priceFrom": "From",
 	"services.contact": "Ask about this",
 	"services.empty": "No services yet.",

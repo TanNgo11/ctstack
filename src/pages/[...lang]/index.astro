@@ -41,89 +41,75 @@ const contactHref = localizePath("/contact", lang);
 		<h1 class="hero-title">{t("home.title")}</h1>
 		<p class="hero-intro">{t("home.intro")}</p>
 		<div class="hero-actions">
-			<a href={contactHref} class="btn btn-primary">{t("home.ctaPrimary")} →</a>
-			<a href={localizePath("/projects", lang)} class="btn btn-ghost"
-				>{t("home.ctaSecondary")}</a
-			>
+			<a href={contactHref} class="btn btn-primary">
+				{t("home.ctaPrimary")} →
+			</a>
+			<a href={localizePath("/projects", lang)} class="btn btn-ghost">
+				{t("home.ctaSecondary")}
+			</a>
 		</div>
 	</section>
 
-	{
-		services.length > 0 && (
-			<section class="block container">
-				<header class="section-header">
-					<h2 class="section-title">{t("home.servicesTitle")}</h2>
-					<a href={localizePath("/services", lang)} class="section-link">
-						{t("home.servicesLink")} →
-					</a>
-				</header>
-				<div class="services-grid">
-					{services.map((s) => (
-						<ServiceCard
-							title={s.data.title}
-							summary={s.data.summary}
-							icon={s.data.icon}
-							priceFrom={s.data.price_from}
-							edit={s.edit}
-						/>
-					))}
-				</div>
-			</section>
-		)
-	}
+	{services.length > 0 && (
+		<section class="block container">
+			<header class="section-header">
+				<h2 class="section-title">{t("home.servicesTitle")}</h2>
+				<a href={localizePath("/services", lang)} class="section-link">
+					{t("home.servicesLink")} →
+				</a>
+			</header>
+			<div class="services-grid">
+				{services.map((s) => (
+					<ServiceCard
+						title={s.data.title}
+						summary={s.data.summary}
+						icon={s.data.icon}
+						priceFrom={s.data.price_from}
+						edit={s.edit}
+					/>
+				))}
+			</div>
+		</section>
+	)}
 
-	{
-		projects.length > 0 && (
-			<section class="block container">
-				<header class="section-header">
-					<h2 class="section-title">{t("home.projectsTitle")}</h2>
-					<a href={localizePath("/projects", lang)} class="section-link">
-						{t("home.projectsLink")} →
-					</a>
-				</header>
-				<div class="projects-grid">
-					{projects.map((p) => (
-						<ProjectCard
-							title={p.data.title}
-							summary={p.data.summary}
-							featuredImage={p.data.featured_image}
-							href={localizePath(`/projects/${p.id}`, lang)}
-							client={p.data.client}
-							year={p.data.year}
-							category={p.data.category}
-							edit={p.edit}
-						/>
-					))}
-				</div>
-			</section>
-		)
-	}
+	{projects.length > 0 && (
+		<section class="block container">
+			<header class="section-header">
+				<h2 class="section-title">{t("home.projectsTitle")}</h2>
+				<a href={localizePath("/projects", lang)} class="section-link">
+					{t("home.projectsLink")} →
+				</a>
+			</header>
+			<div class="projects-grid">
+				{projects.map((p) => (
+					<ProjectCard
+						title={p.data.title}
+						summary={p.data.summary}
+						featuredImage={p.data.featured_image}
+						href={localizePath(`/projects/${p.id}`, lang)}
+						client={p.data.client}
+						year={p.data.year}
+						category={p.data.category}
+						edit={p.edit}
+					/>
+				))}
+			</div>
+		</section>
+	)}
 
 	<section class="block container">
 		<header class="section-header">
 			<h2 class="section-title">{t("home.processTitle")}</h2>
 		</header>
 		<ol class="process">
-			{
-				t("home.process").map(([title, text], i) => (
-					<li class="process-step">
-						<span class="process-num">{String(i + 1).padStart(2, "0")}</span>
-						<h3>{title}</h3>
-						<p>{text}</p>
-					</li>
-				))
-			}
+			{t("home.process").map(([title, text], i) => (
+				<li class="process-step">
+					<span class="process-num">{String(i + 1).padStart(2, "0")}</span>
+					<h3>{title}</h3>
+					<p>{text}</p>
+				</li>
+			))}
 		</ol>
-	</section>
-
-	<section class="container">
-		<div class="cta-band">
-			<div>
-				<h2>{t("home.ctaBandTitle")}</h2>
-				<p>{t("home.ctaBandText")}</p>
-			</div>
-			<a href={contactHref} class="btn btn-primary">{t("home.ctaPrimary")} →</a>
-		</div>
 	</section>
 </Base>
 
@@ -208,27 +194,6 @@ const contactHref = localizePath("/contact", lang);
 		color: var(--color-muted);
 	}
 
-	.cta-band {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: var(--spacing-xl);
-		padding: var(--spacing-2xl);
-		margin-bottom: var(--spacing-4xl);
-		border-radius: var(--radius);
-		background: var(--color-surface);
-		border: 1px solid var(--color-border);
-	}
-
-	.cta-band h2 {
-		font-size: var(--font-size-xl);
-		margin-bottom: var(--spacing-xs);
-	}
-
-	.cta-band p {
-		color: var(--color-muted);
-	}
-
 	@media (max-width: 960px) {
 		.services-grid {
 			grid-template-columns: repeat(2, 1fr);
@@ -253,11 +218,6 @@ const contactHref = localizePath("/contact", lang);
 		.projects-grid,
 		.process {
 			grid-template-columns: 1fr;
-		}
-
-		.cta-band {
-			flex-direction: column;
-			align-items: flex-start;
 		}
 	}
 </style>
