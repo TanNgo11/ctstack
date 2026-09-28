@@ -238,7 +238,9 @@ const isLoggedIn = Boolean(Astro.locals.user);
 	</head>
 	<body>
 		<EmDashBodyStart page={pageCtx} />
-		<a class="skip-link" href="#content">{t("a11y.skip")}</a>
+		<a class="skip-link" href="#content">
+			{t("a11y.skip")}
+		</a>
 		<header class="site-header">
 			<nav class="nav" aria-label="Main">
 				<a href={localizePath("/", lang)} class="site-title">

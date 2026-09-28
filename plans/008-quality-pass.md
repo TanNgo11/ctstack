@@ -43,15 +43,15 @@ The site is fast, usable with keyboard and screen readers, and looks right in bo
 - Touches many files; run alone.
 - Lighthouse mobile (production preview, simulated throttling), 2026-09-28. All four categories are at least 90.
 
-  | Page | Performance | Accessibility | Best practices | SEO |
-  | --- | --- | --- | --- | --- |
-  | `/` | 95 | 100 | 100 | 100 |
-  | `/projects` | 97 | 100 | 96 | 100 |
-  | `/projects/website-chuoi-ca-phe` | 98 | 100 | 96 | 100 |
-  | `/services` | 99 | 100 | 100 | 100 |
-  | `/services/thiet-ke-website` | 99 | 100 | 100 | 100 |
-  | `/faq` | 98 | 100 | 100 | 100 |
-  | `/contact` | 97 | 100 | 100 | 100 |
+  | Page                             | Performance | Accessibility | Best practices | SEO |
+  | -------------------------------- | ----------- | ------------- | -------------- | --- |
+  | `/`                              | 95          | 100           | 100            | 100 |
+  | `/projects`                      | 97          | 100           | 96             | 100 |
+  | `/projects/website-chuoi-ca-phe` | 98          | 100           | 96             | 100 |
+  | `/services`                      | 99          | 100           | 100            | 100 |
+  | `/services/thiet-ke-website`     | 99          | 100           | 100            | 100 |
+  | `/faq`                           | 98          | 100           | 100            | 100 |
+  | `/contact`                       | 97          | 100           | 100            | 100 |
 
 - Best practices is 96 on the two project pages because the local media files for those sample images respond 404 (`File not found` from R2). The score still meets the target. Re-seed or restore the media objects before launch screenshots of real projects.
 - Service JSON-LD (`url` and `provider.@id`) uses `resolveSiteOrigin`, the same Site URL → request-origin rule as the Organization graph in `Base.astro`. The sitemap uses that helper too.

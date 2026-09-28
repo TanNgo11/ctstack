@@ -6,14 +6,14 @@ New here? Open [`docs/onboarding.html`](docs/onboarding.html) (Vietnamese) in a 
 
 ## Pages
 
-| Page           | Vietnamese         | English               |
-| -------------- | ------------------ | --------------------- |
-| Home           | `/`                | `/en`                 |
-| Projects       | `/projects`        | `/en/projects`        |
-| Project detail | `/projects/:slug`  | `/en/projects/:slug`  |
-| Services       | `/services`        | `/en/services`        |
-| About          | `/about`           | `/en/about`           |
-| Contact        | `/contact`         | `/en/contact`         |
+| Page           | Vietnamese        | English              |
+| -------------- | ----------------- | -------------------- |
+| Home           | `/`               | `/en`                |
+| Projects       | `/projects`       | `/en/projects`       |
+| Project detail | `/projects/:slug` | `/en/projects/:slug` |
+| Services       | `/services`       | `/en/services`       |
+| About          | `/about`          | `/en/about`          |
+| Contact        | `/contact`        | `/en/contact`        |
 
 All routes live in `src/pages/[...lang]/`; the optional `lang` segment is empty for Vietnamese and `en` for English. Anything else returns 404.
 
