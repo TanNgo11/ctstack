@@ -5,6 +5,22 @@
 
 import type { BylineSummary, ContentBylineCredit, TaxonomyTerm, PortableTextBlock } from "emdash";
 
+export interface Faq {
+  id: string;
+  slug: string | null;
+  status: string;
+  question: string;
+  answer?: PortableTextBlock[];
+  category?: "pricing" | "timeline" | "warranty" | "technical" | "content";
+  sort_order?: number;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  byline?: BylineSummary | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
 export interface Page {
   id: string;
   slug: string | null;
@@ -28,11 +44,6 @@ export interface Project {
   client?: string;
   year?: string;
   category?: "website" | "web_app" | "mobile_app" | "ecommerce" | "landing_page";
-  industry?: "fnb" | "beauty" | "real_estate" | "retail" | "education" | "other";
-  duration?: string;
-  team_size?: string;
-  features?: { "item": string }[];
-  live?: boolean;
   stack?: string;
   summary?: string;
   content?: PortableTextBlock[];
@@ -41,6 +52,11 @@ export interface Project {
   url?: string;
   featured?: boolean;
   sort_order?: number;
+  industry?: "fnb" | "beauty" | "real_estate" | "retail" | "education" | "other";
+  duration?: string;
+  team_size?: string;
+  features?: { "item": string }[];
+  live?: boolean;
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;
@@ -54,7 +70,7 @@ export interface Service {
   slug: string | null;
   status: string;
   title: string;
-  icon?: "globe" | "cart" | "layout" | "smartphone" | "wrench" | "sparkles";
+  icon?: "globe" | "cart" | "layout" | "smartphone" | "wrench" | "sparkles" | "monitor" | "code" | "chart";
   summary?: string;
   price_from?: string;
   features?: { "item": string }[];
@@ -70,6 +86,7 @@ export interface Service {
 
 declare module "emdash" {
   interface EmDashCollections {
+    faqs: Faq;
     pages: Page;
     projects: Project;
     services: Service;

@@ -1,0 +1,78 @@
+---
+/**
+ * Generic CMS page (`pages` collection): policy pages such as warranty,
+ * privacy and terms. Static routes (about, contact, faq…) take precedence.
+ */
+import { decodeSlug, getEmDashEntry, getSeoMeta } from "emdash";
+import { PortableText } from "emdash/ui";
+import Base from "../../layouts/Base.astro";
+import { langFromParam, localizePath, useTranslations } from "../../i18n/ui";
+import { contentAlternates, isNotFoundError } from "../../lib/content";
+
+const lang = langFromParam(Astro.params.lang);
+if (!lang) return Astro.rewrite("/404");
+const t = useTranslations(lang);
+
+const slug = decodeSlug(Astro.params.page);
+if (!slug) return Astro.rewrite("/404");
+
+const {
+	entry: page,
+	error,
+	cacheHint,
+} = await getEmDashEntry("pages", slug, {
+	locale: lang,
+});
+if (!page || isNotFoundError(error)) return Astro.rewrite("/404");
+if (error) return new Response("Could not load the page", { status: 500 });
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+
+const alternates = await contentAlternates("pages", page.data.id, (s) => `/${s}`);
+const seo = getSeoMeta(page, {
+	siteUrl: Astro.url.origin,
+	path: localizePath(`/${slug}`, lang),
+});
+---
+
+<Base
+	title={seo.title}
+	pageTitle={seo.ogTitle}
+	description={seo.description}
+	image={seo.ogImage}
+	canonical={seo.canonical}
+	robots={seo.robots}
+	content={{ collection: "pages", id: page.data.id, slug }}
+	alternates={alternates}
+>
+	<article class="container policy">
+		<header class="page-header">
+			<a href={localizePath("/faq", lang)} class="eyebrow policy-back">
+				{t("footer.support")}
+			</a>
+			<h1 {...page.edit.title}>{page.data.title}</h1>
+		</header>
+		<div class="prose policy-body" {...page.edit.content}>
+			<PortableText value={page.data.content} />
+		</div>
+	</article>
+</Base>
+
+<style>
+	.policy {
+		padding-bottom: var(--spacing-2xl);
+	}
+
+	.policy-back {
+		display: inline-block;
+		text-decoration: none;
+	}
+
+	.policy-body {
+		max-width: var(--max-width);
+		color: var(--color-muted);
+	}
+
+	.policy-body :global(h2) {
+		color: var(--color-text);
+	}
+</style>

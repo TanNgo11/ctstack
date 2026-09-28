@@ -355,6 +355,13 @@ const isLoggedIn = Boolean(Astro.locals.user);
 					<a href={contactHref}>{t("nav.contact")}</a>
 				</div>
 				<div class="footer-column">
+					<h2>{t("footer.support")}</h2>
+					<a href={localizePath("/faq", lang)}>{t("footer.faq")}</a>
+					<a href={localizePath("/bao-hanh", lang)}>{t("footer.warranty")}</a>
+					<a href={localizePath("/chinh-sach-bao-mat", lang)}>{t("footer.privacy")}</a>
+					<a href={localizePath("/dieu-khoan", lang)}>{t("footer.terms")}</a>
+				</div>
+				<div class="footer-column">
 					<h2>{t("footer.connect")}</h2>
 					<a href={contactHref}>{t("footer.contact")}</a>
 					{quickContacts.map((c) => (
@@ -735,7 +742,7 @@ const isLoggedIn = Boolean(Astro.locals.user);
 
 			.footer-grid {
 				display: grid;
-				grid-template-columns: 2fr repeat(3, 1fr);
+				grid-template-columns: 2fr repeat(4, 1fr);
 				gap: var(--spacing-xl);
 			}
 

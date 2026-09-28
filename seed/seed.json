@@ -257,6 +257,40 @@
 					"searchable": true
 				}
 			]
+		},
+		{
+			"slug": "faqs",
+			"label": "FAQs",
+			"labelSingular": "FAQ",
+			"supports": ["drafts", "revisions", "search"],
+			"fields": [
+				{
+					"slug": "question",
+					"label": "Question",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "answer",
+					"label": "Answer",
+					"type": "portableText",
+					"searchable": true
+				},
+				{
+					"slug": "category",
+					"label": "Category",
+					"type": "select",
+					"validation": {
+						"options": ["pricing", "timeline", "warranty", "technical", "content"]
+					}
+				},
+				{
+					"slug": "sort_order",
+					"label": "Sort order (lower first)",
+					"type": "integer"
+				}
+			]
 		}
 	],
 	"content": {
@@ -1857,6 +1891,2027 @@
 							]
 						}
 					]
+				}
+			},
+			{
+				"id": "bao-hanh",
+				"slug": "bao-hanh",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"title": "Chính sách bảo hành",
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Chính sách này áp dụng cho mọi website, web app và ứng dụng CTStack bàn giao theo hợp đồng."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Thời gian bảo hành"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Gói Cơ bản: 6 tháng. Các gói còn lại: 12 tháng, tính từ ngày bàn giao."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Phạm vi bảo hành"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Lỗi chức năng, lỗi hiển thị và lỗi bảo mật phát sinh từ mã nguồn CTStack viết được sửa miễn phí."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Không thuộc bảo hành"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Tính năng mới, thay đổi thiết kế sau khi đã duyệt, lỗi do bên thứ ba (hosting, plugin, API) hoặc do chỉnh sửa mã nguồn không qua CTStack."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Cách yêu cầu bảo hành"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Gửi mô tả lỗi kèm ảnh chụp màn hình qua Zalo hoặc email. Chúng tôi phản hồi trong giờ hành chính và báo thời gian xử lý."
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"id": "bao-hanh-en",
+				"slug": "bao-hanh",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "bao-hanh",
+				"data": {
+					"title": "Warranty policy",
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "This policy covers every website, web app and application CTStack delivers under contract."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Warranty period"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Basic package: 6 months. All other packages: 12 months from handover."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "What is covered"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Functional, display and security bugs in code written by CTStack are fixed for free."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "What is not covered"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "New features, design changes after approval, problems caused by third parties (hosting, plugins, APIs) or by code changes made outside CTStack."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "How to request a fix"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Send a description and a screenshot via Zalo or email. We reply during business hours with a fix estimate."
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"id": "chinh-sach-bao-mat",
+				"slug": "chinh-sach-bao-mat",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"title": "Chính sách bảo mật",
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "CTStack tôn trọng quyền riêng tư của bạn. Trang này giải thích chúng tôi thu thập và dùng thông tin thế nào."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Thông tin chúng tôi thu thập"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Họ tên, số điện thoại, email và mô tả dự án bạn gửi qua form liên hệ."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Mục đích sử dụng"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Chỉ để trao đổi và báo giá dự án của bạn. Chúng tôi không bán hay chia sẻ thông tin cho bên thứ ba vì mục đích quảng cáo."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Lưu trữ và bảo vệ"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Thông tin được lưu trên hạ tầng Cloudflare, chỉ người phụ trách dự án truy cập được."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Quyền của bạn"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Bạn có thể yêu cầu xem, sửa hoặc xoá thông tin của mình bất cứ lúc nào qua email liên hệ."
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"id": "chinh-sach-bao-mat-en",
+				"slug": "chinh-sach-bao-mat",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "chinh-sach-bao-mat",
+				"data": {
+					"title": "Privacy policy",
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "CTStack respects your privacy. This page explains what we collect and how we use it."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "What we collect"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Your name, phone number, email and the project description you send through the contact form."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "How we use it"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Only to discuss and quote your project. We never sell or share it with third parties for advertising."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Storage and protection"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Data is stored on Cloudflare infrastructure and only the people working on your project can access it."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Your rights"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "You can ask to see, correct or delete your data at any time by email."
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"id": "dieu-khoan",
+				"slug": "dieu-khoan",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"title": "Điều khoản sử dụng",
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Khi sử dụng website ctstack, bạn đồng ý với các điều khoản dưới đây."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Nội dung website"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Thông tin trên website mang tính giới thiệu. Giá và phạm vi công việc chính thức được ghi trong báo giá và hợp đồng."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Sở hữu trí tuệ"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Nội dung, hình ảnh và thiết kế trên website thuộc CTStack hoặc khách hàng tương ứng, không được sao chép khi chưa có sự đồng ý."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Giới hạn trách nhiệm"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "CTStack không chịu trách nhiệm cho thiệt hại phát sinh từ việc sử dụng thông tin trên website ngoài phạm vi hợp đồng."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Thay đổi điều khoản"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Điều khoản có thể được cập nhật. Phiên bản mới có hiệu lực từ khi đăng trên trang này."
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"id": "dieu-khoan-en",
+				"slug": "dieu-khoan",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "dieu-khoan",
+				"data": {
+					"title": "Terms of use",
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "By using the CTStack website you agree to the terms below."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Website content"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Information on this site is for general introduction. Official prices and scope are set in the quote and contract."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Intellectual property"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Text, images and designs on this site belong to CTStack or the respective clients and may not be copied without permission."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Limitation of liability"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "CTStack is not liable for damages arising from use of this site's information outside a signed contract."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Changes"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "These terms may be updated. The new version applies once published on this page."
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"faqs": [
+			{
+				"id": "pricing-1",
+				"slug": "pricing-1",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Làm website giá bao nhiêu?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Website giới thiệu bắt đầu từ 8 triệu, website bán hàng từ 15 triệu, web app theo yêu cầu từ 30 triệu. Giá cuối phụ thuộc số trang, tính năng và tích hợp. Chúng tôi gửi báo giá chi tiết trong 24 giờ sau khi trao đổi."
+								}
+							]
+						}
+					],
+					"category": "pricing",
+					"sort_order": 1
+				}
+			},
+			{
+				"id": "pricing-1-en",
+				"slug": "pricing-1",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "pricing-1",
+				"data": {
+					"question": "How much does a website cost?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Company websites start at $350, online stores at $700 and custom web apps at $1,200. The final price depends on pages, features and integrations. We send a detailed quote within 24 hours of our first call."
+								}
+							]
+						}
+					],
+					"category": "pricing",
+					"sort_order": 1
+				}
+			},
+			{
+				"id": "pricing-2",
+				"slug": "pricing-2",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Báo giá có phát sinh thêm không?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Không, nếu phạm vi không đổi. Báo giá ghi rõ từng hạng mục. Khi bạn muốn thêm tính năng, chúng tôi báo giá phần thêm trước khi làm để bạn quyết định."
+								}
+							]
+						}
+					],
+					"category": "pricing",
+					"sort_order": 2
+				}
+			},
+			{
+				"id": "pricing-2-en",
+				"slug": "pricing-2",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "pricing-2",
+				"data": {
+					"question": "Will the price change later?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Not if the scope stays the same. The quote lists every item. If you want extra features, we quote them before starting so you can decide."
+								}
+							]
+						}
+					],
+					"category": "pricing",
+					"sort_order": 2
+				}
+			},
+			{
+				"id": "pricing-3",
+				"slug": "pricing-3",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Thanh toán theo mấy đợt?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Thường 3 đợt: 40% khi ký hợp đồng, 40% khi duyệt bản demo, 20% khi bàn giao. Dự án lớn có thể chia theo từng giai đoạn."
+								}
+							]
+						}
+					],
+					"category": "pricing",
+					"sort_order": 3
+				}
+			},
+			{
+				"id": "pricing-3-en",
+				"slug": "pricing-3",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "pricing-3",
+				"data": {
+					"question": "How are payments split?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Usually in three parts: 40% on signing, 40% when you approve the demo, 20% on handover. Larger projects can be paid per phase."
+								}
+							]
+						}
+					],
+					"category": "pricing",
+					"sort_order": 3
+				}
+			},
+			{
+				"id": "pricing-4",
+				"slug": "pricing-4",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Chi phí duy trì hằng năm gồm những gì?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Tên miền và hosting (thường 1–3 triệu mỗi năm tuỳ lưu lượng) và bảo trì nếu bạn cần. Gói Chuyên nghiệp trở lên đã gồm vài tháng bảo trì miễn phí."
+								}
+							]
+						}
+					],
+					"category": "pricing",
+					"sort_order": 4
+				}
+			},
+			{
+				"id": "pricing-4-en",
+				"slug": "pricing-4",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "pricing-4",
+				"data": {
+					"question": "What are the yearly running costs?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Domain and hosting (usually $40–120 a year depending on traffic) plus maintenance if you want it. Professional packages and above include a few months of free maintenance."
+								}
+							]
+						}
+					],
+					"category": "pricing",
+					"sort_order": 4
+				}
+			},
+			{
+				"id": "pricing-5",
+				"slug": "pricing-5",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Có xuất hoá đơn VAT không?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Có. Chúng tôi xuất hoá đơn VAT cho mọi hợp đồng doanh nghiệp."
+								}
+							]
+						}
+					],
+					"category": "pricing",
+					"sort_order": 5
+				}
+			},
+			{
+				"id": "pricing-5-en",
+				"slug": "pricing-5",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "pricing-5",
+				"data": {
+					"question": "Do you issue VAT invoices?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Yes. We issue VAT invoices for every business contract."
+								}
+							]
+						}
+					],
+					"category": "pricing",
+					"sort_order": 5
+				}
+			},
+			{
+				"id": "pricing-6",
+				"slug": "pricing-6",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Ngân sách ít có làm được không?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Được. Chúng tôi sẽ đề xuất phiên bản nhỏ nhất vẫn đạt mục tiêu chính, rồi mở rộng dần khi bạn sẵn sàng."
+								}
+							]
+						}
+					],
+					"category": "pricing",
+					"sort_order": 6
+				}
+			},
+			{
+				"id": "pricing-6-en",
+				"slug": "pricing-6",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "pricing-6",
+				"data": {
+					"question": "Can you work with a small budget?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Yes. We suggest the smallest version that still reaches your main goal, then extend it when you are ready."
+								}
+							]
+						}
+					],
+					"category": "pricing",
+					"sort_order": 6
+				}
+			},
+			{
+				"id": "timeline-1",
+				"slug": "timeline-1",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Làm một website mất bao lâu?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Website giới thiệu thường 3–4 tuần, website bán hàng 6–8 tuần, web app từ 8 tuần trở lên. Thời gian cụ thể ghi trong hợp đồng."
+								}
+							]
+						}
+					],
+					"category": "timeline",
+					"sort_order": 7
+				}
+			},
+			{
+				"id": "timeline-1-en",
+				"slug": "timeline-1",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "timeline-1",
+				"data": {
+					"question": "How long does a website take?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "A company website usually takes 3–4 weeks, an online store 6–8 weeks and a web app 8 weeks or more. The exact timeline is in the contract."
+								}
+							]
+						}
+					],
+					"category": "timeline",
+					"sort_order": 7
+				}
+			},
+			{
+				"id": "timeline-2",
+				"slug": "timeline-2",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Quy trình làm việc gồm những bước nào?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Trao đổi nhu cầu, đề xuất và báo giá, thiết kế giao diện, lập trình, kiểm thử, bàn giao và hướng dẫn sử dụng."
+								}
+							]
+						}
+					],
+					"category": "timeline",
+					"sort_order": 8
+				}
+			},
+			{
+				"id": "timeline-2-en",
+				"slug": "timeline-2",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "timeline-2",
+				"data": {
+					"question": "What are the steps?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Discovery, proposal and quote, design, development, testing, then handover and training."
+								}
+							]
+						}
+					],
+					"category": "timeline",
+					"sort_order": 8
+				}
+			},
+			{
+				"id": "timeline-3",
+				"slug": "timeline-3",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Tôi theo dõi tiến độ thế nào?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Mỗi tuần chúng tôi gửi link demo và tóm tắt việc đã làm. Bạn góp ý trực tiếp trên bản demo."
+								}
+							]
+						}
+					],
+					"category": "timeline",
+					"sort_order": 9
+				}
+			},
+			{
+				"id": "timeline-3-en",
+				"slug": "timeline-3",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "timeline-3",
+				"data": {
+					"question": "How do I follow progress?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Every week we send a demo link and a short summary. You give feedback directly on the demo."
+								}
+							]
+						}
+					],
+					"category": "timeline",
+					"sort_order": 9
+				}
+			},
+			{
+				"id": "timeline-4",
+				"slug": "timeline-4",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Tôi cần chuẩn bị gì trước khi bắt đầu?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Logo, nội dung chính (giới thiệu, sản phẩm, dịch vụ), hình ảnh nếu có và vài website bạn thích. Thiếu phần nào chúng tôi sẽ hướng dẫn."
+								}
+							]
+						}
+					],
+					"category": "timeline",
+					"sort_order": 10
+				}
+			},
+			{
+				"id": "timeline-4-en",
+				"slug": "timeline-4",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "timeline-4",
+				"data": {
+					"question": "What should I prepare?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Your logo, main content (about, products, services), photos if you have them and a few websites you like. We help with anything missing."
+								}
+							]
+						}
+					],
+					"category": "timeline",
+					"sort_order": 10
+				}
+			},
+			{
+				"id": "timeline-5",
+				"slug": "timeline-5",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Được sửa giao diện mấy lần?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Mỗi gói gồm 2–3 vòng chỉnh sửa giao diện trước khi lập trình. Sau khi duyệt, thay đổi lớn sẽ được báo giá riêng."
+								}
+							]
+						}
+					],
+					"category": "timeline",
+					"sort_order": 11
+				}
+			},
+			{
+				"id": "timeline-5-en",
+				"slug": "timeline-5",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "timeline-5",
+				"data": {
+					"question": "How many design revisions are included?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Each package includes 2–3 design revision rounds before development. Major changes after approval are quoted separately."
+								}
+							]
+						}
+					],
+					"category": "timeline",
+					"sort_order": 11
+				}
+			},
+			{
+				"id": "timeline-6",
+				"slug": "timeline-6",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Nếu trễ tiến độ thì sao?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Hợp đồng ghi rõ mốc thời gian. Nếu trễ do phía chúng tôi, bạn được giảm trừ theo điều khoản đã thoả thuận."
+								}
+							]
+						}
+					],
+					"category": "timeline",
+					"sort_order": 12
+				}
+			},
+			{
+				"id": "timeline-6-en",
+				"slug": "timeline-6",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "timeline-6",
+				"data": {
+					"question": "What if the project is late?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "The contract sets clear milestones. If we cause the delay, you get the discount agreed in the contract."
+								}
+							]
+						}
+					],
+					"category": "timeline",
+					"sort_order": 12
+				}
+			},
+			{
+				"id": "warranty-1",
+				"slug": "warranty-1",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Bảo hành bao lâu?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Gói Cơ bản bảo hành 6 tháng, các gói khác 12 tháng. Trong thời gian bảo hành, lỗi do chúng tôi được sửa miễn phí."
+								}
+							]
+						}
+					],
+					"category": "warranty",
+					"sort_order": 13
+				}
+			},
+			{
+				"id": "warranty-1-en",
+				"slug": "warranty-1",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "warranty-1",
+				"data": {
+					"question": "How long is the warranty?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "6 months for the Basic package, 12 months for the others. Bugs caused by us are fixed for free during that time."
+								}
+							]
+						}
+					],
+					"category": "warranty",
+					"sort_order": 13
+				}
+			},
+			{
+				"id": "warranty-2",
+				"slug": "warranty-2",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Bảo hành gồm những gì?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Sửa lỗi chức năng, lỗi hiển thị và lỗi bảo mật phát sinh từ mã nguồn chúng tôi viết. Không gồm tính năng mới hoặc lỗi do bên thứ ba thay đổi."
+								}
+							]
+						}
+					],
+					"category": "warranty",
+					"sort_order": 14
+				}
+			},
+			{
+				"id": "warranty-2-en",
+				"slug": "warranty-2",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "warranty-2",
+				"data": {
+					"question": "What does the warranty cover?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Functional, display and security bugs in the code we wrote. It does not cover new features or problems caused by third-party changes."
+								}
+							]
+						}
+					],
+					"category": "warranty",
+					"sort_order": 14
+				}
+			},
+			{
+				"id": "warranty-3",
+				"slug": "warranty-3",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Báo lỗi bằng cách nào?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Nhắn Zalo hoặc email kèm ảnh chụp màn hình. Chúng tôi phản hồi trong giờ hành chính và báo thời gian xử lý."
+								}
+							]
+						}
+					],
+					"category": "warranty",
+					"sort_order": 15
+				}
+			},
+			{
+				"id": "warranty-3-en",
+				"slug": "warranty-3",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "warranty-3",
+				"data": {
+					"question": "How do I report a bug?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Send us a Zalo message or email with a screenshot. We reply during business hours with a fix estimate."
+								}
+							]
+						}
+					],
+					"category": "warranty",
+					"sort_order": 15
+				}
+			},
+			{
+				"id": "warranty-4",
+				"slug": "warranty-4",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Hết bảo hành thì sao?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Bạn có thể đăng ký gói bảo trì theo tháng hoặc gọi hỗ trợ theo từng lần."
+								}
+							]
+						}
+					],
+					"category": "warranty",
+					"sort_order": 16
+				}
+			},
+			{
+				"id": "warranty-4-en",
+				"slug": "warranty-4",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "warranty-4",
+				"data": {
+					"question": "What happens after the warranty?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "You can take a monthly maintenance plan or pay per request."
+								}
+							]
+						}
+					],
+					"category": "warranty",
+					"sort_order": 16
+				}
+			},
+			{
+				"id": "warranty-5",
+				"slug": "warranty-5",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Gói bảo trì gồm những gì?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Sao lưu định kỳ, cập nhật bảo mật, theo dõi uptime, tối ưu tốc độ và một số giờ chỉnh sửa nhỏ mỗi tháng."
+								}
+							]
+						}
+					],
+					"category": "warranty",
+					"sort_order": 17
+				}
+			},
+			{
+				"id": "warranty-5-en",
+				"slug": "warranty-5",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "warranty-5",
+				"data": {
+					"question": "What does maintenance include?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Regular backups, security updates, uptime monitoring, speed tuning and a few hours of small changes each month."
+								}
+							]
+						}
+					],
+					"category": "warranty",
+					"sort_order": 17
+				}
+			},
+			{
+				"id": "warranty-6",
+				"slug": "warranty-6",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Website bị tấn công thì xử lý thế nào?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Chúng tôi khôi phục từ bản sao lưu gần nhất, vá lỗ hổng và báo cáo nguyên nhân cho bạn."
+								}
+							]
+						}
+					],
+					"category": "warranty",
+					"sort_order": 18
+				}
+			},
+			{
+				"id": "warranty-6-en",
+				"slug": "warranty-6",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "warranty-6",
+				"data": {
+					"question": "What if the site gets hacked?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "We restore the latest backup, patch the weakness and report the cause to you."
+								}
+							]
+						}
+					],
+					"category": "warranty",
+					"sort_order": 18
+				}
+			},
+			{
+				"id": "technical-1",
+				"slug": "technical-1",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Website có chuẩn SEO không?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Có. Mọi website đều có tiêu đề, mô tả, sitemap, dữ liệu cấu trúc và tốc độ tải tốt. SEO nâng cao như viết bài và xây dựng liên kết là dịch vụ riêng."
+								}
+							]
+						}
+					],
+					"category": "technical",
+					"sort_order": 19
+				}
+			},
+			{
+				"id": "technical-1-en",
+				"slug": "technical-1",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "technical-1",
+				"data": {
+					"question": "Is the website SEO-ready?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Yes. Every site has titles, descriptions, a sitemap, structured data and fast loading. Advanced SEO such as articles and link building is a separate service."
+								}
+							]
+						}
+					],
+					"category": "technical",
+					"sort_order": 19
+				}
+			},
+			{
+				"id": "technical-2",
+				"slug": "technical-2",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Website có chạy tốt trên điện thoại không?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Có. Chúng tôi thiết kế cho điện thoại trước rồi mới mở rộng lên máy tính."
+								}
+							]
+						}
+					],
+					"category": "technical",
+					"sort_order": 20
+				}
+			},
+			{
+				"id": "technical-2-en",
+				"slug": "technical-2",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "technical-2",
+				"data": {
+					"question": "Does it work well on phones?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Yes. We design for phones first, then scale up to desktop."
+								}
+							]
+						}
+					],
+					"category": "technical",
+					"sort_order": 20
+				}
+			},
+			{
+				"id": "technical-3",
+				"slug": "technical-3",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Dùng công nghệ gì?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Tuỳ dự án: Astro hoặc Next.js cho website, React và Node.js cho web app, React Native cho ứng dụng di động, triển khai trên Cloudflare hoặc hạ tầng của bạn."
+								}
+							]
+						}
+					],
+					"category": "technical",
+					"sort_order": 21
+				}
+			},
+			{
+				"id": "technical-3-en",
+				"slug": "technical-3",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "technical-3",
+				"data": {
+					"question": "Which technologies do you use?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "It depends on the project: Astro or Next.js for websites, React and Node.js for web apps, React Native for mobile apps, deployed on Cloudflare or your own infrastructure."
+								}
+							]
+						}
+					],
+					"category": "technical",
+					"sort_order": 21
+				}
+			},
+			{
+				"id": "technical-4",
+				"slug": "technical-4",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Tôi có được giữ source code không?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Có. Khi thanh toán đủ, source code, tên miền, hosting và tài khoản quản trị đều đứng tên bạn."
+								}
+							]
+						}
+					],
+					"category": "technical",
+					"sort_order": 22
+				}
+			},
+			{
+				"id": "technical-4-en",
+				"slug": "technical-4",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "technical-4",
+				"data": {
+					"question": "Do I own the source code?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Yes. Once paid in full, the source code, domain, hosting and admin accounts are all in your name."
+								}
+							]
+						}
+					],
+					"category": "technical",
+					"sort_order": 22
+				}
+			},
+			{
+				"id": "technical-5",
+				"slug": "technical-5",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Có tích hợp thanh toán và vận chuyển không?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Có. Chúng tôi đã tích hợp VNPay, MoMo, GHN, GHTK và có thể kết nối các dịch vụ khác qua API."
+								}
+							]
+						}
+					],
+					"category": "technical",
+					"sort_order": 23
+				}
+			},
+			{
+				"id": "technical-5-en",
+				"slug": "technical-5",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "technical-5",
+				"data": {
+					"question": "Can you integrate payments and shipping?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Yes. We integrate VNPay, MoMo, GHN, GHTK and other services through their APIs."
+								}
+							]
+						}
+					],
+					"category": "technical",
+					"sort_order": 23
+				}
+			},
+			{
+				"id": "technical-6",
+				"slug": "technical-6",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Website tải nhanh đến mức nào?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Mục tiêu là điểm Lighthouse trên 90 và trang tải dưới 2 giây trên mạng 4G."
+								}
+							]
+						}
+					],
+					"category": "technical",
+					"sort_order": 24
+				}
+			},
+			{
+				"id": "technical-6-en",
+				"slug": "technical-6",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "technical-6",
+				"data": {
+					"question": "How fast will it load?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "We aim for a Lighthouse score above 90 and under 2 seconds on 4G."
+								}
+							]
+						}
+					],
+					"category": "technical",
+					"sort_order": 24
+				}
+			},
+			{
+				"id": "content-1",
+				"slug": "content-1",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Tôi có tự cập nhật nội dung được không?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Được. Bạn có trang quản trị để sửa chữ, hình ảnh, thêm bài viết và dự án mà không cần biết lập trình."
+								}
+							]
+						}
+					],
+					"category": "content",
+					"sort_order": 25
+				}
+			},
+			{
+				"id": "content-1-en",
+				"slug": "content-1",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "content-1",
+				"data": {
+					"question": "Can I update the content myself?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Yes. You get an admin panel to edit text and images and add posts or projects without coding."
+								}
+							]
+						}
+					],
+					"category": "content",
+					"sort_order": 25
+				}
+			},
+			{
+				"id": "content-2",
+				"slug": "content-2",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Ai viết nội dung cho website?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Bạn cung cấp nội dung chính, chúng tôi biên tập lại cho gọn và chuẩn SEO. Nếu cần, chúng tôi viết mới với chi phí riêng."
+								}
+							]
+						}
+					],
+					"category": "content",
+					"sort_order": 26
+				}
+			},
+			{
+				"id": "content-2-en",
+				"slug": "content-2",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "content-2",
+				"data": {
+					"question": "Who writes the content?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "You provide the main content and we edit it for clarity and SEO. We can also write it from scratch for an extra fee."
+								}
+							]
+						}
+					],
+					"category": "content",
+					"sort_order": 26
+				}
+			},
+			{
+				"id": "content-3",
+				"slug": "content-3",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Website có song ngữ được không?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Có. Mỗi trang có bản tiếng Việt và tiếng Anh, chuyển đổi bằng một nút."
+								}
+							]
+						}
+					],
+					"category": "content",
+					"sort_order": 27
+				}
+			},
+			{
+				"id": "content-3-en",
+				"slug": "content-3",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "content-3",
+				"data": {
+					"question": "Can the website be bilingual?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Yes. Every page has a Vietnamese and an English version with a language switch."
+								}
+							]
+						}
+					],
+					"category": "content",
+					"sort_order": 27
+				}
+			},
+			{
+				"id": "content-4",
+				"slug": "content-4",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Có hướng dẫn sử dụng trang quản trị không?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Có. Chúng tôi hướng dẫn trực tiếp khi bàn giao và gửi tài liệu kèm video ngắn."
+								}
+							]
+						}
+					],
+					"category": "content",
+					"sort_order": 28
+				}
+			},
+			{
+				"id": "content-4-en",
+				"slug": "content-4",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "content-4",
+				"data": {
+					"question": "Do you train us on the admin panel?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Yes. We train your team at handover and send written guides with short videos."
+								}
+							]
+						}
+					],
+					"category": "content",
+					"sort_order": 28
+				}
+			},
+			{
+				"id": "content-5",
+				"slug": "content-5",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Hình ảnh lấy từ đâu?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Ưu tiên ảnh thật của doanh nghiệp. Nếu chưa có, chúng tôi dùng ảnh có bản quyền phù hợp hoặc tư vấn buổi chụp."
+								}
+							]
+						}
+					],
+					"category": "content",
+					"sort_order": 29
+				}
+			},
+			{
+				"id": "content-5-en",
+				"slug": "content-5",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "content-5",
+				"data": {
+					"question": "Where do the images come from?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Your own photos come first. Otherwise we use properly licensed images or help arrange a photo shoot."
+								}
+							]
+						}
+					],
+					"category": "content",
+					"sort_order": 29
+				}
+			},
+			{
+				"id": "content-6",
+				"slug": "content-6",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Thêm trang mới sau này có tốn phí không?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Trang dùng mẫu có sẵn bạn tự thêm được. Trang có bố cục mới sẽ được báo giá theo khối lượng."
+								}
+							]
+						}
+					],
+					"category": "content",
+					"sort_order": 30
+				}
+			},
+			{
+				"id": "content-6-en",
+				"slug": "content-6",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "content-6",
+				"data": {
+					"question": "Does adding pages later cost extra?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Pages built from existing templates you can add yourself. Pages with a new layout are quoted by effort."
+								}
+							]
+						}
+					],
+					"category": "content",
+					"sort_order": 30
 				}
 			}
 		]

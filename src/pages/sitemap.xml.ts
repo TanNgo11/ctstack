@@ -4,7 +4,7 @@ import { getEmDashCollection, getSiteSettings } from "emdash";
 const locales = ["vi", "en"] as const;
 type Locale = (typeof locales)[number];
 
-const staticPaths = ["/", "/projects", "/services", "/about", "/contact"] as const;
+const staticPaths = ["/", "/projects", "/services", "/about", "/contact", "/faq"] as const;
 
 function localizePath(path: string, locale: Locale): string {
 	if (locale === "vi") return path;
@@ -29,13 +29,13 @@ function siteOrigin(value: unknown, fallback: string): string {
 	}
 }
 
-/** Read all published project slugs, continuing through cursor pages. */
-async function getProjectSlugs(locale: Locale): Promise<string[]> {
+/** Read all published slugs of a collection, continuing through cursor pages. */
+async function getSlugs(collection: "projects" | "pages", locale: Locale): Promise<string[]> {
 	const slugs = new Set<string>();
 	let cursor: string | undefined;
 
 	for (;;) {
-		const result = await getEmDashCollection("projects", {
+		const result = await getEmDashCollection(collection, {
 			locale,
 			status: "published",
 			limit: 100,
@@ -63,15 +63,21 @@ export const GET: APIRoute = async ({ url }) => {
 		// The static route list remains useful before EmDash has been initialized.
 	}
 	const origin = siteOrigin(configuredUrl, url.origin);
-	const projectSlugs: string[][] = [];
-	for (const locale of locales) {
-		try {
-			projectSlugs.push(await getProjectSlugs(locale));
-		} catch {
-			projectSlugs.push([]);
+	const collect = async (collection: "projects" | "pages") => {
+		const slugs = new Set<string>();
+		for (const locale of locales) {
+			try {
+				for (const slug of await getSlugs(collection, locale)) slugs.add(slug);
+			} catch {
+				// Skip a collection that can't be read; static routes still go out.
+			}
 		}
-	}
-	const projectSet = new Set(projectSlugs.flat());
+		return slugs;
+	};
+	const projectSet = await collect("projects");
+	// CMS pages served by the generic route; static routes are listed above.
+	const pageSet = await collect("pages");
+	for (const path of staticPaths) pageSet.delete(path.slice(1));
 
 	const paths = new Set<string>();
 	for (const path of staticPaths) {
@@ -79,6 +85,9 @@ export const GET: APIRoute = async ({ url }) => {
 	}
 	for (const slug of projectSet) {
 		for (const locale of locales) paths.add(localizePath(`/projects/${slug}`, locale));
+	}
+	for (const slug of pageSet) {
+		for (const locale of locales) paths.add(localizePath(`/${slug}`, locale));
 	}
 
 	const lines = [

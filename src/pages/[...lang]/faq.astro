@@ -1,0 +1,326 @@
+---
+import { getEmDashCollection } from "emdash";
+import { PortableText } from "emdash/ui";
+import Base from "../../layouts/Base.astro";
+import { langFromParam, localizePath, useTranslations, zaloUrl } from "../../i18n/ui";
+
+const lang = langFromParam(Astro.params.lang);
+if (!lang) return Astro.rewrite("/404");
+const t = useTranslations(lang);
+
+const result = await getEmDashCollection("faqs", {
+	locale: lang,
+	orderBy: { sort_order: "asc" },
+	limit: 200,
+});
+if (result.error) {
+	return new Response("Could not load FAQs", { status: 500 });
+}
+if (Astro.cache?.enabled) Astro.cache.set(result.cacheHint);
+
+const categories = ["pricing", "timeline", "warranty", "technical", "content"] as const;
+type Category = (typeof categories)[number];
+const categoryLabel = (c: Category) => t(`faq.cat.${c}`);
+const faqs = result.entries;
+const usedCategories = categories.filter((c) => faqs.some((f) => f.data.category === c));
+
+type Block = { children?: { text?: string }[] };
+const plainText = (blocks: unknown): string =>
+	((blocks as Block[] | undefined) ?? [])
+		.map((b) => (b.children ?? []).map((c) => c.text ?? "").join(""))
+		.join("\n\n");
+
+const faqJsonLd = JSON.stringify({
+	"@context": "https://schema.org",
+	"@type": "FAQPage",
+	mainEntity: faqs.map((f) => ({
+		"@type": "Question",
+		name: f.data.question,
+		acceptedAnswer: { "@type": "Answer", text: plainText(f.data.answer) },
+	})),
+}).replace(/</g, "\\u003c");
+---
+
+<Base title={t("faq.title")} description={t("seo.faqDescription")}>
+	<script type="application/ld+json" set:html={faqJsonLd} />
+	<div class="container">
+		<header class="page-header">
+			<p class="eyebrow">{t("faq.eyebrow")}</p>
+			<h1>{t("faq.title")}</h1>
+			<p class="page-intro">{t("faq.intro")}</p>
+		</header>
+
+		<div class="faq-layout">
+			<div class="faq-main" data-faq>
+				<div class="faq-tools" hidden data-faq-tools>
+					<input
+						type="search"
+						class="faq-search"
+						placeholder={t("faq.search")}
+						aria-label={t("faq.searchLabel")}
+						data-faq-search
+					/>
+					<div class="faq-tabs" role="tablist" aria-label={t("faq.title")}>
+						<button type="button" role="tab" aria-selected="true" data-faq-tab="all">
+							{t("faq.all")}
+						</button>
+						{usedCategories.map((c) => (
+							<button type="button" role="tab" aria-selected="false" data-faq-tab={c}>
+								{categoryLabel(c)}
+							</button>
+						))}
+					</div>
+				</div>
+
+				{usedCategories.map((c) => (
+					<section class="faq-group" data-faq-group={c} aria-labelledby={`faq-${c}`}>
+						<h2 id={`faq-${c}`}>{categoryLabel(c)}</h2>
+						<div class="faq-list">
+							{faqs
+								.filter((f) => f.data.category === c)
+								.map((f, i) => (
+									<details class="faq-item" open={c === usedCategories[0] && i === 0}>
+										<summary {...f.edit.question}>{f.data.question}</summary>
+										<div class="faq-answer prose" {...f.edit.answer}>
+											<PortableText value={f.data.answer} />
+										</div>
+									</details>
+								))}
+						</div>
+					</section>
+				))}
+				<p class="faq-empty" hidden data-faq-empty>
+					{t("faq.empty")}
+				</p>
+			</div>
+
+			<aside class="card faq-ask">
+				<h2>{t("faq.askTitle")}</h2>
+				<p>{t("faq.askText")}</p>
+				<a class="btn btn-primary" href={localizePath("/contact", lang)}>
+					{t("faq.askCta")}
+				</a>
+				{zaloUrl && (
+					<a class="btn btn-outline" href={zaloUrl} target="_blank" rel="noopener">
+						{t("floating.zalo")}
+					</a>
+				)}
+			</aside>
+		</div>
+	</div>
+</Base>
+
+<script>
+	// Progressive enhancement: without JS every group and answer stays visible.
+	const root = document.querySelector<HTMLElement>("[data-faq]");
+	if (root) {
+		const tools = root.querySelector<HTMLElement>("[data-faq-tools]");
+		const search = root.querySelector<HTMLInputElement>("[data-faq-search]");
+		const empty = root.querySelector<HTMLElement>("[data-faq-empty]");
+		const tabs = Array.from(
+			root.querySelectorAll("[data-faq-tab]"),
+		) as unknown as HTMLButtonElement[];
+		const groups = Array.from(
+			root.querySelectorAll("[data-faq-group]"),
+		) as unknown as HTMLElement[];
+		let active = "all";
+
+		const apply = () => {
+			const q = (search?.value ?? "").trim().toLowerCase();
+			let shown = 0;
+			for (const group of groups) {
+				const inTab = active === "all" || group.dataset.faqGroup === active;
+				let visibleItems = 0;
+				const items = Array.from(
+					group.querySelectorAll("details"),
+				) as unknown as HTMLDetailsElement[];
+				for (const item of items) {
+					const match = !q || (item.textContent ?? "").toLowerCase().includes(q);
+					item.hidden = !(inTab && match);
+					if (!item.hidden) {
+						visibleItems++;
+						if (q) item.open = true;
+					}
+				}
+				group.hidden = visibleItems === 0;
+				shown += visibleItems;
+			}
+			if (empty) empty.hidden = shown > 0;
+		};
+
+		for (const tab of tabs) {
+			tab.addEventListener("click", () => {
+				active = tab.dataset.faqTab ?? "all";
+				for (const t of tabs) t.setAttribute("aria-selected", String(t === tab));
+				apply();
+			});
+		}
+		search?.addEventListener("input", apply);
+		if (tools) tools.hidden = false;
+	}
+</script>
+
+<style>
+	.faq-layout {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) 320px;
+		align-items: start;
+		gap: var(--spacing-2xl);
+		padding-bottom: var(--spacing-2xl);
+	}
+
+	.faq-tools {
+		display: grid;
+		gap: var(--spacing-md);
+		margin-bottom: var(--spacing-xl);
+	}
+
+	.faq-tools[hidden] {
+		display: none;
+	}
+
+	.faq-tabs {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--spacing-sm);
+	}
+
+	.faq-tabs button {
+		min-height: 40px;
+		padding: 0 var(--spacing-md);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-pill);
+		color: var(--color-text);
+		background: var(--color-surface);
+		font: inherit;
+		font-size: var(--font-size-sm);
+		font-weight: 500;
+		cursor: pointer;
+	}
+
+	.faq-tabs button:hover {
+		border-color: var(--color-brand);
+	}
+
+	.faq-tabs button[aria-selected="true"] {
+		border-color: transparent;
+		color: var(--color-on-brand);
+		background: var(--color-brand);
+	}
+
+	.faq-group + .faq-group {
+		margin-top: var(--spacing-xl);
+	}
+
+	.faq-group h2 {
+		margin-bottom: var(--spacing-md);
+		font-size: var(--font-size-lg);
+		font-weight: 600;
+	}
+
+	.faq-list {
+		display: grid;
+		gap: var(--spacing-sm);
+	}
+
+	.faq-item {
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius);
+		background: var(--color-surface);
+	}
+
+	.faq-item[open] {
+		border-color: color-mix(in srgb, var(--color-brand) 45%, var(--color-border));
+	}
+
+	.faq-item summary {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--spacing-md);
+		padding: var(--spacing-md) var(--spacing-lg);
+		font-weight: 600;
+		cursor: pointer;
+		list-style: none;
+	}
+
+	.faq-item summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.faq-item summary::after {
+		content: "+";
+		flex-shrink: 0;
+		color: var(--color-brand);
+		font-size: 1.25rem;
+		line-height: 1;
+	}
+
+	.faq-item[open] summary::after {
+		content: "−";
+	}
+
+	.faq-answer {
+		padding: 0 var(--spacing-lg) var(--spacing-md);
+		color: var(--color-muted);
+	}
+
+	.faq-answer :global(p:last-child) {
+		margin-bottom: 0;
+	}
+
+	.faq-empty {
+		padding: var(--spacing-xl) 0;
+		color: var(--color-muted);
+	}
+
+	.faq-ask {
+		position: sticky;
+		top: 96px;
+		display: grid;
+		gap: var(--spacing-md);
+		padding: var(--spacing-lg);
+	}
+
+	.faq-ask h2 {
+		font-size: var(--font-size-lg);
+		font-weight: 600;
+	}
+
+	.faq-ask p {
+		color: var(--color-muted);
+		font-size: var(--font-size-sm);
+	}
+
+	@media (max-width: 900px) {
+		.faq-layout {
+			grid-template-columns: 1fr;
+		}
+
+		.faq-ask {
+			position: static;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.faq-tabs {
+			flex-wrap: nowrap;
+			overflow-x: auto;
+			margin-inline: -20px;
+			padding-inline: 20px;
+			padding-bottom: 4px;
+		}
+
+		.faq-tabs button {
+			flex-shrink: 0;
+		}
+
+		.faq-item summary {
+			padding: var(--spacing-md);
+		}
+
+		.faq-answer {
+			padding: 0 var(--spacing-md) var(--spacing-md);
+		}
+	}
+</style>

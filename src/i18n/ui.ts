@@ -282,6 +282,28 @@ const vi = {
 	"seo.contactDescription":
 		"Trao đổi về website hoặc ứng dụng của bạn với CTStack và nhận đề xuất cụ thể trong vòng 24 giờ.",
 	"seo.notFoundDescription": "Trang bạn tìm không tồn tại hoặc đã được chuyển.",
+	"seo.faqDescription":
+		"Giải đáp về chi phí, thời gian, bảo hành, kỹ thuật và quản lý nội dung khi làm website, ứng dụng với CTStack.",
+	"faq.eyebrow": "FAQ",
+	"faq.title": "Câu hỏi thường gặp",
+	"faq.intro": "Những điều khách hàng hay hỏi trước khi bắt đầu một dự án.",
+	"faq.search": "Tìm câu hỏi…",
+	"faq.searchLabel": "Tìm trong câu hỏi thường gặp",
+	"faq.all": "Tất cả",
+	"faq.cat.pricing": "Chi phí & báo giá",
+	"faq.cat.timeline": "Thời gian & quy trình",
+	"faq.cat.warranty": "Bảo hành & bảo trì",
+	"faq.cat.technical": "Kỹ thuật & SEO",
+	"faq.cat.content": "Quản lý nội dung",
+	"faq.empty": "Không tìm thấy câu hỏi phù hợp.",
+	"faq.askTitle": "Chưa thấy câu trả lời?",
+	"faq.askText": "Gửi câu hỏi cho chúng tôi, bạn sẽ nhận được trả lời trong 24 giờ.",
+	"faq.askCta": "Gửi câu hỏi",
+	"footer.support": "Hỗ trợ",
+	"footer.faq": "Câu hỏi thường gặp",
+	"footer.warranty": "Chính sách bảo hành",
+	"footer.privacy": "Bảo mật",
+	"footer.terms": "Điều khoản",
 };
 
 type Dict = typeof vi;
@@ -512,6 +534,28 @@ const en: Dict = {
 	"seo.contactDescription":
 		"Tell CTStack about your website or app and receive a specific proposal within 24 hours.",
 	"seo.notFoundDescription": "The page you are looking for does not exist or has moved.",
+	"seo.faqDescription":
+		"Answers about cost, timeline, warranty, technology and content management when building with CTStack.",
+	"faq.eyebrow": "FAQ",
+	"faq.title": "Frequently asked questions",
+	"faq.intro": "What clients usually ask before starting a project.",
+	"faq.search": "Search questions…",
+	"faq.searchLabel": "Search the FAQ",
+	"faq.all": "All",
+	"faq.cat.pricing": "Pricing & quotes",
+	"faq.cat.timeline": "Timeline & process",
+	"faq.cat.warranty": "Warranty & maintenance",
+	"faq.cat.technical": "Technical & SEO",
+	"faq.cat.content": "Content management",
+	"faq.empty": "No matching questions.",
+	"faq.askTitle": "Didn’t find your answer?",
+	"faq.askText": "Send us your question and we will reply within 24 hours.",
+	"faq.askCta": "Ask a question",
+	"footer.support": "Support",
+	"footer.faq": "FAQ",
+	"footer.warranty": "Warranty",
+	"footer.privacy": "Privacy",
+	"footer.terms": "Terms",
 };
 
 const dicts: Record<Lang, Dict> = { vi, en };

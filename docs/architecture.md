@@ -70,7 +70,7 @@ sequenceDiagram
 ```mermaid
 flowchart TB
     subgraph pages["src/pages"]
-        LANG["[...lang]/<br/>index · projects/index · projects/[slug]<br/>services · about · contact"]
+        LANG["[...lang]/<br/>index · projects/index · projects/[slug]<br/>services · about · contact · faq<br/>[page] (CMS pages: policies)"]
         NF["404.astro"]
     end
     subgraph layout["src/layouts"]
@@ -143,8 +143,10 @@ as the local/development fallback, so changing the production domain requires
 one settings change.
 
 `src/pages/sitemap.xml.ts` provides the top-level sitemap. It includes the
-Vietnamese and English home, projects, services, about and contact routes plus
-all published project detail routes, and emits their hreflang pairs. EmDash's
+Vietnamese and English home, projects, services, about, contact and FAQ routes,
+all published project detail routes and the CMS pages served by the generic
+`[page]` route (policies), and emits their hreflang pairs. Pairs assume the vi
+and en entries share a slug. EmDash's
 `robots.txt` endpoint allows public crawling, disallows `/_emdash/`, and links
 to this sitemap. The 404 page is marked `noindex` and is excluded from the
 sitemap.
@@ -184,7 +186,13 @@ erDiagram
     }
     PAGES {
         string title
-        portableText content
+        portableText content "about + policies, generic route /[slug]"
+    }
+    FAQS {
+        string question
+        portableText answer
+        select category "pricing|timeline|warranty|technical|content"
+        integer sort_order
     }
     FORM_SUBMISSIONS {
         string formId "lien-he | contact"

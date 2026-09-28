@@ -23,7 +23,7 @@ Layout and feature ideas come from [research/tanphatdigital.md](research/tanphat
 - [x] UI redesign from mockups (dark-first direction approved) → [plans/001-ui-redesign.md](../plans/001-ui-redesign.md), including:
   - [~] Floating contact buttons (Zalo, phone, Messenger): built, hidden until real channels are set in `src/i18n/ui.ts`
   - [x] CTA band before the footer on every page ("phản hồi trong 24h")
-  - [~] 4-column footer (services, quick links, social, contact): done except FAQ/policy links and social icons (pages/accounts not there yet)
+  - [~] Footer (services, company, support/policies, contact): done except social icons (accounts not there yet)
   - [x] Pricing tiers (4 packages, "Phổ biến" badge) on home (sample prices)
   - [x] "Why CTStack" commitments + trust promises next to the forms (sample wording)
   - [x] Contact form at the end of the home page
@@ -37,11 +37,11 @@ Layout and feature ideas come from [research/tanphatdigital.md](research/tanphat
 
 - [ ] Service detail pages `/services/[slug]`: hero + value props, packages, pain points, comparison table, "questions to ask before signing", process, related projects + testimonials, FAQ (FAQPage schema), related services, CTA
 - [ ] Testimonials collection, shown on home, case studies and service pages
-- [ ] FAQ collection + `/faq` page with category tabs
+- [x] FAQ collection + `/faq` page with category tabs, search, FAQPage schema (sample answers)
 - [~] Projects: industry field + filter, duration, team size, key features, "Live" badge (plan 004); linked testimonial remains for plan 006
 - [ ] Case studies: device-frame images, before/after
 - [ ] About page: stats, how we work, team, downloadable company profile (PDF)
-- [ ] Policy pages: warranty, privacy, terms
+- [x] Policy pages: warranty, privacy, terms (sample text)
 - [ ] Custom domain + site URL in settings (hreflang, sitemap)
 - [ ] Email notification for new leads (Resend plugin)
 - [ ] Analytics (Cloudflare Web Analytics)

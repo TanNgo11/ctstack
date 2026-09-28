@@ -1,6 +1,6 @@
 # 005: FAQ page and policy pages
 
-- **Status:** ready (start after wave 1 is merged)
+- **Status:** done
 - **Wave:** 2
 - **Roadmap:** Phase 2, "FAQ collection + `/faq` page with category tabs" and "Policy pages: warranty, privacy, terms"
 - **Mockups:** `mockup/10-faq/BRIEF.md` (no image: follow the brief and the shared style of the existing pages)
@@ -25,20 +25,24 @@ Answer the questions buyers ask before contacting us (price, timeline, warranty)
 
 ## Tasks
 
-- [ ] `faqs` collection + seed entries, architecture doc
-- [ ] `/faq` page: tabs, search, accordion, side card, JSON-LD
-- [ ] Policy pages + generic page route
-- [ ] Footer quick links
-- [ ] Placeholders listed in `docs/placeholders.md`
+- [x] `faqs` collection + seed entries, architecture doc
+- [x] `/faq` page: tabs, search, accordion, side card, JSON-LD
+- [x] Policy pages + generic page route
+- [x] Footer quick links
+- [x] Placeholders listed in `docs/placeholders.md`
 
 ## Verification
 
-- [ ] `pnpm typecheck`: 0 errors
-- [ ] `pnpm build` succeeds
-- [ ] `/faq`, `/en/faq`, each policy page (vi + en) return 200; `/khong-co-trang-nay` returns 404
-- [ ] Tabs and search work with JS; content readable without JS
-- [ ] Screenshots at 390px and 1440px
+- [x] `pnpm typecheck`: 0 errors
+- [x] `pnpm build` succeeds
+- [x] `/faq`, `/en/faq`, each policy page (vi + en) return 200; `/khong-co-trang-nay` returns 404
+- [x] Tabs and search work with JS; content readable without JS
+- [x] Screenshots at 390px and 1440px
 
 ## Notes / decisions
 
 - Hot files touched: `seed/seed.json`, `src/layouts/Base.astro` (footer), `src/i18n/ui.ts`. Run alone (no other plan in wave 2).
+- Policy pages use the same slug in vi and en (like `about`), so the sitemap's hreflang pairing stays correct; the en URLs are `/en/bao-hanh` etc.
+- FAQ tabs and search are progressive enhancement: without JS every group is visible and the tools stay hidden.
+- Footer grew to five columns: brand, Dịch vụ, Công ty, Hỗ trợ (FAQ + policies), Kết nối.
+- After adding `src/pages/sitemap.xml.ts` to a running dev server, restart it: EmDash's built-in sitemap keeps answering `/sitemap.xml` until then.
