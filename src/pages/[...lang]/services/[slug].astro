@@ -93,6 +93,48 @@ const seo = getSeoMeta(service, {
 	path: pagePath,
 	defaultDescription: d.hero_subtitle ?? d.summary,
 });
+
+type Block = { children?: { text?: string }[] };
+const plainText = (blocks: unknown): string =>
+	((blocks as Block[] | undefined) ?? [])
+		.map((b) => (b.children ?? []).map((c) => c.text ?? "").join(""))
+		.join("\n\n");
+const toJsonLd = (value: unknown) => JSON.stringify(value).replace(/</g, "\\u003c");
+const pageUrl = new URL(pagePath, Astro.url.origin).href;
+const serviceJsonLd = toJsonLd({
+	"@context": "https://schema.org",
+	"@type": "Service",
+	name: d.title,
+	description: d.hero_subtitle ?? d.summary,
+	url: pageUrl,
+	areaServed: { "@type": "Country", name: "Vietnam" },
+	provider: { "@id": `${Astro.url.origin}/#organization` },
+	...(packages.length > 0
+		? {
+				hasOfferCatalog: {
+					"@type": "OfferCatalog",
+					name: d.title,
+					itemListElement: packages.map((p) => ({
+						"@type": "Offer",
+						name: p.name,
+						description: p.desc,
+					})),
+				},
+			}
+		: {}),
+});
+const faqJsonLd =
+	faqs.length > 0
+		? toJsonLd({
+				"@context": "https://schema.org",
+				"@type": "FAQPage",
+				mainEntity: faqs.map((f) => ({
+					"@type": "Question",
+					name: f.data.question,
+					acceptedAnswer: { "@type": "Answer", text: plainText(f.data.answer) },
+				})),
+			})
+		: null;
 ---
 
 <Base
@@ -106,6 +148,8 @@ const seo = getSeoMeta(service, {
 	alternates={alternates}
 	breadcrumbs={breadcrumbs}
 >
+	<script type="application/ld+json" set:html={serviceJsonLd} />
+	{faqJsonLd && <script type="application/ld+json" set:html={faqJsonLd} />}
 	<div class="container">
 		<nav class="breadcrumb" aria-label="Breadcrumb">
 			<ol>
