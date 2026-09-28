@@ -21,7 +21,8 @@ if (Astro.cache?.enabled) Astro.cache.set(result.cacheHint);
 const categories = ["pricing", "timeline", "warranty", "technical", "content"] as const;
 type Category = (typeof categories)[number];
 const categoryLabel = (c: Category) => t(`faq.cat.${c}`);
-const faqs = result.entries;
+// Entries with a `service` belong to a service page (plan 007a), not /faq.
+const faqs = result.entries.filter((f) => !f.data.service);
 const usedCategories = categories.filter((c) => faqs.some((f) => f.data.category === c));
 
 type Block = { children?: { text?: string }[] };

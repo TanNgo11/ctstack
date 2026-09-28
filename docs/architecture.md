@@ -182,6 +182,15 @@ erDiagram
         string price_from
         repeater features "item"
         portableText content
+        string hero_title
+        text hero_subtitle
+        repeater value_props "title, text"
+        repeater packages "name, price, desc, features (one per line), popular"
+        repeater pains "title, text"
+        repeater comparison "label, diy, ctstack"
+        repeater questions "question, answer"
+        select project_category "website|web_app|mobile_app|ecommerce|landing_page"
+        string related_services "comma separated slugs"
         integer sort_order
     }
     PAGES {
@@ -202,6 +211,7 @@ erDiagram
         string question
         portableText answer
         select category "pricing|timeline|warranty|technical|content"
+        string service "service slug, optional"
         integer sort_order
     }
     FORM_SUBMISSIONS {

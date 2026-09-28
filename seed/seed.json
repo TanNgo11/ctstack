@@ -233,6 +233,155 @@
 					"slug": "sort_order",
 					"label": "Sort order (lower first)",
 					"type": "integer"
+				},
+				{
+					"slug": "hero_title",
+					"label": "Detail page: hero title",
+					"type": "string"
+				},
+				{
+					"slug": "hero_subtitle",
+					"label": "Detail page: hero subtitle",
+					"type": "text"
+				},
+				{
+					"slug": "value_props",
+					"label": "Detail page: value props",
+					"type": "repeater",
+					"validation": {
+						"maxItems": 6,
+						"subFields": [
+							{
+								"slug": "title",
+								"label": "Title",
+								"type": "string",
+								"required": true
+							},
+							{
+								"slug": "text",
+								"label": "Text",
+								"type": "text"
+							}
+						]
+					}
+				},
+				{
+					"slug": "packages",
+					"label": "Detail page: packages",
+					"type": "repeater",
+					"validation": {
+						"maxItems": 4,
+						"subFields": [
+							{
+								"slug": "name",
+								"label": "Name",
+								"type": "string",
+								"required": true
+							},
+							{
+								"slug": "price",
+								"label": "Price from",
+								"type": "string",
+								"required": true
+							},
+							{
+								"slug": "desc",
+								"label": "Short description",
+								"type": "text"
+							},
+							{
+								"slug": "features",
+								"label": "Features (one per line)",
+								"type": "text"
+							},
+							{
+								"slug": "popular",
+								"label": "Popular badge",
+								"type": "boolean"
+							}
+						]
+					}
+				},
+				{
+					"slug": "pains",
+					"label": "Detail page: common problems",
+					"type": "repeater",
+					"validation": {
+						"maxItems": 6,
+						"subFields": [
+							{
+								"slug": "title",
+								"label": "Title",
+								"type": "string",
+								"required": true
+							},
+							{
+								"slug": "text",
+								"label": "Text",
+								"type": "text"
+							}
+						]
+					}
+				},
+				{
+					"slug": "comparison",
+					"label": "Detail page: comparison rows",
+					"type": "repeater",
+					"validation": {
+						"maxItems": 8,
+						"subFields": [
+							{
+								"slug": "label",
+								"label": "Criterion",
+								"type": "string",
+								"required": true
+							},
+							{
+								"slug": "diy",
+								"label": "DIY / ready-made theme",
+								"type": "string"
+							},
+							{
+								"slug": "ctstack",
+								"label": "CTStack",
+								"type": "string"
+							}
+						]
+					}
+				},
+				{
+					"slug": "questions",
+					"label": "Detail page: questions to ask before signing",
+					"type": "repeater",
+					"validation": {
+						"maxItems": 6,
+						"subFields": [
+							{
+								"slug": "question",
+								"label": "Question",
+								"type": "string",
+								"required": true
+							},
+							{
+								"slug": "answer",
+								"label": "Our answer",
+								"type": "text"
+							}
+						]
+					}
+				},
+				{
+					"slug": "project_category",
+					"label": "Detail page: related project category",
+					"type": "select",
+					"validation": {
+						"options": ["website", "web_app", "mobile_app", "ecommerce", "landing_page"]
+					}
+				},
+				{
+					"slug": "related_services",
+					"label": "Detail page: related service slugs (comma separated)",
+					"type": "string"
 				}
 			]
 		},
@@ -289,6 +438,11 @@
 					"slug": "sort_order",
 					"label": "Sort order (lower first)",
 					"type": "integer"
+				},
+				{
+					"slug": "service",
+					"label": "Service slug (empty = general FAQ page)",
+					"type": "string"
 				}
 			]
 		},
@@ -1540,7 +1694,144 @@
 							"item": "Hosting & tên miền"
 						}
 					],
-					"sort_order": 1
+					"sort_order": 1,
+					"hero_title": "Thiết kế website doanh nghiệp chuẩn SEO, tải nhanh",
+					"hero_subtitle": "Website giới thiệu công ty rõ ràng, dễ cập nhật và đo được hiệu quả, bàn giao trong 3–4 tuần.",
+					"value_props": [
+						{
+							"title": "Thiết kế riêng",
+							"text": "Giao diện theo nhận diện thương hiệu, không dùng lại theme đại trà."
+						},
+						{
+							"title": "Tải dưới 2 giây",
+							"text": "Tối ưu hình ảnh, mã nguồn gọn, chạy trên Cloudflare."
+						},
+						{
+							"title": "Chuẩn SEO từ đầu",
+							"text": "Tiêu đề, mô tả, sitemap và dữ liệu cấu trúc cho mọi trang."
+						},
+						{
+							"title": "Tự cập nhật",
+							"text": "Trang quản trị để sửa nội dung, thêm dự án, tin tức."
+						},
+						{
+							"title": "Song ngữ",
+							"text": "Bản tiếng Việt và tiếng Anh, chuyển đổi bằng một nút."
+						},
+						{
+							"title": "Bảo hành 12 tháng",
+							"text": "Sửa lỗi miễn phí, hỗ trợ qua Zalo trong giờ hành chính."
+						}
+					],
+					"packages": [
+						{
+							"name": "Cơ bản",
+							"price": "8 triệu",
+							"desc": "Lên online nhanh với giao diện theo mẫu tuỳ chỉnh.",
+							"features": "5–8 trang\nTối ưu mobile và tốc độ\nSEO cơ bản\nForm liên hệ\nBảo hành 6 tháng",
+							"popular": false
+						},
+						{
+							"name": "Chuyên nghiệp",
+							"price": "12 triệu",
+							"desc": "Thiết kế riêng, tự cập nhật nội dung.",
+							"features": "10–15 trang, thiết kế riêng\nCMS cập nhật tin tức, dự án\nSEO on-page, sitemap, schema\nSong ngữ Việt – Anh\nBảo hành 12 tháng, bảo trì 3 tháng",
+							"popular": true
+						},
+						{
+							"name": "Mở rộng",
+							"price": "20 triệu",
+							"desc": "Cho doanh nghiệp nhiều chi nhánh, nhiều nội dung.",
+							"features": "Không giới hạn số trang\nBộ lọc, tìm kiếm, bản đồ chi nhánh\nTích hợp CRM hoặc Google Sheets\nBáo cáo chuyển đổi\nBảo hành 12 tháng, bảo trì 6 tháng",
+							"popular": false
+						}
+					],
+					"pains": [
+						{
+							"title": "Tải chậm",
+							"text": "Khách rời trang trước khi thấy nội dung, nhất là trên 4G."
+						},
+						{
+							"title": "Không chuẩn mobile",
+							"text": "Chữ nhỏ, nút khó bấm, form khó điền trên điện thoại."
+						},
+						{
+							"title": "Không lên Google",
+							"text": "Thiếu tiêu đề, mô tả, sitemap nên khách tìm không thấy."
+						},
+						{
+							"title": "Không có form thu khách",
+							"text": "Người quan tâm không biết để lại thông tin ở đâu."
+						},
+						{
+							"title": "Khó cập nhật",
+							"text": "Sửa một dòng chữ cũng phải gọi lập trình viên."
+						},
+						{
+							"title": "Không mở rộng được",
+							"text": "Thêm ngôn ngữ, thêm trang mới là phải làm lại từ đầu."
+						}
+					],
+					"comparison": [
+						{
+							"label": "Chi phí ban đầu",
+							"diy": "Thấp",
+							"ctstack": "Từ 8 triệu, báo giá cố định"
+						},
+						{
+							"label": "Thời gian",
+							"diy": "Tuỳ thời gian rảnh của bạn",
+							"ctstack": "3–4 tuần, ghi trong hợp đồng"
+						},
+						{
+							"label": "SEO",
+							"diy": "Phải tự cấu hình plugin",
+							"ctstack": "Có sẵn cho mọi trang"
+						},
+						{
+							"label": "Tốc độ",
+							"diy": "Theme nặng, nhiều plugin",
+							"ctstack": "Mục tiêu dưới 2 giây trên 4G"
+						},
+						{
+							"label": "Hỗ trợ",
+							"diy": "Tự tìm trên diễn đàn",
+							"ctstack": "Zalo trong giờ hành chính, bảo hành 12 tháng"
+						},
+						{
+							"label": "Sở hữu source code",
+							"diy": "Phụ thuộc theme và plugin",
+							"ctstack": "Bàn giao toàn bộ, đứng tên bạn"
+						}
+					],
+					"questions": [
+						{
+							"question": "Ai giữ source code và tài khoản?",
+							"answer": "Bạn. Source code, tên miền, hosting và tài khoản quản trị đứng tên bạn khi thanh toán đủ."
+						},
+						{
+							"question": "Được sửa giao diện mấy lần?",
+							"answer": "2–3 vòng trước khi lập trình, ghi rõ trong hợp đồng."
+						},
+						{
+							"question": "Bảo hành bao lâu, gồm những gì?",
+							"answer": "12 tháng cho lỗi chức năng, hiển thị và bảo mật do chúng tôi gây ra."
+						},
+						{
+							"question": "Có cam kết tốc độ tải trang không?",
+							"answer": "Có: điểm Lighthouse trên 90 và dưới 2 giây trên 4G cho trang chủ."
+						},
+						{
+							"question": "Ai lo nội dung?",
+							"answer": "Bạn cung cấp nội dung chính, chúng tôi biên tập lại cho gọn và chuẩn SEO."
+						},
+						{
+							"question": "Trễ tiến độ thì xử lý thế nào?",
+							"answer": "Hợp đồng ghi mốc thời gian và mức giảm trừ nếu chúng tôi trễ."
+						}
+					],
+					"project_category": "website",
+					"related_services": "website-ban-hang,bao-tri-toi-uu"
 				}
 			},
 			{
@@ -1570,7 +1861,144 @@
 							"item": "Hosting & domain setup"
 						}
 					],
-					"sort_order": 1
+					"sort_order": 1,
+					"hero_title": "Business websites that load fast and rank on Google",
+					"hero_subtitle": "A clear company website that is easy to update and measurable, delivered in 3–4 weeks.",
+					"value_props": [
+						{
+							"title": "Custom design",
+							"text": "Built around your brand, not a reused mass-market theme."
+						},
+						{
+							"title": "Loads in under 2 seconds",
+							"text": "Optimised images, lean code, served from Cloudflare."
+						},
+						{
+							"title": "SEO from day one",
+							"text": "Titles, descriptions, sitemap and structured data on every page."
+						},
+						{
+							"title": "Update it yourself",
+							"text": "An admin panel to edit content and add projects or news."
+						},
+						{
+							"title": "Bilingual",
+							"text": "Vietnamese and English versions with a language switch."
+						},
+						{
+							"title": "12-month warranty",
+							"text": "Free bug fixes and Zalo support during business hours."
+						}
+					],
+					"packages": [
+						{
+							"name": "Basic",
+							"price": "$350",
+							"desc": "Get online fast with a customised template.",
+							"features": "5–8 pages\nMobile and speed optimised\nBasic SEO\nContact form\n6-month warranty",
+							"popular": false
+						},
+						{
+							"name": "Professional",
+							"price": "$500",
+							"desc": "Custom design, content you can update yourself.",
+							"features": "10–15 pages, custom design\nCMS for news and projects\nOn-page SEO, sitemap, schema\nVietnamese – English\n12-month warranty, 3 months maintenance",
+							"popular": true
+						},
+						{
+							"name": "Extended",
+							"price": "$800",
+							"desc": "For companies with several branches and lots of content.",
+							"features": "Unlimited pages\nFilters, search, branch map\nCRM or Google Sheets integration\nConversion reports\n12-month warranty, 6 months maintenance",
+							"popular": false
+						}
+					],
+					"pains": [
+						{
+							"title": "Slow to load",
+							"text": "Visitors leave before they see anything, especially on 4G."
+						},
+						{
+							"title": "Not built for phones",
+							"text": "Tiny text, hard-to-tap buttons, forms that are painful to fill."
+						},
+						{
+							"title": "Invisible on Google",
+							"text": "No titles, descriptions or sitemap, so nobody finds it."
+						},
+						{
+							"title": "No way to leave details",
+							"text": "Interested visitors don't know how to get in touch."
+						},
+						{
+							"title": "Hard to update",
+							"text": "Changing one line of text needs a developer."
+						},
+						{
+							"title": "Can't grow",
+							"text": "Adding a language or a new page means starting over."
+						}
+					],
+					"comparison": [
+						{
+							"label": "Upfront cost",
+							"diy": "Low",
+							"ctstack": "From $350, fixed quote"
+						},
+						{
+							"label": "Timeline",
+							"diy": "Whenever you find time",
+							"ctstack": "3–4 weeks, in the contract"
+						},
+						{
+							"label": "SEO",
+							"diy": "Configure plugins yourself",
+							"ctstack": "Built into every page"
+						},
+						{
+							"label": "Speed",
+							"diy": "Heavy theme, many plugins",
+							"ctstack": "Target under 2 s on 4G"
+						},
+						{
+							"label": "Support",
+							"diy": "Search forums yourself",
+							"ctstack": "Zalo in business hours, 12-month warranty"
+						},
+						{
+							"label": "Source code ownership",
+							"diy": "Tied to the theme and plugins",
+							"ctstack": "Fully handed over, in your name"
+						}
+					],
+					"questions": [
+						{
+							"question": "Who owns the source code and accounts?",
+							"answer": "You do. Code, domain, hosting and admin accounts are in your name once paid in full."
+						},
+						{
+							"question": "How many design revisions?",
+							"answer": "2–3 rounds before development, written into the contract."
+						},
+						{
+							"question": "How long is the warranty and what does it cover?",
+							"answer": "12 months for functional, display and security bugs we caused."
+						},
+						{
+							"question": "Do you commit to page speed?",
+							"answer": "Yes: Lighthouse above 90 and under 2 seconds on 4G for the home page."
+						},
+						{
+							"question": "Who handles the content?",
+							"answer": "You provide the main content; we edit it for clarity and SEO."
+						},
+						{
+							"question": "What if you are late?",
+							"answer": "The contract sets milestones and the discount if we miss them."
+						}
+					],
+					"project_category": "website",
+					"related_services": "website-ban-hang,bao-tri-toi-uu"
 				},
 				"translationOf": "s-website"
 			},
@@ -3962,6 +4390,300 @@
 					],
 					"category": "content",
 					"sort_order": 30
+				}
+			},
+			{
+				"id": "svc-website-1",
+				"slug": "svc-website-1",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Website doanh nghiệp giá bao nhiêu?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Từ 8 triệu cho gói Cơ bản. Gói Chuyên nghiệp 12 triệu là lựa chọn phổ biến nhất."
+								}
+							]
+						}
+					],
+					"category": "pricing",
+					"service": "thiet-ke-website",
+					"sort_order": 100
+				}
+			},
+			{
+				"id": "svc-website-1-en",
+				"slug": "svc-website-1",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "svc-website-1",
+				"data": {
+					"question": "How much is a business website?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "From $350 for Basic. Professional at $500 is the most popular choice."
+								}
+							]
+						}
+					],
+					"category": "pricing",
+					"service": "thiet-ke-website",
+					"sort_order": 100
+				}
+			},
+			{
+				"id": "svc-website-2",
+				"slug": "svc-website-2",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Bao lâu thì website chạy?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "3–4 tuần từ khi chốt nội dung và giao diện."
+								}
+							]
+						}
+					],
+					"category": "timeline",
+					"service": "thiet-ke-website",
+					"sort_order": 101
+				}
+			},
+			{
+				"id": "svc-website-2-en",
+				"slug": "svc-website-2",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "svc-website-2",
+				"data": {
+					"question": "When will the site be live?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "3–4 weeks after content and design are approved."
+								}
+							]
+						}
+					],
+					"category": "timeline",
+					"service": "thiet-ke-website",
+					"sort_order": 101
+				}
+			},
+			{
+				"id": "svc-website-3",
+				"slug": "svc-website-3",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Website có tự đăng bài được không?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Có. Bạn thêm tin tức, dự án và sửa nội dung trong trang quản trị."
+								}
+							]
+						}
+					],
+					"category": "technical",
+					"service": "thiet-ke-website",
+					"sort_order": 102
+				}
+			},
+			{
+				"id": "svc-website-3-en",
+				"slug": "svc-website-3",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "svc-website-3",
+				"data": {
+					"question": "Can we publish posts ourselves?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Yes. You add news and projects and edit content in the admin panel."
+								}
+							]
+						}
+					],
+					"category": "technical",
+					"service": "thiet-ke-website",
+					"sort_order": 102
+				}
+			},
+			{
+				"id": "svc-website-4",
+				"slug": "svc-website-4",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Có làm website song ngữ không?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Có, gói Chuyên nghiệp trở lên gồm bản tiếng Việt và tiếng Anh."
+								}
+							]
+						}
+					],
+					"category": "technical",
+					"service": "thiet-ke-website",
+					"sort_order": 103
+				}
+			},
+			{
+				"id": "svc-website-4-en",
+				"slug": "svc-website-4",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "svc-website-4",
+				"data": {
+					"question": "Do you build bilingual sites?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Yes, Professional and above include Vietnamese and English."
+								}
+							]
+						}
+					],
+					"category": "technical",
+					"service": "thiet-ke-website",
+					"sort_order": 103
+				}
+			},
+			{
+				"id": "svc-website-5",
+				"slug": "svc-website-5",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Sau bàn giao ai bảo trì?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Chúng tôi bảo hành 12 tháng và có gói bảo trì theo tháng nếu bạn cần."
+								}
+							]
+						}
+					],
+					"category": "warranty",
+					"service": "thiet-ke-website",
+					"sort_order": 104
+				}
+			},
+			{
+				"id": "svc-website-5-en",
+				"slug": "svc-website-5",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "svc-website-5",
+				"data": {
+					"question": "Who maintains it after launch?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "We give a 12-month warranty and offer monthly maintenance if you want it."
+								}
+							]
+						}
+					],
+					"category": "warranty",
+					"service": "thiet-ke-website",
+					"sort_order": 104
+				}
+			},
+			{
+				"id": "svc-website-6",
+				"slug": "svc-website-6",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Tôi chưa có nội dung thì sao?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Chúng tôi gửi mẫu câu hỏi để bạn trả lời, rồi biên tập thành nội dung website."
+								}
+							]
+						}
+					],
+					"category": "content",
+					"service": "thiet-ke-website",
+					"sort_order": 105
+				}
+			},
+			{
+				"id": "svc-website-6-en",
+				"slug": "svc-website-6",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "svc-website-6",
+				"data": {
+					"question": "What if we have no content yet?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "We send a short questionnaire and turn your answers into website copy."
+								}
+							]
+						}
+					],
+					"category": "content",
+					"service": "thiet-ke-website",
+					"sort_order": 105
 				}
 			}
 		]

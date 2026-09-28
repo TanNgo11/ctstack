@@ -13,6 +13,7 @@ export interface Faq {
   answer?: PortableTextBlock[];
   category?: "pricing" | "timeline" | "warranty" | "technical" | "content";
   sort_order?: number;
+  service?: string;
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;
@@ -76,6 +77,15 @@ export interface Service {
   features?: { "item": string }[];
   content?: PortableTextBlock[];
   sort_order?: number;
+  hero_title?: string;
+  hero_subtitle?: string;
+  value_props?: { "title": string; "text"?: string | null }[];
+  packages?: { "name": string; "price": string; "desc"?: string | null; "features"?: string | null; "popular"?: boolean | null }[];
+  pains?: { "title": string; "text"?: string | null }[];
+  comparison?: { "label": string; "diy"?: string | null; "ctstack"?: string | null }[];
+  questions?: { "question": string; "answer"?: string | null }[];
+  project_category?: "website" | "web_app" | "mobile_app" | "ecommerce" | "landing_page";
+  related_services?: string;
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;
