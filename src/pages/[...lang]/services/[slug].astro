@@ -141,7 +141,7 @@ const seo = getSeoMeta(service, {
 			<ul class="value-props" {...service.edit.value_props}>
 				{valueProps.map((v) => (
 					<li class="card">
-						<h2>{v.title}</h2>
+						<h3>{v.title}</h3>
 						{v.text && <p>{v.text}</p>}
 					</li>
 				))}
@@ -426,7 +426,7 @@ const seo = getSeoMeta(service, {
 		padding: var(--spacing-lg);
 	}
 
-	.value-props h2,
+	.value-props h3,
 	.grid-cards h3 {
 		margin-bottom: var(--spacing-xs);
 		font-size: var(--font-size-base);

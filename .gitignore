@@ -29,3 +29,6 @@ npm-debug.log*
 
 # Wrangler / Miniflare local state (local D1, R2, cache)
 .wrangler/
+
+# Local screenshots (scripts/screenshot.mjs output)
+shots/
