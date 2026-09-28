@@ -48,6 +48,13 @@ const stackItems =
 		.filter(Boolean)
 		.slice(0, 4) ?? [];
 const result = results?.find((r) => r.value.includes("%")) ?? results?.[0];
+const TitleTag = size === "large" ? "h2" : "h3";
+const imageSizes =
+	size === "compact"
+		? "(min-width: 1100px) 280px, (min-width: 700px) 46vw, 92vw"
+		: size === "row"
+			? "(min-width: 1000px) 170px, (min-width: 640px) 30vw, 42vw"
+			: "(min-width: 768px) 560px, 92vw";
 const categoryIcon: Record<string, string> = {
 	website: "monitor",
 	ecommerce: "cart",
@@ -60,7 +67,7 @@ const categoryIcon: Record<string, string> = {
 <article class:list={["project-card", size]}>
 	<a href={href} class="card-link">
 		<div class="card-image" {...edit?.featured_image}>
-			<Image image={featuredImage} />
+			<Image image={featuredImage} sizes={imageSizes} />
 			{live && <span class="live-badge">{t("projects.liveBadge")}</span>}
 		</div>
 		{size === "compact" && (
@@ -72,9 +79,9 @@ const categoryIcon: Record<string, string> = {
 			<div class="card-text">
 				{size === "large" && label && <span class="pill">{label}</span>}
 				{size === "row" && label && <p class="card-eyebrow">{label}</p>}
-				<h3 class="card-title" {...edit?.title}>
+				<TitleTag class="card-title" {...edit?.title}>
 					{title}
-				</h3>
+				</TitleTag>
 				{size === "compact" && label && <p class="card-meta">{label}</p>}
 				{size !== "compact" && summary && (
 					<p class="card-summary" {...edit?.summary}>

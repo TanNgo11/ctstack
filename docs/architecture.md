@@ -141,7 +141,9 @@ The default share image is `public/og-default.png`. A project featured image
 provided by its SEO/content data takes precedence. The public site origin is
 read from EmDash Admin → Settings → Site URL, with the current request origin
 as the local/development fallback, so changing the production domain requires
-one settings change.
+one settings change. Service detail JSON-LD uses that same origin
+(`resolveSiteOrigin` in `src/lib/content.ts`), including the `provider` `@id`
+that points at the Organization graph.
 
 `src/pages/sitemap.xml.ts` provides the top-level sitemap. It includes the
 Vietnamese and English home, projects, services, about, contact and FAQ routes,

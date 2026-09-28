@@ -62,11 +62,27 @@ const faqJsonLd = JSON.stringify({
 						data-faq-search
 					/>
 					<div class="faq-tabs" role="tablist" aria-label={t("faq.title")}>
-						<button type="button" role="tab" aria-selected="true" data-faq-tab="all">
+						<button
+							type="button"
+							role="tab"
+							id="faq-tab-all"
+							aria-selected="true"
+							aria-controls={usedCategories.map((c) => `faq-panel-${c}`).join(" ")}
+							tabindex="0"
+							data-faq-tab="all"
+						>
 							{t("faq.all")}
 						</button>
 						{usedCategories.map((c) => (
-							<button type="button" role="tab" aria-selected="false" data-faq-tab={c}>
+							<button
+								type="button"
+								role="tab"
+								id={`faq-tab-${c}`}
+								aria-selected="false"
+								aria-controls={`faq-panel-${c}`}
+								tabindex="-1"
+								data-faq-tab={c}
+							>
 								{categoryLabel(c)}
 							</button>
 						))}
@@ -74,7 +90,12 @@ const faqJsonLd = JSON.stringify({
 				</div>
 
 				{usedCategories.map((c) => (
-					<section class="faq-group" data-faq-group={c} aria-labelledby={`faq-${c}`}>
+					<section
+						class="faq-group"
+						id={`faq-panel-${c}`}
+						aria-labelledby={`faq-${c}`}
+						data-faq-group={c}
+					>
 						<h2 id={`faq-${c}`}>{categoryLabel(c)}</h2>
 						<div class="faq-list">
 							{faqs
@@ -149,13 +170,34 @@ const faqJsonLd = JSON.stringify({
 			if (empty) empty.hidden = shown > 0;
 		};
 
+		const selectTab = (tab: HTMLButtonElement) => {
+			active = tab.dataset.faqTab ?? "all";
+			for (const item of tabs) {
+				const on = item === tab;
+				item.setAttribute("aria-selected", String(on));
+				item.tabIndex = on ? 0 : -1;
+			}
+			apply();
+		};
 		for (const tab of tabs) {
-			tab.addEventListener("click", () => {
-				active = tab.dataset.faqTab ?? "all";
-				for (const t of tabs) t.setAttribute("aria-selected", String(t === tab));
-				apply();
-			});
+			tab.addEventListener("click", () => selectTab(tab));
 		}
+		root.querySelector(".faq-tabs")?.addEventListener("keydown", (event) => {
+			const key = (event as KeyboardEvent).key;
+			const current = tabs.findIndex((tab) => tab.getAttribute("aria-selected") === "true");
+			if (current < 0) return;
+			let next = current;
+			if (key === "ArrowRight") next = (current + 1) % tabs.length;
+			else if (key === "ArrowLeft") next = (current - 1 + tabs.length) % tabs.length;
+			else if (key === "Home") next = 0;
+			else if (key === "End") next = tabs.length - 1;
+			else return;
+			event.preventDefault();
+			const tab = tabs[next];
+			if (!tab) return;
+			selectTab(tab);
+			tab.focus();
+		});
 		search?.addEventListener("input", apply);
 		if (tools) tools.hidden = false;
 	}

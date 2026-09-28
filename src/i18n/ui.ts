@@ -70,6 +70,8 @@ const vi = {
 	"nav.cta": "Nhận báo giá",
 	"nav.menu": "Mở menu",
 	"nav.close": "Đóng menu",
+	"a11y.skip": "Chuyển tới nội dung",
+	"theme.label": "Giao diện",
 	"lang.switch": "English",
 
 	"home.eyebrow": "Studio phát triển phần mềm",
@@ -350,6 +352,8 @@ const en: Dict = {
 	"nav.cta": "Get a quote",
 	"nav.menu": "Open menu",
 	"nav.close": "Close menu",
+	"a11y.skip": "Skip to content",
+	"theme.label": "Theme",
 	"lang.switch": "Tiếng Việt",
 
 	"home.eyebrow": "Software development studio",

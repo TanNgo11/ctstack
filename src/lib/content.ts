@@ -59,3 +59,17 @@ export function splitByHeading<T extends { style?: string }>(
 export function isNotFoundError(error: unknown): boolean {
 	return (error as { name?: string } | undefined)?.name === "LiveEntryNotFoundError";
 }
+
+/**
+ * Origin for absolute public URLs (canonical, JSON-LD, sitemap).
+ * Uses the Site URL from settings, and the request origin when that value
+ * is missing or not a valid absolute URL.
+ */
+export function resolveSiteOrigin(configuredUrl: unknown, requestOrigin: string): string {
+	if (typeof configuredUrl !== "string" || !configuredUrl.trim()) return requestOrigin;
+	try {
+		return new URL(configuredUrl).origin;
+	} catch {
+		return requestOrigin;
+	}
+}

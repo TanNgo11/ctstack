@@ -1,5 +1,11 @@
 ---
-import { decodeSlug, getEmDashCollection, getEmDashEntry, getSeoMeta } from "emdash";
+import {
+	decodeSlug,
+	getEmDashCollection,
+	getEmDashEntry,
+	getSeoMeta,
+	getSiteSettingsWithCacheHint,
+} from "emdash";
 import { PortableText } from "emdash/ui";
 import Base from "../../../layouts/Base.astro";
 import PricingTiers from "../../../components/PricingTiers.astro";
@@ -8,7 +14,7 @@ import ServiceCard from "../../../components/ServiceCard.astro";
 import ServiceIcon from "../../../components/ServiceIcon.astro";
 import TestimonialCard from "../../../components/TestimonialCard.astro";
 import { langFromParam, localizePath, useTranslations } from "../../../i18n/ui";
-import { contentAlternates, isNotFoundError } from "../../../lib/content";
+import { contentAlternates, isNotFoundError, resolveSiteOrigin } from "../../../lib/content";
 
 const lang = langFromParam(Astro.params.lang);
 if (!lang) return Astro.rewrite("/404");
@@ -34,7 +40,7 @@ const relatedSlugs = (d.related_services ?? "")
 	.filter((s) => s && s !== slug)
 	.slice(0, 3);
 
-const [projectsResult, faqResult, servicesResult, testimonialsResult, alternates] =
+const [projectsResult, faqResult, servicesResult, testimonialsResult, alternates, settingsResult] =
 	await Promise.all([
 		getEmDashCollection("projects", {
 			locale: lang,
@@ -51,13 +57,16 @@ const [projectsResult, faqResult, servicesResult, testimonialsResult, alternates
 		getEmDashCollection("services", { locale: lang, orderBy: { sort_order: "asc" }, limit: 50 }),
 		getEmDashCollection("testimonials", { locale: lang, limit: 50 }),
 		contentAlternates("services", d.id, (s) => `/services/${s}`),
+		getSiteSettingsWithCacheHint(),
 	]);
 if (Astro.cache?.enabled) {
 	Astro.cache.set(cacheHint);
+	Astro.cache.set(settingsResult.cacheHint);
 	for (const r of [projectsResult, faqResult, servicesResult, testimonialsResult]) {
 		if (r.cacheHint) Astro.cache.set(r.cacheHint);
 	}
 }
+const siteOrigin = resolveSiteOrigin(settingsResult.data?.url, Astro.url.origin);
 
 const projects = projectsResult.entries ?? [];
 const faqs = faqResult.entries ?? [];
@@ -89,7 +98,7 @@ const breadcrumbs = [
 	{ name: d.title, url: pagePath },
 ];
 const seo = getSeoMeta(service, {
-	siteUrl: Astro.url.origin,
+	siteUrl: siteOrigin,
 	path: pagePath,
 	defaultDescription: d.hero_subtitle ?? d.summary,
 });
@@ -99,8 +108,13 @@ const plainText = (blocks: unknown): string =>
 	((blocks as Block[] | undefined) ?? [])
 		.map((b) => (b.children ?? []).map((c) => c.text ?? "").join(""))
 		.join("\n\n");
-const toJsonLd = (value: unknown) => JSON.stringify(value).replace(/</g, "\\u003c");
-const pageUrl = new URL(pagePath, Astro.url.origin).href;
+const toJsonLd = (value: unknown) =>
+	JSON.stringify(value)
+		.replace(/</g, "\\u003c")
+		.replace(/>/g, "\\u003e")
+		.replace(/\u2028/g, "\\u2028")
+		.replace(/\u2029/g, "\\u2029");
+const pageUrl = new URL(pagePath, siteOrigin).href;
 const serviceJsonLd = toJsonLd({
 	"@context": "https://schema.org",
 	"@type": "Service",
@@ -108,7 +122,7 @@ const serviceJsonLd = toJsonLd({
 	description: d.hero_subtitle ?? d.summary,
 	url: pageUrl,
 	areaServed: { "@type": "Country", name: "Vietnam" },
-	provider: { "@id": `${Astro.url.origin}/#organization` },
+	provider: { "@id": `${siteOrigin}/#organization` },
 	...(packages.length > 0
 		? {
 				hasOfferCatalog: {
@@ -185,7 +199,7 @@ const faqJsonLd =
 			<ul class="value-props" {...service.edit.value_props}>
 				{valueProps.map((v) => (
 					<li class="card">
-						<h3>{v.title}</h3>
+						<h2>{v.title}</h2>
 						{v.text && <p>{v.text}</p>}
 					</li>
 				))}
@@ -470,7 +484,7 @@ const faqJsonLd =
 		padding: var(--spacing-lg);
 	}
 
-	.value-props h3,
+	.value-props h2,
 	.grid-cards h3 {
 		margin-bottom: var(--spacing-xs);
 		font-size: var(--font-size-base);

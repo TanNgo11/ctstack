@@ -17,6 +17,7 @@ import {
 	type Lang,
 } from "../i18n/ui";
 import Logo from "../components/Logo.astro";
+import { resolveSiteOrigin } from "../lib/content";
 import "../styles/tokens.css";
 import "../styles/theme.css";
 
@@ -79,14 +80,7 @@ const fullTitle = !title
 	: title === siteTitle || title.endsWith(`${separator}${siteTitle}`)
 		? title
 		: `${title}${separator}${siteTitle}`;
-const configuredSiteUrl = typeof settings?.url === "string" ? settings.url : null;
-const siteOrigin = (() => {
-	try {
-		return new URL(configuredSiteUrl || Astro.url.origin).origin;
-	} catch {
-		return Astro.url.origin;
-	}
-})();
+const siteOrigin = resolveSiteOrigin(settings?.url, Astro.url.origin);
 const siteDescription = t("site.description");
 const routePath = unlocalizePath(Astro.url.pathname).replace(/\/$/, "") || "/";
 const descriptionFallbacks: Record<string, string> = {
@@ -209,7 +203,7 @@ const isLoggedIn = Boolean(Astro.locals.user);
 		<script type="application/ld+json" set:html={organizationJsonLd} />
 		{breadcrumbJsonLd && <script type="application/ld+json" set:html={breadcrumbJsonLd} />}
 		<EmDashHead page={pageCtx} />
-		<Font cssVariable="--font-heading" preload />
+		<Font cssVariable="--font-heading" preload={[{ weight: 700 }]} />
 		{!content &&
 			!robots?.toLowerCase().includes("noindex") &&
 			locales.map(
@@ -244,6 +238,7 @@ const isLoggedIn = Boolean(Astro.locals.user);
 	</head>
 	<body>
 		<EmDashBodyStart page={pageCtx} />
+		<a class="skip-link" href="#content">{t("a11y.skip")}</a>
 		<header class="site-header">
 			<nav class="nav" aria-label="Main">
 				<a href={localizePath("/", lang)} class="site-title">
@@ -290,7 +285,14 @@ const isLoggedIn = Boolean(Astro.locals.user);
 			</nav>
 		</header>
 
-		<div class="mobile-menu" id="mobile-menu" hidden>
+		<div
+			class="mobile-menu"
+			id="mobile-menu"
+			role="dialog"
+			aria-modal="true"
+			aria-label={t("nav.menu")}
+			hidden
+		>
 			<div class="mobile-menu-top">
 				<Logo title={siteTitle} image={siteLogo} size="sm" />
 				<button class="menu-close" type="button" aria-label={t("nav.close")}>
@@ -326,7 +328,7 @@ const isLoggedIn = Boolean(Astro.locals.user);
 			</div>
 		</div>
 
-		<main>
+		<main id="content">
 			<slot />
 		</main>
 
@@ -396,7 +398,7 @@ const isLoggedIn = Boolean(Astro.locals.user);
 					© {new Date().getFullYear()} {siteTitle}. {t("footer.rights")}
 				</p>
 				<div class="footer-bottom-right">
-					<div class="theme-switcher">
+					<div class="theme-switcher" role="group" aria-label={t("theme.label")}>
 						<button type="button" class="theme-btn" data-theme="light" aria-pressed="false">
 							{t("theme.light")}
 						</button>
@@ -469,20 +471,47 @@ const isLoggedIn = Boolean(Astro.locals.user);
 			const storedTheme = getStoredTheme();
 			setTheme(storedTheme);
 
-			// Mobile full-screen menu
+			// Mobile full-screen menu: trap focus while open, return it on close.
 			const menu = document.getElementById("mobile-menu");
 			const menuToggle = document.querySelector<HTMLButtonElement>(".menu-toggle");
+			const menuClose = menu?.querySelector<HTMLButtonElement>(".menu-close");
+			function focusableInMenu(): HTMLElement[] {
+				if (!menu) return [];
+				return Array.from(
+					menu.querySelectorAll<HTMLElement>("a[href], button:not([disabled])"),
+				).filter((el) => !el.hasAttribute("hidden"));
+			}
 			function setMenu(open: boolean) {
 				if (!menu || !menuToggle) return;
 				menu.hidden = !open;
 				menuToggle.setAttribute("aria-expanded", String(open));
 				document.documentElement.style.overflow = open ? "hidden" : "";
-				if (!open) menuToggle.focus();
+				if (open) menuClose?.focus();
+				else menuToggle.focus();
 			}
 			menuToggle?.addEventListener("click", () => setMenu(true));
-			menu?.querySelector(".menu-close")?.addEventListener("click", () => setMenu(false));
+			menuClose?.addEventListener("click", () => setMenu(false));
 			document.addEventListener("keydown", (e) => {
-				if (e.key === "Escape" && menu && !menu.hidden) setMenu(false);
+				if (!menu || menu.hidden) return;
+				if (e.key === "Escape") {
+					e.preventDefault();
+					setMenu(false);
+					return;
+				}
+				if (e.key !== "Tab") return;
+				const items = focusableInMenu();
+				if (items.length === 0) return;
+				const first = items[0]!;
+				const last = items[items.length - 1]!;
+				const active = document.activeElement;
+				const inside = active instanceof Node && menu.contains(active);
+				if (e.shiftKey && (active === first || !inside)) {
+					e.preventDefault();
+					last.focus();
+				} else if (!e.shiftKey && (active === last || !inside)) {
+					e.preventDefault();
+					first.focus();
+				}
 			});
 
 			themeBtns.forEach((btn) => {
@@ -574,6 +603,24 @@ const isLoggedIn = Boolean(Astro.locals.user);
 		</style>
 
 		<style>
+			.skip-link {
+				position: absolute;
+				left: 16px;
+				top: 8px;
+				z-index: 80;
+				padding: 8px 16px;
+				border-radius: var(--radius);
+				color: var(--color-on-brand);
+				background: var(--color-brand);
+				font-weight: 600;
+				text-decoration: none;
+				transform: translateY(-200%);
+			}
+
+			.skip-link:focus {
+				transform: none;
+			}
+
 			.site-header {
 				position: sticky;
 				top: 0;

@@ -17,6 +17,10 @@ export default defineConfig({
 		layout: "constrained",
 		responsiveStyles: true,
 	},
+	// One stylesheet in the document, so mobile LCP is not waiting on several CSS files.
+	build: {
+		inlineStylesheets: "always",
+	},
 	integrations: [
 		react(),
 		emdash({

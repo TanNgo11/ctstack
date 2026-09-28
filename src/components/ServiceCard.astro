@@ -17,6 +17,7 @@ interface Props {
 }
 
 const { title, summary, icon, priceFrom, features, detailed, href, edit } = Astro.props;
+const TitleTag = detailed ? "h2" : "h3";
 const lang = langFromPath(Astro.originPathname ?? Astro.url.pathname);
 const t = useTranslations(lang);
 ---
@@ -26,7 +27,7 @@ const t = useTranslations(lang);
 		<ServiceIcon name={icon} />
 	</div>
 	<div class="service-body">
-		<h3 class="service-title" {...edit?.title}>
+		<TitleTag class="service-title" {...edit?.title}>
 			{href ? (
 				<a class="service-link" href={href}>
 					{title}
@@ -34,7 +35,7 @@ const t = useTranslations(lang);
 			) : (
 				title
 			)}
-		</h3>
+		</TitleTag>
 		{summary && (
 			<p class="service-summary" {...edit?.summary}>
 				{summary}

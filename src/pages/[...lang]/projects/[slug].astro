@@ -145,7 +145,10 @@ const seo = getSeoMeta(project, {
 						<i />
 						<i />
 					</div>
-					<Image image={d.featured_image} />
+					<Image
+						image={d.featured_image}
+						sizes="(min-width: 900px) 620px, 92vw"
+					/>
 				</div>
 			)}
 		</header>
@@ -255,7 +258,10 @@ const seo = getSeoMeta(project, {
 				<div class="project-gallery" {...project.edit.gallery}>
 					{gallery.map((item) => (
 						<figure class="gallery-item">
-							<Image image={item.image} />
+							<Image
+								image={item.image}
+								sizes="(min-width: 900px) 380px, (min-width: 640px) 50vw, 92vw"
+							/>
 							{item.caption && <figcaption>{item.caption}</figcaption>}
 						</figure>
 					))}
@@ -339,7 +345,7 @@ const seo = getSeoMeta(project, {
 		border: 1px solid var(--color-border);
 		border-radius: var(--radius-card);
 		background: var(--color-surface);
-		box-shadow: 0 20px 50px #0004;
+		box-shadow: 0 16px 40px light-dark(#12151c14, #00000066);
 	}
 
 	.browser-bar {

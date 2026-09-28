@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { getEmDashCollection, getSiteSettings } from "emdash";
+import { resolveSiteOrigin } from "../lib/content";
 
 const locales = ["vi", "en"] as const;
 type Locale = (typeof locales)[number];
@@ -18,15 +19,6 @@ function escapeXml(value: string): string {
 		.replace(/>/g, "&gt;")
 		.replace(/"/g, "&quot;")
 		.replace(/'/g, "&apos;");
-}
-
-function siteOrigin(value: unknown, fallback: string): string {
-	if (typeof value !== "string" || !value) return fallback;
-	try {
-		return new URL(value).origin;
-	} catch {
-		return fallback;
-	}
 }
 
 /** Read all published slugs of a collection, continuing through cursor pages. */
@@ -65,7 +57,7 @@ export const GET: APIRoute = async ({ url }) => {
 	} catch {
 		// The static route list remains useful before EmDash has been initialized.
 	}
-	const origin = siteOrigin(configuredUrl, url.origin);
+	const origin = resolveSiteOrigin(configuredUrl, url.origin);
 	const collect = async (collection: "projects" | "pages" | "services") => {
 		const slugs = new Set<string>();
 		for (const locale of locales) {
