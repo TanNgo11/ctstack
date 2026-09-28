@@ -1,5 +1,5 @@
 ---
-import { getSiteSettingsWithCacheHint } from "emdash";
+import { getEmDashCollection, getSiteSettingsWithCacheHint } from "emdash";
 import { EmDashBodyEnd, EmDashBodyStart, EmDashHead } from "emdash/ui";
 import { createPublicPageContext } from "emdash/page";
 import { Font } from "astro:assets";
@@ -60,6 +60,17 @@ const t = useTranslations(lang);
 const settingsResult = await getSiteSettingsWithCacheHint();
 const settings = settingsResult.data;
 if (Astro.cache?.enabled) Astro.cache.set(settingsResult.cacheHint);
+
+// Footer service links. A failed query just leaves the column with the list page link.
+const footerServicesResult = await getEmDashCollection("services", {
+	locale: lang,
+	orderBy: { sort_order: "asc" },
+	limit: 8,
+});
+if (Astro.cache?.enabled && footerServicesResult.cacheHint) {
+	Astro.cache.set(footerServicesResult.cacheHint);
+}
+const footerServices = footerServicesResult.entries ?? [];
 
 const siteTitle = settings?.title || "CTStack";
 const separator = settings?.seo?.titleSeparator || " — ";
@@ -346,8 +357,13 @@ const isLoggedIn = Boolean(Astro.locals.user);
 				</div>
 				<div class="footer-column">
 					<h2>{t("footer.services")}</h2>
-					<a href={localizePath("/services", lang)}>{t("nav.services")}</a>
-					<a href={localizePath("/projects", lang)}>{t("nav.projects")}</a>
+					{footerServices.length > 0 ? (
+						footerServices.map((s) => (
+							<a href={localizePath(`/services/${s.id}`, lang)}>{s.data.title}</a>
+						))
+					) : (
+						<a href={localizePath("/services", lang)}>{t("nav.services")}</a>
+					)}
 				</div>
 				<div class="footer-column">
 					<h2>{t("footer.company")}</h2>
