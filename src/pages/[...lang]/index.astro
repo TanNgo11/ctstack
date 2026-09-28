@@ -3,6 +3,7 @@ import { getEmDashCollection } from "emdash";
 import Base from "../../layouts/Base.astro";
 import TechLogo from "../../components/TechLogo.astro";
 import ContactForm from "../../components/ContactForm.astro";
+import TestimonialCard from "../../components/TestimonialCard.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
 import ServiceCard from "../../components/ServiceCard.astro";
 import {
@@ -17,7 +18,7 @@ const lang = langFromParam(Astro.params.lang);
 if (!lang) return Astro.rewrite("/404");
 const t = useTranslations(lang);
 
-const [projectsResult, servicesResult] = await Promise.all([
+const [projectsResult, servicesResult, testimonialsResult] = await Promise.all([
 	getEmDashCollection("projects", {
 		locale: lang,
 		orderBy: { sort_order: "asc" },
@@ -28,16 +29,24 @@ const [projectsResult, servicesResult] = await Promise.all([
 		orderBy: { sort_order: "asc" },
 		limit: 5,
 	}),
+	getEmDashCollection("testimonials", {
+		locale: lang,
+		orderBy: { sort_order: "asc" },
+		limit: 24,
+	}),
 ]);
 if (projectsResult.error || servicesResult.error) {
 	return new Response("Could not load content", { status: 500 });
 }
+// Testimonials are optional: the section only renders real, featured quotes.
+const testimonials = (testimonialsResult.entries ?? []).filter((q) => q.data.featured).slice(0, 3);
 // `where` only matches string values, so pick featured projects here.
 const projects = projectsResult.entries.filter((p) => p.data.featured).slice(0, 4);
 const services = servicesResult.entries;
 if (Astro.cache?.enabled) {
 	Astro.cache.set(projectsResult.cacheHint);
 	Astro.cache.set(servicesResult.cacheHint);
+	if (testimonialsResult.cacheHint) Astro.cache.set(testimonialsResult.cacheHint);
 }
 
 const contactHref = localizePath("/contact", lang);
@@ -229,6 +238,31 @@ const phonePrices = ["320.000đ", "250.000đ", "420.000đ", "680.000đ"];
 						category={p.data.category}
 						results={p.data.results}
 						edit={p.edit}
+					/>
+				))}
+			</div>
+		</section>
+	)}
+
+	{testimonials.length > 0 && (
+		<section class="section container" aria-labelledby="testimonials-title">
+			<header class="section-header">
+				<div>
+					<p class="eyebrow">{t("home.testimonialsEyebrow")}</p>
+					<h2 class="section-title" id="testimonials-title">
+						{t("home.testimonialsTitle")}
+					</h2>
+				</div>
+			</header>
+			<div class="testimonials-grid">
+				{testimonials.map((q) => (
+					<TestimonialCard
+						quote={q.data.quote}
+						author={q.data.author}
+						role={q.data.role}
+						company={q.data.company}
+						avatar={q.data.avatar}
+						edit={q.edit}
 					/>
 				))}
 			</div>
@@ -993,6 +1027,18 @@ const phonePrices = ["320.000đ", "250.000đ", "420.000đ", "680.000đ"];
 
 		.process-step p {
 			font-size: 10px;
+		}
+	}
+
+	.testimonials-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: var(--spacing-md);
+	}
+
+	@media (max-width: 900px) {
+		.testimonials-grid {
+			grid-template-columns: 1fr;
 		}
 	}
 

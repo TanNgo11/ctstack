@@ -84,11 +84,32 @@ export interface Service {
   terms?: Record<string, TaxonomyTerm[]>;
 }
 
+export interface Testimonial {
+  id: string;
+  slug: string | null;
+  status: string;
+  quote: string;
+  author: string;
+  role?: string;
+  company?: string;
+  avatar?: { id: string; src?: string; alt?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } };
+  project?: string;
+  featured?: boolean;
+  sort_order?: number;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  byline?: BylineSummary | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
 declare module "emdash" {
   interface EmDashCollections {
     faqs: Faq;
     pages: Page;
     projects: Project;
     services: Service;
+    testimonials: Testimonial;
   }
 }

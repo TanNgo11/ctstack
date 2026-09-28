@@ -291,6 +291,56 @@
 					"type": "integer"
 				}
 			]
+		},
+		{
+			"slug": "testimonials",
+			"label": "Testimonials",
+			"labelSingular": "Testimonial",
+			"supports": ["drafts", "revisions"],
+			"fields": [
+				{
+					"slug": "quote",
+					"label": "Quote (real words from the client)",
+					"type": "text",
+					"required": true
+				},
+				{
+					"slug": "author",
+					"label": "Name",
+					"type": "string",
+					"required": true
+				},
+				{
+					"slug": "role",
+					"label": "Role",
+					"type": "string"
+				},
+				{
+					"slug": "company",
+					"label": "Company",
+					"type": "string"
+				},
+				{
+					"slug": "avatar",
+					"label": "Photo",
+					"type": "image"
+				},
+				{
+					"slug": "project",
+					"label": "Project slug (e.g. website-chuoi-ca-phe), optional",
+					"type": "string"
+				},
+				{
+					"slug": "featured",
+					"label": "Show on homepage",
+					"type": "boolean"
+				},
+				{
+					"slug": "sort_order",
+					"label": "Sort order (lower first)",
+					"type": "integer"
+				}
+			]
 		}
 	],
 	"content": {
@@ -2097,8 +2147,8 @@
 				}
 			},
 			{
-				"id": "chinh-sach-bao-mat",
-				"slug": "chinh-sach-bao-mat",
+				"id": "bao-mat",
+				"slug": "bao-mat",
 				"status": "published",
 				"locale": "vi",
 				"data": {
@@ -2198,11 +2248,11 @@
 				}
 			},
 			{
-				"id": "chinh-sach-bao-mat-en",
-				"slug": "chinh-sach-bao-mat",
+				"id": "bao-mat-en",
+				"slug": "bao-mat",
 				"status": "published",
 				"locale": "en",
-				"translationOf": "chinh-sach-bao-mat",
+				"translationOf": "bao-mat",
 				"data": {
 					"title": "Privacy policy",
 					"content": [

@@ -1,0 +1,126 @@
+---
+import type { EditProxy, MediaValue } from "emdash";
+import { Image } from "emdash/ui";
+
+interface Props {
+	quote: string;
+	author: string;
+	role?: string;
+	company?: string;
+	avatar?: MediaValue;
+	/** card: grid on the home page; wide: single quote inside a case study. */
+	variant?: "card" | "wide";
+	edit?: EditProxy;
+}
+
+const { quote, author, role, company, avatar, variant = "card", edit } = Astro.props;
+const meta = [role, company].filter(Boolean).join(", ");
+const initials = author
+	.split(/\s+/)
+	.slice(-2)
+	.map((w) => w.charAt(0))
+	.join("")
+	.toUpperCase();
+---
+
+<figure class:list={["testimonial", variant]}>
+	<blockquote {...edit?.quote}>
+		<p>{quote}</p>
+	</blockquote>
+	<figcaption>
+		{avatar ? (
+			<span class="avatar" {...edit?.avatar}>
+				<Image image={avatar} />
+			</span>
+		) : (
+			<span class="avatar avatar-initials" aria-hidden="true">
+				{initials}
+			</span>
+		)}
+		<span>
+			<strong {...edit?.author}>{author}</strong>
+			{meta && <small>{meta}</small>}
+		</span>
+	</figcaption>
+</figure>
+
+<style>
+	.testimonial {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		gap: var(--spacing-lg);
+		height: 100%;
+		padding: var(--spacing-lg);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-card);
+		background: var(--color-surface);
+	}
+
+	blockquote p {
+		font-size: var(--font-size-base);
+		line-height: 1.6;
+	}
+
+	blockquote p::before {
+		content: "“";
+		margin-inline-end: 2px;
+		color: var(--color-brand);
+		font-weight: 700;
+	}
+
+	blockquote p::after {
+		content: "”";
+		color: var(--color-brand);
+		font-weight: 700;
+	}
+
+	figcaption {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+	}
+
+	figcaption strong {
+		display: block;
+		font-size: var(--font-size-sm);
+	}
+
+	figcaption small {
+		color: var(--color-muted);
+		font-size: var(--font-size-xs);
+	}
+
+	.avatar {
+		display: grid;
+		flex-shrink: 0;
+		width: 44px;
+		height: 44px;
+		overflow: hidden;
+		place-items: center;
+		border-radius: 50%;
+		background: var(--color-brand-ring);
+	}
+
+	.avatar :global(img) {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.avatar-initials {
+		color: var(--color-brand);
+		font-size: var(--font-size-sm);
+		font-weight: 700;
+	}
+
+	/* Case study: bigger quote, accent rule */
+	.wide {
+		padding: var(--spacing-xl);
+		border-inline-start: 3px solid var(--color-brand);
+	}
+
+	.wide blockquote p {
+		font-size: clamp(1.125rem, 1.8vw, 1.375rem);
+	}
+</style>

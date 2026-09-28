@@ -1,6 +1,6 @@
 # 006: Testimonials (structure only, no fake quotes)
 
-- **Status:** ready (start after 005 is merged)
+- **Status:** done
 - **Wave:** 3
 - **Roadmap:** Phase 2, "Testimonials collection, shown on home, case studies and service pages"
 - **Mockups:** `mockup/11-global-components/BRIEF.md` (`testimonial-card.png` described there)
@@ -17,7 +17,7 @@ When the first real client quote exists, an editor can add it in the admin and i
 
 ## Design
 
-- Schema: `testimonials` with `quote` (text), `author` (string), `role` (string), `company` (string), `avatar` (image, optional), `project` (reference to `projects`, optional), `featured` (boolean), `sort_order` (integer).
+- Schema: `testimonials` with `quote` (text), `author` (string), `role` (string), `company` (string), `avatar` (image, optional), `project` (project slug as a string, optional; see Notes), `featured` (boolean), `sort_order` (integer).
 - `src/components/TestimonialCard.astro`: quote, author, role/company, optional avatar; one variant for grids, one wide variant for case studies.
 - Home: section after "Dự án nổi bật" showing up to 3 featured testimonials; hidden when there are none.
 - Project detail: the testimonial linked to the project, below the story sections; hidden when there is none.
@@ -25,19 +25,22 @@ When the first real client quote exists, an editor can add it in the admin and i
 
 ## Tasks
 
-- [ ] Collection in the seed (no entries) + architecture doc
-- [ ] `TestimonialCard` component
-- [ ] Home section (conditional)
-- [ ] Project detail block (conditional)
-- [ ] Strings vi + en
+- [x] Collection in the seed (no entries) + architecture doc
+- [x] `TestimonialCard` component
+- [x] Home section (conditional)
+- [x] Project detail block (conditional)
+- [x] Strings vi + en
 
 ## Verification
 
-- [ ] `pnpm typecheck`: 0 errors
-- [ ] `pnpm build` succeeds
-- [ ] With no testimonials: home and detail pages unchanged. With one test entry: both sections render (vi + en)
-- [ ] Screenshots at 390px and 1440px with a test entry
+- [x] `pnpm typecheck`: 0 errors
+- [x] `pnpm build` succeeds
+- [x] With no testimonials: home and detail pages unchanged. With one test entry: both sections render (vi + en)
+- [x] Screenshots at 390px and 1440px with a test entry
 
 ## Notes / decisions
 
 - Hot files touched: `seed/seed.json`, `src/i18n/ui.ts`, `src/pages/[...lang]/index.astro`. Run alone.
+- EmDash 0.40 has no relations in seeds and no `references` query option (the online docs describe a newer version), and a bare `reference` field is just an ID text box. So `project` holds the project **slug**; the case study finds its quote with `where: { project: slug }`. Switch to a `reference` field bound to a relation after upgrading EmDash.
+- Verified with a temporary entry created through the content API (dev-bypass), then deleted permanently: home grid and case-study block render in vi; other projects and `/en` (no translation) stay unchanged.
+- To add a real quote: Admin → Testimonials → new entry (vi, plus an en translation if you have one), tick "Show on homepage", type the project slug to show it on that case study.

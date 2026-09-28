@@ -32,22 +32,22 @@ Contact forms on a fresh local DB: `node scripts/create-contact-forms.mjs` (dev 
 
 ## Project layout
 
-| Path                     | Purpose                                                                      |
-| ------------------------ | ---------------------------------------------------------------------------- |
-| `astro.config.mjs`       | Astro + EmDash config, i18n (`vi` default, `en`), plugins, fonts             |
-| `wrangler.jsonc`         | Cloudflare Worker, D1 (`DB`), R2 (`MEDIA`), cron                             |
-| `seed/seed.json`         | Schema + sample content. Only applied to an empty database                   |
-| `src/pages/[...lang]/`   | All public routes. `lang` param is empty (vi) or `en`; anything else 404     |
-| `src/pages/404.astro`    | Not-found page (language from the original path)                             |
-| `src/layouts/Base.astro` | HTML shell, nav, language switch, footer, EmDash head/body hooks             |
-| `src/components/`        | `ProjectCard`, `ServiceCard`, `ServiceIcon`                                  |
-| `src/views/`             | Shared view components with no data loading (`NotFound`)                     |
-| `src/i18n/ui.ts`         | UI strings (vi/en), locale helpers, contact form slugs, contact email        |
-| `src/lib/content.ts`     | Content helpers: translation alternates, safe URLs, not-found detection      |
-| `src/styles/tokens.css`  | Default design tokens (don't edit)                                           |
-| `src/styles/theme.css`   | CTStack theme overrides + shared classes (`.container`, `.btn`, `.prose`...) |
-| `src/live.config.ts`     | EmDash loader boilerplate (don't modify)                                     |
-| `.agents/skills/`        | EmDash skills (also linked at `.claude/skills/`)                             |
+| Path                     | Purpose                                                                                           |
+| ------------------------ | ------------------------------------------------------------------------------------------------- |
+| `astro.config.mjs`       | Astro + EmDash config, i18n (`vi` default, `en`), plugins, fonts                                  |
+| `wrangler.jsonc`         | Cloudflare Worker, D1 (`DB`), R2 (`MEDIA`), cron                                                  |
+| `seed/seed.json`         | Schema + sample content. Only applied to an empty database                                        |
+| `src/pages/[...lang]/`   | All public routes. `lang` param is empty (vi) or `en`; anything else 404                          |
+| `src/pages/404.astro`    | Not-found page (language from the original path)                                                  |
+| `src/layouts/Base.astro` | HTML shell, nav, language switch, footer, EmDash head/body hooks                                  |
+| `src/components/`        | `ProjectCard`, `ServiceCard`, `ServiceIcon`, `ContactForm`, `TestimonialCard`, `Logo`, `TechLogo` |
+| `src/views/`             | Shared view components with no data loading (`NotFound`)                                          |
+| `src/i18n/ui.ts`         | UI strings (vi/en), locale helpers, contact form slugs, contact email                             |
+| `src/lib/content.ts`     | Content helpers: translation alternates, safe URLs, not-found detection                           |
+| `src/styles/tokens.css`  | Default design tokens (don't edit)                                                                |
+| `src/styles/theme.css`   | CTStack theme overrides + shared classes (`.container`, `.btn`, `.prose`...)                      |
+| `src/live.config.ts`     | EmDash loader boilerplate (don't modify)                                                          |
+| `.agents/skills/`        | EmDash skills (also linked at `.claude/skills/`)                                                  |
 
 ## Rules
 
@@ -59,6 +59,7 @@ Contact forms on a fresh local DB: `node scripts/create-contact-forms.mjs` (dev 
   if (!lang) return Astro.rewrite("/404");
   ```
 - Build internal links with `localizePath(path, lang)`. Never hardcode `/en/...`.
+- Never add a bare dynamic route `src/pages/[...lang]/[param].astro`: it outranks `[...lang]/index.astro` and turns `/en` into a 404. Put dynamic pages under a fixed segment (`projects/[slug]`, `chinh-sach/[page]`), and always check `/` and `/en` after adding a route.
 - No hardcoded UI text in templates. Add keys to **both** `vi` and `en` in `src/i18n/ui.ts` (the `en` object is typed from `vi`, so a missing key is a type error).
 - Query CMS content with `locale: lang`. Each entry exists per language, linked as translations; `contentAlternates()` feeds the language switcher.
 - Components find the language with `langFromPath(Astro.originPathname ?? Astro.url.pathname)`.

@@ -75,9 +75,9 @@ export const GET: APIRoute = async ({ url }) => {
 		return slugs;
 	};
 	const projectSet = await collect("projects");
-	// CMS pages served by the generic route; static routes are listed above.
+	// Policy pages served by /chinh-sach/[page]; `about` has its own static route.
 	const pageSet = await collect("pages");
-	for (const path of staticPaths) pageSet.delete(path.slice(1));
+	pageSet.delete("about");
 
 	const paths = new Set<string>();
 	for (const path of staticPaths) {
@@ -87,7 +87,7 @@ export const GET: APIRoute = async ({ url }) => {
 		for (const locale of locales) paths.add(localizePath(`/projects/${slug}`, locale));
 	}
 	for (const slug of pageSet) {
-		for (const locale of locales) paths.add(localizePath(`/${slug}`, locale));
+		for (const locale of locales) paths.add(localizePath(`/chinh-sach/${slug}`, locale));
 	}
 
 	const lines = [

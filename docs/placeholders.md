@@ -26,7 +26,7 @@ Everything below was written as realistic sample content so the site looks finis
 ## FAQ and policies
 
 - [ ] FAQ answers (30 questions × vi/en, prices, timelines, payment split, warranty, tech): CMS → FAQs (seed: `faqs`)
-- [ ] Policy texts: warranty (`bao-hanh`), privacy (`chinh-sach-bao-mat`), terms (`dieu-khoan`): CMS → Pages. Have them checked before launch; the terms and privacy texts are not legal advice.
+- [ ] Policy texts: warranty (`bao-hanh`), privacy (`bao-mat`), terms (`dieu-khoan`): CMS → Pages. Have them checked before launch; the terms and privacy texts are not legal advice.
 
 ## Portfolio
 

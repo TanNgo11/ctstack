@@ -1,13 +1,14 @@
 ---
 /**
- * Generic CMS page (`pages` collection): policy pages such as warranty,
- * privacy and terms. Static routes (about, contact, faq…) take precedence.
+ * CMS policy pages (`pages` collection) under /chinh-sach/: warranty, privacy,
+ * terms. The fixed prefix keeps this route from shadowing `/en` (a bare
+ * `[...lang]/[page]` route outranks `[...lang]/index` in Astro).
  */
 import { decodeSlug, getEmDashEntry, getSeoMeta } from "emdash";
 import { PortableText } from "emdash/ui";
-import Base from "../../layouts/Base.astro";
-import { langFromParam, localizePath, useTranslations } from "../../i18n/ui";
-import { contentAlternates, isNotFoundError } from "../../lib/content";
+import Base from "../../../layouts/Base.astro";
+import { langFromParam, localizePath, useTranslations } from "../../../i18n/ui";
+import { contentAlternates, isNotFoundError } from "../../../lib/content";
 
 const lang = langFromParam(Astro.params.lang);
 if (!lang) return Astro.rewrite("/404");
@@ -27,10 +28,10 @@ if (!page || isNotFoundError(error)) return Astro.rewrite("/404");
 if (error) return new Response("Could not load the page", { status: 500 });
 if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
 
-const alternates = await contentAlternates("pages", page.data.id, (s) => `/${s}`);
+const alternates = await contentAlternates("pages", page.data.id, (s) => `/chinh-sach/${s}`);
 const seo = getSeoMeta(page, {
 	siteUrl: Astro.url.origin,
-	path: localizePath(`/${slug}`, lang),
+	path: localizePath(`/chinh-sach/${slug}`, lang),
 });
 ---
 

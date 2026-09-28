@@ -3,6 +3,7 @@ import { decodeSlug, getEmDashCollection, getEmDashEntry, getSeoMeta } from "emd
 import { Image, PortableText } from "emdash/ui";
 import Base from "../../../layouts/Base.astro";
 import ProjectCard from "../../../components/ProjectCard.astro";
+import TestimonialCard from "../../../components/TestimonialCard.astro";
 import {
 	categoryLabel,
 	industryLabel,
@@ -35,11 +36,17 @@ const {
 if (!project || isNotFoundError(error)) return Astro.rewrite("/404");
 if (error) return new Response("Could not load the project", { status: 500 });
 
-const [relatedResult, alternates] = await Promise.all([
+const [relatedResult, testimonialResult, alternates] = await Promise.all([
 	getEmDashCollection("projects", {
 		locale: lang,
 		orderBy: { sort_order: "asc" },
 		limit: 4,
+	}),
+	// Testimonials point at a project by its slug (see plan 006).
+	getEmDashCollection("testimonials", {
+		locale: lang,
+		where: { project: slug },
+		limit: 1,
 	}),
 	contentAlternates("projects", project.data.id, (s) => `/projects/${s}`),
 ]);
@@ -47,7 +54,9 @@ const otherProjects = (relatedResult.entries ?? []).filter((p) => p.id !== proje
 if (Astro.cache?.enabled) {
 	Astro.cache.set(cacheHint);
 	if (relatedResult.cacheHint) Astro.cache.set(relatedResult.cacheHint);
+	if (testimonialResult.cacheHint) Astro.cache.set(testimonialResult.cacheHint);
 }
+const testimonial = testimonialResult.entries?.[0];
 
 const d = project.data;
 const featuredImageStorageKey =
@@ -219,6 +228,23 @@ const seo = getSeoMeta(project, {
 					</div>
 				))}
 			</div>
+		)}
+
+		{testimonial && (
+			<section class="testimonial-section" aria-labelledby="testimonial-title">
+				<h2 id="testimonial-title" class="block-title">
+					{t("projects.testimonial")}
+				</h2>
+				<TestimonialCard
+					variant="wide"
+					quote={testimonial.data.quote}
+					author={testimonial.data.author}
+					role={testimonial.data.role}
+					company={testimonial.data.company}
+					avatar={testimonial.data.avatar}
+					edit={testimonial.edit}
+				/>
+			</section>
 		)}
 
 		{gallery.length > 0 && (
@@ -483,6 +509,11 @@ const seo = getSeoMeta(project, {
 
 	.story-section :global(p) {
 		color: var(--color-muted);
+	}
+
+	.testimonial-section {
+		max-width: 860px;
+		padding-block: var(--spacing-lg);
 	}
 
 	.block-title {
