@@ -2,7 +2,7 @@
 
 > **For agentic workers:** Implement task by task, in order. Each task ends with a verification step and a commit. Steps use checkbox (`- [ ]`) syntax: tick them as you go. There is no unit-test suite in this repo; "tests" are `pnpm typecheck`, `pnpm build`, HTTP checks with `curl` and screenshots.
 
-- **Status:** ready (005 and 006 are merged)
+- **Status:** done
 - **Wave:** 4 (run alone: touches `seed/seed.json`, `src/i18n/ui.ts`, `src/pages/[...lang]/index.astro`)
 - **Roadmap:** Phase 2, "Service detail pages `/services/[slug]`"
 - **Mockups:** `mockup/08-service-detail/BRIEF.md` (no image). Build from existing components; follow the Styling rules in `AGENTS.md`.
@@ -57,14 +57,14 @@
   `PricingTier = { name: string; price: string; desc?: string; features: string[]; popular?: boolean }`.
   The CTA links to `/contact?service=<tier name>` in the current language.
 
-- [ ] **Step 1: Take a "before" screenshot of the home page**
+- [x] **Step 1: Take a "before" screenshot of the home page**
 
 ```bash
 MSYS_NO_PATHCONV=1 node scripts/screenshot.mjs / 1440 shots/home-before.png
 ```
 (`shots/` is scratch output; don't commit it.)
 
-- [ ] **Step 2: Create `src/components/PricingTiers.astro`**
+- [x] **Step 2: Create `src/components/PricingTiers.astro`**
 
 ```astro
 ---
@@ -235,7 +235,7 @@ const contactHref = localizePath("/contact", lang);
 </style>
 ```
 
-- [ ] **Step 3: Use it on the home page**
+- [x] **Step 3: Use it on the home page**
 
 In `src/pages/[...lang]/index.astro`:
 1. Add the import next to the other component imports: `import PricingTiers from "../../components/PricingTiers.astro";`
@@ -248,7 +248,7 @@ In `src/pages/[...lang]/index.astro`:
 4. In `@media (max-width: 1100px)`: change the selector `.tiers,\n\t\t.why {` to `.why {` and delete the `.tier-desc { min-height: 0; }` rule.
 5. In `@media (max-width: 640px)`: change `.tiers,\n\t\t.why {` to `.why {` and delete the `.tiers { gap: var(--spacing-lg); }` rule.
 
-- [ ] **Step 4: Verify**
+- [x] **Step 4: Verify**
 
 ```bash
 pnpm exec prettier --write src/components/PricingTiers.astro "src/pages/[...lang]/index.astro"
@@ -258,7 +258,7 @@ MSYS_NO_PATHCONV=1 node scripts/screenshot.mjs / 390 shots/home-after-390.png
 ```
 Compare `home-before.png` and `home-after.png`: the pricing section must look identical (4 cards, "Phổ biến" badge on the 2nd, note below). At 390px the cards stack.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/components/PricingTiers.astro "src/pages/[...lang]/index.astro"
@@ -286,7 +286,7 @@ git commit -m "refactor: extract PricingTiers component from the home page"
   - `related_services: string` (comma-separated service slugs)
 - Produces (field on `faqs`): `service: string` (service slug; empty = general FAQ)
 
-- [ ] **Step 1: Write the one-off seed patch script** at `scripts/tmp-seed-007a.mjs` (delete it after Step 3; don't commit it):
+- [x] **Step 1: Write the one-off seed patch script** at `scripts/tmp-seed-007a.mjs` (delete it after Step 3; don't commit it):
 
 ```js
 import { readFileSync, writeFileSync } from "node:fs";
@@ -507,7 +507,7 @@ writeFileSync(P, JSON.stringify(seed, null, "\t") + "\n");
 console.log("ok");
 ```
 
-- [ ] **Step 2: Run it and check the seed**
+- [x] **Step 2: Run it and check the seed**
 
 ```bash
 node scripts/tmp-seed-007a.mjs            # prints: ok
@@ -517,7 +517,7 @@ pnpm exec emdash seed seed/seed.json --validate   # ✔ Seed file is valid
 rm scripts/tmp-seed-007a.mjs
 ```
 
-- [ ] **Step 3: Skip service FAQs on the general FAQ page**
+- [x] **Step 3: Skip service FAQs on the general FAQ page**
 
 In `src/pages/[...lang]/faq.astro`, change
 
@@ -530,7 +530,7 @@ to
 const faqs = result.entries.filter((f) => !f.data.service);
 ```
 
-- [ ] **Step 4: Apply the seed to the local DB and restart the dev server**
+- [x] **Step 4: Apply the seed to the local DB and restart the dev server**
 
 ```bash
 DB=$(find .wrangler/state/v3/d1 -name "*.sqlite" -size +50k | head -1)
@@ -539,13 +539,13 @@ pnpm exec emdash seed seed/seed.json -d "$DB" --on-conflict update   # Collectio
 ```
 Stop and restart `pnpm dev` so `emdash-env.d.ts` gets the new fields (check: `grep -c "hero_title" emdash-env.d.ts` → `1`).
 
-- [ ] **Step 5: Update docs**
+- [x] **Step 5: Update docs**
 
 - `docs/architecture.md` → content model: add the new fields to `SERVICES` (`hero_title`, `hero_subtitle`, `value_props`, `packages`, `pains`, `comparison`, `questions`, `project_category`, `related_services "comma separated slugs"`) and `service "service slug, optional"` to `FAQS`.
 - `docs/placeholders.md` → under "Offer and prices" add:
   `- [ ] Service detail copy for thiet-ke-website (hero, value props, packages, problems, comparison, questions, 6 service FAQs): CMS → Services / FAQs`
 
-- [ ] **Step 6: Verify and commit**
+- [x] **Step 6: Verify and commit**
 
 ```bash
 pnpm typecheck                           # - 0 errors
@@ -568,7 +568,7 @@ git commit -m "feat(services): detail page fields, service FAQs and content for 
 - Consumes: `PricingTier`/`PricingTiers` (Task 1); service fields and `faqs.service` (Task 2); existing `ProjectCard` (`size="compact"`), `TestimonialCard` (`variant="wide"`), `ServiceCard`, `ServiceIcon`, `contentAlternates()`, `isNotFoundError()`, `getSeoMeta()`.
 - Produces: route `/services/<slug>` and `/en/services/<slug>`; i18n keys listed in Step 2.
 
-- [ ] **Step 1: Move the list page**
+- [x] **Step 1: Move the list page**
 
 ```bash
 mkdir -p "src/pages/[...lang]/services"
@@ -576,7 +576,7 @@ git mv "src/pages/[...lang]/services.astro" "src/pages/[...lang]/services/index.
 ```
 In the moved file, change the three import paths from `../../` to `../../../` (`layouts/Base.astro`, `components/ServiceCard.astro`, `i18n/ui`).
 
-- [ ] **Step 2: Add the strings**
+- [x] **Step 2: Add the strings**
 
 Append to the `vi` dictionary in `src/i18n/ui.ts`:
 
@@ -640,7 +640,7 @@ Append to the `en` dictionary:
 	"serviceDetail.viewDetails": "View details",
 ```
 
-- [ ] **Step 3: Create `src/pages/[...lang]/services/[slug].astro`**
+- [x] **Step 3: Create `src/pages/[...lang]/services/[slug].astro`**
 
 ```astro
 ---
@@ -1296,7 +1296,7 @@ Notes for this step:
 - If `pnpm typecheck` reports a repeater item type as `unknown`, the dev server hasn't regenerated `emdash-env.d.ts` yet (Task 2, Step 4). Don't cast around it.
 - `ServiceCard` gets its `href` prop in Task 4; until then typecheck fails on that prop. Do Task 4 before running typecheck, or temporarily remove `href`.
 
-- [ ] **Step 4: Format**
+- [x] **Step 4: Format**
 
 ```bash
 pnpm exec prettier --write "src/pages/[...lang]/services/[slug].astro" "src/pages/[...lang]/services/index.astro" src/i18n/ui.ts
@@ -1317,7 +1317,7 @@ pnpm exec prettier --write "src/pages/[...lang]/services/[slug].astro" "src/page
 - Consumes: route from Task 3.
 - Produces: `ServiceCard` prop `href?: string`. When set, the title is a link; on `compact` cards the whole card is clickable (stretched link); on `detailed` cards a "Xem chi tiết" link appears above the CTA button.
 
-- [ ] **Step 1: `ServiceCard.astro`**
+- [x] **Step 1: `ServiceCard.astro`**
 
 1. Add to `Props`: `/** Detail page URL; makes the title a link. */ href?: string;` and destructure `href`.
 2. Replace the title element
@@ -1365,12 +1365,12 @@ with
 ```
 (Keep the existing `.service-card` rule; add `position: relative` to it rather than a second rule if you prefer.)
 
-- [ ] **Step 2: Pass `href` where cards are rendered**
+- [x] **Step 2: Pass `href` where cards are rendered**
 
 - `src/pages/[...lang]/index.astro`, in `services.map`: add `href={localizePath(`/services/${s.id}`, lang)}`.
 - `src/pages/[...lang]/services/index.astro`: import `localizePath` from `../../../i18n/ui` and add the same `href` prop.
 
-- [ ] **Step 3: Sitemap**
+- [x] **Step 3: Sitemap**
 
 In `src/pages/sitemap.xml.ts`:
 1. Change the `getSlugs` signature to `collection: "projects" | "pages" | "services"` and `collect`'s parameter type the same way.
@@ -1382,7 +1382,7 @@ In `src/pages/sitemap.xml.ts`:
 	}
 ```
 
-- [ ] **Step 4: Verify routes (both languages, 404s, the `/en` trap)**
+- [x] **Step 4: Verify routes (both languages, 404s, the `/en` trap)**
 
 ```bash
 pnpm exec prettier --write src/components/ServiceCard.astro "src/pages/[...lang]/index.astro" "src/pages/[...lang]/services/index.astro" src/pages/sitemap.xml.ts
@@ -1403,7 +1403,7 @@ curl -s http://localhost:4321/ | grep -c 'href="/services/thiet-ke-website"'   #
 ```
 If `/sitemap.xml` still shows EmDash's sitemap index, restart the dev server.
 
-- [ ] **Step 5: Screenshots**
+- [x] **Step 5: Screenshots**
 
 ```bash
 MSYS_NO_PATHCONV=1 node scripts/screenshot.mjs /services/thiet-ke-website 1440 shots/svc-1440.png
@@ -1414,7 +1414,7 @@ MSYS_NO_PATHCONV=1 node scripts/screenshot.mjs /services/thiet-ke-website 1440 s
 ```
 Check against the brief's section order: breadcrumb → hero + value props + CTA → packages (3 cards, one "Phổ biến") → problems → comparison table → questions → 6-step process → related projects → FAQ → related services → CTA band. The sparse page (`website-ban-hang`) shows hero, process and whatever data exists, with no empty headings. No gradient except the CTA buttons; no glows.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add "src/pages/[...lang]/services" src/components/ServiceCard.astro "src/pages/[...lang]/index.astro" src/pages/sitemap.xml.ts src/i18n/ui.ts
@@ -1427,14 +1427,14 @@ git commit -m "feat(services): /services/[slug] detail page with packages, compa
 
 **Files:** `docs/roadmap.md`, `docs/overview.html`, `plans/README.md`, this file, `AGENTS.md` (project layout row for `src/components/`)
 
-- [ ] **Step 1: Update docs**
+- [x] **Step 1: Update docs**
 - `docs/roadmap.md`: change the Phase 2 "Service detail pages" line to `- [~] Service detail pages /services/[slug]: template + thiet-ke-website done (007a); other services' content → 007b`.
 - `docs/overview.html` Phase 2 card: mark "Trang chi tiết từng dịch vụ" as `wip` (◐).
 - `AGENTS.md` project layout: add `PricingTiers` to the `src/components/` row.
 - This file: `Status: done`, tick every box, add Notes for anything you decided differently.
 - `plans/README.md`: 007a → `done`.
 
-- [ ] **Step 2: Final check and merge**
+- [x] **Step 2: Final check and merge**
 
 ```bash
 pnpm exec prettier --write AGENTS.md docs/roadmap.md plans/README.md plans/007a-service-detail-template.md
@@ -1446,17 +1446,21 @@ Hand the branch back for review; don't merge into `main` yourself unless told to
 
 ## Self-review checklist (for the implementer, before handing back)
 
-- [ ] `/`, `/en`, `/services`, `/en/services` still 200 (route move + new route didn't shadow anything)
-- [ ] Unknown service slug → 404 in both languages
-- [ ] `/faq` still shows 30 general questions (service FAQs excluded)
-- [ ] Home pricing looks exactly as before (Task 1)
-- [ ] No hardcoded strings in the new page (search for Vietnamese letters in `services/[slug].astro`: `grep -nP "[à-ỹ]" "src/pages/[...lang]/services/[slug].astro"` → no output)
-- [ ] Sample copy listed in `docs/placeholders.md`
-- [ ] Screenshots at 390 and 1440, dark and light, reviewed
+- [x] `/`, `/en`, `/services`, `/en/services` still 200 (route move + new route didn't shadow anything)
+- [x] Unknown service slug → 404 in both languages
+- [x] `/faq` still shows 30 general questions (service FAQs excluded)
+- [x] Home pricing looks exactly as before (Task 1)
+- [x] No hardcoded strings in the new page (search for Vietnamese letters in `services/[slug].astro`: `grep -nP "[à-ỹ]" "src/pages/[...lang]/services/[slug].astro"` → no output)
+- [x] Sample copy listed in `docs/placeholders.md`
+- [x] Screenshots at 390 and 1440, dark and light, reviewed
 
 ## Notes / decisions
 
 - Cross-links use slugs in string fields (`project_category`, `related_services`, `faqs.service`) because EmDash 0.40 has no relations in seeds and no `references` query option. Switch to relations after upgrading EmDash.
+- Package `desc` from EmDash is `string | null`. The page maps it with `p.desc ?? undefined` so it matches `PricingTier.desc?: string`. `pnpm typecheck` is 0 errors after that.
+- `grep -c "/services/" sitemap.xml` counts 40 lines, not 10: each of the 10 service URLs (5 slugs × vi/en) is a `<loc>` plus three `xhtml:link` alternates. The 10 `<loc>` entries are the ones the plan asked for.
+- Moving `services.astro` while `pnpm dev` was running left a stale Vite CSS module for the old path (error overlay on the page). Restarting the dev server cleared it. Production `pnpm build` does not use that cache.
+- Prettier on this file rewrites every code sample and table. Those reflows were reverted; only status, checkboxes and these notes changed.
 - Packages store features as multi-line text (one per line) because repeaters can't nest.
 - The 6-step process is shared by all services (i18n `serviceDetail.process`), not per-service data (YAGNI).
 - Related projects come from `project_category`; the testimonial is the first one whose `project` is among those projects.

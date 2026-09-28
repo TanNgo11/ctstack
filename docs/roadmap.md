@@ -35,7 +35,7 @@ Layout and feature ideas come from [research/tanphatdigital.md](research/tanphat
 
 ## Phase 2: Credibility + service landing pages
 
-- [ ] Service detail pages `/services/[slug]`: hero + value props, packages, pain points, comparison table, "questions to ask before signing", process, related projects + testimonials, FAQ (FAQPage schema), related services, CTA
+- [~] Service detail pages `/services/[slug]`: template + thiet-ke-website done (007a); other services' content → 007b
 - [x] Testimonials collection, shown on home and case studies when real entries exist (service pages: plan 007a)
 - [x] FAQ collection + `/faq` page with category tabs, search, FAQPage schema (sample answers)
 - [~] Projects: industry field + filter, duration, team size, key features, "Live" badge (plan 004); linked testimonial remains for plan 006
