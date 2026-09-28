@@ -210,6 +210,7 @@ const phonePrices = ["320.000đ", "250.000đ", "420.000đ", "680.000đ"];
 						summary={s.data.summary}
 						icon={s.data.icon}
 						priceFrom={s.data.price_from}
+						href={localizePath(`/services/${s.id}`, lang)}
 						edit={s.edit}
 					/>
 				))}

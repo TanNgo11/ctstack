@@ -30,7 +30,10 @@ function siteOrigin(value: unknown, fallback: string): string {
 }
 
 /** Read all published slugs of a collection, continuing through cursor pages. */
-async function getSlugs(collection: "projects" | "pages", locale: Locale): Promise<string[]> {
+async function getSlugs(
+	collection: "projects" | "pages" | "services",
+	locale: Locale,
+): Promise<string[]> {
 	const slugs = new Set<string>();
 	let cursor: string | undefined;
 
@@ -63,7 +66,7 @@ export const GET: APIRoute = async ({ url }) => {
 		// The static route list remains useful before EmDash has been initialized.
 	}
 	const origin = siteOrigin(configuredUrl, url.origin);
-	const collect = async (collection: "projects" | "pages") => {
+	const collect = async (collection: "projects" | "pages" | "services") => {
 		const slugs = new Set<string>();
 		for (const locale of locales) {
 			try {
@@ -75,6 +78,7 @@ export const GET: APIRoute = async ({ url }) => {
 		return slugs;
 	};
 	const projectSet = await collect("projects");
+	const serviceSet = await collect("services");
 	// Policy pages served by /chinh-sach/[page]; `about` has its own static route.
 	const pageSet = await collect("pages");
 	pageSet.delete("about");
@@ -85,6 +89,9 @@ export const GET: APIRoute = async ({ url }) => {
 	}
 	for (const slug of projectSet) {
 		for (const locale of locales) paths.add(localizePath(`/projects/${slug}`, locale));
+	}
+	for (const slug of serviceSet) {
+		for (const locale of locales) paths.add(localizePath(`/services/${slug}`, locale));
 	}
 	for (const slug of pageSet) {
 		for (const locale of locales) paths.add(localizePath(`/chinh-sach/${slug}`, locale));

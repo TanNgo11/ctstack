@@ -1,8 +1,8 @@
 ---
 import { getEmDashCollection } from "emdash";
-import Base from "../../layouts/Base.astro";
-import ServiceCard from "../../components/ServiceCard.astro";
-import { useTranslations, langFromParam } from "../../i18n/ui";
+import Base from "../../../layouts/Base.astro";
+import ServiceCard from "../../../components/ServiceCard.astro";
+import { useTranslations, langFromParam, localizePath } from "../../../i18n/ui";
 
 const lang = langFromParam(Astro.params.lang);
 if (!lang) return Astro.rewrite("/404");
@@ -38,6 +38,7 @@ if (Astro.cache?.enabled) Astro.cache.set(result.cacheHint);
 						priceFrom={s.data.price_from}
 						features={s.data.features}
 						detailed
+						href={localizePath(`/services/${s.id}`, lang)}
 						edit={s.edit}
 					/>
 				))}

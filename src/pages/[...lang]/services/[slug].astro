@@ -1,0 +1,628 @@
+---
+import { decodeSlug, getEmDashCollection, getEmDashEntry, getSeoMeta } from "emdash";
+import { PortableText } from "emdash/ui";
+import Base from "../../../layouts/Base.astro";
+import PricingTiers from "../../../components/PricingTiers.astro";
+import ProjectCard from "../../../components/ProjectCard.astro";
+import ServiceCard from "../../../components/ServiceCard.astro";
+import ServiceIcon from "../../../components/ServiceIcon.astro";
+import TestimonialCard from "../../../components/TestimonialCard.astro";
+import { langFromParam, localizePath, useTranslations } from "../../../i18n/ui";
+import { contentAlternates, isNotFoundError } from "../../../lib/content";
+
+const lang = langFromParam(Astro.params.lang);
+if (!lang) return Astro.rewrite("/404");
+const t = useTranslations(lang);
+
+const slug = decodeSlug(Astro.params.slug);
+if (!slug) return Astro.rewrite("/404");
+
+const {
+	entry: service,
+	error,
+	cacheHint,
+} = await getEmDashEntry("services", slug, {
+	locale: lang,
+});
+if (!service || isNotFoundError(error)) return Astro.rewrite("/404");
+if (error) return new Response("Could not load the service", { status: 500 });
+
+const d = service.data;
+const relatedSlugs = (d.related_services ?? "")
+	.split(",")
+	.map((s) => s.trim())
+	.filter((s) => s && s !== slug)
+	.slice(0, 3);
+
+const [projectsResult, faqResult, servicesResult, testimonialsResult, alternates] =
+	await Promise.all([
+		getEmDashCollection("projects", {
+			locale: lang,
+			orderBy: { sort_order: "asc" },
+			limit: 3,
+			...(d.project_category ? { where: { category: d.project_category } } : {}),
+		}),
+		getEmDashCollection("faqs", {
+			locale: lang,
+			orderBy: { sort_order: "asc" },
+			where: { service: slug },
+			limit: 6,
+		}),
+		getEmDashCollection("services", { locale: lang, orderBy: { sort_order: "asc" }, limit: 50 }),
+		getEmDashCollection("testimonials", { locale: lang, limit: 50 }),
+		contentAlternates("services", d.id, (s) => `/services/${s}`),
+	]);
+if (Astro.cache?.enabled) {
+	Astro.cache.set(cacheHint);
+	for (const r of [projectsResult, faqResult, servicesResult, testimonialsResult]) {
+		if (r.cacheHint) Astro.cache.set(r.cacheHint);
+	}
+}
+
+const projects = projectsResult.entries ?? [];
+const faqs = faqResult.entries ?? [];
+const relatedServices = (servicesResult.entries ?? []).filter((s) => relatedSlugs.includes(s.id));
+const projectSlugs = new Set(projects.map((p) => p.id));
+const testimonial = (testimonialsResult.entries ?? []).find(
+	(q) => q.data.project && projectSlugs.has(q.data.project),
+);
+const packages = (d.packages ?? []).map((p) => ({
+	name: p.name,
+	price: p.price,
+	desc: p.desc ?? undefined,
+	features: (p.features ?? "")
+		.split("\n")
+		.map((f) => f.trim())
+		.filter(Boolean),
+	popular: Boolean(p.popular),
+}));
+const valueProps = d.value_props ?? [];
+const pains = d.pains ?? [];
+const comparison = d.comparison ?? [];
+const questions = d.questions ?? [];
+
+const contactHref = `${localizePath("/contact", lang)}?service=${encodeURIComponent(d.title)}`;
+const pagePath = localizePath(`/services/${slug}`, lang);
+const breadcrumbs = [
+	{ name: t("nav.home"), url: localizePath("/", lang) },
+	{ name: t("services.title"), url: localizePath("/services", lang) },
+	{ name: d.title, url: pagePath },
+];
+const seo = getSeoMeta(service, {
+	siteUrl: Astro.url.origin,
+	path: pagePath,
+	defaultDescription: d.hero_subtitle ?? d.summary,
+});
+---
+
+<Base
+	title={seo.title}
+	pageTitle={seo.ogTitle}
+	description={seo.description}
+	image={seo.ogImage}
+	canonical={seo.canonical}
+	robots={seo.robots}
+	content={{ collection: "services", id: d.id, slug }}
+	alternates={alternates}
+	breadcrumbs={breadcrumbs}
+>
+	<div class="container">
+		<nav class="breadcrumb" aria-label="Breadcrumb">
+			<ol>
+				{breadcrumbs.map((b, i) => (
+					<li>
+						{i < breadcrumbs.length - 1 ? (
+							<a href={b.url}>{b.name}</a>
+						) : (
+							<span aria-current="page">{b.name}</span>
+						)}
+					</li>
+				))}
+			</ol>
+		</nav>
+
+		<header class="service-hero">
+			<span class="hero-icon" aria-hidden="true">
+				<ServiceIcon name={d.icon} />
+			</span>
+			<p class="eyebrow">{d.title}</p>
+			<h1 {...service.edit.hero_title}>{d.hero_title ?? d.title}</h1>
+			{(d.hero_subtitle ?? d.summary) && (
+				<p class="page-intro" {...service.edit.hero_subtitle}>
+					{d.hero_subtitle ?? d.summary}
+				</p>
+			)}
+			<a class="btn btn-primary" href={contactHref}>
+				{t("serviceDetail.cta")} <span aria-hidden="true">→</span>
+			</a>
+		</header>
+
+		{valueProps.length > 0 && (
+			<ul class="value-props" {...service.edit.value_props}>
+				{valueProps.map((v) => (
+					<li class="card">
+						<h2>{v.title}</h2>
+						{v.text && <p>{v.text}</p>}
+					</li>
+				))}
+			</ul>
+		)}
+
+		{packages.length > 0 && (
+			<section class="section" aria-labelledby="packages-title">
+				<header class="section-header">
+					<div>
+						<p class="eyebrow">{t("serviceDetail.packagesEyebrow")}</p>
+						<h2 class="section-title" id="packages-title">
+							{t("serviceDetail.packagesTitle")}
+						</h2>
+					</div>
+				</header>
+				<PricingTiers tiers={packages} note={t("home.pricingNote")} />
+			</section>
+		)}
+
+		{pains.length > 0 && (
+			<section class="section" aria-labelledby="pains-title">
+				<header class="section-header">
+					<div>
+						<p class="eyebrow">{t("serviceDetail.painsEyebrow")}</p>
+						<h2 class="section-title" id="pains-title">
+							{t("serviceDetail.painsTitle")}
+						</h2>
+					</div>
+				</header>
+				<ul class="grid-cards">
+					{pains.map((p) => (
+						<li class="card">
+							<h3>{p.title}</h3>
+							{p.text && <p>{p.text}</p>}
+						</li>
+					))}
+				</ul>
+			</section>
+		)}
+
+		{comparison.length > 0 && (
+			<section class="section" aria-labelledby="comparison-title">
+				<header class="section-header">
+					<div>
+						<p class="eyebrow">{t("serviceDetail.comparisonEyebrow")}</p>
+						<h2 class="section-title" id="comparison-title">
+							{t("serviceDetail.comparisonTitle")}
+						</h2>
+					</div>
+				</header>
+				<div class="table-wrap">
+					<table class="comparison">
+						<caption class="sr-only">{t("serviceDetail.comparisonTitle")}</caption>
+						<thead>
+							<tr>
+								<th scope="col">{t("serviceDetail.comparisonCriterion")}</th>
+								<th scope="col">{t("serviceDetail.comparisonDiy")}</th>
+								<th scope="col" class="us">
+									{t("serviceDetail.comparisonUs")}
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							{comparison.map((row) => (
+								<tr>
+									<th scope="row">{row.label}</th>
+									<td>{row.diy}</td>
+									<td class="us">{row.ctstack}</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+				</div>
+			</section>
+		)}
+
+		{questions.length > 0 && (
+			<section class="section" aria-labelledby="questions-title">
+				<header class="section-header">
+					<div>
+						<p class="eyebrow">{t("serviceDetail.questionsEyebrow")}</p>
+						<h2 class="section-title" id="questions-title">
+							{t("serviceDetail.questionsTitle")}
+						</h2>
+					</div>
+				</header>
+				<ol class="grid-cards questions">
+					{questions.map((q, i) => (
+						<li class="card">
+							<span class="num text-accent">{String(i + 1).padStart(2, "0")}</span>
+							<h3>{q.question}</h3>
+							{q.answer && <p>{q.answer}</p>}
+						</li>
+					))}
+				</ol>
+			</section>
+		)}
+
+		<section class="section" aria-labelledby="process-title">
+			<header class="section-header">
+				<div>
+					<p class="eyebrow">{t("home.processEyebrow")}</p>
+					<h2 class="section-title" id="process-title">
+						{t("serviceDetail.processTitle")}
+					</h2>
+				</div>
+			</header>
+			<ol class="steps">
+				{t("serviceDetail.process").map(([title, text], i) => (
+					<li>
+						<span class="num text-accent">{String(i + 1).padStart(2, "0")}</span>
+						<h3>{title}</h3>
+						<p>{text}</p>
+					</li>
+				))}
+			</ol>
+		</section>
+
+		{projects.length > 0 && (
+			<section class="section" aria-labelledby="projects-title">
+				<header class="section-header">
+					<div>
+						<h2 class="section-title" id="projects-title">
+							{t("serviceDetail.relatedProjects")}
+						</h2>
+					</div>
+					<a href={localizePath("/projects", lang)} class="section-link">
+						{t("home.projectsLink")} →
+					</a>
+				</header>
+				<div class="projects-grid">
+					{projects.map((p) => (
+						<ProjectCard
+							size="row"
+							title={p.data.title}
+							summary={p.data.summary}
+							featuredImage={p.data.featured_image}
+							href={localizePath(`/projects/${p.id}`, lang)}
+							category={p.data.category}
+							results={p.data.results}
+							edit={p.edit}
+						/>
+					))}
+				</div>
+				{testimonial && (
+					<div class="testimonial">
+						<TestimonialCard
+							variant="wide"
+							quote={testimonial.data.quote}
+							author={testimonial.data.author}
+							role={testimonial.data.role}
+							company={testimonial.data.company}
+							avatar={testimonial.data.avatar}
+							edit={testimonial.edit}
+						/>
+					</div>
+				)}
+			</section>
+		)}
+
+		{faqs.length > 0 && (
+			<section class="section" aria-labelledby="faq-title">
+				<header class="section-header">
+					<div>
+						<h2 class="section-title" id="faq-title">
+							{t("serviceDetail.faqTitle")}
+						</h2>
+					</div>
+					<a href={localizePath("/faq", lang)} class="section-link">
+						{t("serviceDetail.faqAll")} →
+					</a>
+				</header>
+				<div class="faq-list">
+					{faqs.map((f, i) => (
+						<details class="faq-item" open={i === 0}>
+							<summary>{f.data.question}</summary>
+							<div class="faq-answer prose">
+								<PortableText value={f.data.answer} />
+							</div>
+						</details>
+					))}
+				</div>
+			</section>
+		)}
+
+		{relatedServices.length > 0 && (
+			<section class="section" aria-labelledby="related-title">
+				<header class="section-header">
+					<div>
+						<h2 class="section-title" id="related-title">
+							{t("serviceDetail.relatedServices")}
+						</h2>
+					</div>
+				</header>
+				<div class="related-services">
+					{relatedServices.map((s) => (
+						<ServiceCard
+							title={s.data.title}
+							summary={s.data.summary}
+							icon={s.data.icon}
+							priceFrom={s.data.price_from}
+							href={localizePath(`/services/${s.id}`, lang)}
+							edit={s.edit}
+						/>
+					))}
+				</div>
+			</section>
+		)}
+
+		{d.content && (
+			<div class="prose service-content" {...service.edit.content}>
+				<PortableText value={d.content} />
+			</div>
+		)}
+	</div>
+</Base>
+
+<style>
+	.breadcrumb ol {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--spacing-xs);
+		padding-top: var(--spacing-xl);
+		color: var(--color-muted);
+		font-size: var(--font-size-sm);
+		list-style: none;
+	}
+
+	.breadcrumb li + li::before {
+		content: "/";
+		margin-inline-end: var(--spacing-xs);
+	}
+
+	.breadcrumb a {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.breadcrumb a:hover {
+		color: var(--color-text);
+	}
+
+	.service-hero {
+		max-width: 820px;
+		padding-block: var(--spacing-2xl) var(--spacing-xl);
+	}
+
+	.hero-icon {
+		display: inline-grid;
+		width: 48px;
+		height: 48px;
+		margin-bottom: var(--spacing-md);
+		place-items: center;
+		border-radius: var(--radius);
+		color: var(--color-brand);
+		background: var(--color-brand-ring);
+	}
+
+	.service-hero h1 {
+		margin-bottom: var(--spacing-md);
+		font-size: clamp(2.25rem, 4.2vw, 3.5rem);
+		font-weight: var(--font-weight-display);
+		line-height: 1.1;
+		letter-spacing: -0.03em;
+	}
+
+	.service-hero .page-intro {
+		margin-bottom: var(--spacing-xl);
+	}
+
+	.value-props,
+	.grid-cards {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: var(--spacing-md);
+		list-style: none;
+	}
+
+	.value-props li,
+	.grid-cards li {
+		padding: var(--spacing-lg);
+	}
+
+	.value-props h2,
+	.grid-cards h3 {
+		margin-bottom: var(--spacing-xs);
+		font-size: var(--font-size-base);
+		font-weight: 600;
+	}
+
+	.value-props p,
+	.grid-cards p {
+		color: var(--color-muted);
+		font-size: var(--font-size-sm);
+	}
+
+	.num {
+		display: block;
+		margin-bottom: var(--spacing-sm);
+		font-size: var(--font-size-sm);
+		font-weight: 600;
+	}
+
+	.table-wrap {
+		overflow-x: auto;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-card);
+	}
+
+	.comparison {
+		width: 100%;
+		border-collapse: collapse;
+		font-size: var(--font-size-sm);
+	}
+
+	.comparison th,
+	.comparison td {
+		padding: var(--spacing-md) var(--spacing-lg);
+		border-bottom: 1px solid var(--color-border);
+		text-align: start;
+		vertical-align: top;
+	}
+
+	.comparison tbody tr:last-child > * {
+		border-bottom: 0;
+	}
+
+	.comparison thead th {
+		color: var(--color-muted);
+		font-weight: 600;
+	}
+
+	.comparison td {
+		color: var(--color-muted);
+	}
+
+	.comparison .us {
+		color: var(--color-text);
+		background: var(--color-surface);
+	}
+
+	.comparison thead .us {
+		color: var(--color-brand);
+	}
+
+	.steps {
+		display: grid;
+		grid-template-columns: repeat(6, minmax(0, 1fr));
+		border-top: 1px solid var(--color-border);
+		list-style: none;
+	}
+
+	.steps li {
+		padding: var(--spacing-lg) var(--spacing-md) 0 0;
+	}
+
+	.steps li + li {
+		padding-inline-start: var(--spacing-md);
+		border-inline-start: 1px solid var(--color-border);
+	}
+
+	.steps h3 {
+		margin-bottom: var(--spacing-xs);
+		font-size: var(--font-size-base);
+		font-weight: 600;
+	}
+
+	.steps p {
+		color: var(--color-muted);
+		font-size: var(--font-size-sm);
+	}
+
+	.projects-grid,
+	.related-services {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: var(--spacing-md);
+	}
+
+	.testimonial {
+		max-width: 860px;
+		margin-top: var(--spacing-lg);
+	}
+
+	.faq-list {
+		display: grid;
+		gap: var(--spacing-sm);
+		max-width: 860px;
+	}
+
+	.faq-item {
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius);
+		background: var(--color-surface);
+	}
+
+	.faq-item[open] {
+		border-color: color-mix(in srgb, var(--color-brand) 45%, var(--color-border));
+	}
+
+	.faq-item summary {
+		display: flex;
+		justify-content: space-between;
+		gap: var(--spacing-md);
+		padding: var(--spacing-md) var(--spacing-lg);
+		font-weight: 600;
+		cursor: pointer;
+		list-style: none;
+	}
+
+	.faq-item summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.faq-item summary::after {
+		content: "+";
+		color: var(--color-brand);
+	}
+
+	.faq-item[open] summary::after {
+		content: "−";
+	}
+
+	.faq-answer {
+		padding: 0 var(--spacing-lg) var(--spacing-md);
+		color: var(--color-muted);
+	}
+
+	.service-content {
+		max-width: var(--max-width);
+		padding-block: var(--spacing-xl);
+	}
+
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip: rect(0 0 0 0);
+		white-space: nowrap;
+	}
+
+	@media (max-width: 1000px) {
+		.value-props,
+		.grid-cards,
+		.projects-grid,
+		.related-services {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.steps {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			row-gap: var(--spacing-lg);
+		}
+
+		.steps li:nth-child(4) {
+			padding-inline-start: 0;
+			border-inline-start: 0;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.value-props,
+		.grid-cards,
+		.projects-grid,
+		.related-services,
+		.steps {
+			grid-template-columns: 1fr;
+		}
+
+		.steps li,
+		.steps li + li {
+			padding: var(--spacing-md) 0;
+			border-inline-start: 0;
+			border-bottom: 1px solid var(--color-border);
+		}
+
+		.comparison th,
+		.comparison td {
+			padding: var(--spacing-sm) var(--spacing-md);
+		}
+	}
+</style>

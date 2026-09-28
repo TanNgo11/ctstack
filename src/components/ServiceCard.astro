@@ -11,10 +11,12 @@ interface Props {
 	features?: { item: string }[];
 	/** Show the features list and a contact button (services page). */
 	detailed?: boolean;
+	/** Detail page URL; makes the title a link. */
+	href?: string;
 	edit?: EditProxy;
 }
 
-const { title, summary, icon, priceFrom, features, detailed, edit } = Astro.props;
+const { title, summary, icon, priceFrom, features, detailed, href, edit } = Astro.props;
 const lang = langFromPath(Astro.originPathname ?? Astro.url.pathname);
 const t = useTranslations(lang);
 ---
@@ -25,7 +27,13 @@ const t = useTranslations(lang);
 	</div>
 	<div class="service-body">
 		<h3 class="service-title" {...edit?.title}>
-			{title}
+			{href ? (
+				<a class="service-link" href={href}>
+					{title}
+				</a>
+			) : (
+				title
+			)}
 		</h3>
 		{summary && (
 			<p class="service-summary" {...edit?.summary}>
@@ -49,6 +57,11 @@ const t = useTranslations(lang);
 				</strong>
 			</p>
 		)}
+		{detailed && href && (
+			<a class="service-more section-link" href={href}>
+				{t("serviceDetail.viewDetails")} →
+			</a>
+		)}
 		{detailed && (
 			<a
 				class="btn btn-outline"
@@ -67,6 +80,7 @@ const t = useTranslations(lang);
 
 <style>
 	.service-card {
+		position: relative;
 		display: flex;
 		flex-direction: column;
 		gap: var(--spacing-md);
@@ -105,6 +119,22 @@ const t = useTranslations(lang);
 		font-size: var(--font-size-base);
 		font-weight: 600;
 		line-height: 1.3;
+	}
+
+	.service-link {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.service-link:hover {
+		color: var(--color-brand);
+	}
+
+	/* Compact cards: the whole card is the link */
+	.compact .service-link::after {
+		content: "";
+		position: absolute;
+		inset: 0;
 	}
 
 	.service-summary {
