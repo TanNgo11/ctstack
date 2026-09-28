@@ -368,3 +368,4 @@ Don't merge into `main` yourself unless told to.
 - Screenshots passed `http://localhost:4322` as the last argument because `scripts/screenshot.mjs` defaults to port 4321. `shots/` stays gitignored. Reviewed: sections filled, Vietnamese and English not mixed, comparison cells and the 390px mobile page stay inside the layout. Package cards share one row; the popular card is the highlighted middle one.
 - `pnpm typecheck` reordered fields in `emdash-env.d.ts`. That file was restored and not committed.
 - Shared headings such as "website cũ" and "theme có sẵn" come from the 007a UI strings and were left unchanged.
+- Review (007b): shared section headings from 007a ("…website cũ", "theme có sẵn", "bên làm web") were wrong on the mobile-app and maintenance pages. `serviceDetail.painsTitle`, `comparisonTitle`, `comparisonDiy` and `questionsTitle` are now service-neutral in vi and en.
