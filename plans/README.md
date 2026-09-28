@@ -11,7 +11,7 @@ One file per feature: `NNN-<feature>.md`, copied from [`_template.md`](_template
 | 005  | [FAQ page and policy pages](005-faq-and-policies.md)                             | 2    | done   |
 | 006  | [Testimonials (structure only)](006-testimonials.md)                             | 3    | done   |
 | 007a | [Service detail: template + first service](007a-service-detail-template.md)      | 4    | done   |
-| 007b | [Service detail: content for all services + SEO](007b-service-detail-content.md) | 5    | ready  |
+| 007b | [Service detail: content for all services + SEO](007b-service-detail-content.md) | 5    | done   |
 | 008  | [Quality pass](008-quality-pass.md)                                              | 6    | ready  |
 
 Deploy to Cloudflare is not planned yet (owner will do it later).

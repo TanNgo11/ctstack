@@ -62,6 +62,7 @@ sequenceDiagram
     P->>Q: getTranslations() for the language switcher
     P->>L: render with title, SEO, alternates
     L->>Q: getSiteSettings()
+    L->>Q: getEmDashCollection("services") for footer links
     L-->>B: HTML (EmDashHead adds SEO / hreflang)
 ```
 
@@ -74,7 +75,7 @@ flowchart TB
         NF["404.astro"]
     end
     subgraph layout["src/layouts"]
-        BASE["Base.astro<br/>head, nav, lang switch, footer"]
+        BASE["Base.astro<br/>head, nav, lang switch, footer<br/>loads services for footer links"]
     end
     subgraph comps["src/components"]
         PC["ProjectCard"]
