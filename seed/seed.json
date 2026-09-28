@@ -2029,7 +2029,144 @@
 							"item": "Báo cáo doanh thu"
 						}
 					],
-					"sort_order": 2
+					"sort_order": 2,
+					"hero_title": "Website bán hàng có giỏ hàng, thanh toán và quản lý đơn",
+					"hero_subtitle": "Cửa hàng online nhận VNPay, MoMo và COD, trừ tồn kho khi có đơn, bàn giao trong 6–8 tuần.",
+					"value_props": [
+						{
+							"title": "Thanh toán quen thuộc",
+							"text": "Nhận VNPay, MoMo và COD ngay trên website của bạn."
+						},
+						{
+							"title": "Tồn kho khớp đơn",
+							"text": "Đơn mới trừ kho. Hết hàng thì ngừng nhận đơn sản phẩm đó."
+						},
+						{
+							"title": "Giao hàng từ trang quản trị",
+							"text": "Tạo vận đơn GHN hoặc GHTK, không nhập lại địa chỉ bằng tay."
+						},
+						{
+							"title": "Nhắc giỏ bỏ dở",
+							"text": "Gửi email nhắc khách đã thêm hàng nhưng chưa thanh toán."
+						},
+						{
+							"title": "SEO từng sản phẩm",
+							"text": "Tiêu đề, mô tả và dữ liệu cấu trúc cho mỗi trang sản phẩm."
+						},
+						{
+							"title": "Admin dễ dùng",
+							"text": "Thêm sản phẩm, sửa giá, xem đơn không cần lập trình viên."
+						}
+					],
+					"packages": [
+						{
+							"name": "Khởi đầu",
+							"price": "15 triệu",
+							"desc": "Cửa hàng một kho, đủ bán và giao hàng.",
+							"features": "Giỏ hàng, VNPay, MoMo, COD\nSản phẩm, tồn kho, đơn hàng\nGHN hoặc GHTK\nBáo cáo doanh thu cơ bản\nBảo hành 12 tháng",
+							"popular": false
+						},
+						{
+							"name": "Tăng trưởng",
+							"price": "25 triệu",
+							"desc": "Bán nhiều kênh giá, giữ khách bỏ giỏ.",
+							"features": "Thiết kế riêng theo thương hiệu\nSEO sản phẩm, sitemap, schema\nEmail nhắc giỏ hàng bỏ dở\nNhiều mức giá, mã giảm giá\nBảo hành 12 tháng, bảo trì 3 tháng",
+							"popular": true
+						},
+						{
+							"name": "Chuỗi cửa hàng",
+							"price": "40 triệu",
+							"desc": "Nhiều cửa hàng, tồn kho và báo cáo riêng.",
+							"features": "Nhiều cửa hàng, tồn kho riêng\nPhân quyền nhân viên theo cửa hàng\nBáo cáo doanh thu theo cửa hàng\nNối CRM hoặc phần mềm kế toán\nBảo hành 12 tháng, bảo trì 6 tháng",
+							"popular": false
+						}
+					],
+					"pains": [
+						{
+							"title": "Chỉ bán trên sàn",
+							"text": "Phí sàn cao và dữ liệu khách không thuộc về bạn."
+						},
+						{
+							"title": "Tồn kho lệch",
+							"text": "Bán nhiều kênh, hết hàng vẫn nhận đơn."
+						},
+						{
+							"title": "Giỏ hàng bỏ dở",
+							"text": "Khách thêm hàng rồi thoát, không ai nhắc lại."
+						},
+						{
+							"title": "Trang sản phẩm chậm",
+							"text": "Ảnh nặng, khách thoát trước khi xem giá trên điện thoại."
+						},
+						{
+							"title": "Không tự sửa được",
+							"text": "Đổi giá hay thêm mã giảm giá phải nhờ kỹ thuật."
+						},
+						{
+							"title": "Không có báo cáo",
+							"text": "Không biết sản phẩm nào bán được trong tuần."
+						}
+					],
+					"comparison": [
+						{
+							"label": "Chi phí",
+							"diy": "Phí sàn hoặc theme trả phí",
+							"ctstack": "Báo giá cố định, không phí sàn"
+						},
+						{
+							"label": "Thời gian",
+							"diy": "Tự cài theme, tự học",
+							"ctstack": "6–8 tuần, ghi trong hợp đồng"
+						},
+						{
+							"label": "Thanh toán",
+							"diy": "Cổng của sàn",
+							"ctstack": "VNPay, MoMo và COD"
+						},
+						{
+							"label": "Vận chuyển",
+							"diy": "Tự nhập địa chỉ",
+							"ctstack": "GHN, GHTK từ trang quản trị"
+						},
+						{
+							"label": "Dữ liệu khách",
+							"diy": "Thuộc về sàn",
+							"ctstack": "Đứng tên bạn, xuất được"
+						},
+						{
+							"label": "Sở hữu",
+							"diy": "Phụ thuộc theme",
+							"ctstack": "Bàn giao source code"
+						}
+					],
+					"questions": [
+						{
+							"question": "Ai giữ source code và dữ liệu đơn?",
+							"answer": "Bạn. Source code, tên miền, hosting và dữ liệu khách đứng tên bạn khi thanh toán đủ."
+						},
+						{
+							"question": "Thanh toán nào dùng được?",
+							"answer": "VNPay, MoMo và COD. Cổng khác có API thì báo giá riêng trước khi làm."
+						},
+						{
+							"question": "Tồn kho có trừ khi có đơn không?",
+							"answer": "Có. Đơn mới trừ kho. Hết hàng thì sản phẩm đó ngừng nhận đơn."
+						},
+						{
+							"question": "Bảo hành bao lâu, gồm những gì?",
+							"answer": "12 tháng cho lỗi giỏ hàng, thanh toán, tồn kho và hiển thị do chúng tôi gây ra."
+						},
+						{
+							"question": "Ai nhập sản phẩm?",
+							"answer": "Bạn gửi tên, giá, ảnh và mô tả. Chúng tôi nhập và chỉnh cho gọn, chuẩn SEO."
+						},
+						{
+							"question": "Trễ tiến độ thì xử lý thế nào?",
+							"answer": "Hợp đồng ghi mốc 6–8 tuần và mức giảm trừ nếu chúng tôi trễ. Mỗi tuần có demo."
+						}
+					],
+					"project_category": "ecommerce",
+					"related_services": "thiet-ke-website,bao-tri-toi-uu"
 				}
 			},
 			{
@@ -2059,7 +2196,144 @@
 							"item": "Sales reports"
 						}
 					],
-					"sort_order": 2
+					"sort_order": 2,
+					"hero_title": "An online store with cart, payments and order management",
+					"hero_subtitle": "Take VNPay, MoMo and COD, update stock when an order comes in, and go live in 6–8 weeks.",
+					"value_props": [
+						{
+							"title": "Familiar checkout",
+							"text": "Accept VNPay, MoMo and cash on delivery on your own site."
+						},
+						{
+							"title": "Stock matches orders",
+							"text": "A new order reduces stock. Out-of-stock items stop taking orders."
+						},
+						{
+							"title": "Shipping from the admin",
+							"text": "Create a GHN or GHTK shipment without retyping the address."
+						},
+						{
+							"title": "Abandoned-cart email",
+							"text": "Email shoppers who added items and left before paying."
+						},
+						{
+							"title": "SEO on every product",
+							"text": "Title, description and structured data on each product page."
+						},
+						{
+							"title": "Admin for non-technical staff",
+							"text": "Add products, change prices and view orders without a developer."
+						}
+					],
+					"packages": [
+						{
+							"name": "Starter",
+							"price": "$700",
+							"desc": "One warehouse, ready to sell and ship.",
+							"features": "Cart, VNPay, MoMo, COD\nProducts, stock, orders\nGHN or GHTK\nBasic sales report\n12-month warranty",
+							"popular": false
+						},
+						{
+							"name": "Growth",
+							"price": "$1,100",
+							"desc": "Your own design, and a nudge for abandoned carts.",
+							"features": "Design built around your brand\nProduct SEO, sitemap, schema\nAbandoned-cart email\nPrice levels and discount codes\n12-month warranty, 3 months care",
+							"popular": true
+						},
+						{
+							"name": "Multi-store",
+							"price": "$1,800",
+							"desc": "Several shops, each with its own stock and report.",
+							"features": "Several stores, separate stock\nStaff access per store\nSales report per store\nCRM or accounting link\n12-month warranty, 6 months care",
+							"popular": false
+						}
+					],
+					"pains": [
+						{
+							"title": "Only selling on a marketplace",
+							"text": "High fees, and the customer list does not belong to you."
+						},
+						{
+							"title": "Stock out of date",
+							"text": "You sell in several places and still take orders for items that are gone."
+						},
+						{
+							"title": "Carts left behind",
+							"text": "People add items and leave, and nobody follows up."
+						},
+						{
+							"title": "Slow product pages",
+							"text": "Heavy photos. Shoppers leave before they see the price on a phone."
+						},
+						{
+							"title": "You can't edit it",
+							"text": "Changing a price or adding a discount code needs a developer."
+						},
+						{
+							"title": "No sales picture",
+							"text": "You can't see which products sold this week."
+						}
+					],
+					"comparison": [
+						{
+							"label": "Cost",
+							"diy": "Marketplace or theme fees",
+							"ctstack": "Fixed quote, no marketplace fee"
+						},
+						{
+							"label": "Timeline",
+							"diy": "Install a theme yourself",
+							"ctstack": "6–8 weeks, in the contract"
+						},
+						{
+							"label": "Payments",
+							"diy": "The marketplace's checkout",
+							"ctstack": "VNPay, MoMo and COD"
+						},
+						{
+							"label": "Shipping",
+							"diy": "Retype each address",
+							"ctstack": "GHN, GHTK from the admin"
+						},
+						{
+							"label": "Customer data",
+							"diy": "Belongs to the marketplace",
+							"ctstack": "Yours, and you can export it"
+						},
+						{
+							"label": "Ownership",
+							"diy": "Tied to the theme",
+							"ctstack": "Source code handed over"
+						}
+					],
+					"questions": [
+						{
+							"question": "Who owns the code and the orders?",
+							"answer": "You do. Code, domain, hosting and customer data are in your name once paid in full."
+						},
+						{
+							"question": "Which payments can I take?",
+							"answer": "VNPay, MoMo and cash on delivery. Another gateway is quoted first if it has an API."
+						},
+						{
+							"question": "Does stock fall when an order comes in?",
+							"answer": "Yes. A new order reduces stock. An out-of-stock product stops taking orders."
+						},
+						{
+							"question": "How long is the warranty, and what does it cover?",
+							"answer": "12 months for cart, payment, stock and display bugs that we caused."
+						},
+						{
+							"question": "Who enters the products?",
+							"answer": "You send names, prices, photos and descriptions. We enter them and edit for clarity and SEO."
+						},
+						{
+							"question": "What if you are late?",
+							"answer": "The contract sets the 6–8 week milestones and the discount if we miss them. You get a weekly demo."
+						}
+					],
+					"project_category": "ecommerce",
+					"related_services": "thiet-ke-website,bao-tri-toi-uu"
 				},
 				"translationOf": "s-shop"
 			},
@@ -2090,7 +2364,144 @@
 							"item": "Tích hợp API bên thứ ba"
 						}
 					],
-					"sort_order": 3
+					"sort_order": 3,
+					"hero_title": "Web app theo đúng quy trình đang chạy của bạn",
+					"hero_subtitle": "Khảo sát nghiệp vụ trước, rồi làm phân quyền, báo cáo và nối phần mềm sẵn có. Bàn giao trong 8–12 tuần.",
+					"value_props": [
+						{
+							"title": "Khảo sát trước",
+							"text": "Ghi quy trình đang làm rồi mới chốt tính năng và báo giá."
+						},
+						{
+							"title": "Phân quyền rõ",
+							"text": "Mỗi vai trò chỉ thấy việc và dữ liệu của mình."
+						},
+						{
+							"title": "Báo cáo một màn hình",
+							"text": "Số liệu lấy từ hệ thống, không cộng tay cuối tháng."
+						},
+						{
+							"title": "Nối phần mềm đang dùng",
+							"text": "Gọi API hoặc nhận file. Không bắt đổi hết hệ thống."
+						},
+						{
+							"title": "Chuyển dữ liệu từ Excel",
+							"text": "Nhập dữ liệu cũ có đối soát, không gõ lại từng dòng."
+						},
+						{
+							"title": "Nhật ký thao tác",
+							"text": "Ghi ai sửa bản ghi nào, vào lúc nào."
+						}
+					],
+					"packages": [
+						{
+							"name": "MVP",
+							"price": "30 triệu",
+							"desc": "Một quy trình chính, đủ dùng nội bộ.",
+							"features": "Khảo sát nghiệp vụ, chốt phạm vi\nPhân quyền theo vai trò\nDashboard và báo cáo cơ bản\nTriển khai trên hạ tầng của bạn\nBảo hành 12 tháng, tài liệu bàn giao",
+							"popular": false
+						},
+						{
+							"name": "Doanh nghiệp",
+							"price": "60 triệu",
+							"desc": "Nhiều phòng ban, nhiều báo cáo.",
+							"features": "Nhiều quy trình, nhiều vai trò\nDashboard theo phòng ban\nNhập dữ liệu từ Excel có đối soát\nNhật ký ai sửa, lúc nào\nBảo hành 12 tháng, demo mỗi tuần",
+							"popular": true
+						},
+						{
+							"name": "Tích hợp hệ thống",
+							"price": "100 triệu",
+							"desc": "Nối phần mềm và dữ liệu đang có.",
+							"features": "Nối API hoặc phần mềm sẵn có\nĐồng bộ dữ liệu hai chiều\nXử lý lỗi khi bên kia gián đoạn\nChạy trên hạ tầng bạn chỉ định\nBảo hành 12 tháng, tài liệu vận hành",
+							"popular": false
+						}
+					],
+					"pains": [
+						{
+							"title": "Excel không chịu nổi",
+							"text": "Nhiều người sửa một file, số liệu lệch nhau."
+						},
+						{
+							"title": "Không biết ai sửa",
+							"text": "Thiếu nhật ký nên khó truy khi số liệu sai."
+						},
+						{
+							"title": "Mỗi bộ phận một phần mềm",
+							"text": "Phải xuất file qua lại mỗi ngày."
+						},
+						{
+							"title": "Báo cáo làm tay",
+							"text": "Cuối tháng ngồi cộng số từ nhiều nguồn."
+						},
+						{
+							"title": "Không phân quyền được",
+							"text": "Nhân viên thấy dữ liệu không thuộc việc của mình."
+						},
+						{
+							"title": "Phụ thuộc một người",
+							"text": "Người giữ file nghỉ là quy trình dừng."
+						}
+					],
+					"comparison": [
+						{
+							"label": "Chi phí",
+							"diy": "Nhiều phần mềm trả phí",
+							"ctstack": "Báo giá cố định theo phạm vi"
+						},
+						{
+							"label": "Thời gian",
+							"diy": "Tự ghép, không có mốc",
+							"ctstack": "8–12 tuần, ghi trong hợp đồng"
+						},
+						{
+							"label": "Đúng quy trình",
+							"diy": "Phải đổi theo phần mềm",
+							"ctstack": "Làm theo quy trình của bạn"
+						},
+						{
+							"label": "Dữ liệu cũ",
+							"diy": "Copy tay từ Excel",
+							"ctstack": "Nhập có đối soát"
+						},
+						{
+							"label": "Nhật ký",
+							"diy": "Không có hoặc rời rạc",
+							"ctstack": "Ghi ai sửa, lúc nào"
+						},
+						{
+							"label": "Sở hữu",
+							"diy": "Thuê SaaS, dữ liệu bên họ",
+							"ctstack": "Source code đứng tên bạn"
+						}
+					],
+					"questions": [
+						{
+							"question": "Có khảo sát nghiệp vụ trước không?",
+							"answer": "Có. Chúng tôi ghi quy trình hiện tại, rồi mới chốt phạm vi và báo giá cố định."
+						},
+						{
+							"question": "Ai giữ source code và máy chủ?",
+							"answer": "Bạn. Code, tài khoản server và dữ liệu đứng tên bạn khi thanh toán đủ."
+						},
+						{
+							"question": "Đưa dữ liệu Excel sang được không?",
+							"answer": "Được. Chúng tôi lập file mẫu, nhập và đối soát với bạn trước khi chạy thật."
+						},
+						{
+							"question": "Chạy trên server của tôi được không?",
+							"answer": "Được. Chúng tôi triển khai trên hạ tầng bạn chỉ định và bàn giao tài liệu vận hành."
+						},
+						{
+							"question": "Bảo hành gồm những gì?",
+							"answer": "12 tháng cho lỗi chức năng do chúng tôi gây ra. Tính năng mới báo giá riêng."
+						},
+						{
+							"question": "Tôi xem tiến độ thế nào?",
+							"answer": "Mỗi tuần có link demo để góp ý, không chờ đến ngày bàn giao."
+						}
+					],
+					"project_category": "web_app",
+					"related_services": "ung-dung-di-dong,bao-tri-toi-uu"
 				}
 			},
 			{
@@ -2120,7 +2531,144 @@
 							"item": "Third-party API integrations"
 						}
 					],
-					"sort_order": 3
+					"sort_order": 3,
+					"hero_title": "A web app built around the way you already work",
+					"hero_subtitle": "We map the workflow first, then build roles, reports and links to the software you use. Delivered in 8–12 weeks.",
+					"value_props": [
+						{
+							"title": "Analysis first",
+							"text": "We write down the current process before we lock the scope and the quote."
+						},
+						{
+							"title": "Clear roles",
+							"text": "Each role sees only its own work and data."
+						},
+						{
+							"title": "One reporting screen",
+							"text": "Figures come from the system, not a month-end spreadsheet."
+						},
+						{
+							"title": "Connect what you already use",
+							"text": "Call an API or take a file. You don't have to replace everything."
+						},
+						{
+							"title": "Move data out of Excel",
+							"text": "We import the old rows and check them with you. Nobody retypes them."
+						},
+						{
+							"title": "An audit log",
+							"text": "See who changed a record, and when."
+						}
+					],
+					"packages": [
+						{
+							"name": "MVP",
+							"price": "$1,500",
+							"desc": "One core workflow your team can use.",
+							"features": "Workflow review and a fixed scope\nRoles and permissions\nA basic dashboard and reports\nDeployed on your infrastructure\n12-month warranty, handover notes",
+							"popular": false
+						},
+						{
+							"name": "Business",
+							"price": "$2,800",
+							"desc": "Several teams, several reports.",
+							"features": "Several workflows and roles\nA dashboard per team\nChecked import from Excel\nAudit log of who changed what\n12-month warranty, weekly demo",
+							"popular": true
+						},
+						{
+							"name": "Integration",
+							"price": "$4,500",
+							"desc": "Connected to the software and data you have.",
+							"features": "Links to your APIs or software\nTwo-way data sync\nHandling when the other side is down\nRuns on the infrastructure you name\n12-month warranty, runbook",
+							"popular": false
+						}
+					],
+					"pains": [
+						{
+							"title": "Spreadsheets break",
+							"text": "Several people edit one file and the numbers stop matching."
+						},
+						{
+							"title": "No record of edits",
+							"text": "When a figure is wrong, nobody can see who changed it."
+						},
+						{
+							"title": "A different tool per team",
+							"text": "Someone exports and imports a file every day."
+						},
+						{
+							"title": "Reports by hand",
+							"text": "Month-end means adding numbers up from several places."
+						},
+						{
+							"title": "No permissions",
+							"text": "Staff can open data that is not part of their job."
+						},
+						{
+							"title": "One person holds it all",
+							"text": "If the person with the file is away, the process stops."
+						}
+					],
+					"comparison": [
+						{
+							"label": "Cost",
+							"diy": "Several paid SaaS tools",
+							"ctstack": "Fixed quote for the scope"
+						},
+						{
+							"label": "Timeline",
+							"diy": "You stitch it together",
+							"ctstack": "8–12 weeks, in the contract"
+						},
+						{
+							"label": "Fits your process",
+							"diy": "You change to fit the tool",
+							"ctstack": "Built around your process"
+						},
+						{
+							"label": "Old data",
+							"diy": "Retype it from Excel",
+							"ctstack": "Imported and checked"
+						},
+						{
+							"label": "Audit log",
+							"diy": "None, or scattered",
+							"ctstack": "Who changed what, and when"
+						},
+						{
+							"label": "Ownership",
+							"diy": "Rented SaaS, their database",
+							"ctstack": "Source code in your name"
+						}
+					],
+					"questions": [
+						{
+							"question": "Do you analyse the business first?",
+							"answer": "Yes. We write down the current process, then lock the scope and a fixed quote."
+						},
+						{
+							"question": "Who owns the source code and the server?",
+							"answer": "You do. Code, server accounts and data are in your name once paid in full."
+						},
+						{
+							"question": "Can you move our Excel data?",
+							"answer": "Yes. We prepare a template, import the rows and check them with you before go-live."
+						},
+						{
+							"question": "Can it run on our server?",
+							"answer": "Yes. We deploy on the infrastructure you name and hand over operating notes."
+						},
+						{
+							"question": "What does the warranty cover?",
+							"answer": "12 months for functional bugs we caused. New features are quoted separately."
+						},
+						{
+							"question": "How do I follow progress?",
+							"answer": "Each week you get a demo link and can comment before the next step."
+						}
+					],
+					"project_category": "web_app",
+					"related_services": "ung-dung-di-dong,bao-tri-toi-uu"
 				},
 				"translationOf": "s-webapp"
 			},
@@ -2151,7 +2699,144 @@
 							"item": "Bảo trì sau ra mắt"
 						}
 					],
-					"sort_order": 4
+					"sort_order": 4,
+					"hero_title": "Ứng dụng iOS và Android từ một codebase",
+					"hero_subtitle": "React Native cho cả hai store. Tài khoản nhà phát triển đứng tên bạn. Bàn giao trong 10–14 tuần.",
+					"value_props": [
+						{
+							"title": "Một codebase, hai store",
+							"text": "React Native cho iOS và Android, không làm hai app riêng."
+						},
+						{
+							"title": "Tài khoản store của bạn",
+							"text": "Apple và Google đứng tên bạn. Chúng tôi chỉ được mời vào để đăng."
+						},
+						{
+							"title": "Đăng nhập",
+							"text": "Số điện thoại, email, hoặc tài khoản bạn đang dùng."
+						},
+						{
+							"title": "Thông báo đẩy",
+							"text": "Gửi tin theo nhóm khách, xem tin đã gửi trong trang quản trị."
+						},
+						{
+							"title": "Thanh toán trong app",
+							"text": "VNPay, MoMo, hoặc mua qua store nếu store yêu cầu."
+						},
+						{
+							"title": "Biết khách dùng gì",
+							"text": "Gắn analytics để xem màn hình nào được mở."
+						}
+					],
+					"packages": [
+						{
+							"name": "MVP",
+							"price": "40 triệu",
+							"desc": "Một luồng chính, đủ đưa lên cả hai store.",
+							"features": "iOS và Android, một codebase\nĐăng nhập email hoặc số điện thoại\nTài khoản store đứng tên bạn\nGửi store duyệt lần đầu\nBảo hành 12 tháng",
+							"popular": false
+						},
+						{
+							"name": "Tiêu chuẩn",
+							"price": "70 triệu",
+							"desc": "Thông báo, thanh toán và số liệu sử dụng.",
+							"features": "Đầy đủ của gói MVP\nThông báo đẩy theo nhóm\nThanh toán trong app theo phạm vi\nAnalytics màn hình được mở\nBảo hành 12 tháng, demo mỗi tuần",
+							"popular": true
+						},
+						{
+							"name": "Mở rộng",
+							"price": "120 triệu",
+							"desc": "Nối hệ thống sẵn có và bản cập nhật sau ra mắt.",
+							"features": "Nối API web app hoặc phần mềm sẵn\nĐăng nhập bằng tài khoản hiện có\nQuy trình gửi bản cập nhật\nTài liệu vận hành cho đội của bạn\nBảo hành 12 tháng, bảo trì 3 tháng",
+							"popular": false
+						}
+					],
+					"pains": [
+						{
+							"title": "Hai app, hai đội",
+							"text": "iOS và Android lệch tính năng, tốn gấp đôi."
+						},
+						{
+							"title": "Store đứng tên thầu",
+							"text": "Đổi đơn vị làm là không lấy lại được app."
+						},
+						{
+							"title": "Chờ duyệt store",
+							"text": "Không ai nói trước lịch Apple và Google."
+						},
+						{
+							"title": "Không nhắc được khách",
+							"text": "Cài app rồi quên, vì không có thông báo đẩy."
+						},
+						{
+							"title": "Không đo được",
+							"text": "Không biết màn hình nào khách thực sự mở."
+						},
+						{
+							"title": "Sửa sau ra mắt khó",
+							"text": "Mỗi bản cập nhật lại chờ duyệt, không có quy trình."
+						}
+					],
+					"comparison": [
+						{
+							"label": "Chi phí",
+							"diy": "Thuê app builder theo tháng",
+							"ctstack": "Báo giá cố định"
+						},
+						{
+							"label": "Thời gian",
+							"diy": "Kéo mẫu có sẵn",
+							"ctstack": "10–14 tuần, trong hợp đồng"
+						},
+						{
+							"label": "Hai nền tảng",
+							"diy": "Tuỳ công cụ cho phép",
+							"ctstack": "iOS và Android cùng lúc"
+						},
+						{
+							"label": "Tài khoản store",
+							"diy": "Thuộc nền tảng",
+							"ctstack": "Đứng tên bạn"
+						},
+						{
+							"label": "Đăng nhập, thanh toán",
+							"diy": "Giới hạn của công cụ",
+							"ctstack": "Theo phạm vi đã chốt"
+						},
+						{
+							"label": "Sở hữu",
+							"diy": "Khoá trong app builder",
+							"ctstack": "Source code bàn giao"
+						}
+					],
+					"questions": [
+						{
+							"question": "Ai đứng tên App Store và Google Play?",
+							"answer": "Bạn. Chúng tôi hướng dẫn tạo tài khoản nhà phát triển và chỉ nhận quyền đăng app."
+						},
+						{
+							"question": "Một bản cho cả iOS và Android?",
+							"answer": "Có. React Native, một codebase, phát hành cả hai store."
+						},
+						{
+							"question": "Duyệt store có nằm trong 10–14 tuần không?",
+							"answer": "Không. Apple và Google tự duyệt, thường vài ngày. Mốc 10–14 tuần là lúc gửi store."
+						},
+						{
+							"question": "Thanh toán trong app làm được không?",
+							"answer": "Có, theo phạm vi đã chốt: VNPay, MoMo, hoặc mua qua store khi store yêu cầu."
+						},
+						{
+							"question": "Cập nhật sau khi lên store thế nào?",
+							"answer": "Mỗi bản gửi store duyệt lại. Chúng tôi ghi quy trình gửi và bàn giao cùng source code."
+						},
+						{
+							"question": "Bảo hành gồm những gì?",
+							"answer": "12 tháng cho lỗi chức năng do chúng tôi gây ra. Tính năng mới báo giá riêng."
+						}
+					],
+					"project_category": "mobile_app",
+					"related_services": "web-app-theo-yeu-cau,bao-tri-toi-uu"
 				}
 			},
 			{
@@ -2181,7 +2866,144 @@
 							"item": "Post-launch maintenance"
 						}
 					],
-					"sort_order": 4
+					"sort_order": 4,
+					"hero_title": "iOS and Android apps from one codebase",
+					"hero_subtitle": "React Native for both stores. The developer accounts stay in your name. Delivered in 10–14 weeks.",
+					"value_props": [
+						{
+							"title": "One codebase, two stores",
+							"text": "React Native for iOS and Android. Not two separate apps."
+						},
+						{
+							"title": "Store accounts in your name",
+							"text": "Apple and Google accounts belong to you. We are only invited in to publish."
+						},
+						{
+							"title": "Sign-in",
+							"text": "Phone number, email, or the account your customers already have."
+						},
+						{
+							"title": "Push notifications",
+							"text": "Message a group of customers and see what was sent in the admin."
+						},
+						{
+							"title": "Payments in the app",
+							"text": "VNPay, MoMo, or a store purchase when the store requires it."
+						},
+						{
+							"title": "See what people use",
+							"text": "Analytics shows which screens get opened."
+						}
+					],
+					"packages": [
+						{
+							"name": "MVP",
+							"price": "$2,000",
+							"desc": "One main flow, ready for both stores.",
+							"features": "iOS and Android, one codebase\nEmail or phone sign-in\nStore accounts in your name\nFirst store submission\n12-month warranty",
+							"popular": false
+						},
+						{
+							"name": "Standard",
+							"price": "$3,200",
+							"desc": "Notifications, payments and usage data.",
+							"features": "Everything in MVP\nPush notifications by group\nIn-app payments in the agreed scope\nAnalytics for screens opened\n12-month warranty, weekly demo",
+							"popular": true
+						},
+						{
+							"name": "Extended",
+							"price": "$5,500",
+							"desc": "Connected to your systems, with a path for later updates.",
+							"features": "Link to your web app or API\nSign in with an existing account\nA written update-release process\nOperating notes for your team\n12-month warranty, 3 months care",
+							"popular": false
+						}
+					],
+					"pains": [
+						{
+							"title": "Two apps, two teams",
+							"text": "iOS and Android drift apart, and the cost doubles."
+						},
+						{
+							"title": "The vendor owns the store listing",
+							"text": "Switching teams means you may not get the app back."
+						},
+						{
+							"title": "Store review is a surprise",
+							"text": "Nobody tells you how long Apple or Google will take."
+						},
+						{
+							"title": "No way to reach people",
+							"text": "They install the app and forget it, because there is no push."
+						},
+						{
+							"title": "No usage data",
+							"text": "You can't see which screens people actually open."
+						},
+						{
+							"title": "Updates are painful",
+							"text": "Every fix waits on store review, and there is no process for it."
+						}
+					],
+					"comparison": [
+						{
+							"label": "Cost",
+							"diy": "Monthly app-builder fee",
+							"ctstack": "Fixed quote"
+						},
+						{
+							"label": "Timeline",
+							"diy": "Start from a template",
+							"ctstack": "10–14 weeks, in the contract"
+						},
+						{
+							"label": "Both platforms",
+							"diy": "Whatever the tool allows",
+							"ctstack": "iOS and Android together"
+						},
+						{
+							"label": "Store accounts",
+							"diy": "Belong to the platform",
+							"ctstack": "In your name"
+						},
+						{
+							"label": "Sign-in and payments",
+							"diy": "Limited by the tool",
+							"ctstack": "Whatever the scope includes"
+						},
+						{
+							"label": "Ownership",
+							"diy": "Locked in the app builder",
+							"ctstack": "Source code handed over"
+						}
+					],
+					"questions": [
+						{
+							"question": "Who owns the App Store and Google Play accounts?",
+							"answer": "You do. We help you open the developer accounts and only get access to publish."
+						},
+						{
+							"question": "Is it one app for iOS and Android?",
+							"answer": "Yes. React Native, one codebase, published to both stores."
+						},
+						{
+							"question": "Is store review inside the 10–14 weeks?",
+							"answer": "No. Apple and Google review on their own, often a few days. The 10–14 weeks ends at submission."
+						},
+						{
+							"question": "Can people pay inside the app?",
+							"answer": "Yes, within the agreed scope: VNPay, MoMo, or a store purchase when the store requires it."
+						},
+						{
+							"question": "How do updates work after launch?",
+							"answer": "Each update goes through store review again. We document that process and hand it over with the code."
+						},
+						{
+							"question": "What does the warranty cover?",
+							"answer": "12 months for functional bugs we caused. New features are quoted separately."
+						}
+					],
+					"project_category": "mobile_app",
+					"related_services": "web-app-theo-yeu-cau,bao-tri-toi-uu"
 				},
 				"translationOf": "s-mobile"
 			},
@@ -2212,7 +3034,143 @@
 							"item": "Hỗ trợ chỉnh sửa nhỏ"
 						}
 					],
-					"sort_order": 5
+					"sort_order": 5,
+					"hero_title": "Bảo trì website và app đang chạy",
+					"hero_subtitle": "Sao lưu, vá bảo mật, theo dõi uptime và giờ chỉnh sửa nhỏ mỗi tháng. Phản hồi 48 giờ, 24 giờ hoặc 4 giờ làm việc.",
+					"value_props": [
+						{
+							"title": "Sao lưu có lịch",
+							"text": "Bản sao theo gói, lưu chỗ khác với server đang chạy."
+						},
+						{
+							"title": "Thử khôi phục",
+							"text": "Gói Ưu tiên thử restore mỗi tháng để biết bản sao dùng được."
+						},
+						{
+							"title": "Vá bảo mật",
+							"text": "Cập nhật thành phần có lỗ hổng đã công bố, trong giờ của gói."
+						},
+						{
+							"title": "Theo dõi uptime",
+							"text": "Báo khi site không mở được, kể cả ngoài giờ hành chính."
+						},
+						{
+							"title": "Trang chậm được xử lý",
+							"text": "Nén ảnh và bật cache cho trang đo được là chậm."
+						},
+						{
+							"title": "Báo cáo mỗi tháng",
+							"text": "Việc đã làm, sự cố và số giờ còn lại, gửi đúng hạn."
+						}
+					],
+					"packages": [
+						{
+							"name": "Cơ bản",
+							"price": "2 triệu/tháng",
+							"desc": "Cho site ít thay đổi, cần bản sao và người trực.",
+							"features": "Sao lưu mỗi tuần\nCập nhật bảo mật\nTheo dõi uptime\n2 giờ chỉnh sửa nhỏ/tháng\nPhản hồi trong 48 giờ làm việc",
+							"popular": false
+						},
+						{
+							"name": "Tiêu chuẩn",
+							"price": "4 triệu/tháng",
+							"desc": "Sao lưu mỗi ngày và giờ sửa nội dung đều hơn.",
+							"features": "Sao lưu mỗi ngày\nCập nhật bảo mật\nTheo dõi uptime, tối ưu tốc độ\n5 giờ chỉnh sửa nhỏ/tháng\nPhản hồi trong 24 giờ làm việc",
+							"popular": true
+						},
+						{
+							"name": "Ưu tiên",
+							"price": "8 triệu/tháng",
+							"desc": "Phản hồi nhanh và thử khôi phục định kỳ.",
+							"features": "Sao lưu mỗi ngày, thử khôi phục mỗi tháng\nCập nhật bảo mật ưu tiên\nTheo dõi uptime, tối ưu tốc độ\n10 giờ chỉnh sửa nhỏ/tháng\nPhản hồi trong 4 giờ làm việc",
+							"popular": false
+						}
+					],
+					"pains": [
+						{
+							"title": "Không có bản sao",
+							"text": "Sự cố là mất nội dung, không biết khôi phục từ đâu."
+						},
+						{
+							"title": "Quên cập nhật",
+							"text": "Lỗ hổng đã công bố vẫn mở vì không ai theo dõi."
+						},
+						{
+							"title": "Site sập lúc đêm",
+							"text": "Sáng mới biết, khách đã không vào được."
+						},
+						{
+							"title": "Trang ngày càng chậm",
+							"text": "Ảnh và plugin chất thêm, không ai dọn."
+						},
+						{
+							"title": "Việc nhỏ không có người",
+							"text": "Sửa một đoạn chữ cũng không biết nhờ ai."
+						},
+						{
+							"title": "Không thấy việc đã làm",
+							"text": "Trả phí mỗi tháng mà không có báo cáo."
+						}
+					],
+					"comparison": [
+						{
+							"label": "Chi phí",
+							"diy": "Tự trả hosting, tự làm",
+							"ctstack": "Từ 2 triệu/tháng, theo gói"
+						},
+						{
+							"label": "Phản hồi",
+							"diy": "Khi bạn rảnh",
+							"ctstack": "48 giờ, 24 giờ hoặc 4 giờ"
+						},
+						{
+							"label": "Sao lưu",
+							"diy": "Nhớ thì làm",
+							"ctstack": "Có lịch, lưu chỗ khác"
+						},
+						{
+							"label": "Bảo mật",
+							"diy": "Tự theo dõi bản vá",
+							"ctstack": "Cập nhật trong phạm vi gói"
+						},
+						{
+							"label": "Việc nhỏ",
+							"diy": "Tự sửa hoặc thuê từng lần",
+							"ctstack": "Giờ chỉnh sửa mỗi tháng"
+						},
+						{
+							"label": "Báo cáo",
+							"diy": "Không có",
+							"ctstack": "Một báo cáo mỗi tháng"
+						}
+					],
+					"questions": [
+						{
+							"question": "Sao lưu bao lâu một lần, lưu ở đâu?",
+							"answer": "Cơ bản mỗi tuần, hai gói kia mỗi ngày. Bản sao để chỗ khác với server đang chạy."
+						},
+						{
+							"question": "Phản hồi mất bao lâu?",
+							"answer": "Trong giờ hành chính: 48 giờ (Cơ bản), 24 giờ (Tiêu chuẩn), 4 giờ (Ưu tiên)."
+						},
+						{
+							"question": "Giờ chỉnh sửa dùng để làm gì?",
+							"answer": "Sửa nội dung, chữ, ảnh hoặc chỉnh nhỏ đã có. Hết giờ thì dừng hoặc báo giá thêm."
+						},
+						{
+							"question": "Tính năng mới có nằm trong gói không?",
+							"answer": "Không. Tính năng mới báo giá riêng. Gói này lo vận hành site đang chạy."
+						},
+						{
+							"question": "Có thử khôi phục bản sao không?",
+							"answer": "Gói Ưu tiên thử khôi phục mỗi tháng và ghi kết quả vào báo cáo."
+						},
+						{
+							"question": "Báo cáo tháng gồm những gì?",
+							"answer": "Việc đã làm, sự cố, bản vá và số giờ còn lại. Gửi một lần mỗi tháng."
+						}
+					],
+					"related_services": "thiet-ke-website,website-ban-hang"
 				}
 			},
 			{
@@ -2242,7 +3200,143 @@
 							"item": "Small change requests"
 						}
 					],
-					"sort_order": 5
+					"sort_order": 5,
+					"hero_title": "Maintenance for a site or app that is already live",
+					"hero_subtitle": "Backups, security updates, uptime monitoring and a few hours of small edits each month. Reply in 48, 24 or 4 business hours.",
+					"value_props": [
+						{
+							"title": "Backups on a schedule",
+							"text": "Copies on the plan you choose, stored apart from the live server."
+						},
+						{
+							"title": "Restore tests",
+							"text": "Priority includes a monthly restore test, so a backup is known to work."
+						},
+						{
+							"title": "Security updates",
+							"text": "We update components with a published vulnerability, within the plan's hours."
+						},
+						{
+							"title": "Uptime monitoring",
+							"text": "We alert you when the site does not open, including outside business hours."
+						},
+						{
+							"title": "Slow pages get attention",
+							"text": "We compress images and turn on caching for pages we can measure as slow."
+						},
+						{
+							"title": "A report every month",
+							"text": "Work done, incidents and hours left, sent on time."
+						}
+					],
+					"packages": [
+						{
+							"name": "Basic",
+							"price": "$100/month",
+							"desc": "For a quiet site that needs copies and someone on call.",
+							"features": "Weekly backups\nSecurity updates\nUptime monitoring\n2 hours of small edits/month\nReply within 48 business hours",
+							"popular": false
+						},
+						{
+							"name": "Standard",
+							"price": "$180/month",
+							"desc": "Daily backups and more time for content edits.",
+							"features": "Daily backups\nSecurity updates\nUptime monitoring, speed tuning\n5 hours of small edits/month\nReply within 24 business hours",
+							"popular": true
+						},
+						{
+							"name": "Priority",
+							"price": "$350/month",
+							"desc": "A faster reply, and a restore test each month.",
+							"features": "Daily backups, monthly restore test\nPriority security updates\nUptime monitoring, speed tuning\n10 hours of small edits/month\nReply within 4 business hours",
+							"popular": false
+						}
+					],
+					"pains": [
+						{
+							"title": "No backup",
+							"text": "An incident means lost content, and nobody knows what to restore."
+						},
+						{
+							"title": "Updates get skipped",
+							"text": "A published vulnerability stays open because nobody is watching."
+						},
+						{
+							"title": "It goes down overnight",
+							"text": "You only notice in the morning, after visitors could not get in."
+						},
+						{
+							"title": "Pages get slower",
+							"text": "Photos and plugins pile up, and nobody cleans them up."
+						},
+						{
+							"title": "Small edits have no owner",
+							"text": "Changing a paragraph has nobody to ask."
+						},
+						{
+							"title": "No record of the work",
+							"text": "You pay every month and never see a report."
+						}
+					],
+					"comparison": [
+						{
+							"label": "Cost",
+							"diy": "You pay hosting and do the work",
+							"ctstack": "From $100/month, by plan"
+						},
+						{
+							"label": "Reply time",
+							"diy": "When you are free",
+							"ctstack": "48, 24 or 4 business hours"
+						},
+						{
+							"label": "Backups",
+							"diy": "When you remember",
+							"ctstack": "Scheduled, stored apart"
+						},
+						{
+							"label": "Security",
+							"diy": "You watch for patches",
+							"ctstack": "Updates inside the plan"
+						},
+						{
+							"label": "Small edits",
+							"diy": "DIY, or hire each time",
+							"ctstack": "Hours included each month"
+						},
+						{
+							"label": "Reporting",
+							"diy": "None",
+							"ctstack": "One report each month"
+						}
+					],
+					"questions": [
+						{
+							"question": "How often are backups, and where do they go?",
+							"answer": "Weekly on Basic, daily on the other two. Copies are stored apart from the live server."
+						},
+						{
+							"question": "How fast do you reply?",
+							"answer": "In business hours: 48 hours (Basic), 24 hours (Standard), 4 hours (Priority)."
+						},
+						{
+							"question": "What are the included hours for?",
+							"answer": "Content, text, image or small edits that already exist. Past the hours, we stop or quote more."
+						},
+						{
+							"question": "Are new features included?",
+							"answer": "No. New features are quoted separately. This plan runs the site you already have."
+						},
+						{
+							"question": "Do you test that a backup restores?",
+							"answer": "Priority includes a monthly restore test. The result goes in that month's report."
+						},
+						{
+							"question": "What is in the monthly report?",
+							"answer": "Work done, incidents, patches and hours left. Sent once a month."
+						}
+					],
+					"related_services": "thiet-ke-website,website-ban-hang"
 				},
 				"translationOf": "s-care"
 			}
@@ -4683,6 +5777,1182 @@
 					],
 					"category": "content",
 					"service": "thiet-ke-website",
+					"sort_order": 105
+				}
+			},
+			{
+				"id": "svc-shop-1",
+				"slug": "svc-shop-1",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Website bán hàng giá bao nhiêu?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Từ 15 triệu cho gói Khởi đầu. Gói Tăng trưởng 25 triệu là lựa chọn ở giữa."
+								}
+							]
+						}
+					],
+					"category": "pricing",
+					"service": "website-ban-hang",
+					"sort_order": 100
+				}
+			},
+			{
+				"id": "svc-shop-1-en",
+				"slug": "svc-shop-1",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "svc-shop-1",
+				"data": {
+					"question": "How much is an online store?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "From $700 for Starter. Growth at $1,100 is the middle option."
+								}
+							]
+						}
+					],
+					"category": "pricing",
+					"service": "website-ban-hang",
+					"sort_order": 100
+				}
+			},
+			{
+				"id": "svc-shop-2",
+				"slug": "svc-shop-2",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Làm website bán hàng mất bao lâu?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "6–8 tuần sau khi chốt phạm vi và nhận nội dung sản phẩm. Mỗi tuần có demo."
+								}
+							]
+						}
+					],
+					"category": "timeline",
+					"service": "website-ban-hang",
+					"sort_order": 101
+				}
+			},
+			{
+				"id": "svc-shop-2-en",
+				"slug": "svc-shop-2",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "svc-shop-2",
+				"data": {
+					"question": "How long does an online store take?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "6–8 weeks after the scope is fixed and we have the product content. You get a weekly demo."
+								}
+							]
+						}
+					],
+					"category": "timeline",
+					"service": "website-ban-hang",
+					"sort_order": 101
+				}
+			},
+			{
+				"id": "svc-shop-3",
+				"slug": "svc-shop-3",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Có nối GHN và GHTK không?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Có. Tạo vận đơn GHN hoặc GHTK từ trang quản trị; hãng khác có API thì báo giá riêng."
+								}
+							]
+						}
+					],
+					"category": "technical",
+					"service": "website-ban-hang",
+					"sort_order": 102
+				}
+			},
+			{
+				"id": "svc-shop-3-en",
+				"slug": "svc-shop-3",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "svc-shop-3",
+				"data": {
+					"question": "Do you connect GHN and GHTK?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Yes. GHN and GHTK shipments are created in the admin; another carrier is quoted separately."
+								}
+							]
+						}
+					],
+					"category": "technical",
+					"service": "website-ban-hang",
+					"sort_order": 102
+				}
+			},
+			{
+				"id": "svc-shop-4",
+				"slug": "svc-shop-4",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Bảo hành website bán hàng gồm gì?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "12 tháng cho lỗi giỏ hàng, thanh toán, tồn kho và hiển thị do chúng tôi gây ra."
+								}
+							]
+						}
+					],
+					"category": "warranty",
+					"service": "website-ban-hang",
+					"sort_order": 103
+				}
+			},
+			{
+				"id": "svc-shop-4-en",
+				"slug": "svc-shop-4",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "svc-shop-4",
+				"data": {
+					"question": "What does the store warranty cover?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "12 months for cart, payment, stock and display bugs that we caused."
+								}
+							]
+						}
+					],
+					"category": "warranty",
+					"service": "website-ban-hang",
+					"sort_order": 103
+				}
+			},
+			{
+				"id": "svc-shop-5",
+				"slug": "svc-shop-5",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Tôi có tự thêm sản phẩm được không?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Có. Trang quản trị để thêm sản phẩm, sửa giá, ảnh và xem đơn, không cần lập trình viên."
+								}
+							]
+						}
+					],
+					"category": "content",
+					"service": "website-ban-hang",
+					"sort_order": 104
+				}
+			},
+			{
+				"id": "svc-shop-5-en",
+				"slug": "svc-shop-5",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "svc-shop-5",
+				"data": {
+					"question": "Can I add products myself?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Yes. The admin is for adding products, editing prices and photos, and viewing orders."
+								}
+							]
+						}
+					],
+					"category": "content",
+					"service": "website-ban-hang",
+					"sort_order": 104
+				}
+			},
+			{
+				"id": "svc-shop-6",
+				"slug": "svc-shop-6",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Giỏ hàng bỏ dở có được nhắc không?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Gói Tăng trưởng và Chuỗi cửa hàng gửi email nhắc khách đã thêm hàng nhưng chưa thanh toán."
+								}
+							]
+						}
+					],
+					"category": "technical",
+					"service": "website-ban-hang",
+					"sort_order": 105
+				}
+			},
+			{
+				"id": "svc-shop-6-en",
+				"slug": "svc-shop-6",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "svc-shop-6",
+				"data": {
+					"question": "Do you remind people about abandoned carts?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Growth and Multi-store email shoppers who added items and left before paying."
+								}
+							]
+						}
+					],
+					"category": "technical",
+					"service": "website-ban-hang",
+					"sort_order": 105
+				}
+			},
+			{
+				"id": "svc-webapp-1",
+				"slug": "svc-webapp-1",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Web app theo yêu cầu giá bao nhiêu?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Từ 30 triệu cho MVP một quy trình. Gói Doanh nghiệp 60 triệu là lựa chọn ở giữa."
+								}
+							]
+						}
+					],
+					"category": "pricing",
+					"service": "web-app-theo-yeu-cau",
+					"sort_order": 100
+				}
+			},
+			{
+				"id": "svc-webapp-1-en",
+				"slug": "svc-webapp-1",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "svc-webapp-1",
+				"data": {
+					"question": "How much is a custom web app?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "From $1,500 for an MVP of one workflow. Business at $2,800 is the middle option."
+								}
+							]
+						}
+					],
+					"category": "pricing",
+					"service": "web-app-theo-yeu-cau",
+					"sort_order": 100
+				}
+			},
+			{
+				"id": "svc-webapp-2",
+				"slug": "svc-webapp-2",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Làm web app mất bao lâu?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "8–12 tuần sau khi chốt phạm vi. Tuần đầu là khảo sát nghiệp vụ, rồi demo mỗi tuần."
+								}
+							]
+						}
+					],
+					"category": "timeline",
+					"service": "web-app-theo-yeu-cau",
+					"sort_order": 101
+				}
+			},
+			{
+				"id": "svc-webapp-2-en",
+				"slug": "svc-webapp-2",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "svc-webapp-2",
+				"data": {
+					"question": "How long does a web app take?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "8–12 weeks after the scope is fixed. The first week maps the workflow, then you get a weekly demo."
+								}
+							]
+						}
+					],
+					"category": "timeline",
+					"service": "web-app-theo-yeu-cau",
+					"sort_order": 101
+				}
+			},
+			{
+				"id": "svc-webapp-3",
+				"slug": "svc-webapp-3",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Có nối được phần mềm đang dùng không?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Có nếu phần mềm đó có API hoặc xuất file. Cách nối và phạm vi ghi trong báo giá."
+								}
+							]
+						}
+					],
+					"category": "technical",
+					"service": "web-app-theo-yeu-cau",
+					"sort_order": 102
+				}
+			},
+			{
+				"id": "svc-webapp-3-en",
+				"slug": "svc-webapp-3",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "svc-webapp-3",
+				"data": {
+					"question": "Can it connect to software we already use?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Yes, if that software has an API or a file export. The link and the scope are in the quote."
+								}
+							]
+						}
+					],
+					"category": "technical",
+					"service": "web-app-theo-yeu-cau",
+					"sort_order": 102
+				}
+			},
+			{
+				"id": "svc-webapp-4",
+				"slug": "svc-webapp-4",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Bảo hành web app gồm gì?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "12 tháng cho lỗi chức năng do chúng tôi gây ra. Tính năng mới báo giá riêng."
+								}
+							]
+						}
+					],
+					"category": "warranty",
+					"service": "web-app-theo-yeu-cau",
+					"sort_order": 103
+				}
+			},
+			{
+				"id": "svc-webapp-4-en",
+				"slug": "svc-webapp-4",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "svc-webapp-4",
+				"data": {
+					"question": "What does the web app warranty cover?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "12 months for functional bugs we caused. New features are quoted separately."
+								}
+							]
+						}
+					],
+					"category": "warranty",
+					"service": "web-app-theo-yeu-cau",
+					"sort_order": 103
+				}
+			},
+			{
+				"id": "svc-webapp-5",
+				"slug": "svc-webapp-5",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Dữ liệu Excel cũ có chuyển sang được không?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Được. Chúng tôi lập file mẫu, nhập và đối soát với bạn trước khi chạy thật."
+								}
+							]
+						}
+					],
+					"category": "content",
+					"service": "web-app-theo-yeu-cau",
+					"sort_order": 104
+				}
+			},
+			{
+				"id": "svc-webapp-5-en",
+				"slug": "svc-webapp-5",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "svc-webapp-5",
+				"data": {
+					"question": "Can you move our old Excel data?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Yes. We prepare a template, import the rows and check them with you before go-live."
+								}
+							]
+						}
+					],
+					"category": "content",
+					"service": "web-app-theo-yeu-cau",
+					"sort_order": 104
+				}
+			},
+			{
+				"id": "svc-webapp-6",
+				"slug": "svc-webapp-6",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Có ghi lại ai sửa dữ liệu không?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Gói Doanh nghiệp và Tích hợp hệ thống có nhật ký: ai sửa bản ghi nào, lúc nào."
+								}
+							]
+						}
+					],
+					"category": "technical",
+					"service": "web-app-theo-yeu-cau",
+					"sort_order": 105
+				}
+			},
+			{
+				"id": "svc-webapp-6-en",
+				"slug": "svc-webapp-6",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "svc-webapp-6",
+				"data": {
+					"question": "Do you record who edited the data?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Business and Integration include an audit log of who changed a record, and when."
+								}
+							]
+						}
+					],
+					"category": "technical",
+					"service": "web-app-theo-yeu-cau",
+					"sort_order": 105
+				}
+			},
+			{
+				"id": "svc-mobile-1",
+				"slug": "svc-mobile-1",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Ứng dụng di động giá bao nhiêu?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Từ 40 triệu cho MVP. Gói Tiêu chuẩn 70 triệu là lựa chọn ở giữa."
+								}
+							]
+						}
+					],
+					"category": "pricing",
+					"service": "ung-dung-di-dong",
+					"sort_order": 100
+				}
+			},
+			{
+				"id": "svc-mobile-1-en",
+				"slug": "svc-mobile-1",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "svc-mobile-1",
+				"data": {
+					"question": "How much is a mobile app?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "From $2,000 for an MVP. Standard at $3,200 is the middle option."
+								}
+							]
+						}
+					],
+					"category": "pricing",
+					"service": "ung-dung-di-dong",
+					"sort_order": 100
+				}
+			},
+			{
+				"id": "svc-mobile-2",
+				"slug": "svc-mobile-2",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Làm app mất bao lâu, chưa kể duyệt store?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "10–14 tuần để gửi lên store. Apple và Google tự duyệt, thường vài ngày, không tính vào mốc này."
+								}
+							]
+						}
+					],
+					"category": "timeline",
+					"service": "ung-dung-di-dong",
+					"sort_order": 101
+				}
+			},
+			{
+				"id": "svc-mobile-2-en",
+				"slug": "svc-mobile-2",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "svc-mobile-2",
+				"data": {
+					"question": "How long does an app take, excluding store review?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "10–14 weeks to submit. Apple and Google review on their own, often a few days, outside that window."
+								}
+							]
+						}
+					],
+					"category": "timeline",
+					"service": "ung-dung-di-dong",
+					"sort_order": 101
+				}
+			},
+			{
+				"id": "svc-mobile-3",
+				"slug": "svc-mobile-3",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "App có chạy cả iOS và Android không?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Có. Một codebase React Native, phát hành cả App Store và Google Play."
+								}
+							]
+						}
+					],
+					"category": "technical",
+					"service": "ung-dung-di-dong",
+					"sort_order": 102
+				}
+			},
+			{
+				"id": "svc-mobile-3-en",
+				"slug": "svc-mobile-3",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "svc-mobile-3",
+				"data": {
+					"question": "Does the app run on both iOS and Android?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Yes. One React Native codebase, published to the App Store and Google Play."
+								}
+							]
+						}
+					],
+					"category": "technical",
+					"service": "ung-dung-di-dong",
+					"sort_order": 102
+				}
+			},
+			{
+				"id": "svc-mobile-4",
+				"slug": "svc-mobile-4",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Bảo hành app gồm gì?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "12 tháng cho lỗi chức năng do chúng tôi gây ra. Tính năng mới và phí store là phần khác."
+								}
+							]
+						}
+					],
+					"category": "warranty",
+					"service": "ung-dung-di-dong",
+					"sort_order": 103
+				}
+			},
+			{
+				"id": "svc-mobile-4-en",
+				"slug": "svc-mobile-4",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "svc-mobile-4",
+				"data": {
+					"question": "What does the app warranty cover?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "12 months for functional bugs we caused. New features and store fees are separate."
+								}
+							]
+						}
+					],
+					"category": "warranty",
+					"service": "ung-dung-di-dong",
+					"sort_order": 103
+				}
+			},
+			{
+				"id": "svc-mobile-5",
+				"slug": "svc-mobile-5",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Ai đứng tên tài khoản nhà phát triển?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Bạn. Chúng tôi hướng dẫn tạo tài khoản và chỉ nhận quyền đăng app."
+								}
+							]
+						}
+					],
+					"category": "content",
+					"service": "ung-dung-di-dong",
+					"sort_order": 104
+				}
+			},
+			{
+				"id": "svc-mobile-5-en",
+				"slug": "svc-mobile-5",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "svc-mobile-5",
+				"data": {
+					"question": "Who owns the developer accounts?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "You do. We help you create them and only get access to publish the app."
+								}
+							]
+						}
+					],
+					"category": "content",
+					"service": "ung-dung-di-dong",
+					"sort_order": 104
+				}
+			},
+			{
+				"id": "svc-mobile-6",
+				"slug": "svc-mobile-6",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Có thông báo đẩy và thanh toán trong app không?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Gói Tiêu chuẩn và Mở rộng có thông báo đẩy. Thanh toán làm theo phạm vi đã chốt."
+								}
+							]
+						}
+					],
+					"category": "technical",
+					"service": "ung-dung-di-dong",
+					"sort_order": 105
+				}
+			},
+			{
+				"id": "svc-mobile-6-en",
+				"slug": "svc-mobile-6",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "svc-mobile-6",
+				"data": {
+					"question": "Are push notifications and in-app payments included?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Standard and Extended include push. Payments are built within the agreed scope."
+								}
+							]
+						}
+					],
+					"category": "technical",
+					"service": "ung-dung-di-dong",
+					"sort_order": 105
+				}
+			},
+			{
+				"id": "svc-care-1",
+				"slug": "svc-care-1",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Bảo trì tính phí thế nào?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Theo tháng: 2 triệu, 4 triệu hoặc 8 triệu. Tính năng mới không nằm trong gói, báo giá riêng."
+								}
+							]
+						}
+					],
+					"category": "pricing",
+					"service": "bao-tri-toi-uu",
+					"sort_order": 100
+				}
+			},
+			{
+				"id": "svc-care-1-en",
+				"slug": "svc-care-1",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "svc-care-1",
+				"data": {
+					"question": "How is maintenance priced?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Monthly: $100, $180 or $350. New features are not in the plan and are quoted separately."
+								}
+							]
+						}
+					],
+					"category": "pricing",
+					"service": "bao-tri-toi-uu",
+					"sort_order": 100
+				}
+			},
+			{
+				"id": "svc-care-2",
+				"slug": "svc-care-2",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Phản hồi yêu cầu bảo trì mất bao lâu?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Trong giờ hành chính: 48 giờ với gói Cơ bản, 24 giờ với Tiêu chuẩn, 4 giờ với Ưu tiên."
+								}
+							]
+						}
+					],
+					"category": "timeline",
+					"service": "bao-tri-toi-uu",
+					"sort_order": 101
+				}
+			},
+			{
+				"id": "svc-care-2-en",
+				"slug": "svc-care-2",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "svc-care-2",
+				"data": {
+					"question": "How fast do you reply to a maintenance request?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "In business hours: 48 hours on Basic, 24 hours on Standard, 4 hours on Priority."
+								}
+							]
+						}
+					],
+					"category": "timeline",
+					"service": "bao-tri-toi-uu",
+					"sort_order": 101
+				}
+			},
+			{
+				"id": "svc-care-3",
+				"slug": "svc-care-3",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Sao lưu bao lâu một lần?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Gói Cơ bản mỗi tuần; Tiêu chuẩn và Ưu tiên mỗi ngày. Bản sao để chỗ khác với server đang chạy."
+								}
+							]
+						}
+					],
+					"category": "technical",
+					"service": "bao-tri-toi-uu",
+					"sort_order": 102
+				}
+			},
+			{
+				"id": "svc-care-3-en",
+				"slug": "svc-care-3",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "svc-care-3",
+				"data": {
+					"question": "How often do you back up?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Weekly on Basic, daily on Standard and Priority. Copies are stored apart from the live server."
+								}
+							]
+						}
+					],
+					"category": "technical",
+					"service": "bao-tri-toi-uu",
+					"sort_order": 102
+				}
+			},
+			{
+				"id": "svc-care-4",
+				"slug": "svc-care-4",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Gói bảo trì có thay bảo hành dự án không?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Không. Bảo hành dự án vẫn theo hợp đồng cũ; gói này lo sao lưu, bản vá, uptime và giờ sửa nhỏ."
+								}
+							]
+						}
+					],
+					"category": "warranty",
+					"service": "bao-tri-toi-uu",
+					"sort_order": 103
+				}
+			},
+			{
+				"id": "svc-care-4-en",
+				"slug": "svc-care-4",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "svc-care-4",
+				"data": {
+					"question": "Does maintenance replace the project warranty?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "No. The project warranty stays in the original contract; this plan is backups, patches, uptime and small edits."
+								}
+							]
+						}
+					],
+					"category": "warranty",
+					"service": "bao-tri-toi-uu",
+					"sort_order": 103
+				}
+			},
+			{
+				"id": "svc-care-5",
+				"slug": "svc-care-5",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Mỗi tháng được sửa bao nhiêu giờ?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "2 giờ (Cơ bản), 5 giờ (Tiêu chuẩn), 10 giờ (Ưu tiên). Hết giờ thì dừng hoặc báo giá thêm."
+								}
+							]
+						}
+					],
+					"category": "content",
+					"service": "bao-tri-toi-uu",
+					"sort_order": 104
+				}
+			},
+			{
+				"id": "svc-care-5-en",
+				"slug": "svc-care-5",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "svc-care-5",
+				"data": {
+					"question": "How many edit hours are included each month?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "2 hours (Basic), 5 hours (Standard), 10 hours (Priority). Past that we stop or quote more."
+								}
+							]
+						}
+					],
+					"category": "content",
+					"service": "bao-tri-toi-uu",
+					"sort_order": 104
+				}
+			},
+			{
+				"id": "svc-care-6",
+				"slug": "svc-care-6",
+				"status": "published",
+				"locale": "vi",
+				"data": {
+					"question": "Có thử khôi phục bản sao không?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Gói Ưu tiên thử khôi phục mỗi tháng và ghi kết quả vào báo cáo tháng."
+								}
+							]
+						}
+					],
+					"category": "technical",
+					"service": "bao-tri-toi-uu",
+					"sort_order": 105
+				}
+			},
+			{
+				"id": "svc-care-6-en",
+				"slug": "svc-care-6",
+				"status": "published",
+				"locale": "en",
+				"translationOf": "svc-care-6",
+				"data": {
+					"question": "Do you test that a backup can be restored?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Priority includes a monthly restore test. The result is in that month's report."
+								}
+							]
+						}
+					],
+					"category": "technical",
+					"service": "bao-tri-toi-uu",
 					"sort_order": 105
 				}
 			}

@@ -7,6 +7,7 @@ Everything below was written as realistic sample content so the site looks finis
 - [ ] Pricing tiers on the home page: names, "from" prices (vi in triệu, en in USD), descriptions and feature lists: `src/i18n/ui.ts` → `home.tiers` (vi + en)
 - [ ] Service "from" prices and feature lists: CMS → Services (seed: `seed/seed.json`, `services`)
 - [ ] Service detail copy for thiet-ke-website (hero, value props, packages, problems, comparison, questions, 6 service FAQs): CMS → Services / FAQs
+- [ ] Service detail copy and packages for website-ban-hang, web-app-theo-yeu-cau, ung-dung-di-dong, bao-tri-toi-uu (+ 24 service FAQs): CMS → Services / FAQs
 - [ ] Warranty and free maintenance periods (6/12 months, 3/6 months) in tiers and in `home.why`
 - [ ] Payment and shipping integrations named in tiers (VNPay, MoMo, GHN, GHTK)
 - [ ] Budget ranges in the contact form: `scripts/create-contact-forms.mjs` (and Admin → Forms on existing DBs)
